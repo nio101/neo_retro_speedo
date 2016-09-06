@@ -1,10 +1,8 @@
 # neo_retro_speedo
-
-This is the source code for our **open source neoretro GPS-driven speedometer driver**
+This is the source code for our **open source neoretro GPS-driven speedometer driver** board, using a Microchip 16F1823 to drive a DC motor through a MOSFET.
 
 ## compilation requirements
-
-It was compiled with the following tools:
+The 16F1823 source code was compiled with the following tools:
 - **MPLAB X v3.40+**
 - **XC8 v1.38+**
 - MPLAB Code Configurator plugin v3.16+ (*not required for compilation, only to to properly edit/generate uC config and peripherals libs source code*)
@@ -12,7 +10,6 @@ It was compiled with the following tools:
 ## dev notes
 
 ## todo list
-
 GPS todo list beforehand:
 connect the GPS proto to inboard 12V & use the bus pirate to read the NMEA sentences.
 Check the speed, evaluate what happens when the GPS looses the fix => speed==0?

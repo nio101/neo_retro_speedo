@@ -9,6 +9,11 @@ The 16F1823 source code is provided as an MPLAB X project, compiled with the fol
 
 ## dev notes
 
+- NMEA checksum:
+XOR of all characters in the sentence between – but not including – the $ and the * character
+checksum = 0;
+checksum ^= buff[buff_index];
+
 ## todo list
 GPS todo list beforehand:
 connect the GPS proto to inboard 12V & use the bus pirate to read the NMEA sentences.

@@ -17,6 +17,7 @@ checksum ^= buff[buff_index];
 use something close to this: http://www.embedded.com/electronics-blogs/break-points/4024981/My-favorite-software-debouncers
 that is, use a timer and wait until the state is stabilized before knowing if it's pressed or released.
 implement using interrupts and a global var reflecting the button's state. It should'nt then interfere with other routines (PWM, UART...).
+- EEPROM use: see http://microchip.wikidot.com/faq:36
 
 ## todo list
 GPS todo list beforehand:

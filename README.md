@@ -13,6 +13,10 @@ The 16F1823 source code is provided as an MPLAB X project, compiled with the fol
 XOR of all characters in the sentence between – but not including – the $ and the * character
 checksum = 0;
 checksum ^= buff[buff_index];
+- button debouncer:
+use something close to this: http://www.embedded.com/electronics-blogs/break-points/4024981/My-favorite-software-debouncers
+that is, use a timer and wait until the state is stabilized before knowing if it's pressed or released.
+implement using interrupts and a global var reflecting the button's state. It should'nt then interfere with other routines (PWM, UART...).
 
 ## todo list
 GPS todo list beforehand:

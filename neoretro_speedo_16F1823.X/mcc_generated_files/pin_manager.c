@@ -54,11 +54,11 @@ void PIN_MANAGER_Initialize(void)
     ANSELC = 0xF;
     WPUA = 0x3F;
     WPUC = 0x3F;
-    TRISC = 0x3E;
-    TRISA = 0x3F;
+    TRISC = 0x3F;
+    TRISA = 0x1F;
 
     OPTION_REGbits.nWPUEN = 0x0;
-    APFCON = 0x84;
+    APFCON = 0x00;
 
 
 

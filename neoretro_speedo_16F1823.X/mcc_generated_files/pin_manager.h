@@ -59,23 +59,20 @@
 #define PULL_UP_ENABLED      1
 #define PULL_UP_DISABLED     0
 
-// get/set STATUS_LED_OUT aliases
-#define STATUS_LED_OUT_TRIS               TRISC0
-#define STATUS_LED_OUT_LAT                LATC0
-#define STATUS_LED_OUT_PORT               RC0
-#define STATUS_LED_OUT_WPU                WPUC0
-#define STATUS_LED_OUT_ANS                ANSC0
-#define STATUS_LED_OUT_SetHigh()    do { LATC0 = 1; } while(0)
-#define STATUS_LED_OUT_SetLow()   do { LATC0 = 0; } while(0)
-#define STATUS_LED_OUT_Toggle()   do { LATC0 = ~LATC0; } while(0)
-#define STATUS_LED_OUT_GetValue()         PORTCbits.RC0
-#define STATUS_LED_OUT_SetDigitalInput()    do { TRISC0 = 1; } while(0)
-#define STATUS_LED_OUT_SetDigitalOutput()   do { TRISC0 = 0; } while(0)
+// get/set STATUS_LED aliases
+#define STATUS_LED_TRIS               TRISA5
+#define STATUS_LED_LAT                LATA5
+#define STATUS_LED_PORT               RA5
+#define STATUS_LED_WPU                WPUA5
+#define STATUS_LED_SetHigh()    do { LATA5 = 1; } while(0)
+#define STATUS_LED_SetLow()   do { LATA5 = 0; } while(0)
+#define STATUS_LED_Toggle()   do { LATA5 = ~LATA5; } while(0)
+#define STATUS_LED_GetValue()         PORTAbits.RA5
+#define STATUS_LED_SetDigitalInput()    do { TRISA5 = 1; } while(0)
+#define STATUS_LED_SetDigitalOutput()   do { TRISA5 = 0; } while(0)
 
-#define STATUS_LED_OUT_SetPullup()    do { WPUC0 = 1; } while(0)
-#define STATUS_LED_OUT_ResetPullup()   do { WPUC0 = 0; } while(0)
-#define STATUS_LED_OUT_SetAnalogMode()   do { ANSC0 = 1; } while(0)
-#define STATUS_LED_OUT_SetDigitalMode()   do { ANSC0 = 0; } while(0)
+#define STATUS_LED_SetPullup()    do { WPUA5 = 1; } while(0)
+#define STATUS_LED_ResetPullup()   do { WPUA5 = 0; } while(0)
 
 
 

@@ -2,17 +2,17 @@ Version 3.2 HI-TECH Software Intermediate Code
 [p mainexit ]
 "66 mcc_generated_files/mcc.h
 [v _SYSTEM_Initialize `(v ~T0 @X0 0 ef ]
-"5930 /opt/microchip/xc8/v1.38/include/pic16f1823.h
-[v _LATC0 `Vb ~T0 @X0 0 e@2160 ]
+"5928 D:\Program Files\Microchip\xc8\v1.38\include\pic16f1823.h
+[v _LATA5 `Vb ~T0 @X0 0 e@2149 ]
 [v F2438 `(v ~T0 @X0 1 tf1`ul ]
-"152 /opt/microchip/xc8/v1.38/include/pic.h
+"152 D:\Program Files\Microchip\xc8\v1.38\include\pic.h
 [v __delay `JF2438 ~T0 @X0 0 e ]
 [p i __delay ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
 [; ;pic16f1823.h: 49: extern volatile unsigned char INDF0 @ 0x000;
-"51 /opt/microchip/xc8/v1.38/include/pic16f1823.h
+"51 D:\Program Files\Microchip\xc8\v1.38\include\pic16f1823.h
 [; ;pic16f1823.h: 51: asm("INDF0 equ 00h");
 [; <" INDF0 equ 00h ;# ">
 [; ;pic16f1823.h: 54: typedef union {
@@ -2350,7 +2350,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic.h: 186: extern unsigned char __resetbits;
 [; ;pic.h: 187: extern __bit __powerdown;
 [; ;pic.h: 188: extern __bit __timeout;
-[; ;pin_manager.h: 92: void PIN_MANAGER_Initialize (void);
+[; ;pin_manager.h: 89: void PIN_MANAGER_Initialize (void);
 [; ;stdint.h: 13: typedef signed char int8_t;
 [; ;stdint.h: 20: typedef signed int int16_t;
 [; ;stdint.h: 28: typedef signed short long int int24_t;
@@ -2393,30 +2393,64 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;main.c: 54: SYSTEM_Initialize();
 "54
 [e ( _SYSTEM_Initialize ..  ]
-[; ;main.c: 71: while (1)
-"71
+[; ;main.c: 73: while (1)
+"73
 [e :U 295 ]
-[; ;main.c: 72: {
-"72
-{
-[; ;main.c: 74: do { LATC0 = 1; } while(0);
+[; ;main.c: 74: {
 "74
+{
+[; ;main.c: 76: do { LATA5 = 1; } while(0);
+"76
 [e :U 299 ]
 {
-[e = _LATC0 -> -> 1 `i `b ]
+[e = _LATA5 -> -> 1 `i `b ]
 }
 [e :U 298 ]
-[; ;main.c: 75: _delay((unsigned long)((10)*(32000000/4000.0)));
-"75
-[e ( __delay (1 -> * -> -> 10 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
-"76
+[; ;main.c: 77: for(unsigned char tmp=0;tmp<(10*1);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
+"77
+{
+[v _tmp `uc ~T0 @X0 1 a ]
+[e = _tmp -> -> 0 `i `uc ]
+[e $ < -> _tmp `i * -> 10 `i -> 1 `i 300  ]
+[e $U 301  ]
+[e :U 300 ]
+{
+[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+}
+[e ++ _tmp -> -> 1 `i `uc ]
+[e $ < -> _tmp `i * -> 10 `i -> 1 `i 300  ]
+[e :U 301 ]
+}
+[; ;main.c: 78: do { LATA5 = 0; } while(0);
+"78
+[e :U 305 ]
+{
+[e = _LATA5 -> -> 0 `i `b ]
+}
+[e :U 304 ]
+[; ;main.c: 79: for(unsigned char tmp=0;tmp<(10*1);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
+"79
+{
+[v _tmp `uc ~T0 @X0 1 a ]
+[e = _tmp -> -> 0 `i `uc ]
+[e $ < -> _tmp `i * -> 10 `i -> 1 `i 306  ]
+[e $U 307  ]
+[e :U 306 ]
+{
+[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+}
+[e ++ _tmp -> -> 1 `i `uc ]
+[e $ < -> _tmp `i * -> 10 `i -> 1 `i 306  ]
+[e :U 307 ]
+}
+"80
 }
 [e :U 294 ]
-"71
+"73
 [e $U 295  ]
 [e :U 296 ]
-[; ;main.c: 76: }
-[; ;main.c: 77: }
-"77
+[; ;main.c: 80: }
+[; ;main.c: 81: }
+"81
 [e :UE 293 ]
 }

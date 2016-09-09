@@ -68,11 +68,15 @@ void main(void)
     // Disable the Peripheral Interrupts
     //INTERRUPT_PeripheralInterruptDisable();
 
+#define __delay_sec(x) for(unsigned char tmp=0;tmp<(10*x);tmp++){__delay_ms(100);}
+    
     while (1)
     {
         // Add your application code
-        STATUS_LED_OUT_SetHigh();
-        __delay_ms(10);
+        STATUS_LED_SetHigh();
+        __delay_sec(1);
+        STATUS_LED_SetLow();
+        __delay_sec(1);
     }
 }
 /**

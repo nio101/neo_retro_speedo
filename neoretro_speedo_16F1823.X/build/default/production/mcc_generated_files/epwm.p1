@@ -1,52 +1,16 @@
 Version 3.2 HI-TECH Software Intermediate Code
-"105 mcc_generated_files/pin_manager.h
-[v _PIN_MANAGER_Initialize `(v ~T0 @X0 0 ef ]
-"84 mcc_generated_files/mcc.h
-[v _OSCILLATOR_Initialize `(v ~T0 @X0 0 ef ]
-"95 mcc_generated_files/epwm.h
-[v _EPWM_Initialize `(v ~T0 @X0 0 ef ]
-"102 mcc_generated_files/tmr2.h
-[v _TMR2_Initialize `(v ~T0 @X0 0 ef ]
-"106 mcc_generated_files/eusart.h
-[v _EUSART_Initialize `(v ~T0 @X0 0 ef ]
-"1911 /opt/microchip/xc8/v1.38/include/pic16f1823.h
-[v _OSCCON `Vuc ~T0 @X0 0 e@153 ]
-"1982
-[v _OSCSTAT `Vuc ~T0 @X0 0 e@154 ]
-"1854
-[v _OSCTUNE `Vuc ~T0 @X0 0 e@152 ]
-"6052
-[v _PLLR `Vb ~T0 @X0 0 e@1238 ]
-"49 mcc_generated_files/mcc.c
-[p x FOSC=INTOSC ]
-"50
-[p x WDTE=OFF ]
-"51
-[p x PWRTE=OFF ]
-"52
-[p x MCLRE=ON ]
-"53
-[p x CP=OFF ]
-"54
-[p x CPD=OFF ]
-"55
-[p x BOREN=ON ]
-"56
-[p x CLKOUTEN=OFF ]
-"57
-[p x IESO=ON ]
-"58
-[p x FCMEN=ON ]
-"61
-[p x WRT=OFF ]
-"62
-[p x PLLEN=ON ]
-"63
-[p x STVREN=ON ]
-"64
-[p x BORV=LO ]
-"65
-[p x LVP=OFF ]
+"4475 /opt/microchip/xc8/v1.38/include/pic16f1823.h
+[v _CCP1CON `Vuc ~T0 @X0 0 e@659 ]
+"4630
+[v _ECCP1AS `Vuc ~T0 @X0 0 e@661 ]
+"4556
+[v _PWM1CON `Vuc ~T0 @X0 0 e@660 ]
+"4786
+[v _PSTR1CON `Vuc ~T0 @X0 0 e@662 ]
+"4437
+[v _CCPR1L `Vuc ~T0 @X0 0 e@657 ]
+"4456
+[v _CCPR1H `Vuc ~T0 @X0 0 e@658 ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
@@ -2389,7 +2353,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic.h: 186: extern unsigned char __resetbits;
 [; ;pic.h: 187: extern __bit __powerdown;
 [; ;pic.h: 188: extern __bit __timeout;
-[; ;pin_manager.h: 105: void PIN_MANAGER_Initialize (void);
 [; ;stdint.h: 13: typedef signed char int8_t;
 [; ;stdint.h: 20: typedef signed int int16_t;
 [; ;stdint.h: 28: typedef signed short long int int24_t;
@@ -2418,121 +2381,56 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;stdint.h: 205: typedef uint32_t uintmax_t;
 [; ;stdint.h: 210: typedef int16_t intptr_t;
 [; ;stdint.h: 215: typedef uint16_t uintptr_t;
-[; ;stdbool.h: 12: typedef unsigned char bool;
-[; ;interrupt_manager.h: 110: void interrupt INTERRUPT_InterruptManager(void);
-[; ;__size_t.h: 4: typedef unsigned size_t;
-[; ;stdarg.h: 7: typedef void * va_list[1];
-[; ;stdarg.h: 10: extern void * __va_start(void);
-[; ;stdarg.h: 13: extern void * __va_arg(void *, ...);
-[; ;stdio.h: 43: struct __prbuf
-[; ;stdio.h: 44: {
-[; ;stdio.h: 45: char * ptr;
-[; ;stdio.h: 46: void (* func)(char);
-[; ;stdio.h: 47: };
-[; ;errno.h: 29: extern int errno;
-[; ;conio.h: 12: extern void init_uart(void);
-[; ;conio.h: 14: extern char getch(void);
-[; ;conio.h: 15: extern char getche(void);
-[; ;conio.h: 16: extern void putch(char);
-[; ;conio.h: 17: extern void ungetch(char);
-[; ;conio.h: 19: extern __bit kbhit(void);
-[; ;conio.h: 23: extern char * cgets(char *);
-[; ;conio.h: 24: extern void cputs(const char *);
-[; ;stdio.h: 88: extern int cprintf(char *, ...);
-[; ;stdio.h: 93: extern int _doprnt(struct __prbuf *, const register char *, register va_list);
-[; ;stdio.h: 183: extern char * gets(char *);
-[; ;stdio.h: 184: extern int puts(const char *);
-[; ;stdio.h: 185: extern int scanf(const char *, ...) __attribute__((unsupported("scanf() is not supported by this compiler")));
-[; ;stdio.h: 186: extern int sscanf(const char *, const char *, ...) __attribute__((unsupported("sscanf() is not supported by this compiler")));
-[; ;stdio.h: 187: extern int vprintf(const char *, va_list) __attribute__((unsupported("vprintf() is not supported by this compiler")));
-[; ;stdio.h: 188: extern int vsprintf(char *, const char *, va_list) __attribute__((unsupported("vsprintf() is not supported by this compiler")));
-[; ;stdio.h: 189: extern int vscanf(const char *, va_list ap) __attribute__((unsupported("vscanf() is not supported by this compiler")));
-[; ;stdio.h: 190: extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupported("vsscanf() is not supported by this compiler")));
-[; ;stdio.h: 194: extern int sprintf(char *, const char *, ...);
-[; ;stdio.h: 195: extern int printf(const char *, ...);
-[; ;eusart.h: 77: extern volatile uint8_t eusartTxBufferRemaining;
-[; ;eusart.h: 78: extern volatile uint8_t eusartRxCount;
-[; ;eusart.h: 106: void EUSART_Initialize(void);
-[; ;eusart.h: 155: uint8_t EUSART_Read(void);
-[; ;eusart.h: 180: void EUSART_Write(uint8_t txData);
-[; ;eusart.h: 201: void EUSART_Transmit_ISR(void);
-[; ;eusart.h: 222: void EUSART_Receive_ISR(void);
-[; ;memory.h: 98: uint16_t FLASH_ReadWord(uint16_t flashAddr);
-[; ;memory.h: 127: void FLASH_WriteWord(uint16_t flashAddr, uint16_t *ramBuf, uint16_t word);
-[; ;memory.h: 163: int8_t FLASH_WriteBlock(uint16_t writeAddr, uint16_t *flashWordArray);
-[; ;memory.h: 188: void FLASH_EraseBlock(uint16_t startAddr);
-[; ;memory.h: 219: void DATAEE_WriteByte(uint8_t bAdd, uint8_t bData);
-[; ;memory.h: 245: uint8_t DATAEE_ReadByte(uint8_t bAdd);
 [; ;epwm.h: 95: void EPWM_Initialize(void);
 [; ;epwm.h: 121: void EPWM_LoadDutyValue(uint16_t dutyValue);
-[; ;tmr2.h: 102: void TMR2_Initialize(void);
-[; ;tmr2.h: 131: void TMR2_StartTimer(void);
-[; ;tmr2.h: 163: void TMR2_StopTimer(void);
-[; ;tmr2.h: 198: uint8_t TMR2_ReadTimer(void);
-[; ;tmr2.h: 237: void TMR2_WriteTimer(uint8_t timerVal);
-[; ;tmr2.h: 289: void TMR2_LoadPeriodRegister(uint8_t periodVal);
-[; ;tmr2.h: 324: bool TMR2_HasOverflowOccured(void);
-[; ;mcc.h: 71: void SYSTEM_Initialize(void);
-[; ;mcc.h: 84: void OSCILLATOR_Initialize(void);
-"69 mcc_generated_files/mcc.c
-[v _SYSTEM_Initialize `(v ~T0 @X0 1 ef ]
-"70
+"63 mcc_generated_files/epwm.c
+[v _EPWM_Initialize `(v ~T0 @X0 1 ef ]
+"64
 {
-[; ;mcc.c: 69: void SYSTEM_Initialize(void)
-[; ;mcc.c: 70: {
-[e :U _SYSTEM_Initialize ]
+[; ;epwm.c: 63: void EPWM_Initialize (void)
+[; ;epwm.c: 64: {
+[e :U _EPWM_Initialize ]
 [f ]
-[; ;mcc.c: 72: PIN_MANAGER_Initialize();
-"72
-[e ( _PIN_MANAGER_Initialize ..  ]
-[; ;mcc.c: 73: OSCILLATOR_Initialize();
-"73
-[e ( _OSCILLATOR_Initialize ..  ]
-[; ;mcc.c: 74: EPWM_Initialize();
+[; ;epwm.c: 68: CCP1CON = 0x3C;
+"68
+[e = _CCP1CON -> -> 60 `i `uc ]
+[; ;epwm.c: 71: ECCP1AS = 0x00;
+"71
+[e = _ECCP1AS -> -> 0 `i `uc ]
+[; ;epwm.c: 74: PWM1CON = 0x80;
 "74
-[e ( _EPWM_Initialize ..  ]
-[; ;mcc.c: 75: TMR2_Initialize();
-"75
-[e ( _TMR2_Initialize ..  ]
-[; ;mcc.c: 76: EUSART_Initialize();
-"76
-[e ( _EUSART_Initialize ..  ]
-[; ;mcc.c: 77: }
+[e = _PWM1CON -> -> 128 `i `uc ]
+[; ;epwm.c: 77: PSTR1CON = 0x00;
 "77
-[e :UE 294 ]
-}
-"79
-[v _OSCILLATOR_Initialize `(v ~T0 @X0 1 ef ]
+[e = _PSTR1CON -> -> 0 `i `uc ]
+[; ;epwm.c: 80: CCPR1L = 0x7F;
 "80
-{
-[; ;mcc.c: 79: void OSCILLATOR_Initialize(void)
-[; ;mcc.c: 80: {
-[e :U _OSCILLATOR_Initialize ]
-[f ]
-[; ;mcc.c: 82: OSCCON = 0x70;
-"82
-[e = _OSCCON -> -> 112 `i `uc ]
-[; ;mcc.c: 84: OSCSTAT = 0x00;
-"84
-[e = _OSCSTAT -> -> 0 `i `uc ]
-[; ;mcc.c: 86: OSCTUNE = 0x00;
-"86
-[e = _OSCTUNE -> -> 0 `i `uc ]
-[; ;mcc.c: 90: while(PLLR == 0)
-"90
-[e $U 296  ]
-[e :U 297 ]
-[; ;mcc.c: 91: {
-"91
-{
-"92
+[e = _CCPR1L -> -> 127 `i `uc ]
+[; ;epwm.c: 83: CCPR1H = 0x00;
+"83
+[e = _CCPR1H -> -> 0 `i `uc ]
+[; ;epwm.c: 85: }
+"85
+[e :UE 293 ]
 }
-[e :U 296 ]
+"87
+[v _EPWM_LoadDutyValue `(v ~T0 @X0 1 ef1`ui ]
+"88
+{
+[; ;epwm.c: 87: void EPWM_LoadDutyValue(uint16_t dutyValue)
+[; ;epwm.c: 88: {
+[e :U _EPWM_LoadDutyValue ]
+"87
+[v _dutyValue `ui ~T0 @X0 1 r1 ]
+"88
+[f ]
+[; ;epwm.c: 90: CCPR1L = ((dutyValue & 0x03FC)>>2);
 "90
-[e $ == -> _PLLR `i -> 0 `i 297  ]
-[e :U 298 ]
-[; ;mcc.c: 92: }
-[; ;mcc.c: 93: }
+[e = _CCPR1L -> >> & _dutyValue -> -> 1020 `i `ui -> 2 `i `uc ]
+[; ;epwm.c: 93: CCP1CON = (CCP1CON & 0xCF) | ((dutyValue & 0x0003)<<4);
 "93
-[e :UE 295 ]
+[e = _CCP1CON -> | -> & -> _CCP1CON `i -> 207 `i `ui << & _dutyValue -> -> 3 `i `ui -> 4 `i `uc ]
+[; ;epwm.c: 94: }
+"94
+[e :UE 294 ]
 }

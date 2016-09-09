@@ -1,5 +1,8 @@
 
-# 1 "main.c"
+# 1 "mcc_generated_files/interrupt_manager.c"
+
+# 110 "mcc_generated_files/interrupt_manager.h"
+void interrupt INTERRUPT_InterruptManager(void);
 
 # 26 "/opt/microchip/xc8/v1.38/include/htc.h"
 extern const char __xc8_OPTIM_SPEED;
@@ -3279,9 +3282,6 @@ typedef uint16_t uintptr_t;
 # 12 "/opt/microchip/xc8/v1.38/include/stdbool.h"
 typedef unsigned char bool;
 
-# 110 "mcc_generated_files/interrupt_manager.h"
-void interrupt INTERRUPT_InterruptManager(void);
-
 # 4 "/opt/microchip/xc8/v1.38/include/__size_t.h"
 typedef unsigned size_t;
 
@@ -3415,56 +3415,21 @@ void SYSTEM_Initialize(void);
 # 84
 void OSCILLATOR_Initialize(void);
 
-# 54 "main.c"
-unsigned char NMEA_buffer[81];
-
-void UART_Initialize(void)
+# 51 "mcc_generated_files/interrupt_manager.c"
+void interrupt INTERRUPT_InterruptManager (void)
 {
 
-printf("\rPICDEM LAB II - Date 08/11/2015\r\n");
-printf("UART Communications 8-bit Rx and Tx\r\n\n");
-printf("Keyboard Type H : LED ON   Type L: LED OFF \r\n\n");
+if(INTCONbits.PEIE == 1 && PIE1bits.TXIE == 1 && PIR1bits.TXIF == 1)
+{
+EUSART_Transmit_ISR();
 }
-
-void UART_read_NMEA(void)
+if(INTCONbits.PEIE == 1 && PIE1bits.RCIE == 1 && PIR1bits.RCIF == 1)
 {
-
-
-
-bool done = 0;
-unsigned char m_char;
-while (!done)
-{
-if(eusartRxCount!=0)
-{
-m_char=EUSART_Read();
+EUSART_Receive_ISR();
 }
-}
-}
-
-# 83
-void main(void)
+else
 {
 
-SYSTEM_Initialize();
-
-# 92
-(INTCONbits.GIE = 1);
-
-
-(INTCONbits.PEIE = 1);
-
-# 145
-UART_Initialize();
-
-# 154
-while (1)
-{
-
-do { LATA5 = 1; } while(0);
-for(unsigned char tmp=0;tmp<(10*1);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
-do { LATA5 = 0; } while(0);
-for(unsigned char tmp=0;tmp<(10*1);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
 }
 }
 

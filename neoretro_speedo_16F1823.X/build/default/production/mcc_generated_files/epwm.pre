@@ -1,5 +1,5 @@
 
-# 1 "main.c"
+# 1 "mcc_generated_files/epwm.c"
 
 # 26 "/opt/microchip/xc8/v1.38/include/htc.h"
 extern const char __xc8_OPTIM_SPEED;
@@ -3183,9 +3183,6 @@ extern unsigned char __resetbits;
 extern __bit __powerdown;
 extern __bit __timeout;
 
-# 105 "mcc_generated_files/pin_manager.h"
-void PIN_MANAGER_Initialize (void);
-
 # 13 "/opt/microchip/xc8/v1.38/include/stdint.h"
 typedef signed char int8_t;
 
@@ -3276,195 +3273,43 @@ typedef int16_t intptr_t;
 
 typedef uint16_t uintptr_t;
 
-# 12 "/opt/microchip/xc8/v1.38/include/stdbool.h"
-typedef unsigned char bool;
-
-# 110 "mcc_generated_files/interrupt_manager.h"
-void interrupt INTERRUPT_InterruptManager(void);
-
-# 4 "/opt/microchip/xc8/v1.38/include/__size_t.h"
-typedef unsigned size_t;
-
-# 7 "/opt/microchip/xc8/v1.38/include/stdarg.h"
-typedef void * va_list[1];
-
-#pragma intrinsic(__va_start)
-extern void * __va_start(void);
-
-#pragma intrinsic(__va_arg)
-extern void * __va_arg(void *, ...);
-
-# 43 "/opt/microchip/xc8/v1.38/include/stdio.h"
-struct __prbuf
-{
-char * ptr;
-void (* func)(char);
-};
-
-# 29 "/opt/microchip/xc8/v1.38/include/errno.h"
-extern int errno;
-
-# 12 "/opt/microchip/xc8/v1.38/include/conio.h"
-extern void init_uart(void);
-
-extern char getch(void);
-extern char getche(void);
-extern void putch(char);
-extern void ungetch(char);
-
-extern __bit kbhit(void);
-
-# 23
-extern char * cgets(char *);
-extern void cputs(const char *);
-
-# 88 "/opt/microchip/xc8/v1.38/include/stdio.h"
-extern int cprintf(char *, ...);
-#pragma printf_check(cprintf)
-
-
-
-extern int _doprnt(struct __prbuf *, const register char *, register va_list);
-
-
-# 180
-#pragma printf_check(vprintf) const
-#pragma printf_check(vsprintf) const
-
-extern char * gets(char *);
-extern int puts(const char *);
-extern int scanf(const char *, ...) __attribute__((unsupported("scanf() is not supported by this compiler")));
-extern int sscanf(const char *, const char *, ...) __attribute__((unsupported("sscanf() is not supported by this compiler")));
-extern int vprintf(const char *, va_list) __attribute__((unsupported("vprintf() is not supported by this compiler")));
-extern int vsprintf(char *, const char *, va_list) __attribute__((unsupported("vsprintf() is not supported by this compiler")));
-extern int vscanf(const char *, va_list ap) __attribute__((unsupported("vscanf() is not supported by this compiler")));
-extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupported("vsscanf() is not supported by this compiler")));
-
-#pragma printf_check(printf) const
-#pragma printf_check(sprintf) const
-extern int sprintf(char *, const char *, ...);
-extern int printf(const char *, ...);
-
-# 77 "mcc_generated_files/eusart.h"
-extern volatile uint8_t eusartTxBufferRemaining;
-extern volatile uint8_t eusartRxCount;
-
-# 106
-void EUSART_Initialize(void);
-
-# 155
-uint8_t EUSART_Read(void);
-
-# 180
-void EUSART_Write(uint8_t txData);
-
-# 201
-void EUSART_Transmit_ISR(void);
-
-# 222
-void EUSART_Receive_ISR(void);
-
-# 98 "mcc_generated_files/memory.h"
-uint16_t FLASH_ReadWord(uint16_t flashAddr);
-
-# 127
-void FLASH_WriteWord(uint16_t flashAddr, uint16_t *ramBuf, uint16_t word);
-
-# 163
-int8_t FLASH_WriteBlock(uint16_t writeAddr, uint16_t *flashWordArray);
-
-# 188
-void FLASH_EraseBlock(uint16_t startAddr);
-
-# 219
-void DATAEE_WriteByte(uint8_t bAdd, uint8_t bData);
-
-# 245
-uint8_t DATAEE_ReadByte(uint8_t bAdd);
-
 # 95 "mcc_generated_files/epwm.h"
 void EPWM_Initialize(void);
 
 # 121
 void EPWM_LoadDutyValue(uint16_t dutyValue);
 
-# 102 "mcc_generated_files/tmr2.h"
-void TMR2_Initialize(void);
-
-# 131
-void TMR2_StartTimer(void);
-
-# 163
-void TMR2_StopTimer(void);
-
-# 198
-uint8_t TMR2_ReadTimer(void);
-
-# 237
-void TMR2_WriteTimer(uint8_t timerVal);
-
-# 289
-void TMR2_LoadPeriodRegister(uint8_t periodVal);
-
-# 324
-bool TMR2_HasOverflowOccured(void);
-
-# 71 "mcc_generated_files/mcc.h"
-void SYSTEM_Initialize(void);
-
-# 84
-void OSCILLATOR_Initialize(void);
-
-# 54 "main.c"
-unsigned char NMEA_buffer[81];
-
-void UART_Initialize(void)
+# 63 "mcc_generated_files/epwm.c"
+void EPWM_Initialize (void)
 {
 
-printf("\rPICDEM LAB II - Date 08/11/2015\r\n");
-printf("UART Communications 8-bit Rx and Tx\r\n\n");
-printf("Keyboard Type H : LED ON   Type L: LED OFF \r\n\n");
+
+
+CCP1CON = 0x3C;
+
+
+ECCP1AS = 0x00;
+
+
+PWM1CON = 0x80;
+
+
+PSTR1CON = 0x00;
+
+
+CCPR1L = 0x7F;
+
+
+CCPR1H = 0x00;
+
 }
 
-void UART_read_NMEA(void)
+void EPWM_LoadDutyValue(uint16_t dutyValue)
 {
 
+CCPR1L = ((dutyValue & 0x03FC)>>2);
 
 
-bool done = 0;
-unsigned char m_char;
-while (!done)
-{
-if(eusartRxCount!=0)
-{
-m_char=EUSART_Read();
-}
-}
-}
-
-# 83
-void main(void)
-{
-
-SYSTEM_Initialize();
-
-# 92
-(INTCONbits.GIE = 1);
-
-
-(INTCONbits.PEIE = 1);
-
-# 145
-UART_Initialize();
-
-# 154
-while (1)
-{
-
-do { LATA5 = 1; } while(0);
-for(unsigned char tmp=0;tmp<(10*1);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
-do { LATA5 = 0; } while(0);
-for(unsigned char tmp=0;tmp<(10*1);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
-}
+CCP1CON = (CCP1CON & 0xCF) | ((dutyValue & 0x0003)<<4);
 }
 

@@ -1,21 +1,21 @@
 /**
-  @Generated MPLAB(c) Code Configurator Header File
+  ECCP Generated Driver File
 
-  @Company:
+  @Company
     Microchip Technology Inc.
 
-  @File Name:
-    mcc.h
+  @File Name
+    eccp.c
 
-  @Summary:
-    This is the mcc.h file generated using MPLAB(c) Code Configurator
+  @Summary
+    This is the generated driver implementation file for the ECCP driver using MPLAB(c) Code Configurator
 
-  @Description:
-    This header file provides implementations for driver APIs for all modules selected in the GUI.
+  @Description
+    This source file provides APIs for ECCP.
     Generation Information :
         Product Revision  :  MPLAB(c) Code Configurator - 3.16
         Device            :  PIC16F1823
-        Version           :  1.02
+        Driver Version    :  2.00
     The generated drivers are tested against the following:
         Compiler          :  XC8 1.35
         MPLAB             :  MPLAB X 3.20
@@ -43,48 +43,55 @@
     TERMS.
 */
 
-#ifndef MCC_H
-#define	MCC_H
+/**
+  Section: Included Files
+*/
+
 #include <xc.h>
-#include "pin_manager.h"
-#include <stdint.h>
-#include <stdbool.h>
-#include "interrupt_manager.h"
-#include "eusart.h"
-#include "memory.h"
 #include "epwm.h"
-#include "tmr2.h"
-
-#define _XTAL_FREQ  32000000
 
 /**
- * @Param
-    none
- * @Returns
-    none
- * @Description
-    Initializes the device to the default states configured in the
- *                  MCC GUI
- * @Example
-    SYSTEM_Initialize(void);
- */
-void SYSTEM_Initialize(void);
+  Section: Macro Declarations
+*/
+
+#define PWM_INITIALIZE_DUTY_VALUE    511
 
 /**
- * @Param
-    none
- * @Returns
-    none
- * @Description
-    Initializes the oscillator to the default states configured in the
- *                  MCC GUI
- * @Example
-    OSCILLATOR_Initialize(void);
- */
-void OSCILLATOR_Initialize(void);
+  Section: EPWM Module APIs
+*/
 
+void EPWM_Initialize (void)
+{
+    // Set the PWM to the options selected in MPLAB(c) Code Configurator
+    
+    // CCP1M P1A,P1C: active high; P1B,P1D: active high; DC1B 3; P1M single; 
+    CCP1CON = 0x3C;
+    
+    // CCP1ASE operating; PSS1BD low; PSS1AC low; CCP1AS disabled; 
+    ECCP1AS = 0x00;
+    
+    // P1RSEN automatic_restart; P1DC 0; 
+    PWM1CON = 0x80;
+    
+    // STR1D P1D_to_port; STR1C P1C_to_port; STR1B P1B_to_port; STR1A P1A_to_port; STR1SYNC start_at_begin; 
+    PSTR1CON = 0x00;
+    
+    // CCPR1L 127; 
+    CCPR1L = 0x7F;
+    
+    // CCPR1H 0; 
+    CCPR1H = 0x00;
+    
+}
 
-#endif	/* MCC_H */
+void EPWM_LoadDutyValue(uint16_t dutyValue)
+{
+   // Writing to 8 MSBs of pwm duty cycle in CCPRL register
+    CCPR1L = ((dutyValue & 0x03FC)>>2);
+    
+   // Writing to 2 LSBs of pwm duty cycle in CCPCON register
+    CCP1CON = (CCP1CON & 0xCF) | ((dutyValue & 0x0003)<<4);
+}
 /**
  End of File
 */

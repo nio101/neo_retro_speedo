@@ -11,29 +11,45 @@
 # All addresses and the length are given in unqualified hexadecimal
 # in delta units.  Any other numeric values are decimal.
 %PSECTS
-$dist/default/production\neoretro_speedo_16F1823.X.production.obj
-cinit CODE 0 7FE 7FE 2 2
-text1 CODE 0 7A9 7A9 3 2
-text2 CODE 0 7B4 7B4 16 2
-text3 CODE 0 7AC 7AC 8 2
-maintext CODE 0 7CA 7CA 34 2
-cstackCOMMON COMMON 1 70 70 5 1
-$C:\Users\nicolas\AppData\Local\Temp\s1t0.obj
+$/tmp/xcXAphzj7.obj
 reset_vec CODE 0 0 0 1 2
-end_init CODE 0 1 1 1 2
+end_init CODE 0 20 20 1 2
 config CONFIG 0 8007 8007 2 2
+$dist/default/production/neoretro_speedo_16F1823.X.production.obj
+cinit CODE 0 21 21 17 2
+text1 CODE 0 193 193 10 2
+text2 CODE 0 12B 12B 1B 2
+text3 CODE 0 1D0 1D0 4 2
+text4 CODE 0 EC EC 22 2
+text5 CODE 0 1CA 1CA 6 2
+text6 CODE 0 1BA 1BA 8 2
+text7 CODE 0 1D4 1D4 3 2
+text8 CODE 0 17C 17C 17 2
+text9 CODE 0 1C2 1C2 8 2
+text10 CODE 0 146 146 1B 2
+text11 CODE 0 1AF 1AF B 2
+text13 CODE 0 10E 10E 1D 2
+text14 CODE 0 161 161 1B 2
+maintext CODE 0 B1 B1 3B 2
+cstackCOMMON COMMON 1 70 70 A 1
+cstackBANK0 BANK0 1 34 34 7 1
+intentry CODE 0 4 4 1C 2
+bssBANK0 BANK0 1 20 20 14 1
+stringtext STRCODE 0 38 38 79 2
+clrtext CODE 0 1A3 1A3 C 2
+bssCOMMON COMMON 1 7A 7A 2 1
 # %UNUSED Section
 # This section enumerates the unused ranges of each CLASS. Each entry
 # is described on a single line as follows:
 #    <class name> <range> <delta>
 # Addresses given in the range are in hexadecimal and units of delta.
 %UNUSED
-RAM 20-6F 1
-RAM A0-BF 1
-BANK0 20-6F 1
-BANK1 A0-BF 1
-CONST 2-7A8 2
-ENTRY 2-7A8 2
+RAM 3B-3E 1
+BANK0 3B-3E 1
+CONST 1-3 2
+CONST 1D7-7FF 2
+ENTRY 1-3 2
+ENTRY 1D7-7FF 2
 IDLOC 8000-8003 2
 SFR10 500-56F 1
 SFR11 580-5EF 1
@@ -57,8 +73,9 @@ SFR28 E00-E6F 1
 SFR29 E80-EEF 1
 SFR30 F00-F6F 1
 SFR31 F80-FEF 1
-STACK 2000-206F 1
-CODE 2-7A8 2
+STACK 201B-201E 1
+CODE 1-3 2
+CODE 1D7-7FF 2
 SFR0 0-1F 1
 SFR1 80-9F 1
 SFR2 100-16F 1
@@ -70,10 +87,12 @@ SFR7 380-3EF 1
 SFR8 400-46F 1
 SFR9 480-4EF 1
 BIGRAM 2000-206F 1
-COMMON 75-7D 1
+COMMON 7C-7D 1
 EEDATA F000-F0FF 2
-STRCODE 2-7A8 2
-STRING 2-7A8 2
+STRCODE 1-3 2
+STRCODE 1D7-7FF 2
+STRING 1-3 2
+STRING 1D7-7FF 2
 # %LINETAB Section
 # This section enumerates the file/line to address mappings.
 # The beginning of the section is indicated by %LINETAB.
@@ -87,40 +106,165 @@ STRING 2-7A8 2
 # are in ascending order of addresses.
 # All other numeric values are in decimal.
 %LINETAB
-$dist/default/production\neoretro_speedo_16F1823.X.production.obj
-7FE cinit CODE >861:C:\Users\nicolas\AppData\Local\Temp\s1t0.
-7FE cinit CODE >864:C:\Users\nicolas\AppData\Local\Temp\s1t0.
-7FE cinit CODE >870:C:\Users\nicolas\AppData\Local\Temp\s1t0.
-7FE cinit CODE >872:C:\Users\nicolas\AppData\Local\Temp\s1t0.
-7FF cinit CODE >873:C:\Users\nicolas\AppData\Local\Temp\s1t0.
-7AC text3 CODE >76:C:\Users\nicolas\Desktop\neoretro driver\github\neoretro_speedo_16F1823.X\mcc_generated_files/mcc.c
-7AC text3 CODE >79:C:\Users\nicolas\Desktop\neoretro driver\github\neoretro_speedo_16F1823.X\mcc_generated_files/mcc.c
-7AF text3 CODE >81:C:\Users\nicolas\Desktop\neoretro driver\github\neoretro_speedo_16F1823.X\mcc_generated_files/mcc.c
-7B0 text3 CODE >83:C:\Users\nicolas\Desktop\neoretro driver\github\neoretro_speedo_16F1823.X\mcc_generated_files/mcc.c
-7B1 text3 CODE >87:C:\Users\nicolas\Desktop\neoretro driver\github\neoretro_speedo_16F1823.X\mcc_generated_files/mcc.c
-7B1 text3 CODE >89:C:\Users\nicolas\Desktop\neoretro driver\github\neoretro_speedo_16F1823.X\mcc_generated_files/mcc.c
-7B4 text2 CODE >49:C:\Users\nicolas\Desktop\neoretro driver\github\neoretro_speedo_16F1823.X\mcc_generated_files/pin_manager.c
-7B4 text2 CODE >51:C:\Users\nicolas\Desktop\neoretro driver\github\neoretro_speedo_16F1823.X\mcc_generated_files/pin_manager.c
-7B6 text2 CODE >52:C:\Users\nicolas\Desktop\neoretro driver\github\neoretro_speedo_16F1823.X\mcc_generated_files/pin_manager.c
-7B7 text2 CODE >53:C:\Users\nicolas\Desktop\neoretro driver\github\neoretro_speedo_16F1823.X\mcc_generated_files/pin_manager.c
-7BA text2 CODE >54:C:\Users\nicolas\Desktop\neoretro driver\github\neoretro_speedo_16F1823.X\mcc_generated_files/pin_manager.c
-7BC text2 CODE >55:C:\Users\nicolas\Desktop\neoretro driver\github\neoretro_speedo_16F1823.X\mcc_generated_files/pin_manager.c
-7BF text2 CODE >56:C:\Users\nicolas\Desktop\neoretro driver\github\neoretro_speedo_16F1823.X\mcc_generated_files/pin_manager.c
-7C1 text2 CODE >57:C:\Users\nicolas\Desktop\neoretro driver\github\neoretro_speedo_16F1823.X\mcc_generated_files/pin_manager.c
-7C4 text2 CODE >58:C:\Users\nicolas\Desktop\neoretro driver\github\neoretro_speedo_16F1823.X\mcc_generated_files/pin_manager.c
-7C6 text2 CODE >60:C:\Users\nicolas\Desktop\neoretro driver\github\neoretro_speedo_16F1823.X\mcc_generated_files/pin_manager.c
-7C7 text2 CODE >61:C:\Users\nicolas\Desktop\neoretro driver\github\neoretro_speedo_16F1823.X\mcc_generated_files/pin_manager.c
-7C9 text2 CODE >65:C:\Users\nicolas\Desktop\neoretro driver\github\neoretro_speedo_16F1823.X\mcc_generated_files/pin_manager.c
-7A9 text1 CODE >69:C:\Users\nicolas\Desktop\neoretro driver\github\neoretro_speedo_16F1823.X\mcc_generated_files/mcc.c
-7A9 text1 CODE >72:C:\Users\nicolas\Desktop\neoretro driver\github\neoretro_speedo_16F1823.X\mcc_generated_files/mcc.c
-7AA text1 CODE >73:C:\Users\nicolas\Desktop\neoretro driver\github\neoretro_speedo_16F1823.X\mcc_generated_files/mcc.c
-7AB text1 CODE >74:C:\Users\nicolas\Desktop\neoretro driver\github\neoretro_speedo_16F1823.X\mcc_generated_files/mcc.c
-7CA maintext CODE >51:C:\Users\nicolas\Desktop\neoretro driver\github\neoretro_speedo_16F1823.X\main.c
-7CA maintext CODE >54:C:\Users\nicolas\Desktop\neoretro driver\github\neoretro_speedo_16F1823.X\main.c
-7CB maintext CODE >76:C:\Users\nicolas\Desktop\neoretro driver\github\neoretro_speedo_16F1823.X\main.c
-7CD maintext CODE >77:C:\Users\nicolas\Desktop\neoretro driver\github\neoretro_speedo_16F1823.X\main.c
-7E6 maintext CODE >78:C:\Users\nicolas\Desktop\neoretro driver\github\neoretro_speedo_16F1823.X\main.c
-7E8 maintext CODE >79:C:\Users\nicolas\Desktop\neoretro driver\github\neoretro_speedo_16F1823.X\main.c
+$dist/default/production/neoretro_speedo_16F1823.X.production.obj
+21 cinit CODE >2302:/tmp/xcXsaLTiO
+21 cinit CODE >2305:/tmp/xcXsaLTiO
+21 cinit CODE >2360:/tmp/xcXsaLTiO
+22 cinit CODE >2361:/tmp/xcXsaLTiO
+23 cinit CODE >2362:/tmp/xcXsaLTiO
+24 cinit CODE >2363:/tmp/xcXsaLTiO
+25 cinit CODE >2364:/tmp/xcXsaLTiO
+26 cinit CODE >2365:/tmp/xcXsaLTiO
+27 cinit CODE >2366:/tmp/xcXsaLTiO
+28 cinit CODE >2367:/tmp/xcXsaLTiO
+29 cinit CODE >2368:/tmp/xcXsaLTiO
+2A cinit CODE >2372:/tmp/xcXsaLTiO
+2B cinit CODE >2373:/tmp/xcXsaLTiO
+2C cinit CODE >2377:/tmp/xcXsaLTiO
+2D cinit CODE >2378:/tmp/xcXsaLTiO
+2E cinit CODE >2379:/tmp/xcXsaLTiO
+2F cinit CODE >2380:/tmp/xcXsaLTiO
+30 cinit CODE >2381:/tmp/xcXsaLTiO
+31 cinit CODE >2382:/tmp/xcXsaLTiO
+32 cinit CODE >2383:/tmp/xcXsaLTiO
+33 cinit CODE >2384:/tmp/xcXsaLTiO
+34 cinit CODE >2385:/tmp/xcXsaLTiO
+35 cinit CODE >2391:/tmp/xcXsaLTiO
+35 cinit CODE >2393:/tmp/xcXsaLTiO
+36 cinit CODE >2394:/tmp/xcXsaLTiO
+37 cinit CODE >2395:/tmp/xcXsaLTiO
+4 intentry CODE >51:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/interrupt_manager.c
+9 intentry CODE >54:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/interrupt_manager.c
+11 intentry CODE >56:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/interrupt_manager.c
+12 intentry CODE >58:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/interrupt_manager.c
+1A intentry CODE >60:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/interrupt_manager.c
+1B intentry CODE >66:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/interrupt_manager.c
+161 text14 CODE >188:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/eusart.c
+161 text14 CODE >191:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/eusart.c
+164 text14 CODE >195:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/eusart.c
+165 text14 CODE >196:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/eusart.c
+166 text14 CODE >200:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/eusart.c
+173 text14 CODE >201:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/eusart.c
+176 text14 CODE >203:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/eusart.c
+177 text14 CODE >205:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/eusart.c
+17B text14 CODE >206:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/eusart.c
+10E text13 CODE >169:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/eusart.c
+10E text13 CODE >173:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/eusart.c
+112 text13 CODE >175:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/eusart.c
+11F text13 CODE >176:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/eusart.c
+122 text13 CODE >178:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/eusart.c
+123 text13 CODE >180:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/eusart.c
+127 text13 CODE >181:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/eusart.c
+128 text13 CODE >182:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/eusart.c
+128 text13 CODE >184:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/eusart.c
+1AF text11 CODE >63:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/epwm.c
+1AF text11 CODE >68:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/epwm.c
+1B2 text11 CODE >71:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/epwm.c
+1B3 text11 CODE >74:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/epwm.c
+1B5 text11 CODE >77:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/epwm.c
+1B6 text11 CODE >80:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/epwm.c
+1B8 text11 CODE >83:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/epwm.c
+1B9 text11 CODE >85:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/epwm.c
+146 text10 CODE >75:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/eusart.c
+146 text10 CODE >78:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/eusart.c
+148 text10 CODE >79:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/eusart.c
+149 text10 CODE >84:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/eusart.c
+14C text10 CODE >87:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/eusart.c
+14E text10 CODE >90:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/eusart.c
+150 text10 CODE >93:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/eusart.c
+152 text10 CODE >96:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/eusart.c
+154 text10 CODE >100:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/eusart.c
+156 text10 CODE >101:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/eusart.c
+157 text10 CODE >102:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/eusart.c
+15B text10 CODE >104:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/eusart.c
+15C text10 CODE >105:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/eusart.c
+15D text10 CODE >106:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/eusart.c
+15E text10 CODE >109:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/eusart.c
+160 text10 CODE >110:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/eusart.c
+1C2 text9 CODE >79:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/mcc.c
+1C2 text9 CODE >82:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/mcc.c
+1C5 text9 CODE >84:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/mcc.c
+1C6 text9 CODE >86:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/mcc.c
+1C7 text9 CODE >90:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/mcc.c
+1C7 text9 CODE >92:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/mcc.c
+17C text8 CODE >49:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/pin_manager.c
+17C text8 CODE >51:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/pin_manager.c
+17E text8 CODE >52:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/pin_manager.c
+17F text8 CODE >53:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/pin_manager.c
+182 text8 CODE >54:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/pin_manager.c
+184 text8 CODE >55:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/pin_manager.c
+187 text8 CODE >56:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/pin_manager.c
+189 text8 CODE >57:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/pin_manager.c
+18C text8 CODE >58:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/pin_manager.c
+18E text8 CODE >60:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/pin_manager.c
+18F text8 CODE >61:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/pin_manager.c
+192 text8 CODE >65:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/pin_manager.c
+1D4 text7 CODE >77:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/tmr2.c
+1D4 text7 CODE >80:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/tmr2.c
+1D6 text7 CODE >81:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/tmr2.c
+1BA text6 CODE >57:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/tmr2.c
+1BA text6 CODE >62:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/tmr2.c
+1BC text6 CODE >65:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/tmr2.c
+1BE text6 CODE >68:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/tmr2.c
+1BF text6 CODE >71:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/tmr2.c
+1C0 text6 CODE >74:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/tmr2.c
+1C1 text6 CODE >75:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/tmr2.c
+1CA text5 CODE >69:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/mcc.c
+1CA text5 CODE >72:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/mcc.c
+1CB text5 CODE >73:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/mcc.c
+1CC text5 CODE >74:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/mcc.c
+1CD text5 CODE >75:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/mcc.c
+1CE text5 CODE >76:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/mcc.c
+1CF text5 CODE >77:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/mcc.c
+EC text4 CODE >136:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/eusart.c
+ED text4 CODE >138:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/eusart.c
+F0 text4 CODE >142:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/eusart.c
+F3 text4 CODE >144:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/eusart.c
+F6 text4 CODE >145:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/eusart.c
+F7 text4 CODE >146:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/eusart.c
+F7 text4 CODE >148:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/eusart.c
+F8 text4 CODE >149:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/eusart.c
+105 text4 CODE >150:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/eusart.c
+108 text4 CODE >152:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/eusart.c
+109 text4 CODE >154:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/eusart.c
+10B text4 CODE >156:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/eusart.c
+10D text4 CODE >157:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/eusart.c
+1D0 text3 CODE >164:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/eusart.c
+1D1 text3 CODE >166:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/eusart.c
+1D3 text3 CODE >167:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/mcc_generated_files/eusart.c
+12B text2 CODE >464:/opt/microchip/xc8/v1.38/sources/common/doprnt.c
+12B text2 CODE >533:/opt/microchip/xc8/v1.38/sources/common/doprnt.c
+130 text2 CODE >536:/opt/microchip/xc8/v1.38/sources/common/doprnt.c
+143 text2 CODE >541:/opt/microchip/xc8/v1.38/sources/common/doprnt.c
+145 text2 CODE >536:/opt/microchip/xc8/v1.38/sources/common/doprnt.c
+193 text1 CODE >56:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/main.c
+193 text1 CODE >59:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/main.c
+198 text1 CODE >60:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/main.c
+19D text1 CODE >61:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/main.c
+1A2 text1 CODE >62:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/main.c
+B1 maintext CODE >83:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/main.c
+B1 maintext CODE >86:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/main.c
+B2 maintext CODE >92:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/main.c
+B3 maintext CODE >95:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/main.c
+B4 maintext CODE >145:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/main.c
+B5 maintext CODE >157:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/main.c
+B7 maintext CODE >158:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/main.c
+D2 maintext CODE >159:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/main.c
+D4 maintext CODE >160:/home/nio/neo_retro_speedo/neoretro_speedo_16F1823.X/main.c
+1A3 clrtext CODE >2343:/tmp/xcXsaLTiO
+1A3 clrtext CODE >2344:/tmp/xcXsaLTiO
+1A4 clrtext CODE >2345:/tmp/xcXsaLTiO
+1A4 clrtext CODE >2346:/tmp/xcXsaLTiO
+1A5 clrtext CODE >2347:/tmp/xcXsaLTiO
+1A6 clrtext CODE >2348:/tmp/xcXsaLTiO
+1A7 clrtext CODE >2349:/tmp/xcXsaLTiO
+1A8 clrtext CODE >2350:/tmp/xcXsaLTiO
+1A9 clrtext CODE >2351:/tmp/xcXsaLTiO
+1AA clrtext CODE >2352:/tmp/xcXsaLTiO
+1AB clrtext CODE >2353:/tmp/xcXsaLTiO
+1AC clrtext CODE >2354:/tmp/xcXsaLTiO
+1AD clrtext CODE >2356:/tmp/xcXsaLTiO
+1AE clrtext CODE >2355:/tmp/xcXsaLTiO
 # %SYMTAB Section
 # An enumeration of all symbols in the program.
 # The beginning of the section is indicated by %SYMTAB.
@@ -133,64 +277,103 @@ $dist/default/production\neoretro_speedo_16F1823.X.production.obj
 # was defined in a psect then <psect> will be "-". File-name
 # is the name of the object file in which the symbol was defined.
 %SYMTAB
-___latbits 0 0 ABS 0 - dist/default/production\neoretro_speedo_16F1823.X.production.obj
+___latbits 0 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
 __Hspace_0 8009 0 ABS 0 - -
-__Hspace_1 75 0 ABS 0 - -
+__Hspace_1 7C 0 ABS 0 - -
 __Hspace_2 0 0 ABS 0 - -
 __Hspace_3 0 0 ABS 0 - -
+_PWM1CON 294 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
 __Heeprom_data 0 0 EEDATA 3 eeprom_data -
-__CFG_MCLRE$ON 0 0 ABS 0 - dist/default/production\neoretro_speedo_16F1823.X.production.obj
-ltemp0 7E 0 ABS 0 - dist/default/production\neoretro_speedo_16F1823.X.production.obj
-ltemp1 82 0 ABS 0 - dist/default/production\neoretro_speedo_16F1823.X.production.obj
-ltemp2 86 0 ABS 0 - dist/default/production\neoretro_speedo_16F1823.X.production.obj
-ltemp3 80 0 ABS 0 - dist/default/production\neoretro_speedo_16F1823.X.production.obj
+__CFG_MCLRE$ON 0 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+ltemp0 7E 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+ltemp1 82 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+ltemp2 86 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+ltemp3 80 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+__Lstringtext 0 0 ABS 0 stringtext -
 __Hstrings 0 0 ABS 0 strings -
-_LATA 10C 0 ABS 0 - dist/default/production\neoretro_speedo_16F1823.X.production.obj
-_LATC 10E 0 ABS 0 - dist/default/production\neoretro_speedo_16F1823.X.production.obj
-_PLLR 4D6 0 ABS 0 - dist/default/production\neoretro_speedo_16F1823.X.production.obj
-_WPUA 20C 0 ABS 0 - dist/default/production\neoretro_speedo_16F1823.X.production.obj
-_WPUC 20E 0 ABS 0 - dist/default/production\neoretro_speedo_16F1823.X.production.obj
-___sp 0 0 STACK 2 stack C:\Users\nicolas\AppData\Local\Temp\s1t0.obj
-_main F94 0 CODE 0 maintext dist/default/production\neoretro_speedo_16F1823.X.production.obj
-btemp 7E 0 ABS 0 - dist/default/production\neoretro_speedo_16F1823.X.production.obj
-ltemp 7E 0 ABS 0 - dist/default/production\neoretro_speedo_16F1823.X.production.obj
-start 2 0 CODE 0 init C:\Users\nicolas\AppData\Local\Temp\s1t0.obj
-ttemp 7E 0 ABS 0 - dist/default/production\neoretro_speedo_16F1823.X.production.obj
-wtemp 7E 0 ABS 0 - dist/default/production\neoretro_speedo_16F1823.X.production.obj
-__size_of_main 0 0 ABS 0 - dist/default/production\neoretro_speedo_16F1823.X.production.obj
-_OPTION_REGbits 95 0 ABS 0 - dist/default/production\neoretro_speedo_16F1823.X.production.obj
+_LATA 10C 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+_LATC 10E 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+_PLLR 4D6 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+_TMR2 1A 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+_WPUA 20C 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+_WPUC 20E 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+___sp 0 0 STACK 2 stack /tmp/xcXAphzj7.obj
+_main 162 0 CODE 0 maintext dist/default/production/neoretro_speedo_16F1823.X.production.obj
+btemp 7E 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+ltemp 7E 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+start 40 0 CODE 0 init /tmp/xcXAphzj7.obj
+ttemp 7E 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+wtemp 7E 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+_EUSART_Write 1D8 0 CODE 0 text4 dist/default/production/neoretro_speedo_16F1823.X.production.obj
+__size_of_main 0 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+__HbssCOMMON 0 0 ABS 0 bssCOMMON -
+_OPTION_REGbits 95 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+__end_of_EUSART_Initialize 2C2 0 CODE 0 text10 dist/default/production/neoretro_speedo_16F1823.X.production.obj
 __Hpowerup 0 0 CODE 0 powerup -
-ttemp0 7E 0 ABS 0 - dist/default/production\neoretro_speedo_16F1823.X.production.obj
-ttemp1 81 0 ABS 0 - dist/default/production\neoretro_speedo_16F1823.X.production.obj
-ttemp2 84 0 ABS 0 - dist/default/production\neoretro_speedo_16F1823.X.production.obj
-ttemp3 87 0 ABS 0 - dist/default/production\neoretro_speedo_16F1823.X.production.obj
-ttemp4 7F 0 ABS 0 - dist/default/production\neoretro_speedo_16F1823.X.production.obj
-__size_of_SYSTEM_Initialize 0 0 ABS 0 - dist/default/production\neoretro_speedo_16F1823.X.production.obj
-intlevel0 0 0 CODE 0 functab C:\Users\nicolas\AppData\Local\Temp\s1t0.obj
-intlevel1 0 0 CODE 0 functab C:\Users\nicolas\AppData\Local\Temp\s1t0.obj
-intlevel2 0 0 CODE 0 functab C:\Users\nicolas\AppData\Local\Temp\s1t0.obj
-intlevel3 0 0 CODE 0 functab C:\Users\nicolas\AppData\Local\Temp\s1t0.obj
-intlevel4 0 0 CODE 0 functab C:\Users\nicolas\AppData\Local\Temp\s1t0.obj
-intlevel5 0 0 CODE 0 functab C:\Users\nicolas\AppData\Local\Temp\s1t0.obj
-wtemp0 7E 0 ABS 0 - dist/default/production\neoretro_speedo_16F1823.X.production.obj
-wtemp1 80 0 ABS 0 - dist/default/production\neoretro_speedo_16F1823.X.production.obj
-wtemp2 82 0 ABS 0 - dist/default/production\neoretro_speedo_16F1823.X.production.obj
-wtemp3 84 0 ABS 0 - dist/default/production\neoretro_speedo_16F1823.X.production.obj
-wtemp4 86 0 ABS 0 - dist/default/production\neoretro_speedo_16F1823.X.production.obj
-wtemp5 88 0 ABS 0 - dist/default/production\neoretro_speedo_16F1823.X.production.obj
-wtemp6 7F 0 ABS 0 - dist/default/production\neoretro_speedo_16F1823.X.production.obj
+printf@c 35 0 BANK0 1 cstackBANK0 dist/default/production/neoretro_speedo_16F1823.X.production.obj
+printf@f 75 0 COMMON 1 cstackCOMMON dist/default/production/neoretro_speedo_16F1823.X.production.obj
+_TMR2_Initialize 374 0 CODE 0 text6 dist/default/production/neoretro_speedo_16F1823.X.production.obj
+_TMR2_StartTimer 3A8 0 CODE 0 text7 dist/default/production/neoretro_speedo_16F1823.X.production.obj
+ttemp0 7E 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+ttemp1 81 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+ttemp2 84 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+ttemp3 87 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+ttemp4 7F 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+__size_of_SYSTEM_Initialize 0 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+intlevel0 0 0 CODE 0 functab /tmp/xcXAphzj7.obj
+intlevel1 0 0 CODE 0 functab /tmp/xcXAphzj7.obj
+intlevel2 0 0 CODE 0 functab /tmp/xcXAphzj7.obj
+intlevel3 0 0 CODE 0 functab /tmp/xcXAphzj7.obj
+intlevel4 0 0 CODE 0 functab /tmp/xcXAphzj7.obj
+intlevel5 0 0 CODE 0 functab /tmp/xcXAphzj7.obj
+__LbssCOMMON 0 0 ABS 0 bssCOMMON -
+__size_of_EPWM_Initialize 0 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+wtemp0 7E 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+wtemp1 80 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+wtemp2 82 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+wtemp3 84 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+wtemp4 86 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+wtemp5 88 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+wtemp6 7F 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
 __Hfunctab 0 0 CODE 0 functab -
+__size_of_EUSART_Write 0 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+__end_of_EUSART_Transmit_ISR 256 0 CODE 0 text13 dist/default/production/neoretro_speedo_16F1823.X.production.obj
 __Hclrtext 0 0 ABS 0 clrtext -
-_ANSELA 18C 0 ABS 0 - dist/default/production\neoretro_speedo_16F1823.X.production.obj
-_ANSELC 18E 0 ABS 0 - dist/default/production\neoretro_speedo_16F1823.X.production.obj
-_APFCON 11D 0 ABS 0 - dist/default/production\neoretro_speedo_16F1823.X.production.obj
-main@tmp 73 0 COMMON 1 cstackCOMMON dist/default/production\neoretro_speedo_16F1823.X.production.obj
+_eusartTxBuffer 28 0 BANK0 1 bssBANK0 dist/default/production/neoretro_speedo_16F1823.X.production.obj
+_ANSELA 18C 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+_ANSELC 18E 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+_APFCON 11D 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+_EECON1bits 195 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+_CCPR1H 292 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+_CCPR1L 291 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+__end_of_INTERRUPT_InterruptManager 40 0 CODE 0 intentry dist/default/production/neoretro_speedo_16F1823.X.production.obj
+__end_of_EUSART_Write 21C 0 CODE 0 text4 dist/default/production/neoretro_speedo_16F1823.X.production.obj
+_EEADRH 192 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+_EEADRL 191 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+_EECON2 196 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+_EEDATH 194 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+_EEDATL 193 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+main@tmp 39 0 BANK0 1 cstackBANK0 dist/default/production/neoretro_speedo_16F1823.X.production.obj
+_NMEA_buffer 201F 0 ABS 1 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
 __Lmaintext 0 0 ABS 0 maintext -
-_PIN_MANAGER_Initialize F68 0 CODE 0 text2 dist/default/production\neoretro_speedo_16F1823.X.production.obj
-start_initialization FFC 0 CODE 0 cinit dist/default/production\neoretro_speedo_16F1823.X.production.obj
-_OSCCON 99 0 ABS 0 - dist/default/production\neoretro_speedo_16F1823.X.production.obj
-__end_of_SYSTEM_Initialize F58 0 CODE 0 text1 dist/default/production\neoretro_speedo_16F1823.X.production.obj
-___int_sp 0 0 STACK 2 stack C:\Users\nicolas\AppData\Local\Temp\s1t0.obj
+?_printf 75 0 COMMON 1 cstackCOMMON dist/default/production/neoretro_speedo_16F1823.X.production.obj
+_EUSART_Initialize 28C 0 CODE 0 text10 dist/default/production/neoretro_speedo_16F1823.X.production.obj
+__size_of_putch 0 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+__size_of_TMR2_Initialize 0 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+__size_of_TMR2_StartTimer 0 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+_PIN_MANAGER_Initialize 2F8 0 CODE 0 text8 dist/default/production/neoretro_speedo_16F1823.X.production.obj
+start_initialization 42 0 CODE 0 cinit dist/default/production/neoretro_speedo_16F1823.X.production.obj
+_OSCCON 99 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+_eusartRxBuffer 20 0 BANK0 1 bssBANK0 dist/default/production/neoretro_speedo_16F1823.X.production.obj
+__end_of_SYSTEM_Initialize 3A0 0 CODE 0 text5 dist/default/production/neoretro_speedo_16F1823.X.production.obj
+clear_ram0 346 0 CODE 0 clrtext dist/default/production/neoretro_speedo_16F1823.X.production.obj
+_SPBRGH 19C 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+_SPBRGL 19B 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+__pcstackBANK0 34 0 BANK0 1 cstackBANK0 dist/default/production/neoretro_speedo_16F1823.X.production.obj
+__end_of_UART_Initialize 346 0 CODE 0 text1 dist/default/production/neoretro_speedo_16F1823.X.production.obj
+__end_of_printf 28C 0 CODE 0 text2 dist/default/production/neoretro_speedo_16F1823.X.production.obj
+main@tmp_165 3A 0 BANK0 1 cstackBANK0 dist/default/production/neoretro_speedo_16F1823.X.production.obj
+___int_sp 0 0 STACK 2 stack /tmp/xcXAphzj7.obj
 __Hbank0 0 0 ABS 0 bank0 -
 __Hbank1 0 0 ABS 0 bank1 -
 __Hbank2 0 0 BANK2 1 bank2 -
@@ -201,9 +384,9 @@ __Hbank6 0 0 BANK6 1 bank6 -
 __Hbank7 0 0 BANK7 1 bank7 -
 __Hbank8 0 0 BANK8 1 bank8 -
 __Hbank9 0 0 BANK9 1 bank9 -
-__Hcinit 1000 0 CODE 0 cinit -
+__Hcinit 70 0 CODE 0 cinit -
 __Hidloc 0 0 IDLOC 0 idloc -
-__size_of_OSCILLATOR_Initialize 0 0 ABS 0 - dist/default/production\neoretro_speedo_16F1823.X.production.obj
+__size_of_OSCILLATOR_Initialize 0 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
 __Hsfr10 0 0 ABS 0 sfr10 -
 __Hsfr11 0 0 ABS 0 sfr11 -
 __Hsfr12 0 0 ABS 0 sfr12 -
@@ -251,7 +434,7 @@ __Hbank30 0 0 BANK30 1 bank30 -
 __Hbank31 0 0 BANK31 1 bank31 -
 __Hbigram 0 0 ABS 0 bigram -
 __Hmaintext 0 0 ABS 0 maintext -
-__CFG_FOSC$INTOSC 0 0 ABS 0 - dist/default/production\neoretro_speedo_16F1823.X.production.obj
+__CFG_FOSC$INTOSC 0 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
 __Hcommon 0 0 ABS 0 common -
 __Hconfig 10012 0 CONFIG 0 config -
 __Lbank0 0 0 ABS 0 bank0 -
@@ -264,7 +447,7 @@ __Lbank6 0 0 BANK6 1 bank6 -
 __Lbank7 0 0 BANK7 1 bank7 -
 __Lbank8 0 0 BANK8 1 bank8 -
 __Lbank9 0 0 BANK9 1 bank9 -
-__Lcinit FFC 0 CODE 0 cinit -
+__Lcinit 42 0 CODE 0 cinit -
 __Lidloc 0 0 IDLOC 0 idloc -
 __Lsfr10 0 0 ABS 0 sfr10 -
 __Lsfr11 0 0 ABS 0 sfr11 -
@@ -289,9 +472,10 @@ __Lsfr29 0 0 ABS 0 sfr29 -
 __Lsfr30 0 0 ABS 0 sfr30 -
 __Lsfr31 0 0 ABS 0 sfr31 -
 __Lstack 0 0 STACK 2 stack -
+_INTCONbits B 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
 __Habs1 0 0 ABS 0 abs1 -
 __Hcode 0 0 ABS 0 code -
-__Hinit 2 0 CODE 0 init -
+__Hinit 40 0 CODE 0 init -
 __Hsfr0 0 0 ABS 0 sfr0 -
 __Hsfr1 0 0 ABS 0 sfr1 -
 __Hsfr2 0 0 ABS 0 sfr2 -
@@ -305,7 +489,7 @@ __Hsfr9 0 0 ABS 0 sfr9 -
 __Htext 0 0 ABS 0 text -
 __Labs1 0 0 ABS 0 abs1 -
 __Lcode 0 0 ABS 0 code -
-__Linit 2 0 CODE 0 init -
+__Linit 40 0 CODE 0 init -
 __Lsfr0 0 0 ABS 0 sfr0 -
 __Lsfr1 0 0 ABS 0 sfr1 -
 __Lsfr2 0 0 ABS 0 sfr2 -
@@ -317,18 +501,35 @@ __Lsfr7 0 0 ABS 0 sfr7 -
 __Lsfr8 0 0 ABS 0 sfr8 -
 __Lsfr9 0 0 ABS 0 sfr9 -
 __Ltext 0 0 ABS 0 text -
+__LcstackBANK0 0 0 ABS 0 cstackBANK0 -
+_UART_Initialize 326 0 CODE 0 text1 dist/default/production/neoretro_speedo_16F1823.X.production.obj
+int$flags 7E 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
 __HcstackCOMMON 0 0 ABS 0 cstackCOMMON -
+__size_of_INTERRUPT_InterruptManager 0 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+_PR2 1B 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
 __S0 8009 0 ABS 0 - -
-__S1 75 0 ABS 0 - -
+__S1 7C 0 ABS 0 - -
 __S2 0 0 ABS 0 - -
 __S3 0 0 ABS 0 - -
-__CFG_PLLEN$ON 0 0 ABS 0 - dist/default/production\neoretro_speedo_16F1823.X.production.obj
-_SYSTEM_Initialize F52 0 CODE 0 text1 dist/default/production\neoretro_speedo_16F1823.X.production.obj
-__CFG_BOREN$ON 0 0 ABS 0 - dist/default/production\neoretro_speedo_16F1823.X.production.obj
-__Lintentry 2 0 CODE 0 intentry -
-reset_vec 0 0 CODE 0 reset_vec C:\Users\nicolas\AppData\Local\Temp\s1t0.obj
-__CFG_FCMEN$ON 0 0 ABS 0 - dist/default/production\neoretro_speedo_16F1823.X.production.obj
-__end_of_PIN_MANAGER_Initialize F94 0 CODE 0 text2 dist/default/production\neoretro_speedo_16F1823.X.production.obj
+__CFG_PLLEN$ON 0 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+__end_of_EUSART_Receive_ISR 2F8 0 CODE 0 text14 dist/default/production/neoretro_speedo_16F1823.X.production.obj
+_ECCP1AS 295 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+_SYSTEM_Initialize 394 0 CODE 0 text5 dist/default/production/neoretro_speedo_16F1823.X.production.obj
+__CFG_BOREN$ON 0 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+__Lintentry 8 0 CODE 0 intentry -
+reset_vec 0 0 CODE 0 reset_vec /tmp/xcXAphzj7.obj
+__LbssBANK0 0 0 ABS 0 bssBANK0 -
+__CFG_FCMEN$ON 0 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+_INTERRUPT_InterruptManager 8 0 CODE 0 intentry dist/default/production/neoretro_speedo_16F1823.X.production.obj
+_RCSTAbits 19D 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+_PIE1bits 91 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+__ptext10 28C 0 CODE 0 text10 dist/default/production/neoretro_speedo_16F1823.X.production.obj
+__ptext11 35E 0 CODE 0 text11 dist/default/production/neoretro_speedo_16F1823.X.production.obj
+__ptext13 21C 0 CODE 0 text13 dist/default/production/neoretro_speedo_16F1823.X.production.obj
+__ptext14 2C2 0 CODE 0 text14 dist/default/production/neoretro_speedo_16F1823.X.production.obj
+_EUSART_Receive_ISR 2C2 0 CODE 0 text14 dist/default/production/neoretro_speedo_16F1823.X.production.obj
+__end_of_PIN_MANAGER_Initialize 326 0 CODE 0 text8 dist/default/production/neoretro_speedo_16F1823.X.production.obj
+_BAUDCON 19F 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
 __Lbank10 0 0 BANK10 1 bank10 -
 __Lbank11 0 0 BANK11 1 bank11 -
 __Lbank12 0 0 BANK12 1 bank12 -
@@ -351,56 +552,100 @@ __Lbank28 0 0 BANK28 1 bank28 -
 __Lbank29 0 0 BANK29 1 bank29 -
 __Lbank30 0 0 BANK30 1 bank30 -
 __Lbank31 0 0 BANK31 1 bank31 -
-__pmaintext F94 0 CODE 0 maintext dist/default/production\neoretro_speedo_16F1823.X.production.obj
+__pmaintext 162 0 CODE 0 maintext dist/default/production/neoretro_speedo_16F1823.X.production.obj
 __Lbigram 0 0 ABS 0 bigram -
-__CFG_BORV$LO 0 0 ABS 0 - dist/default/production\neoretro_speedo_16F1823.X.production.obj
+__CFG_BORV$LO 0 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
 __Lcommon 0 0 ABS 0 common -
 __Lconfig 1000E 0 CONFIG 0 config -
-__CFG_CP$OFF 0 0 ABS 0 - dist/default/production\neoretro_speedo_16F1823.X.production.obj
-__CFG_IESO$ON 0 0 ABS 0 - dist/default/production\neoretro_speedo_16F1823.X.production.obj
-__CFG_WDTE$OFF 0 0 ABS 0 - dist/default/production\neoretro_speedo_16F1823.X.production.obj
-stackhi 206F 0 ABS 0 - C:\Users\nicolas\AppData\Local\Temp\s1t0.obj
-stacklo 2000 0 ABS 0 - C:\Users\nicolas\AppData\Local\Temp\s1t0.obj
-_OSCSTAT 9A 0 ABS 0 - dist/default/production\neoretro_speedo_16F1823.X.production.obj
-_OSCTUNE 98 0 ABS 0 - dist/default/production\neoretro_speedo_16F1823.X.production.obj
-__CFG_LVP$OFF 0 0 ABS 0 - dist/default/production\neoretro_speedo_16F1823.X.production.obj
+_printf 256 0 CODE 0 text2 dist/default/production/neoretro_speedo_16F1823.X.production.obj
+__CFG_CP$OFF 0 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+__CFG_IESO$ON 0 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+__CFG_WDTE$OFF 0 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+__size_of_UART_Initialize 0 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+stackhi 201E 0 ABS 0 - /tmp/xcXAphzj7.obj
+stacklo 201B 0 ABS 0 - /tmp/xcXAphzj7.obj
+_OSCSTAT 9A 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+_OSCTUNE 98 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+__CFG_LVP$OFF 0 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+__pbssBIGRAM 201F 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
 __Lspace_0 0 0 ABS 0 - -
 __Lspace_1 0 0 ABS 0 - -
 __Lspace_2 0 0 ABS 0 - -
 __Lspace_3 0 0 ABS 0 - -
-__Lend_init 2 0 CODE 0 end_init -
+__pbssCOMMON 7A 0 COMMON 1 bssCOMMON dist/default/production/neoretro_speedo_16F1823.X.production.obj
+__HcstackBANK0 0 0 ABS 0 cstackBANK0 -
+_PIR1bits 11 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+__Lend_init 40 0 CODE 0 end_init -
 __LcstackCOMMON 0 0 ABS 0 cstackCOMMON -
-end_of_initialization FFC 0 CODE 0 cinit dist/default/production\neoretro_speedo_16F1823.X.production.obj
-__Hintentry 2 0 CODE 0 intentry -
-__CFG_STVREN$ON 0 0 ABS 0 - dist/default/production\neoretro_speedo_16F1823.X.production.obj
+printf@ap 34 0 BANK0 1 cstackBANK0 dist/default/production/neoretro_speedo_16F1823.X.production.obj
+end_of_initialization 6A 0 CODE 0 cinit dist/default/production/neoretro_speedo_16F1823.X.production.obj
+__Hintentry 40 0 CODE 0 intentry -
+__CFG_STVREN$ON 0 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+__size_of_printf 0 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
 __Lstrings 0 0 ABS 0 strings -
+_PSTR1CON 296 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
 __Hreset_vec 2 0 CODE 0 reset_vec -
-__ptext1 F52 0 CODE 0 text1 dist/default/production\neoretro_speedo_16F1823.X.production.obj
-__ptext2 F68 0 CODE 0 text2 dist/default/production\neoretro_speedo_16F1823.X.production.obj
-__ptext3 F58 0 CODE 0 text3 dist/default/production\neoretro_speedo_16F1823.X.production.obj
+__HbssBANK0 0 0 ABS 0 bssBANK0 -
+__ptext1 326 0 CODE 0 text1 dist/default/production/neoretro_speedo_16F1823.X.production.obj
+__ptext2 256 0 CODE 0 text2 dist/default/production/neoretro_speedo_16F1823.X.production.obj
+__ptext3 3A0 0 CODE 0 text3 dist/default/production/neoretro_speedo_16F1823.X.production.obj
+__ptext4 1D8 0 CODE 0 text4 dist/default/production/neoretro_speedo_16F1823.X.production.obj
+__ptext5 394 0 CODE 0 text5 dist/default/production/neoretro_speedo_16F1823.X.production.obj
+__ptext6 374 0 CODE 0 text6 dist/default/production/neoretro_speedo_16F1823.X.production.obj
+__ptext7 3A8 0 CODE 0 text7 dist/default/production/neoretro_speedo_16F1823.X.production.obj
+__ptext8 2F8 0 CODE 0 text8 dist/default/production/neoretro_speedo_16F1823.X.production.obj
+__ptext9 384 0 CODE 0 text9 dist/default/production/neoretro_speedo_16F1823.X.production.obj
+_eusartTxBufferRemaining 7B 0 COMMON 1 bssCOMMON dist/default/production/neoretro_speedo_16F1823.X.production.obj
 __Lpowerup 0 0 CODE 0 powerup -
 __Leeprom_data 0 0 EEDATA 3 eeprom_data -
+__pstringtext 70 0 STRCODE 0 stringtext dist/default/production/neoretro_speedo_16F1823.X.production.obj
 __Lreset_vec 0 0 CODE 0 reset_vec -
-__CFG_CLKOUTEN$OFF 0 0 ABS 0 - dist/default/production\neoretro_speedo_16F1823.X.production.obj
-__end_of__initialization FFC 0 CODE 0 cinit dist/default/production\neoretro_speedo_16F1823.X.production.obj
+__CFG_CLKOUTEN$OFF 0 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+EUSART_Write@txData 73 0 COMMON 1 cstackCOMMON dist/default/production/neoretro_speedo_16F1823.X.production.obj
+__end_of__initialization 6A 0 CODE 0 cinit dist/default/production/neoretro_speedo_16F1823.X.production.obj
+__end_of_EPWM_Initialize 374 0 CODE 0 text11 dist/default/production/neoretro_speedo_16F1823.X.production.obj
 __Lfunctab 0 0 CODE 0 functab -
-main@tmp_32 74 0 COMMON 1 cstackCOMMON dist/default/production\neoretro_speedo_16F1823.X.production.obj
+_eusartRxCount 7A 0 COMMON 1 bssCOMMON dist/default/production/neoretro_speedo_16F1823.X.production.obj
+__size_of_EUSART_Transmit_ISR 0 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
 __Lclrtext 0 0 ABS 0 clrtext -
-__pcstackCOMMON 70 0 COMMON 1 cstackCOMMON dist/default/production\neoretro_speedo_16F1823.X.production.obj
-__Hend_init 4 0 CODE 0 end_init -
-__end_of_main FFC 0 CODE 0 maintext dist/default/production\neoretro_speedo_16F1823.X.production.obj
-_LATA5 865 0 ABS 0 - dist/default/production\neoretro_speedo_16F1823.X.production.obj
-_TRISA 8C 0 ABS 0 - dist/default/production\neoretro_speedo_16F1823.X.production.obj
-_TRISC 8E 0 ABS 0 - dist/default/production\neoretro_speedo_16F1823.X.production.obj
+__size_of_EUSART_Initialize 0 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+__pcstackCOMMON 70 0 COMMON 1 cstackCOMMON dist/default/production/neoretro_speedo_16F1823.X.production.obj
+__Hend_init 42 0 CODE 0 end_init -
+putch@txData 74 0 COMMON 1 cstackCOMMON dist/default/production/neoretro_speedo_16F1823.X.production.obj
+__end_of_main 1D8 0 CODE 0 maintext dist/default/production/neoretro_speedo_16F1823.X.production.obj
+_LATA5 865 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+_RCREG 199 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+_RCSTA 19D 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+_T2CON 1C 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+_TRISA 8C 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+_TRISC 8E 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+_TXREG 19A 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+_TXSTA 19E 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+__end_of_putch 3A8 0 CODE 0 text3 dist/default/production/neoretro_speedo_16F1823.X.production.obj
 __Hram 0 0 ABS 0 ram -
 __Lram 0 0 ABS 0 ram -
-__CFG_CPD$OFF 0 0 ABS 0 - dist/default/production\neoretro_speedo_16F1823.X.production.obj
-__size_of_PIN_MANAGER_Initialize 0 0 ABS 0 - dist/default/production\neoretro_speedo_16F1823.X.production.obj
-__end_of_OSCILLATOR_Initialize F68 0 CODE 0 text3 dist/default/production\neoretro_speedo_16F1823.X.production.obj
-__initialization FFC 0 CODE 0 cinit dist/default/production\neoretro_speedo_16F1823.X.production.obj
-__CFG_PWRTE$OFF 0 0 ABS 0 - dist/default/production\neoretro_speedo_16F1823.X.production.obj
-__CFG_WRT$OFF 0 0 ABS 0 - dist/default/production\neoretro_speedo_16F1823.X.production.obj
-_OSCILLATOR_Initialize F58 0 CODE 0 text3 dist/default/production\neoretro_speedo_16F1823.X.production.obj
+_putch 3A0 0 CODE 0 text3 dist/default/production/neoretro_speedo_16F1823.X.production.obj
+__CFG_CPD$OFF 0 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+__size_of_PIN_MANAGER_Initialize 0 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+_CCP1CON 293 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+__pintentry 8 0 CODE 0 intentry dist/default/production/neoretro_speedo_16F1823.X.production.obj
+__end_of_OSCILLATOR_Initialize 394 0 CODE 0 text9 dist/default/production/neoretro_speedo_16F1823.X.production.obj
+__initialization 42 0 CODE 0 cinit dist/default/production/neoretro_speedo_16F1823.X.production.obj
+_EPWM_Initialize 35E 0 CODE 0 text11 dist/default/production/neoretro_speedo_16F1823.X.production.obj
+__CFG_PWRTE$OFF 0 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+__pbssBANK0 20 0 BANK0 1 bssBANK0 dist/default/production/neoretro_speedo_16F1823.X.production.obj
+_T2CONbits 1C 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+__Hstringtext 0 0 ABS 0 stringtext -
+_EUSART_Transmit_ISR 21C 0 CODE 0 text13 dist/default/production/neoretro_speedo_16F1823.X.production.obj
+__CFG_WRT$OFF 0 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+_eusartRxHead 30 0 BANK0 1 bssBANK0 dist/default/production/neoretro_speedo_16F1823.X.production.obj
+_eusartRxTail 31 0 BANK0 1 bssBANK0 dist/default/production/neoretro_speedo_16F1823.X.production.obj
+__size_of_EUSART_Receive_ISR 0 0 ABS 0 - dist/default/production/neoretro_speedo_16F1823.X.production.obj
+_eusartTxHead 32 0 BANK0 1 bssBANK0 dist/default/production/neoretro_speedo_16F1823.X.production.obj
+_eusartTxTail 33 0 BANK0 1 bssBANK0 dist/default/production/neoretro_speedo_16F1823.X.production.obj
+_OSCILLATOR_Initialize 384 0 CODE 0 text9 dist/default/production/neoretro_speedo_16F1823.X.production.obj
+__end_of_TMR2_Initialize 384 0 CODE 0 text6 dist/default/production/neoretro_speedo_16F1823.X.production.obj
+__end_of_TMR2_StartTimer 3AE 0 CODE 0 text7 dist/default/production/neoretro_speedo_16F1823.X.production.obj
 # %SPLITSTAB Section
 # This section enumerates all the psect splits performed by the assembler.
 # The beginning of the section is indicated by %SPLITSTAB.
@@ -417,6 +662,9 @@ _OSCILLATOR_Initialize F58 0 CODE 0 text3 dist/default/production\neoretro_speed
 # otherwise name will be "-".  The <space> number is in decimal.
 # <address> and <size> are in byte units as unqaulified hexadecimal
 %DABS
+_NMEA_buffer 1 201F 0
+- 1 A0 20
+- 1 3F 31
 - 1 7E 2
 # %SEGMENTS Section
 # This sections enumerates the segments of the program.  Each segment
@@ -426,11 +674,10 @@ _OSCILLATOR_Initialize F58 0 CODE 0 text3 dist/default/production\neoretro_speed
 # and size are in units of delta. The file address is in units of bytes.
 # All other numeric quantities are in decimal.
 %SEGMENTS
-cinit 0 7FE FFC 2 2
-text1 0 7A9 F52 3 2
-text2 0 7B4 F68 16 2
-text3 0 7AC F58 8 2
-maintext 0 7CA F94 34 2
-cstackCOMMON 1 70 70 5 1
-reset_vec 0 0 0 2 2
+maintext 0 B1 162 126 2
+cstackCOMMON 1 70 70 C 1
+intentry 0 4 8 34 2
+reset_vec 0 0 0 1 2
+bssBANK0 1 20 20 1B 1
+stringtext 0 38 70 79 2
 config 0 8007 1000E 2 2

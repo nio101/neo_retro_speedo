@@ -1,52 +1,31 @@
 Version 3.2 HI-TECH Software Intermediate Code
-"105 mcc_generated_files/pin_manager.h
-[v _PIN_MANAGER_Initialize `(v ~T0 @X0 0 ef ]
-"84 mcc_generated_files/mcc.h
-[v _OSCILLATOR_Initialize `(v ~T0 @X0 0 ef ]
-"95 mcc_generated_files/epwm.h
-[v _EPWM_Initialize `(v ~T0 @X0 0 ef ]
-"102 mcc_generated_files/tmr2.h
-[v _TMR2_Initialize `(v ~T0 @X0 0 ef ]
-"106 mcc_generated_files/eusart.h
-[v _EUSART_Initialize `(v ~T0 @X0 0 ef ]
-"1911 /opt/microchip/xc8/v1.38/include/pic16f1823.h
-[v _OSCCON `Vuc ~T0 @X0 0 e@153 ]
-"1982
-[v _OSCSTAT `Vuc ~T0 @X0 0 e@154 ]
-"1854
-[v _OSCTUNE `Vuc ~T0 @X0 0 e@152 ]
-"6052
-[v _PLLR `Vb ~T0 @X0 0 e@1238 ]
-"49 mcc_generated_files/mcc.c
-[p x FOSC=INTOSC ]
-"50
-[p x WDTE=OFF ]
-"51
-[p x PWRTE=OFF ]
-"52
-[p x MCLRE=ON ]
-"53
-[p x CP=OFF ]
-"54
-[p x CPD=OFF ]
-"55
-[p x BOREN=ON ]
-"56
-[p x CLKOUTEN=OFF ]
-"57
-[p x IESO=ON ]
-"58
-[p x FCMEN=ON ]
-"61
-[p x WRT=OFF ]
-"62
-[p x PLLEN=ON ]
-"63
-[p x STVREN=ON ]
-"64
-[p x BORV=LO ]
-"65
-[p x LVP=OFF ]
+"1287 /opt/microchip/xc8/v1.38/include/pic16f1823.h
+[v _T2CON `Vuc ~T0 @X0 0 e@28 ]
+"1268
+[v _PR2 `Vuc ~T0 @X0 0 e@27 ]
+"1249
+[v _TMR2 `Vuc ~T0 @X0 0 e@26 ]
+"940
+[s S49 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S49 . TMR1IF TMR2IF CCP1IF SSP1IF TXIF RCIF ADIF TMR1GIF ]
+"939
+[u S48 `S49 1 ]
+[n S48 . . ]
+"951
+[v _PIR1bits `VS48 ~T0 @X0 0 e@17 ]
+"131 mcc_generated_files/tmr2.h
+[v _TMR2_StartTimer `(v ~T0 @X0 0 ef ]
+"1293 /opt/microchip/xc8/v1.38/include/pic16f1823.h
+[s S69 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S69 . T2CKPS0 T2CKPS1 TMR2ON T2OUTPS0 T2OUTPS1 T2OUTPS2 T2OUTPS3 ]
+"1302
+[s S70 :2 `uc 1 :1 `uc 1 :4 `uc 1 ]
+[n S70 . T2CKPS . T2OUTPS ]
+"1292
+[u S68 `S69 1 `S70 1 ]
+[n S68 . . . ]
+"1308
+[v _T2CONbits `VS68 ~T0 @X0 0 e@28 ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
@@ -2389,7 +2368,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic.h: 186: extern unsigned char __resetbits;
 [; ;pic.h: 187: extern __bit __powerdown;
 [; ;pic.h: 188: extern __bit __timeout;
-[; ;pin_manager.h: 105: void PIN_MANAGER_Initialize (void);
 [; ;stdint.h: 13: typedef signed char int8_t;
 [; ;stdint.h: 20: typedef signed int int16_t;
 [; ;stdint.h: 28: typedef signed short long int int24_t;
@@ -2419,52 +2397,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;stdint.h: 210: typedef int16_t intptr_t;
 [; ;stdint.h: 215: typedef uint16_t uintptr_t;
 [; ;stdbool.h: 12: typedef unsigned char bool;
-[; ;interrupt_manager.h: 110: void interrupt INTERRUPT_InterruptManager(void);
-[; ;__size_t.h: 4: typedef unsigned size_t;
-[; ;stdarg.h: 7: typedef void * va_list[1];
-[; ;stdarg.h: 10: extern void * __va_start(void);
-[; ;stdarg.h: 13: extern void * __va_arg(void *, ...);
-[; ;stdio.h: 43: struct __prbuf
-[; ;stdio.h: 44: {
-[; ;stdio.h: 45: char * ptr;
-[; ;stdio.h: 46: void (* func)(char);
-[; ;stdio.h: 47: };
-[; ;errno.h: 29: extern int errno;
-[; ;conio.h: 12: extern void init_uart(void);
-[; ;conio.h: 14: extern char getch(void);
-[; ;conio.h: 15: extern char getche(void);
-[; ;conio.h: 16: extern void putch(char);
-[; ;conio.h: 17: extern void ungetch(char);
-[; ;conio.h: 19: extern __bit kbhit(void);
-[; ;conio.h: 23: extern char * cgets(char *);
-[; ;conio.h: 24: extern void cputs(const char *);
-[; ;stdio.h: 88: extern int cprintf(char *, ...);
-[; ;stdio.h: 93: extern int _doprnt(struct __prbuf *, const register char *, register va_list);
-[; ;stdio.h: 183: extern char * gets(char *);
-[; ;stdio.h: 184: extern int puts(const char *);
-[; ;stdio.h: 185: extern int scanf(const char *, ...) __attribute__((unsupported("scanf() is not supported by this compiler")));
-[; ;stdio.h: 186: extern int sscanf(const char *, const char *, ...) __attribute__((unsupported("sscanf() is not supported by this compiler")));
-[; ;stdio.h: 187: extern int vprintf(const char *, va_list) __attribute__((unsupported("vprintf() is not supported by this compiler")));
-[; ;stdio.h: 188: extern int vsprintf(char *, const char *, va_list) __attribute__((unsupported("vsprintf() is not supported by this compiler")));
-[; ;stdio.h: 189: extern int vscanf(const char *, va_list ap) __attribute__((unsupported("vscanf() is not supported by this compiler")));
-[; ;stdio.h: 190: extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupported("vsscanf() is not supported by this compiler")));
-[; ;stdio.h: 194: extern int sprintf(char *, const char *, ...);
-[; ;stdio.h: 195: extern int printf(const char *, ...);
-[; ;eusart.h: 77: extern volatile uint8_t eusartTxBufferRemaining;
-[; ;eusart.h: 78: extern volatile uint8_t eusartRxCount;
-[; ;eusart.h: 106: void EUSART_Initialize(void);
-[; ;eusart.h: 155: uint8_t EUSART_Read(void);
-[; ;eusart.h: 180: void EUSART_Write(uint8_t txData);
-[; ;eusart.h: 201: void EUSART_Transmit_ISR(void);
-[; ;eusart.h: 222: void EUSART_Receive_ISR(void);
-[; ;memory.h: 98: uint16_t FLASH_ReadWord(uint16_t flashAddr);
-[; ;memory.h: 127: void FLASH_WriteWord(uint16_t flashAddr, uint16_t *ramBuf, uint16_t word);
-[; ;memory.h: 163: int8_t FLASH_WriteBlock(uint16_t writeAddr, uint16_t *flashWordArray);
-[; ;memory.h: 188: void FLASH_EraseBlock(uint16_t startAddr);
-[; ;memory.h: 219: void DATAEE_WriteByte(uint8_t bAdd, uint8_t bData);
-[; ;memory.h: 245: uint8_t DATAEE_ReadByte(uint8_t bAdd);
-[; ;epwm.h: 95: void EPWM_Initialize(void);
-[; ;epwm.h: 121: void EPWM_LoadDutyValue(uint16_t dutyValue);
 [; ;tmr2.h: 102: void TMR2_Initialize(void);
 [; ;tmr2.h: 131: void TMR2_StartTimer(void);
 [; ;tmr2.h: 163: void TMR2_StopTimer(void);
@@ -2472,67 +2404,151 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;tmr2.h: 237: void TMR2_WriteTimer(uint8_t timerVal);
 [; ;tmr2.h: 289: void TMR2_LoadPeriodRegister(uint8_t periodVal);
 [; ;tmr2.h: 324: bool TMR2_HasOverflowOccured(void);
-[; ;mcc.h: 71: void SYSTEM_Initialize(void);
-[; ;mcc.h: 84: void OSCILLATOR_Initialize(void);
-"69 mcc_generated_files/mcc.c
-[v _SYSTEM_Initialize `(v ~T0 @X0 1 ef ]
-"70
+"57 mcc_generated_files/tmr2.c
+[v _TMR2_Initialize `(v ~T0 @X0 1 ef ]
+"58
 {
-[; ;mcc.c: 69: void SYSTEM_Initialize(void)
-[; ;mcc.c: 70: {
-[e :U _SYSTEM_Initialize ]
+[; ;tmr2.c: 57: void TMR2_Initialize(void)
+[; ;tmr2.c: 58: {
+[e :U _TMR2_Initialize ]
 [f ]
-[; ;mcc.c: 72: PIN_MANAGER_Initialize();
-"72
-[e ( _PIN_MANAGER_Initialize ..  ]
-[; ;mcc.c: 73: OSCILLATOR_Initialize();
-"73
-[e ( _OSCILLATOR_Initialize ..  ]
-[; ;mcc.c: 74: EPWM_Initialize();
+[; ;tmr2.c: 62: T2CON = 0x00;
+"62
+[e = _T2CON -> -> 0 `i `uc ]
+[; ;tmr2.c: 65: PR2 = 0xFF;
+"65
+[e = _PR2 -> -> 255 `i `uc ]
+[; ;tmr2.c: 68: TMR2 = 0x00;
+"68
+[e = _TMR2 -> -> 0 `i `uc ]
+[; ;tmr2.c: 71: PIR1bits.TMR2IF = 0;
+"71
+[e = . . _PIR1bits 0 1 -> -> 0 `i `uc ]
+[; ;tmr2.c: 74: TMR2_StartTimer();
 "74
-[e ( _EPWM_Initialize ..  ]
-[; ;mcc.c: 75: TMR2_Initialize();
+[e ( _TMR2_StartTimer ..  ]
+[; ;tmr2.c: 75: }
 "75
-[e ( _TMR2_Initialize ..  ]
-[; ;mcc.c: 76: EUSART_Initialize();
-"76
-[e ( _EUSART_Initialize ..  ]
-[; ;mcc.c: 77: }
+[e :UE 293 ]
+}
 "77
+[v _TMR2_StartTimer `(v ~T0 @X0 1 ef ]
+"78
+{
+[; ;tmr2.c: 77: void TMR2_StartTimer(void)
+[; ;tmr2.c: 78: {
+[e :U _TMR2_StartTimer ]
+[f ]
+[; ;tmr2.c: 80: T2CONbits.TMR2ON = 1;
+"80
+[e = . . _T2CONbits 0 2 -> -> 1 `i `uc ]
+[; ;tmr2.c: 81: }
+"81
 [e :UE 294 ]
 }
-"79
-[v _OSCILLATOR_Initialize `(v ~T0 @X0 1 ef ]
-"80
-{
-[; ;mcc.c: 79: void OSCILLATOR_Initialize(void)
-[; ;mcc.c: 80: {
-[e :U _OSCILLATOR_Initialize ]
-[f ]
-[; ;mcc.c: 82: OSCCON = 0x70;
-"82
-[e = _OSCCON -> -> 112 `i `uc ]
-[; ;mcc.c: 84: OSCSTAT = 0x00;
+"83
+[v _TMR2_StopTimer `(v ~T0 @X0 1 ef ]
 "84
-[e = _OSCSTAT -> -> 0 `i `uc ]
-[; ;mcc.c: 86: OSCTUNE = 0x00;
-"86
-[e = _OSCTUNE -> -> 0 `i `uc ]
-[; ;mcc.c: 90: while(PLLR == 0)
-"90
-[e $U 296  ]
-[e :U 297 ]
-[; ;mcc.c: 91: {
-"91
 {
-"92
-}
-[e :U 296 ]
-"90
-[e $ == -> _PLLR `i -> 0 `i 297  ]
-[e :U 298 ]
-[; ;mcc.c: 92: }
-[; ;mcc.c: 93: }
-"93
+[; ;tmr2.c: 83: void TMR2_StopTimer(void)
+[; ;tmr2.c: 84: {
+[e :U _TMR2_StopTimer ]
+[f ]
+[; ;tmr2.c: 86: T2CONbits.TMR2ON = 0;
+"86
+[e = . . _T2CONbits 0 2 -> -> 0 `i `uc ]
+[; ;tmr2.c: 87: }
+"87
 [e :UE 295 ]
+}
+"89
+[v _TMR2_ReadTimer `(uc ~T0 @X0 1 ef ]
+"90
+{
+[; ;tmr2.c: 89: uint8_t TMR2_ReadTimer(void)
+[; ;tmr2.c: 90: {
+[e :U _TMR2_ReadTimer ]
+[f ]
+"91
+[v _readVal `uc ~T0 @X0 1 a ]
+[; ;tmr2.c: 91: uint8_t readVal;
+[; ;tmr2.c: 93: readVal = TMR2;
+"93
+[e = _readVal _TMR2 ]
+[; ;tmr2.c: 95: return readVal;
+"95
+[e ) _readVal ]
+[e $UE 296  ]
+[; ;tmr2.c: 96: }
+"96
+[e :UE 296 ]
+}
+"98
+[v _TMR2_WriteTimer `(v ~T0 @X0 1 ef1`uc ]
+"99
+{
+[; ;tmr2.c: 98: void TMR2_WriteTimer(uint8_t timerVal)
+[; ;tmr2.c: 99: {
+[e :U _TMR2_WriteTimer ]
+"98
+[v _timerVal `uc ~T0 @X0 1 r1 ]
+"99
+[f ]
+[; ;tmr2.c: 101: TMR2 = timerVal;
+"101
+[e = _TMR2 _timerVal ]
+[; ;tmr2.c: 102: }
+"102
+[e :UE 297 ]
+}
+"104
+[v _TMR2_LoadPeriodRegister `(v ~T0 @X0 1 ef1`uc ]
+"105
+{
+[; ;tmr2.c: 104: void TMR2_LoadPeriodRegister(uint8_t periodVal)
+[; ;tmr2.c: 105: {
+[e :U _TMR2_LoadPeriodRegister ]
+"104
+[v _periodVal `uc ~T0 @X0 1 r1 ]
+"105
+[f ]
+[; ;tmr2.c: 106: PR2 = periodVal;
+"106
+[e = _PR2 _periodVal ]
+[; ;tmr2.c: 107: }
+"107
+[e :UE 298 ]
+}
+"109
+[v _TMR2_HasOverflowOccured `(uc ~T0 @X0 1 ef ]
+"110
+{
+[; ;tmr2.c: 109: bool TMR2_HasOverflowOccured(void)
+[; ;tmr2.c: 110: {
+[e :U _TMR2_HasOverflowOccured ]
+[f ]
+"112
+[v _status `uc ~T0 @X0 1 a ]
+[; ;tmr2.c: 112: bool status = PIR1bits.TMR2IF;
+[e = _status . . _PIR1bits 0 1 ]
+[; ;tmr2.c: 113: if(status)
+"113
+[e $ ! != -> _status `i -> -> -> 0 `i `uc `i 300  ]
+[; ;tmr2.c: 114: {
+"114
+{
+[; ;tmr2.c: 116: PIR1bits.TMR2IF = 0;
+"116
+[e = . . _PIR1bits 0 1 -> -> 0 `i `uc ]
+"117
+}
+[e :U 300 ]
+[; ;tmr2.c: 117: }
+[; ;tmr2.c: 118: return status;
+"118
+[e ) _status ]
+[e $UE 299  ]
+[; ;tmr2.c: 119: }
+"119
+[e :UE 299 ]
 }

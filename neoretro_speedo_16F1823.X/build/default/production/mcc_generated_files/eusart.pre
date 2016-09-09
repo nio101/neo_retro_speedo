@@ -1,5 +1,5 @@
 
-# 1 "main.c"
+# 1 "mcc_generated_files/eusart.c"
 
 # 26 "/opt/microchip/xc8/v1.38/include/htc.h"
 extern const char __xc8_OPTIM_SPEED;
@@ -3183,8 +3183,8 @@ extern unsigned char __resetbits;
 extern __bit __powerdown;
 extern __bit __timeout;
 
-# 105 "mcc_generated_files/pin_manager.h"
-void PIN_MANAGER_Initialize (void);
+# 12 "/opt/microchip/xc8/v1.38/include/stdbool.h"
+typedef unsigned char bool;
 
 # 13 "/opt/microchip/xc8/v1.38/include/stdint.h"
 typedef signed char int8_t;
@@ -3276,12 +3276,6 @@ typedef int16_t intptr_t;
 
 typedef uint16_t uintptr_t;
 
-# 12 "/opt/microchip/xc8/v1.38/include/stdbool.h"
-typedef unsigned char bool;
-
-# 110 "mcc_generated_files/interrupt_manager.h"
-void interrupt INTERRUPT_InterruptManager(void);
-
 # 4 "/opt/microchip/xc8/v1.38/include/__size_t.h"
 typedef unsigned size_t;
 
@@ -3364,107 +3358,148 @@ void EUSART_Transmit_ISR(void);
 # 222
 void EUSART_Receive_ISR(void);
 
-# 98 "mcc_generated_files/memory.h"
-uint16_t FLASH_ReadWord(uint16_t flashAddr);
+# 61 "mcc_generated_files/eusart.c"
+static uint8_t eusartTxHead = 0;
+static uint8_t eusartTxTail = 0;
+static uint8_t eusartTxBuffer[8];
+volatile uint8_t eusartTxBufferRemaining;
 
-# 127
-void FLASH_WriteWord(uint16_t flashAddr, uint16_t *ramBuf, uint16_t word);
+static uint8_t eusartRxHead = 0;
+static uint8_t eusartRxTail = 0;
+static uint8_t eusartRxBuffer[8];
+volatile uint8_t eusartRxCount;
 
-# 163
-int8_t FLASH_WriteBlock(uint16_t writeAddr, uint16_t *flashWordArray);
-
-# 188
-void FLASH_EraseBlock(uint16_t startAddr);
-
-# 219
-void DATAEE_WriteByte(uint8_t bAdd, uint8_t bData);
-
-# 245
-uint8_t DATAEE_ReadByte(uint8_t bAdd);
-
-# 95 "mcc_generated_files/epwm.h"
-void EPWM_Initialize(void);
-
-# 121
-void EPWM_LoadDutyValue(uint16_t dutyValue);
-
-# 102 "mcc_generated_files/tmr2.h"
-void TMR2_Initialize(void);
-
-# 131
-void TMR2_StartTimer(void);
-
-# 163
-void TMR2_StopTimer(void);
-
-# 198
-uint8_t TMR2_ReadTimer(void);
-
-# 237
-void TMR2_WriteTimer(uint8_t timerVal);
-
-# 289
-void TMR2_LoadPeriodRegister(uint8_t periodVal);
-
-# 324
-bool TMR2_HasOverflowOccured(void);
-
-# 71 "mcc_generated_files/mcc.h"
-void SYSTEM_Initialize(void);
-
-# 84
-void OSCILLATOR_Initialize(void);
-
-# 54 "main.c"
-unsigned char NMEA_buffer[81];
-
-void UART_Initialize(void)
+# 75
+void EUSART_Initialize(void)
 {
 
-printf("\rPICDEM LAB II - Date 08/11/2015\r\n");
-printf("UART Communications 8-bit Rx and Tx\r\n\n");
-printf("Keyboard Type H : LED ON   Type L: LED OFF \r\n\n");
+PIE1bits.RCIE = 0;
+PIE1bits.TXIE = 0;
+
+
+
+
+BAUDCON = 0x08;
+
+
+RCSTA = 0x90;
+
+
+TXSTA = 0x24;
+
+
+SPBRGL = 0x40;
+
+
+SPBRGH = 0x03;
+
+
+
+eusartTxHead = 0;
+eusartTxTail = 0;
+eusartTxBufferRemaining = sizeof(eusartTxBuffer);
+
+eusartRxHead = 0;
+eusartRxTail = 0;
+eusartRxCount = 0;
+
+
+PIE1bits.RCIE = 1;
 }
 
-void UART_read_NMEA(void)
+uint8_t EUSART_Read(void)
 {
+uint8_t readValue = 0;
 
 
+RCSTAbits.SREN = 1;
 
-bool done = 0;
-unsigned char m_char;
-while (!done)
+while(0 == eusartRxCount)
 {
-if(eusartRxCount!=0)
-{
-m_char=EUSART_Read();
-}
-}
 }
 
-# 83
-void main(void)
+PIE1bits.RCIE = 0;
+
+readValue = eusartRxBuffer[eusartRxTail++];
+if(sizeof(eusartRxBuffer) <= eusartRxTail)
 {
-
-SYSTEM_Initialize();
-
-# 92
-(INTCONbits.GIE = 1);
-
-
-(INTCONbits.PEIE = 1);
-
-# 145
-UART_Initialize();
-
-# 154
-while (1)
-{
-
-do { LATA5 = 1; } while(0);
-for(unsigned char tmp=0;tmp<(10*1);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
-do { LATA5 = 0; } while(0);
-for(unsigned char tmp=0;tmp<(10*1);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
+eusartRxTail = 0;
 }
+eusartRxCount--;
+PIE1bits.RCIE = 1;
+
+return readValue;
+}
+
+void EUSART_Write(uint8_t txData)
+{
+while(0 == eusartTxBufferRemaining)
+{
+}
+
+if(0 == PIE1bits.TXIE)
+{
+TXREG = txData;
+}
+else
+{
+PIE1bits.TXIE = 0;
+eusartTxBuffer[eusartTxHead++] = txData;
+if(sizeof(eusartTxBuffer) <= eusartTxHead)
+{
+eusartTxHead = 0;
+}
+eusartTxBufferRemaining--;
+}
+PIE1bits.TXIE = 1;
+}
+
+char getch(void)
+{
+return EUSART_Read();
+}
+
+void putch(char txData)
+{
+EUSART_Write(txData);
+}
+
+void EUSART_Transmit_ISR(void)
+{
+
+
+if(sizeof(eusartTxBuffer) > eusartTxBufferRemaining)
+{
+TXREG = eusartTxBuffer[eusartTxTail++];
+if(sizeof(eusartTxBuffer) <= eusartTxTail)
+{
+eusartTxTail = 0;
+}
+eusartTxBufferRemaining++;
+}
+else
+{
+PIE1bits.TXIE = 0;
+}
+}
+
+void EUSART_Receive_ISR(void)
+{
+
+if(1 == RCSTAbits.OERR)
+{
+
+
+RCSTAbits.SPEN = 0;
+RCSTAbits.SPEN = 1;
+}
+
+
+eusartRxBuffer[eusartRxHead++] = RCREG;
+if(sizeof(eusartRxBuffer) <= eusartRxHead)
+{
+eusartRxHead = 0;
+}
+eusartRxCount++;
 }
 

@@ -51,14 +51,21 @@
 
 #define __delay_sec(x) for(unsigned char tmp=0;tmp<(10*x);tmp++){__delay_ms(100);}
 
-unsigned char NMEA_buffer[81];
+unsigned char char_buffer[1];
 
-void UART_Initialize(void) 
+void UART_Initialize(void)
 {
-
-    printf("\rPICDEM LAB II - Date 08/11/2015\r\n");  
-    printf("UART Communications 8-bit Rx and Tx\r\n\n");
-    printf("Keyboard Type H : LED ON   Type L: LED OFF \r\n\n");
+    // VTG every fix, GGA every 5 fix
+    //printf("$PMTK220,200*2C\r\n");
+    //printf("$PMTK314,0,0,1,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0*2C\r\n");
+    //printf("$PMTK314,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0*28\r\n");
+    //printf("$PMTK314,1,1,1,1,1,5,0,0,0,0,0,0,0,0,0,0,0,0,0*2C\r\n");
+    //printf("$PMTK104*37\r\n");
+    __delay_sec(1);
+    printf("$PMTK314,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0*29\r\n");
+    __delay_ms(100);
+    printf("$PMTK220,100*2F\r\n");
+    __delay_ms(100);
 }
 
 void UART_read_NMEA(void) // read & parse/check one NMEA sentence
@@ -70,9 +77,15 @@ void UART_read_NMEA(void) // read & parse/check one NMEA sentence
     unsigned char m_char;
     while (!done)
     {
-        if(eusartRxCount!=0)
+        if(eusartRxCount==0)
+        {
+            STATUS_LED_SetLow();
+        }        
+        else if(eusartRxCount!=0)
         {
             m_char=EUSART_Read();  // read a byte for RX
+            STATUS_LED_SetHigh();
+            __delay_ms(1);
         }
     }
 }
@@ -144,21 +157,21 @@ void main(void)
     
     UART_Initialize();
 
-    /*while (1)
+    while (1)
     {
           UART_read_NMEA(); // read/check one NMEA sentence
           // check if last VTG data is old (> how many sec?)
           // if so, we may have lost the fix => PWM to zero?
-    }*/
-    
-    while (1)
+    }
+
+    /*while (1)
     {
         // Add your application code
         STATUS_LED_SetHigh();
         __delay_sec(1);
         STATUS_LED_SetLow();
         __delay_sec(1);
-    }
+    }*/
 }
 /**
  End of File

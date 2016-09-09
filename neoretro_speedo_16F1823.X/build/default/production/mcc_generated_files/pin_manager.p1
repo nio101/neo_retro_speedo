@@ -1,5 +1,5 @@
 Version 3.2 HI-TECH Software Intermediate Code
-"2240 /opt/microchip/xc8/v1.38/include/pic16f1823.h
+"2240 D:\Program Files\Microchip\xc8\v1.38\include\pic16f1823.h
 [v _LATA `Vuc ~T0 @X0 0 e@268 ]
 "2284
 [v _LATC `Vuc ~T0 @X0 0 e@270 ]
@@ -32,7 +32,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
 [; ;pic16f1823.h: 49: extern volatile unsigned char INDF0 @ 0x000;
-"51 /opt/microchip/xc8/v1.38/include/pic16f1823.h
+"51 D:\Program Files\Microchip\xc8\v1.38\include\pic16f1823.h
 [; ;pic16f1823.h: 51: asm("INDF0 equ 00h");
 [; <" INDF0 equ 00h ;# ">
 [; ;pic16f1823.h: 54: typedef union {
@@ -2370,7 +2370,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic.h: 186: extern unsigned char __resetbits;
 [; ;pic.h: 187: extern __bit __powerdown;
 [; ;pic.h: 188: extern __bit __timeout;
-[; ;pin_manager.h: 105: void PIN_MANAGER_Initialize (void);
+[; ;pin_manager.h: 137: void PIN_MANAGER_Initialize (void);
 "49 mcc_generated_files/pin_manager.c
 [v _PIN_MANAGER_Initialize `(v ~T0 @X0 1 ef ]
 "50
@@ -2385,9 +2385,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pin_manager.c: 52: LATC = 0x0;
 "52
 [e = _LATC -> -> 0 `i `uc ]
-[; ;pin_manager.c: 53: ANSELA = 0x14;
+[; ;pin_manager.c: 53: ANSELA = 0x17;
 "53
-[e = _ANSELA -> -> 20 `i `uc ]
+[e = _ANSELA -> -> 23 `i `uc ]
 [; ;pin_manager.c: 54: ANSELC = 0xF;
 "54
 [e = _ANSELC -> -> 15 `i `uc ]
@@ -2406,9 +2406,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pin_manager.c: 60: OPTION_REGbits.nWPUEN = 0x0;
 "60
 [e = . . _OPTION_REGbits 0 7 -> -> 0 `i `uc ]
-[; ;pin_manager.c: 61: APFCON = 0x84;
+[; ;pin_manager.c: 61: APFCON = 0x00;
 "61
-[e = _APFCON -> -> 132 `i `uc ]
+[e = _APFCON -> -> 0 `i `uc ]
 [; ;pin_manager.c: 65: }
 "65
 [e :UE 293 ]

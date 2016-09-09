@@ -1,14 +1,20 @@
 Version 3.2 HI-TECH Software Intermediate Code
-"195 /opt/microchip/xc8/v1.38/include/stdio.h
+[v F2438 `(v ~T0 @X0 1 tf1`ul ]
+"152 D:\Program Files\Microchip\xc8\v1.38\include\pic.h
+[v __delay `JF2438 ~T0 @X0 0 e ]
+[p i __delay ]
+"195 D:\Program Files\Microchip\xc8\v1.38\include\stdio.h
 [v _printf `(i ~T0 @X0 0 ev`*Cuc ]
 "78 mcc_generated_files/eusart.h
 [v _eusartRxCount `Vuc ~T0 @X0 0 e ]
-"155
+"5928 D:\Program Files\Microchip\xc8\v1.38\include\pic16f1823.h
+[v _LATA5 `Vb ~T0 @X0 0 e@2149 ]
+"155 mcc_generated_files/eusart.h
 [v _EUSART_Read `(uc ~T0 @X0 0 ef ]
 [p mainexit ]
 "71 mcc_generated_files/mcc.h
 [v _SYSTEM_Initialize `(v ~T0 @X0 0 ef ]
-"343 /opt/microchip/xc8/v1.38/include/pic16f1823.h
+"343 D:\Program Files\Microchip\xc8\v1.38\include\pic16f1823.h
 [s S27 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S27 . IOCIF INTF TMR0IF IOCIE INTE TMR0IE PEIE GIE ]
 "353
@@ -19,17 +25,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S26 . . . ]
 "360
 [v _INTCONbits `VS26 ~T0 @X0 0 e@11 ]
-"5928
-[v _LATA5 `Vb ~T0 @X0 0 e@2149 ]
-[v F2438 `(v ~T0 @X0 1 tf1`ul ]
-"152 /opt/microchip/xc8/v1.38/include/pic.h
-[v __delay `JF2438 ~T0 @X0 0 e ]
-[p i __delay ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
 [; ;pic16f1823.h: 49: extern volatile unsigned char INDF0 @ 0x000;
-"51 /opt/microchip/xc8/v1.38/include/pic16f1823.h
+"51 D:\Program Files\Microchip\xc8\v1.38\include\pic16f1823.h
 [; ;pic16f1823.h: 51: asm("INDF0 equ 00h");
 [; <" INDF0 equ 00h ;# ">
 [; ;pic16f1823.h: 54: typedef union {
@@ -2367,7 +2367,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic.h: 186: extern unsigned char __resetbits;
 [; ;pic.h: 187: extern __bit __powerdown;
 [; ;pic.h: 188: extern __bit __timeout;
-[; ;pin_manager.h: 105: void PIN_MANAGER_Initialize (void);
+[; ;pin_manager.h: 137: void PIN_MANAGER_Initialize (void);
 [; ;stdint.h: 13: typedef signed char int8_t;
 [; ;stdint.h: 20: typedef signed int int16_t;
 [; ;stdint.h: 28: typedef signed short long int int24_t;
@@ -2453,8 +2453,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;mcc.h: 71: void SYSTEM_Initialize(void);
 [; ;mcc.h: 84: void OSCILLATOR_Initialize(void);
 "54 main.c
-[v _NMEA_buffer `uc ~T0 @X0 -> 81 `i e ]
-[; ;main.c: 54: unsigned char NMEA_buffer[81];
+[v _char_buffer `uc ~T0 @X0 -> -> 1 `i `ux e ]
+[; ;main.c: 54: unsigned char char_buffer[1];
 "56
 [v _UART_Initialize `(v ~T0 @X0 1 ef ]
 "57
@@ -2463,147 +2463,152 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;main.c: 57: {
 [e :U _UART_Initialize ]
 [f ]
-[; ;main.c: 59: printf("\rPICDEM LAB II - Date 08/11/2015\r\n");
-"59
-[e ( _printf :s 1C ]
-[; ;main.c: 60: printf("UART Communications 8-bit Rx and Tx\r\n\n");
-"60
-[e ( _printf :s 2C ]
-[; ;main.c: 61: printf("Keyboard Type H : LED ON   Type L: LED OFF \r\n\n");
-"61
-[e ( _printf :s 3C ]
-[; ;main.c: 62: }
-"62
-[e :UE 294 ]
-}
+[; ;main.c: 64: for(unsigned char tmp=0;tmp<(10*1);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
 "64
-[v _UART_read_NMEA `(v ~T0 @X0 1 ef ]
-"65
-{
-[; ;main.c: 64: void UART_read_NMEA(void)
-[; ;main.c: 65: {
-[e :U _UART_read_NMEA ]
-[f ]
-"69
-[v _done `uc ~T0 @X0 1 a ]
-[; ;main.c: 69: bool done = 0;
-[e = _done -> -> 0 `i `uc ]
-"70
-[v _m_char `uc ~T0 @X0 1 a ]
-[; ;main.c: 70: unsigned char m_char;
-[; ;main.c: 71: while (!done)
-"71
-[e $U 296  ]
-[e :U 297 ]
-[; ;main.c: 72: {
-"72
-{
-[; ;main.c: 73: if(eusartRxCount!=0)
-"73
-[e $ ! != -> _eusartRxCount `i -> 0 `i 299  ]
-[; ;main.c: 74: {
-"74
-{
-[; ;main.c: 75: m_char=EUSART_Read();
-"75
-[e = _m_char ( _EUSART_Read ..  ]
-"76
-}
-[e :U 299 ]
-"77
-}
-[e :U 296 ]
-"71
-[e $ ! != -> _done `i -> -> -> 0 `i `uc `i 297  ]
-[e :U 298 ]
-[; ;main.c: 76: }
-[; ;main.c: 77: }
-[; ;main.c: 78: }
-"78
-[e :UE 295 ]
-}
-"83
-[v _main `(v ~T0 @X0 1 ef ]
-"84
-{
-[; ;main.c: 83: void main(void)
-[; ;main.c: 84: {
-[e :U _main ]
-[f ]
-[; ;main.c: 86: SYSTEM_Initialize();
-"86
-[e ( _SYSTEM_Initialize ..  ]
-[; ;main.c: 92: (INTCONbits.GIE = 1);
-"92
-[e = . . _INTCONbits 0 7 -> -> 1 `i `uc ]
-[; ;main.c: 95: (INTCONbits.PEIE = 1);
-"95
-[e = . . _INTCONbits 0 6 -> -> 1 `i `uc ]
-[; ;main.c: 145: UART_Initialize();
-"145
-[e ( _UART_Initialize ..  ]
-[; ;main.c: 154: while (1)
-"154
-[e :U 302 ]
-[; ;main.c: 155: {
-"155
-{
-[; ;main.c: 157: do { LATA5 = 1; } while(0);
-"157
-[e :U 306 ]
-{
-[e = _LATA5 -> -> 1 `i `b ]
-}
-[e :U 305 ]
-[; ;main.c: 158: for(unsigned char tmp=0;tmp<(10*1);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
-"158
 {
 [v _tmp `uc ~T0 @X0 1 a ]
 [e = _tmp -> -> 0 `i `uc ]
-[e $ < -> _tmp `i * -> 10 `i -> 1 `i 307  ]
-[e $U 308  ]
-[e :U 307 ]
+[e $ < -> _tmp `i * -> 10 `i -> 1 `i 295  ]
+[e $U 296  ]
+[e :U 295 ]
 {
 [e ( __delay (1 -> * -> -> 100 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
 }
 [e ++ _tmp -> -> 1 `i `uc ]
-[e $ < -> _tmp `i * -> 10 `i -> 1 `i 307  ]
-[e :U 308 ]
+[e $ < -> _tmp `i * -> 10 `i -> 1 `i 295  ]
+[e :U 296 ]
 }
-[; ;main.c: 159: do { LATA5 = 0; } while(0);
-"159
-[e :U 312 ]
+[; ;main.c: 65: printf("$PMTK314,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0*29\r\n");
+"65
+[e ( _printf :s 1C ]
+[; ;main.c: 66: _delay((unsigned long)((100)*(32000000/4000.0)));
+"66
+[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+[; ;main.c: 67: printf("$PMTK220,100*2F\r\n");
+"67
+[e ( _printf :s 2C ]
+[; ;main.c: 68: _delay((unsigned long)((100)*(32000000/4000.0)));
+"68
+[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+[; ;main.c: 69: }
+"69
+[e :UE 294 ]
+}
+"71
+[v _UART_read_NMEA `(v ~T0 @X0 1 ef ]
+"72
+{
+[; ;main.c: 71: void UART_read_NMEA(void)
+[; ;main.c: 72: {
+[e :U _UART_read_NMEA ]
+[f ]
+"76
+[v _done `uc ~T0 @X0 1 a ]
+[; ;main.c: 76: bool done = 0;
+[e = _done -> -> 0 `i `uc ]
+"77
+[v _m_char `uc ~T0 @X0 1 a ]
+[; ;main.c: 77: unsigned char m_char;
+[; ;main.c: 78: while (!done)
+"78
+[e $U 299  ]
+[e :U 300 ]
+[; ;main.c: 79: {
+"79
+{
+[; ;main.c: 80: if(eusartRxCount==0)
+"80
+[e $ ! == -> _eusartRxCount `i -> 0 `i 302  ]
+[; ;main.c: 81: {
+"81
+{
+[; ;main.c: 82: do { LATA5 = 0; } while(0);
+"82
+[e :U 305 ]
 {
 [e = _LATA5 -> -> 0 `i `b ]
 }
-[e :U 311 ]
-[; ;main.c: 160: for(unsigned char tmp=0;tmp<(10*1);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
-"160
+[e :U 304 ]
+"83
+}
+[; ;main.c: 83: }
+[e $U 306  ]
+"84
+[e :U 302 ]
+[; ;main.c: 84: else if(eusartRxCount!=0)
+[e $ ! != -> _eusartRxCount `i -> 0 `i 307  ]
+[; ;main.c: 85: {
+"85
 {
-[v _tmp `uc ~T0 @X0 1 a ]
-[e = _tmp -> -> 0 `i `uc ]
-[e $ < -> _tmp `i * -> 10 `i -> 1 `i 313  ]
-[e $U 314  ]
-[e :U 313 ]
+[; ;main.c: 86: m_char=EUSART_Read();
+"86
+[e = _m_char ( _EUSART_Read ..  ]
+[; ;main.c: 87: do { LATA5 = 1; } while(0);
+"87
+[e :U 310 ]
 {
-[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+[e = _LATA5 -> -> 1 `i `b ]
 }
-[e ++ _tmp -> -> 1 `i `uc ]
-[e $ < -> _tmp `i * -> 10 `i -> 1 `i 313  ]
-[e :U 314 ]
+[e :U 309 ]
+[; ;main.c: 88: _delay((unsigned long)((1)*(32000000/4000.0)));
+"88
+[e ( __delay (1 -> * -> -> 1 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+"89
 }
-"161
+[e :U 307 ]
+"90
+[e :U 306 ]
 }
+[e :U 299 ]
+"78
+[e $ ! != -> _done `i -> -> -> 0 `i `uc `i 300  ]
 [e :U 301 ]
-"154
-[e $U 302  ]
-[e :U 303 ]
-[; ;main.c: 161: }
-[; ;main.c: 162: }
+[; ;main.c: 89: }
+[; ;main.c: 90: }
+[; ;main.c: 91: }
+"91
+[e :UE 298 ]
+}
+"96
+[v _main `(v ~T0 @X0 1 ef ]
+"97
+{
+[; ;main.c: 96: void main(void)
+[; ;main.c: 97: {
+[e :U _main ]
+[f ]
+[; ;main.c: 99: SYSTEM_Initialize();
+"99
+[e ( _SYSTEM_Initialize ..  ]
+[; ;main.c: 105: (INTCONbits.GIE = 1);
+"105
+[e = . . _INTCONbits 0 7 -> -> 1 `i `uc ]
+[; ;main.c: 108: (INTCONbits.PEIE = 1);
+"108
+[e = . . _INTCONbits 0 6 -> -> 1 `i `uc ]
+[; ;main.c: 158: UART_Initialize();
+"158
+[e ( _UART_Initialize ..  ]
+[; ;main.c: 160: while (1)
+"160
+[e :U 313 ]
+[; ;main.c: 161: {
+"161
+{
+[; ;main.c: 162: UART_read_NMEA();
 "162
-[e :UE 300 ]
+[e ( _UART_read_NMEA ..  ]
+"165
+}
+[e :U 312 ]
+"160
+[e $U 313  ]
+[e :U 314 ]
+[; ;main.c: 165: }
+[; ;main.c: 175: }
+"175
+[e :UE 311 ]
 }
 [p f _printf 8388608 ]
-[a 1C 13 80 73 67 68 69 77 32 76 65 66 32 73 73 32 45 32 68 97 116 101 32 48 56 47 49 49 47 50 48 49 53 13 10 0 ]
-[a 2C 85 65 82 84 32 67 111 109 109 117 110 105 99 97 116 105 111 110 115 32 56 45 98 105 116 32 82 120 32 97 110 100 32 84 120 13 10 10 0 ]
-[a 3C 75 101 121 98 111 97 114 100 32 84 121 112 101 32 72 32 58 32 76 69 68 32 79 78 32 32 32 84 121 112 101 32 76 58 32 76 69 68 32 79 70 70 32 13 10 10 0 ]
+[a 2C 36 80 77 84 75 50 50 48 44 49 48 48 42 50 70 13 10 0 ]
+[a 1C 36 80 77 84 75 51 49 52 44 48 44 48 44 49 44 48 44 48 44 48 44 48 44 48 44 48 44 48 44 48 44 48 44 48 44 48 44 48 44 48 44 48 44 48 44 48 42 50 57 13 10 0 ]

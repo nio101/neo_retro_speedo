@@ -1,5 +1,5 @@
 Version 3.2 HI-TECH Software Intermediate Code
-"343 /opt/microchip/xc8/v1.38/include/pic16f1823.h
+"343 D:\Program Files\Microchip\xc8\v1.38\include\pic16f1823.h
 [s S27 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S27 . IOCIF INTF TMR0IF IOCIE INTE TMR0IE PEIE GIE ]
 "353
@@ -35,7 +35,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
 [; ;pic16f1823.h: 49: extern volatile unsigned char INDF0 @ 0x000;
-"51 /opt/microchip/xc8/v1.38/include/pic16f1823.h
+"51 D:\Program Files\Microchip\xc8\v1.38\include\pic16f1823.h
 [; ;pic16f1823.h: 51: asm("INDF0 equ 00h");
 [; <" INDF0 equ 00h ;# ">
 [; ;pic16f1823.h: 54: typedef union {
@@ -2373,7 +2373,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic.h: 186: extern unsigned char __resetbits;
 [; ;pic.h: 187: extern __bit __powerdown;
 [; ;pic.h: 188: extern __bit __timeout;
-[; ;pin_manager.h: 105: void PIN_MANAGER_Initialize (void);
+[; ;pin_manager.h: 137: void PIN_MANAGER_Initialize (void);
 [; ;stdint.h: 13: typedef signed char int8_t;
 [; ;stdint.h: 20: typedef signed int int16_t;
 [; ;stdint.h: 28: typedef signed short long int int24_t;

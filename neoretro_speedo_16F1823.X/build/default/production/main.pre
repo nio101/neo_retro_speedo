@@ -3415,22 +3415,25 @@ void SYSTEM_Initialize(void);
 # 84
 void OSCILLATOR_Initialize(void);
 
-# 54 "main.c"
-unsigned char char_buffer[1];
-
-void UART_Initialize(void)
-{
+# 55 "main.c"
+typedef enum _speed_unit_type { MPH = 0, KPH } speed_unit_type;
+speed_unit_type speed_units = MPH;
+float speed = 0.0;
 
 # 64
+void GPS_Initialize(void)
+{
 for(unsigned char tmp=0;tmp<(10*1);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
+
 printf("$PMTK314,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0*29\r\n");
 _delay((unsigned long)((100)*(32000000/4000.0)));
 printf("$PMTK220,100*2F\r\n");
 _delay((unsigned long)((100)*(32000000/4000.0)));
 }
 
-void UART_read_NMEA(void)
+void GPS_read_speed(void)
 {
+unsigned char char_buffer[40];
 
 
 
@@ -3451,28 +3454,34 @@ _delay((unsigned long)((1)*(32000000/4000.0)));
 }
 }
 
-# 96
+# 100
 void main(void)
 {
 
 SYSTEM_Initialize();
 
-# 105
+# 109
 (INTCONbits.GIE = 1);
 
 
 (INTCONbits.PEIE = 1);
 
-# 158
-UART_Initialize();
+# 164
+uint16_t test_value = 0x00FF;
+EPWM_LoadDutyValue(test_value);
+
+TMR2_StartTimer();
+
+# 173
+GPS_Initialize();
 
 while (1)
 {
-UART_read_NMEA();
+GPS_read_speed();
 
 
 }
 
-# 175
+# 190
 }
 

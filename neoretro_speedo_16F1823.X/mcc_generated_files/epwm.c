@@ -73,8 +73,8 @@ void EPWM_Initialize (void)
     // P1RSEN automatic_restart; P1DC 0; 
     PWM1CON = 0x80;
     
-    // STR1D P1D_to_port; STR1C P1C_to_port; STR1B P1B_to_port; STR1A P1A_to_port; STR1SYNC start_at_begin; 
-    PSTR1CON = 0x00;
+    // STR1D P1D_to_port; STR1C P1C_to_CCP1M; STR1B P1B_to_port; STR1A P1A_to_port; STR1SYNC start_at_begin; 
+    PSTR1CON = 0x04;
     
     // CCPR1L 127; 
     CCPR1L = 0x7F;

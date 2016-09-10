@@ -51,25 +51,29 @@
 
 #define __delay_sec(x) for(unsigned char tmp=0;tmp<(10*x);tmp++){__delay_ms(100);}
 
-unsigned char char_buffer[1];
+// to store current speed value and units
+typedef enum _speed_unit_type { MPH = 0, KPH } speed_unit_type;
+speed_unit_type speed_units = MPH;  // MPH by default
+float speed = 0.0;
 
-void UART_Initialize(void)
+// to store speedometer calibration
+//[type?] Pcal[13]; // stores percentage calibration values for
+                  // speeds @ 10,20,30..150 in [speed_unit_type]
+                  // type should be the same as used by PWM,
+                  // value of XXX => no calibration available
+void GPS_Initialize(void)
 {
-    // VTG every fix, GGA every 5 fix
-    //printf("$PMTK220,200*2C\r\n");
-    //printf("$PMTK314,0,0,1,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0*2C\r\n");
-    //printf("$PMTK314,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0*28\r\n");
-    //printf("$PMTK314,1,1,1,1,1,5,0,0,0,0,0,0,0,0,0,0,0,0,0*2C\r\n");
-    //printf("$PMTK104*37\r\n");
-    __delay_sec(1);
+    __delay_sec(1); // needed for letting the GPS start
+    // filter the NMEA sentences => only the VTG (speed)@every fix
     printf("$PMTK314,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0*29\r\n");
     __delay_ms(100);
-    printf("$PMTK220,100*2F\r\n");
+    printf("$PMTK220,100*2F\r\n"); // ask for a fix every 100ms (update @10hz)
     __delay_ms(100);
 }
 
-void UART_read_NMEA(void) // read & parse/check one NMEA sentence
+void GPS_read_speed(void) // read & parse/check one NMEA sentence
 {   
+    unsigned char char_buffer[40];
     // we are going to wait for a '$' to begin recording received chars
     // until another '$' comes (restart recording), or an <LF> (parse sentence)
     // if the sentence is a correct VTG, read the speed and reset dedicated tmr
@@ -97,7 +101,7 @@ void main(void)
 {
     // initialize the device
     SYSTEM_Initialize();
-
+    
     // When using interrupts, you need to set the Global and Peripheral Interrupt Enable bits
     // Use the following macros to:
 
@@ -155,11 +159,22 @@ void main(void)
     // et la passer à zero si pas de trame récente (pour éviter de rester
     // scotché en cas de perte de fix)
     
-    UART_Initialize();
+    // test PWM now!
+    
+    uint16_t test_value = 0x00FF;
+    EPWM_LoadDutyValue(test_value);
+    
+    TMR2_StartTimer();
+    
+    /*while(1)
+    {
+    }*/
+    
+    GPS_Initialize();
 
     while (1)
     {
-          UART_read_NMEA(); // read/check one NMEA sentence
+          GPS_read_speed(); // read/check one NMEA sentence
           // check if last VTG data is old (> how many sec?)
           // if so, we may have lost the fix => PWM to zero?
     }

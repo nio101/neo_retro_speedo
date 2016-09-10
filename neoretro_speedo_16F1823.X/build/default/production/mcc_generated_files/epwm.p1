@@ -2400,9 +2400,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;epwm.c: 74: PWM1CON = 0x80;
 "74
 [e = _PWM1CON -> -> 128 `i `uc ]
-[; ;epwm.c: 77: PSTR1CON = 0x00;
+[; ;epwm.c: 77: PSTR1CON = 0x04;
 "77
-[e = _PSTR1CON -> -> 0 `i `uc ]
+[e = _PSTR1CON -> -> 4 `i `uc ]
 [; ;epwm.c: 80: CCPR1L = 0x7F;
 "80
 [e = _CCPR1L -> -> 127 `i `uc ]

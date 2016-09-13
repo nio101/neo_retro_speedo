@@ -1,15 +1,18 @@
 Version 3.2 HI-TECH Software Intermediate Code
+[v F2491 `(v ~T0 @X0 0 tf ]
 "137 mcc_generated_files/pin_manager.h
 [v _PIN_MANAGER_Initialize `(v ~T0 @X0 0 ef ]
-"84 mcc_generated_files/mcc.h
+"85 mcc_generated_files/mcc.h
 [v _OSCILLATOR_Initialize `(v ~T0 @X0 0 ef ]
 "95 mcc_generated_files/epwm.h
 [v _EPWM_Initialize `(v ~T0 @X0 0 ef ]
 "102 mcc_generated_files/tmr2.h
 [v _TMR2_Initialize `(v ~T0 @X0 0 ef ]
+"103 mcc_generated_files/tmr0.h
+[v _TMR0_Initialize `(v ~T0 @X0 0 ef ]
 "106 mcc_generated_files/eusart.h
 [v _EUSART_Initialize `(v ~T0 @X0 0 ef ]
-"1911 D:\Program Files\Microchip\xc8\v1.38\include\pic16f1823.h
+"1911 /opt/microchip/xc8/v1.38/include/pic16f1823.h
 [v _OSCCON `Vuc ~T0 @X0 0 e@153 ]
 "1982
 [v _OSCSTAT `Vuc ~T0 @X0 0 e@154 ]
@@ -51,7 +54,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
 [; ;pic16f1823.h: 49: extern volatile unsigned char INDF0 @ 0x000;
-"51 D:\Program Files\Microchip\xc8\v1.38\include\pic16f1823.h
+"51 /opt/microchip/xc8/v1.38/include/pic16f1823.h
 [; ;pic16f1823.h: 51: asm("INDF0 equ 00h");
 [; <" INDF0 equ 00h ;# ">
 [; ;pic16f1823.h: 54: typedef union {
@@ -2420,6 +2423,17 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;stdint.h: 215: typedef uint16_t uintptr_t;
 [; ;stdbool.h: 12: typedef unsigned char bool;
 [; ;interrupt_manager.h: 110: void interrupt INTERRUPT_InterruptManager(void);
+[; ;tmr0.h: 103: void TMR0_Initialize(void);
+[; ;tmr0.h: 136: uint8_t TMR0_ReadTimer(void);
+[; ;tmr0.h: 175: void TMR0_WriteTimer(uint8_t timerVal);
+[; ;tmr0.h: 211: void TMR0_Reload(void);
+[; ;tmr0.h: 226: void TMR0_ISR(void);
+[; ;tmr0.h: 244: void TMR0_CallBack(void);
+[; ;tmr0.h: 262: void TMR0_SetInterruptHandler(void *InterruptHandler);
+"280 mcc_generated_files/tmr0.h
+[v _TMR0_InterruptHandler `*F2491 ~T0 @X0 1 e ]
+[; ;tmr0.h: 280: void (*TMR0_InterruptHandler)(void);
+[; ;tmr0.h: 298: void TMR0_DefaultInterruptHandler(void);
 [; ;__size_t.h: 4: typedef unsigned size_t;
 [; ;stdarg.h: 7: typedef void * va_list[1];
 [; ;stdarg.h: 10: extern void * __va_start(void);
@@ -2472,8 +2486,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;tmr2.h: 237: void TMR2_WriteTimer(uint8_t timerVal);
 [; ;tmr2.h: 289: void TMR2_LoadPeriodRegister(uint8_t periodVal);
 [; ;tmr2.h: 324: bool TMR2_HasOverflowOccured(void);
-[; ;mcc.h: 71: void SYSTEM_Initialize(void);
-[; ;mcc.h: 84: void OSCILLATOR_Initialize(void);
+[; ;mcc.h: 72: void SYSTEM_Initialize(void);
+[; ;mcc.h: 85: void OSCILLATOR_Initialize(void);
 "69 mcc_generated_files/mcc.c
 [v _SYSTEM_Initialize `(v ~T0 @X0 1 ef ]
 "70
@@ -2494,45 +2508,48 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;mcc.c: 75: TMR2_Initialize();
 "75
 [e ( _TMR2_Initialize ..  ]
-[; ;mcc.c: 76: EUSART_Initialize();
+[; ;mcc.c: 76: TMR0_Initialize();
 "76
-[e ( _EUSART_Initialize ..  ]
-[; ;mcc.c: 77: }
+[e ( _TMR0_Initialize ..  ]
+[; ;mcc.c: 77: EUSART_Initialize();
 "77
+[e ( _EUSART_Initialize ..  ]
+[; ;mcc.c: 78: }
+"78
 [e :UE 294 ]
 }
-"79
-[v _OSCILLATOR_Initialize `(v ~T0 @X0 1 ef ]
 "80
+[v _OSCILLATOR_Initialize `(v ~T0 @X0 1 ef ]
+"81
 {
-[; ;mcc.c: 79: void OSCILLATOR_Initialize(void)
-[; ;mcc.c: 80: {
+[; ;mcc.c: 80: void OSCILLATOR_Initialize(void)
+[; ;mcc.c: 81: {
 [e :U _OSCILLATOR_Initialize ]
 [f ]
-[; ;mcc.c: 82: OSCCON = 0x70;
-"82
+[; ;mcc.c: 83: OSCCON = 0x70;
+"83
 [e = _OSCCON -> -> 112 `i `uc ]
-[; ;mcc.c: 84: OSCSTAT = 0x00;
-"84
+[; ;mcc.c: 85: OSCSTAT = 0x00;
+"85
 [e = _OSCSTAT -> -> 0 `i `uc ]
-[; ;mcc.c: 86: OSCTUNE = 0x00;
-"86
+[; ;mcc.c: 87: OSCTUNE = 0x00;
+"87
 [e = _OSCTUNE -> -> 0 `i `uc ]
-[; ;mcc.c: 90: while(PLLR == 0)
-"90
+[; ;mcc.c: 91: while(PLLR == 0)
+"91
 [e $U 296  ]
 [e :U 297 ]
-[; ;mcc.c: 91: {
-"91
-{
+[; ;mcc.c: 92: {
 "92
+{
+"93
 }
 [e :U 296 ]
-"90
+"91
 [e $ == -> _PLLR `i -> 0 `i 297  ]
 [e :U 298 ]
-[; ;mcc.c: 92: }
 [; ;mcc.c: 93: }
-"93
+[; ;mcc.c: 94: }
+"94
 [e :UE 295 ]
 }

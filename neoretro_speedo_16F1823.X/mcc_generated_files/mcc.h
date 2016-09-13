@@ -50,6 +50,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "interrupt_manager.h"
+#include "tmr0.h"
 #include "eusart.h"
 #include "memory.h"
 #include "epwm.h"

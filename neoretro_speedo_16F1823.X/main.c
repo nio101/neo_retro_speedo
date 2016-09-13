@@ -44,10 +44,16 @@
 */
 
 #include "mcc_generated_files/mcc.h"
-
+#include "interact.h"
 /*
  * Helpers
  */
+
+void my10msTimerISR(void);  // custom function called every 10ms,
+                            // used for LED blinking and push button debounce
+
+unsigned char volatile LED_counter=0;
+LED_state_t LED_state;
 
 #define __delay_sec(x) for(unsigned char tmp=0;tmp<(10*x);tmp++){__delay_ms(100);}
 
@@ -101,6 +107,7 @@ void main(void)
 {
     // initialize the device
     SYSTEM_Initialize();
+    TMR0_SetInterruptHandler(my10msTimerISR);
     
     // When using interrupts, you need to set the Global and Peripheral Interrupt Enable bits
     // Use the following macros to:
@@ -159,6 +166,19 @@ void main(void)
     // et la passer à zero si pas de trame récente (pour éviter de rester
     // scotché en cas de perte de fix)
     
+    // Test DA LED output! :)
+    LED_set_state(always_on);
+    __delay_sec(5);
+    LED_set_state(always_off);
+    __delay_sec(5);
+    LED_set_state(slow_blinking);
+    __delay_sec(5);
+    LED_set_state(fast_blinking);
+    __delay_sec(5);
+    
+    while(1)
+    {}
+    
     // test PWM now!
     
     //uint16_t motor_load = 128; // == 0-1024 for 0-100% motor load
@@ -170,7 +190,7 @@ void main(void)
     GPS_Initialize();
     bool up = true;
     
-    // test loop
+    // test loop, slowly from 0 to --- and back to 0
     /*
     while (1)
     {
@@ -186,12 +206,11 @@ void main(void)
         EPWM_LoadDutyValue(1023-motor_load);
     }*/
     
-    // good stuff
+    // simulate use with impulse+threshold under 10MPH value
     
-    // impulsion pour décoller!
-    EPWM_LoadDutyValue(0);
+    EPWM_LoadDutyValue(0);  // impulse to start
     __delay_ms(10);
-    EPWM_LoadDutyValue(1023-148);
+    EPWM_LoadDutyValue(1023-148);   // 10MPH
     __delay_sec(5);
     while (1)
     {
@@ -233,6 +252,12 @@ void main(void)
         __delay_sec(1);
     }*/
 }
+
+void my10msTimerISR(void)
+{
+    LED_update_loop();
+}
+
 /**
  End of File
 */

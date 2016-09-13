@@ -1,39 +1,19 @@
 Version 3.2 HI-TECH Software Intermediate Code
-"1565 D:\Program Files\Microchip\xc8\v1.38\include\pic16f1823.h
-[s S82 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S82 . TMR1IE TMR2IE CCP1IE SSP1IE TXIE RCIE ADIE TMR1GIE ]
-"1564
-[u S81 `S82 1 ]
-[n S81 . . ]
-"1576
-[v _PIE1bits `VS81 ~T0 @X0 0 e@145 ]
-"3589
-[v _BAUDCON `Vuc ~T0 @X0 0 e@415 ]
-"3467
-[v _RCSTA `Vuc ~T0 @X0 0 e@413 ]
-"3528
-[v _TXSTA `Vuc ~T0 @X0 0 e@414 ]
-"3386
-[v _SPBRGL `Vuc ~T0 @X0 0 e@411 ]
-"3435
-[v _SPBRGH `Vuc ~T0 @X0 0 e@412 ]
-"3473
-[s S186 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S186 . RX9D OERR FERR ADDEN CREN SREN RX9 SPEN ]
-"3472
-[u S185 `S186 1 ]
-[n S185 . . ]
-"3484
-[v _RCSTAbits `VS185 ~T0 @X0 0 e@413 ]
-"3352
-[v _TXREG `Vuc ~T0 @X0 0 e@410 ]
-"3333
-[v _RCREG `Vuc ~T0 @X0 0 e@409 ]
+[v F2491 `(v ~T0 @X0 0 tf ]
+"5 interact.c
+[c E2612 0 1 2 3 .. ]
+[n E2612 . always_on always_off slow_blinking fast_blinking  ]
+"5928 /opt/microchip/xc8/v1.38/include/pic16f1823.h
+[v _LATA5 `Vb ~T0 @X0 0 e@2149 ]
+"14 interact.h
+[v _LED_counter `Vuc ~T0 @X0 0 e ]
+"13
+[v _LED_state `E2612 ~T0 @X0 0 e ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
 [; ;pic16f1823.h: 49: extern volatile unsigned char INDF0 @ 0x000;
-"51 D:\Program Files\Microchip\xc8\v1.38\include\pic16f1823.h
+"51 /opt/microchip/xc8/v1.38/include/pic16f1823.h
 [; ;pic16f1823.h: 51: asm("INDF0 equ 00h");
 [; <" INDF0 equ 00h ;# ">
 [; ;pic16f1823.h: 54: typedef union {
@@ -2371,7 +2351,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic.h: 186: extern unsigned char __resetbits;
 [; ;pic.h: 187: extern __bit __powerdown;
 [; ;pic.h: 188: extern __bit __timeout;
-[; ;stdbool.h: 12: typedef unsigned char bool;
+[; ;pin_manager.h: 137: void PIN_MANAGER_Initialize (void);
 [; ;stdint.h: 13: typedef signed char int8_t;
 [; ;stdint.h: 20: typedef signed int int16_t;
 [; ;stdint.h: 28: typedef signed short long int int24_t;
@@ -2400,6 +2380,19 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;stdint.h: 205: typedef uint32_t uintmax_t;
 [; ;stdint.h: 210: typedef int16_t intptr_t;
 [; ;stdint.h: 215: typedef uint16_t uintptr_t;
+[; ;stdbool.h: 12: typedef unsigned char bool;
+[; ;interrupt_manager.h: 110: void interrupt INTERRUPT_InterruptManager(void);
+[; ;tmr0.h: 103: void TMR0_Initialize(void);
+[; ;tmr0.h: 136: uint8_t TMR0_ReadTimer(void);
+[; ;tmr0.h: 175: void TMR0_WriteTimer(uint8_t timerVal);
+[; ;tmr0.h: 211: void TMR0_Reload(void);
+[; ;tmr0.h: 226: void TMR0_ISR(void);
+[; ;tmr0.h: 244: void TMR0_CallBack(void);
+[; ;tmr0.h: 262: void TMR0_SetInterruptHandler(void *InterruptHandler);
+"280 mcc_generated_files/tmr0.h
+[v _TMR0_InterruptHandler `*F2491 ~T0 @X0 1 e ]
+[; ;tmr0.h: 280: void (*TMR0_InterruptHandler)(void);
+[; ;tmr0.h: 298: void TMR0_DefaultInterruptHandler(void);
 [; ;__size_t.h: 4: typedef unsigned size_t;
 [; ;stdarg.h: 7: typedef void * va_list[1];
 [; ;stdarg.h: 10: extern void * __va_start(void);
@@ -2437,367 +2430,171 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;eusart.h: 180: void EUSART_Write(uint8_t txData);
 [; ;eusart.h: 201: void EUSART_Transmit_ISR(void);
 [; ;eusart.h: 222: void EUSART_Receive_ISR(void);
-"61 mcc_generated_files/eusart.c
-[v _eusartTxHead `uc ~T0 @X0 1 s ]
-[i _eusartTxHead
--> -> 0 `i `uc
-]
-[; ;eusart.c: 61: static uint8_t eusartTxHead = 0;
-"62
-[v _eusartTxTail `uc ~T0 @X0 1 s ]
-[i _eusartTxTail
--> -> 0 `i `uc
-]
-[; ;eusart.c: 62: static uint8_t eusartTxTail = 0;
-"63
-[v _eusartTxBuffer `uc ~T0 @X0 -> 8 `i s ]
-[; ;eusart.c: 63: static uint8_t eusartTxBuffer[8];
-"64
-[v _eusartTxBufferRemaining `Vuc ~T0 @X0 1 e ]
-[; ;eusart.c: 64: volatile uint8_t eusartTxBufferRemaining;
-"66
-[v _eusartRxHead `uc ~T0 @X0 1 s ]
-[i _eusartRxHead
--> -> 0 `i `uc
-]
-[; ;eusart.c: 66: static uint8_t eusartRxHead = 0;
-"67
-[v _eusartRxTail `uc ~T0 @X0 1 s ]
-[i _eusartRxTail
--> -> 0 `i `uc
-]
-[; ;eusart.c: 67: static uint8_t eusartRxTail = 0;
-"68
-[v _eusartRxBuffer `uc ~T0 @X0 -> 8 `i s ]
-[; ;eusart.c: 68: static uint8_t eusartRxBuffer[8];
-"69
-[v _eusartRxCount `Vuc ~T0 @X0 1 e ]
-[; ;eusart.c: 69: volatile uint8_t eusartRxCount;
-"75
-[v _EUSART_Initialize `(v ~T0 @X0 1 ef ]
-"76
+[; ;memory.h: 98: uint16_t FLASH_ReadWord(uint16_t flashAddr);
+[; ;memory.h: 127: void FLASH_WriteWord(uint16_t flashAddr, uint16_t *ramBuf, uint16_t word);
+[; ;memory.h: 163: int8_t FLASH_WriteBlock(uint16_t writeAddr, uint16_t *flashWordArray);
+[; ;memory.h: 188: void FLASH_EraseBlock(uint16_t startAddr);
+[; ;memory.h: 219: void DATAEE_WriteByte(uint8_t bAdd, uint8_t bData);
+[; ;memory.h: 245: uint8_t DATAEE_ReadByte(uint8_t bAdd);
+[; ;epwm.h: 95: void EPWM_Initialize(void);
+[; ;epwm.h: 121: void EPWM_LoadDutyValue(uint16_t dutyValue);
+[; ;tmr2.h: 102: void TMR2_Initialize(void);
+[; ;tmr2.h: 131: void TMR2_StartTimer(void);
+[; ;tmr2.h: 163: void TMR2_StopTimer(void);
+[; ;tmr2.h: 198: uint8_t TMR2_ReadTimer(void);
+[; ;tmr2.h: 237: void TMR2_WriteTimer(uint8_t timerVal);
+[; ;tmr2.h: 289: void TMR2_LoadPeriodRegister(uint8_t periodVal);
+[; ;tmr2.h: 324: bool TMR2_HasOverflowOccured(void);
+[; ;mcc.h: 72: void SYSTEM_Initialize(void);
+[; ;mcc.h: 85: void OSCILLATOR_Initialize(void);
+[; ;interact.h: 4: typedef enum {
+[; ;interact.h: 5: unknown, short_push, long_push
+[; ;interact.h: 6: } confirmed_state_t;
+[; ;interact.h: 9: typedef enum {
+[; ;interact.h: 10: always_on, always_off, slow_blinking, fast_blinking
+[; ;interact.h: 11: } LED_state_t;
+[; ;interact.h: 13: extern LED_state_t LED_state;
+[; ;interact.h: 14: extern unsigned char volatile LED_counter;
+[; ;interact.h: 19: void LED_set_state(LED_state_t new_state);
+[; ;interact.h: 20: void LED_update_loop();
+"4 interact.c
+[v _LED_set_state `(v ~T0 @X0 1 ef1`E2612 ]
+"5
 {
-[; ;eusart.c: 75: void EUSART_Initialize(void)
-[; ;eusart.c: 76: {
-[e :U _EUSART_Initialize ]
+[; ;interact.c: 4: void LED_set_state(LED_state_t new_state)
+[; ;interact.c: 5: {
+[e :U _LED_set_state ]
+"4
+[v _new_state `E2612 ~T0 @X0 1 r1 ]
+"5
 [f ]
-[; ;eusart.c: 78: PIE1bits.RCIE = 0;
-"78
-[e = . . _PIE1bits 0 5 -> -> 0 `i `uc ]
-[; ;eusart.c: 79: PIE1bits.TXIE = 0;
-"79
-[e = . . _PIE1bits 0 4 -> -> 0 `i `uc ]
-[; ;eusart.c: 84: BAUDCON = 0x08;
-"84
-[e = _BAUDCON -> -> 8 `i `uc ]
-[; ;eusart.c: 87: RCSTA = 0x90;
-"87
-[e = _RCSTA -> -> 144 `i `uc ]
-[; ;eusart.c: 90: TXSTA = 0x24;
-"90
-[e = _TXSTA -> -> 36 `i `uc ]
-[; ;eusart.c: 93: SPBRGL = 0x40;
-"93
-[e = _SPBRGL -> -> 64 `i `uc ]
-[; ;eusart.c: 96: SPBRGH = 0x03;
-"96
-[e = _SPBRGH -> -> 3 `i `uc ]
-[; ;eusart.c: 100: eusartTxHead = 0;
-"100
-[e = _eusartTxHead -> -> 0 `i `uc ]
-[; ;eusart.c: 101: eusartTxTail = 0;
-"101
-[e = _eusartTxTail -> -> 0 `i `uc ]
-[; ;eusart.c: 102: eusartTxBufferRemaining = sizeof(eusartTxBuffer);
-"102
-[e = _eusartTxBufferRemaining -> -> # _eusartTxBuffer `ui `uc ]
-[; ;eusart.c: 104: eusartRxHead = 0;
-"104
-[e = _eusartRxHead -> -> 0 `i `uc ]
-[; ;eusart.c: 105: eusartRxTail = 0;
-"105
-[e = _eusartRxTail -> -> 0 `i `uc ]
-[; ;eusart.c: 106: eusartRxCount = 0;
-"106
-[e = _eusartRxCount -> -> 0 `i `uc ]
-[; ;eusart.c: 109: PIE1bits.RCIE = 1;
-"109
-[e = . . _PIE1bits 0 5 -> -> 1 `i `uc ]
-[; ;eusart.c: 110: }
-"110
-[e :UE 294 ]
-}
-"112
-[v _EUSART_Read `(uc ~T0 @X0 1 ef ]
-"113
-{
-[; ;eusart.c: 112: uint8_t EUSART_Read(void)
-[; ;eusart.c: 113: {
-[e :U _EUSART_Read ]
-[f ]
-"114
-[v _readValue `uc ~T0 @X0 1 a ]
-[; ;eusart.c: 114: uint8_t readValue = 0;
-[e = _readValue -> -> 0 `i `uc ]
-[; ;eusart.c: 117: RCSTAbits.SREN = 1;
-"117
-[e = . . _RCSTAbits 0 5 -> -> 1 `i `uc ]
-[; ;eusart.c: 119: while(0 == eusartRxCount)
-"119
-[e $U 296  ]
-[e :U 297 ]
-[; ;eusart.c: 120: {
-"120
-{
-"121
-}
-[e :U 296 ]
-"119
-[e $ == -> 0 `i -> _eusartRxCount `i 297  ]
+[; ;interact.c: 6: if (new_state == always_off)
+"6
+[e $ ! == -> _new_state `i -> . `E2612 1 `i 295  ]
+[; ;interact.c: 7: do { LATA5 = 0; } while(0);
+"7
 [e :U 298 ]
-[; ;eusart.c: 121: }
-[; ;eusart.c: 123: PIE1bits.RCIE = 0;
-"123
-[e = . . _PIE1bits 0 5 -> -> 0 `i `uc ]
-[; ;eusart.c: 125: readValue = eusartRxBuffer[eusartRxTail++];
-"125
-[e = _readValue *U + &U _eusartRxBuffer * -> ++ _eusartRxTail -> -> 1 `i `uc `ux -> -> # *U &U _eusartRxBuffer `ui `ux ]
-[; ;eusart.c: 126: if(sizeof(eusartRxBuffer) <= eusartRxTail)
-"126
-[e $ ! <= -> # _eusartRxBuffer `ui -> _eusartRxTail `ui 299  ]
-[; ;eusart.c: 127: {
-"127
 {
-[; ;eusart.c: 128: eusartRxTail = 0;
-"128
-[e = _eusartRxTail -> -> 0 `i `uc ]
-"129
+[e = _LATA5 -> -> 0 `i `b ]
 }
-[e :U 299 ]
-[; ;eusart.c: 129: }
-[; ;eusart.c: 130: eusartRxCount--;
-"130
-[e -- _eusartRxCount -> -> 1 `i `uc ]
-[; ;eusart.c: 131: PIE1bits.RCIE = 1;
-"131
-[e = . . _PIE1bits 0 5 -> -> 1 `i `uc ]
-[; ;eusart.c: 133: return readValue;
-"133
-[e ) _readValue ]
-[e $UE 295  ]
-[; ;eusart.c: 134: }
-"134
-[e :UE 295 ]
-}
-"136
-[v _EUSART_Write `(v ~T0 @X0 1 ef1`uc ]
-"137
-{
-[; ;eusart.c: 136: void EUSART_Write(uint8_t txData)
-[; ;eusart.c: 137: {
-[e :U _EUSART_Write ]
-"136
-[v _txData `uc ~T0 @X0 1 r1 ]
-"137
-[f ]
-[; ;eusart.c: 138: while(0 == eusartTxBufferRemaining)
-"138
-[e $U 301  ]
-[e :U 302 ]
-[; ;eusart.c: 139: {
-"139
-{
-"140
-}
-[e :U 301 ]
-"138
-[e $ == -> 0 `i -> _eusartTxBufferRemaining `i 302  ]
+[e :U 297 ]
+[e $U 299  ]
+"8
+[e :U 295 ]
+[; ;interact.c: 8: else if (new_state == always_on)
+[e $ ! == -> _new_state `i -> . `E2612 0 `i 300  ]
+[; ;interact.c: 9: do { LATA5 = 1; } while(0);
+"9
 [e :U 303 ]
-[; ;eusart.c: 140: }
-[; ;eusart.c: 142: if(0 == PIE1bits.TXIE)
-"142
-[e $ ! == -> 0 `i -> . . _PIE1bits 0 4 `i 304  ]
-[; ;eusart.c: 143: {
-"143
 {
-[; ;eusart.c: 144: TXREG = txData;
-"144
-[e = _TXREG _txData ]
-"145
+[e = _LATA5 -> -> 1 `i `b ]
 }
-[; ;eusart.c: 145: }
-[e $U 305  ]
-"146
-[e :U 304 ]
-[; ;eusart.c: 146: else
-[; ;eusart.c: 147: {
-"147
+[e :U 302 ]
+[e $U 304  ]
+"10
+[e :U 300 ]
+[; ;interact.c: 10: else if ((new_state == slow_blinking)||(new_state == fast_blinking))
+[e $ ! || == -> _new_state `i -> . `E2612 2 `i == -> _new_state `i -> . `E2612 3 `i 305  ]
+[; ;interact.c: 11: {
+"11
 {
-[; ;eusart.c: 148: PIE1bits.TXIE = 0;
-"148
-[e = . . _PIE1bits 0 4 -> -> 0 `i `uc ]
-[; ;eusart.c: 149: eusartTxBuffer[eusartTxHead++] = txData;
-"149
-[e = *U + &U _eusartTxBuffer * -> ++ _eusartTxHead -> -> 1 `i `uc `ux -> -> # *U &U _eusartTxBuffer `ui `ux _txData ]
-[; ;eusart.c: 150: if(sizeof(eusartTxBuffer) <= eusartTxHead)
-"150
-[e $ ! <= -> # _eusartTxBuffer `ui -> _eusartTxHead `ui 306  ]
-[; ;eusart.c: 151: {
-"151
+[; ;interact.c: 12: do { LATA5 = 1; } while(0);
+"12
+[e :U 308 ]
 {
-[; ;eusart.c: 152: eusartTxHead = 0;
-"152
-[e = _eusartTxHead -> -> 0 `i `uc ]
-"153
+[e = _LATA5 -> -> 1 `i `b ]
 }
-[e :U 306 ]
-[; ;eusart.c: 153: }
-[; ;eusart.c: 154: eusartTxBufferRemaining--;
-"154
-[e -- _eusartTxBufferRemaining -> -> 1 `i `uc ]
-"155
+[e :U 307 ]
+[; ;interact.c: 13: LED_counter = 0;
+"13
+[e = _LED_counter -> -> 0 `i `uc ]
+"14
 }
 [e :U 305 ]
-[; ;eusart.c: 155: }
-[; ;eusart.c: 156: PIE1bits.TXIE = 1;
-"156
-[e = . . _PIE1bits 0 4 -> -> 1 `i `uc ]
-[; ;eusart.c: 157: }
-"157
-[e :UE 300 ]
+"15
+[e :U 304 ]
+[e :U 299 ]
+[; ;interact.c: 14: }
+[; ;interact.c: 15: }
+[e :UE 294 ]
 }
-"159
-[v _getch `(uc ~T0 @X0 1 ef ]
-"160
+"17
+[v _LED_update_loop `(v ~T0 @X0 1 ef ]
+"18
 {
-[; ;eusart.c: 159: char getch(void)
-[; ;eusart.c: 160: {
-[e :U _getch ]
+[; ;interact.c: 17: void LED_update_loop()
+[; ;interact.c: 18: {
+[e :U _LED_update_loop ]
 [f ]
-[; ;eusart.c: 161: return EUSART_Read();
-"161
-[e ) ( _EUSART_Read ..  ]
-[e $UE 307  ]
-[; ;eusart.c: 162: }
-"162
-[e :UE 307 ]
+[; ;interact.c: 19: if (LED_state == slow_blinking)
+"19
+[e $ ! == -> _LED_state `i -> . `E2612 2 `i 310  ]
+[; ;interact.c: 20: {
+"20
+{
+[; ;interact.c: 21: LED_counter++;
+"21
+[e ++ _LED_counter -> -> 1 `i `uc ]
+[; ;interact.c: 22: if (LED_counter >= 100)
+"22
+[e $ ! >= -> _LED_counter `i -> 100 `i 311  ]
+[; ;interact.c: 23: {
+"23
+{
+[; ;interact.c: 24: LED_counter = 0;
+"24
+[e = _LED_counter -> -> 0 `i `uc ]
+[; ;interact.c: 25: do { LATA5 = ~LATA5; } while(0);
+"25
+[e :U 314 ]
+{
+[e = _LATA5 -> ~ -> _LATA5 `ui `b ]
 }
-"164
-[v _putch `(v ~T0 @X0 1 ef1`uc ]
-"165
-{
-[; ;eusart.c: 164: void putch(char txData)
-[; ;eusart.c: 165: {
-[e :U _putch ]
-"164
-[v _txData `uc ~T0 @X0 1 r1 ]
-"165
-[f ]
-[; ;eusart.c: 166: EUSART_Write(txData);
-"166
-[e ( _EUSART_Write (1 _txData ]
-[; ;eusart.c: 167: }
-"167
-[e :UE 308 ]
-}
-"169
-[v _EUSART_Transmit_ISR `(v ~T0 @X0 1 ef ]
-"170
-{
-[; ;eusart.c: 169: void EUSART_Transmit_ISR(void)
-[; ;eusart.c: 170: {
-[e :U _EUSART_Transmit_ISR ]
-[f ]
-[; ;eusart.c: 173: if(sizeof(eusartTxBuffer) > eusartTxBufferRemaining)
-"173
-[e $ ! > -> # _eusartTxBuffer `ui -> _eusartTxBufferRemaining `ui 310  ]
-[; ;eusart.c: 174: {
-"174
-{
-[; ;eusart.c: 175: TXREG = eusartTxBuffer[eusartTxTail++];
-"175
-[e = _TXREG *U + &U _eusartTxBuffer * -> ++ _eusartTxTail -> -> 1 `i `uc `ux -> -> # *U &U _eusartTxBuffer `ui `ux ]
-[; ;eusart.c: 176: if(sizeof(eusartTxBuffer) <= eusartTxTail)
-"176
-[e $ ! <= -> # _eusartTxBuffer `ui -> _eusartTxTail `ui 311  ]
-[; ;eusart.c: 177: {
-"177
-{
-[; ;eusart.c: 178: eusartTxTail = 0;
-"178
-[e = _eusartTxTail -> -> 0 `i `uc ]
-"179
+[e :U 313 ]
+"26
 }
 [e :U 311 ]
-[; ;eusart.c: 179: }
-[; ;eusart.c: 180: eusartTxBufferRemaining++;
-"180
-[e ++ _eusartTxBufferRemaining -> -> 1 `i `uc ]
-"181
+"27
 }
-[; ;eusart.c: 181: }
-[e $U 312  ]
-"182
+[; ;interact.c: 26: }
+[; ;interact.c: 27: }
+[e $U 315  ]
+"28
 [e :U 310 ]
-[; ;eusart.c: 182: else
-[; ;eusart.c: 183: {
-"183
+[; ;interact.c: 28: else if (LED_state == fast_blinking)
+[e $ ! == -> _LED_state `i -> . `E2612 3 `i 316  ]
+[; ;interact.c: 29: {
+"29
 {
-[; ;eusart.c: 184: PIE1bits.TXIE = 0;
-"184
-[e = . . _PIE1bits 0 4 -> -> 0 `i `uc ]
-"185
-}
-[e :U 312 ]
-[; ;eusart.c: 185: }
-[; ;eusart.c: 186: }
-"186
-[e :UE 309 ]
-}
-"188
-[v _EUSART_Receive_ISR `(v ~T0 @X0 1 ef ]
-"189
+[; ;interact.c: 30: LED_counter++;
+"30
+[e ++ _LED_counter -> -> 1 `i `uc ]
+[; ;interact.c: 31: if (LED_counter >= 50)
+"31
+[e $ ! >= -> _LED_counter `i -> 50 `i 317  ]
+[; ;interact.c: 32: {
+"32
 {
-[; ;eusart.c: 188: void EUSART_Receive_ISR(void)
-[; ;eusart.c: 189: {
-[e :U _EUSART_Receive_ISR ]
-[f ]
-[; ;eusart.c: 191: if(1 == RCSTAbits.OERR)
-"191
-[e $ ! == -> 1 `i -> . . _RCSTAbits 0 1 `i 314  ]
-[; ;eusart.c: 192: {
-"192
+[; ;interact.c: 33: LED_counter = 0;
+"33
+[e = _LED_counter -> -> 0 `i `uc ]
+[; ;interact.c: 34: do { LATA5 = ~LATA5; } while(0);
+"34
+[e :U 320 ]
 {
-[; ;eusart.c: 195: RCSTAbits.SPEN = 0;
-"195
-[e = . . _RCSTAbits 0 7 -> -> 0 `i `uc ]
-[; ;eusart.c: 196: RCSTAbits.SPEN = 1;
-"196
-[e = . . _RCSTAbits 0 7 -> -> 1 `i `uc ]
-"197
+[e = _LATA5 -> ~ -> _LATA5 `ui `b ]
 }
-[e :U 314 ]
-[; ;eusart.c: 197: }
-[; ;eusart.c: 200: eusartRxBuffer[eusartRxHead++] = RCREG;
-"200
-[e = *U + &U _eusartRxBuffer * -> ++ _eusartRxHead -> -> 1 `i `uc `ux -> -> # *U &U _eusartRxBuffer `ui `ux _RCREG ]
-[; ;eusart.c: 201: if(sizeof(eusartRxBuffer) <= eusartRxHead)
-"201
-[e $ ! <= -> # _eusartRxBuffer `ui -> _eusartRxHead `ui 315  ]
-[; ;eusart.c: 202: {
-"202
-{
-[; ;eusart.c: 203: eusartRxHead = 0;
-"203
-[e = _eusartRxHead -> -> 0 `i `uc ]
-"204
+[e :U 319 ]
+"35
 }
+[e :U 317 ]
+"36
+}
+[e :U 316 ]
+"37
 [e :U 315 ]
-[; ;eusart.c: 204: }
-[; ;eusart.c: 205: eusartRxCount++;
-"205
-[e ++ _eusartRxCount -> -> 1 `i `uc ]
-[; ;eusart.c: 206: }
-"206
-[e :UE 313 ]
+[; ;interact.c: 35: }
+[; ;interact.c: 36: }
+[; ;interact.c: 37: }
+[e :UE 309 ]
 }

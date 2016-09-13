@@ -1,5 +1,5 @@
 
-# 1 "mcc_generated_files/tmr2.c"
+# 1 "mcc_generated_files/eusart.c"
 
 # 26 "D:\Program Files\Microchip\xc8\v1.38\include\htc.h"
 extern const char __xc8_OPTIM_SPEED;
@@ -3183,6 +3183,9 @@ extern unsigned char __resetbits;
 extern __bit __powerdown;
 extern __bit __timeout;
 
+# 12 "D:\Program Files\Microchip\xc8\v1.38\include\stdbool.h"
+typedef unsigned char bool;
+
 # 13 "D:\Program Files\Microchip\xc8\v1.38\include\stdint.h"
 typedef signed char int8_t;
 
@@ -3273,92 +3276,230 @@ typedef int16_t intptr_t;
 
 typedef uint16_t uintptr_t;
 
-# 12 "D:\Program Files\Microchip\xc8\v1.38\include\stdbool.h"
-typedef unsigned char bool;
+# 4 "D:\Program Files\Microchip\xc8\v1.38\include\__size_t.h"
+typedef unsigned size_t;
 
-# 102 "mcc_generated_files/tmr2.h"
-void TMR2_Initialize(void);
+# 7 "D:\Program Files\Microchip\xc8\v1.38\include\stdarg.h"
+typedef void * va_list[1];
 
-# 131
-void TMR2_StartTimer(void);
+#pragma intrinsic(__va_start)
+extern void * __va_start(void);
 
-# 163
-void TMR2_StopTimer(void);
+#pragma intrinsic(__va_arg)
+extern void * __va_arg(void *, ...);
 
-# 198
-uint8_t TMR2_ReadTimer(void);
+# 43 "D:\Program Files\Microchip\xc8\v1.38\include\stdio.h"
+struct __prbuf
+{
+char * ptr;
+void (* func)(char);
+};
 
-# 237
-void TMR2_WriteTimer(uint8_t timerVal);
+# 29 "D:\Program Files\Microchip\xc8\v1.38\include\errno.h"
+extern int errno;
 
-# 289
-void TMR2_LoadPeriodRegister(uint8_t periodVal);
+# 12 "D:\Program Files\Microchip\xc8\v1.38\include\conio.h"
+extern void init_uart(void);
 
-# 324
-bool TMR2_HasOverflowOccured(void);
+extern char getch(void);
+extern char getche(void);
+extern void putch(char);
+extern void ungetch(char);
 
-# 57 "mcc_generated_files/tmr2.c"
-void TMR2_Initialize(void)
+extern __bit kbhit(void);
+
+# 23
+extern char * cgets(char *);
+extern void cputs(const char *);
+
+# 88 "D:\Program Files\Microchip\xc8\v1.38\include\stdio.h"
+extern int cprintf(char *, ...);
+#pragma printf_check(cprintf)
+
+
+
+extern int _doprnt(struct __prbuf *, const register char *, register va_list);
+
+
+# 180
+#pragma printf_check(vprintf) const
+#pragma printf_check(vsprintf) const
+
+extern char * gets(char *);
+extern int puts(const char *);
+extern int scanf(const char *, ...) __attribute__((unsupported("scanf() is not supported by this compiler")));
+extern int sscanf(const char *, const char *, ...) __attribute__((unsupported("sscanf() is not supported by this compiler")));
+extern int vprintf(const char *, va_list) __attribute__((unsupported("vprintf() is not supported by this compiler")));
+extern int vsprintf(char *, const char *, va_list) __attribute__((unsupported("vsprintf() is not supported by this compiler")));
+extern int vscanf(const char *, va_list ap) __attribute__((unsupported("vscanf() is not supported by this compiler")));
+extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupported("vsscanf() is not supported by this compiler")));
+
+#pragma printf_check(printf) const
+#pragma printf_check(sprintf) const
+extern int sprintf(char *, const char *, ...);
+extern int printf(const char *, ...);
+
+# 77 "mcc_generated_files/eusart.h"
+extern volatile uint8_t eusartTxBufferRemaining;
+extern volatile uint8_t eusartRxCount;
+
+# 106
+void EUSART_Initialize(void);
+
+# 155
+uint8_t EUSART_Read(void);
+
+# 180
+void EUSART_Write(uint8_t txData);
+
+# 201
+void EUSART_Transmit_ISR(void);
+
+# 222
+void EUSART_Receive_ISR(void);
+
+# 61 "mcc_generated_files/eusart.c"
+static uint8_t eusartTxHead = 0;
+static uint8_t eusartTxTail = 0;
+static uint8_t eusartTxBuffer[8];
+volatile uint8_t eusartTxBufferRemaining;
+
+static uint8_t eusartRxHead = 0;
+static uint8_t eusartRxTail = 0;
+static uint8_t eusartRxBuffer[8];
+volatile uint8_t eusartRxCount;
+
+# 75
+void EUSART_Initialize(void)
 {
 
+PIE1bits.RCIE = 0;
+PIE1bits.TXIE = 0;
 
 
-T2CON = 0x02;
 
 
-PR2 = 0xFF;
+BAUDCON = 0x08;
 
 
-TMR2 = 0x00;
+RCSTA = 0x90;
 
 
-PIR1bits.TMR2IF = 0;
+TXSTA = 0x24;
 
 
-TMR2_StartTimer();
+SPBRGL = 0x40;
+
+
+SPBRGH = 0x03;
+
+
+
+eusartTxHead = 0;
+eusartTxTail = 0;
+eusartTxBufferRemaining = sizeof(eusartTxBuffer);
+
+eusartRxHead = 0;
+eusartRxTail = 0;
+eusartRxCount = 0;
+
+
+PIE1bits.RCIE = 1;
 }
 
-void TMR2_StartTimer(void)
+uint8_t EUSART_Read(void)
 {
+uint8_t readValue = 0;
 
-T2CONbits.TMR2ON = 1;
+
+RCSTAbits.SREN = 1;
+
+while(0 == eusartRxCount)
+{
 }
 
-void TMR2_StopTimer(void)
-{
+PIE1bits.RCIE = 0;
 
-T2CONbits.TMR2ON = 0;
+readValue = eusartRxBuffer[eusartRxTail++];
+if(sizeof(eusartRxBuffer) <= eusartRxTail)
+{
+eusartRxTail = 0;
+}
+eusartRxCount--;
+PIE1bits.RCIE = 1;
+
+return readValue;
 }
 
-uint8_t TMR2_ReadTimer(void)
+void EUSART_Write(uint8_t txData)
 {
-uint8_t readVal;
-
-readVal = TMR2;
-
-return readVal;
+while(0 == eusartTxBufferRemaining)
+{
 }
 
-void TMR2_WriteTimer(uint8_t timerVal)
+if(0 == PIE1bits.TXIE)
 {
-
-TMR2 = timerVal;
+TXREG = txData;
+}
+else
+{
+PIE1bits.TXIE = 0;
+eusartTxBuffer[eusartTxHead++] = txData;
+if(sizeof(eusartTxBuffer) <= eusartTxHead)
+{
+eusartTxHead = 0;
+}
+eusartTxBufferRemaining--;
+}
+PIE1bits.TXIE = 1;
 }
 
-void TMR2_LoadPeriodRegister(uint8_t periodVal)
+char getch(void)
 {
-PR2 = periodVal;
+return EUSART_Read();
 }
 
-bool TMR2_HasOverflowOccured(void)
+void putch(char txData)
 {
-
-bool status = PIR1bits.TMR2IF;
-if(status)
-{
-
-PIR1bits.TMR2IF = 0;
+EUSART_Write(txData);
 }
-return status;
+
+void EUSART_Transmit_ISR(void)
+{
+
+
+if(sizeof(eusartTxBuffer) > eusartTxBufferRemaining)
+{
+TXREG = eusartTxBuffer[eusartTxTail++];
+if(sizeof(eusartTxBuffer) <= eusartTxTail)
+{
+eusartTxTail = 0;
+}
+eusartTxBufferRemaining++;
+}
+else
+{
+PIE1bits.TXIE = 0;
+}
+}
+
+void EUSART_Receive_ISR(void)
+{
+
+if(1 == RCSTAbits.OERR)
+{
+
+
+RCSTAbits.SPEN = 0;
+RCSTAbits.SPEN = 1;
+}
+
+
+eusartRxBuffer[eusartRxHead++] = RCREG;
+if(sizeof(eusartRxBuffer) <= eusartRxHead)
+{
+eusartRxHead = 0;
+}
+eusartRxCount++;
 }
 

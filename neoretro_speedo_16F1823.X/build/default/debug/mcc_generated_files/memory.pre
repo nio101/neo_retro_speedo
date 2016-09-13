@@ -1,5 +1,5 @@
 
-# 1 "mcc_generated_files/tmr2.c"
+# 1 "mcc_generated_files/memory.c"
 
 # 26 "D:\Program Files\Microchip\xc8\v1.38\include\htc.h"
 extern const char __xc8_OPTIM_SPEED;
@@ -3183,6 +3183,9 @@ extern unsigned char __resetbits;
 extern __bit __powerdown;
 extern __bit __timeout;
 
+# 12 "D:\Program Files\Microchip\xc8\v1.38\include\stdbool.h"
+typedef unsigned char bool;
+
 # 13 "D:\Program Files\Microchip\xc8\v1.38\include\stdint.h"
 typedef signed char int8_t;
 
@@ -3273,92 +3276,178 @@ typedef int16_t intptr_t;
 
 typedef uint16_t uintptr_t;
 
-# 12 "D:\Program Files\Microchip\xc8\v1.38\include\stdbool.h"
-typedef unsigned char bool;
+# 98 "mcc_generated_files/memory.h"
+uint16_t FLASH_ReadWord(uint16_t flashAddr);
 
-# 102 "mcc_generated_files/tmr2.h"
-void TMR2_Initialize(void);
-
-# 131
-void TMR2_StartTimer(void);
+# 127
+void FLASH_WriteWord(uint16_t flashAddr, uint16_t *ramBuf, uint16_t word);
 
 # 163
-void TMR2_StopTimer(void);
+int8_t FLASH_WriteBlock(uint16_t writeAddr, uint16_t *flashWordArray);
 
-# 198
-uint8_t TMR2_ReadTimer(void);
+# 188
+void FLASH_EraseBlock(uint16_t startAddr);
 
-# 237
-void TMR2_WriteTimer(uint8_t timerVal);
+# 219
+void DATAEE_WriteByte(uint8_t bAdd, uint8_t bData);
 
-# 289
-void TMR2_LoadPeriodRegister(uint8_t periodVal);
+# 245
+uint8_t DATAEE_ReadByte(uint8_t bAdd);
 
-# 324
-bool TMR2_HasOverflowOccured(void);
-
-# 57 "mcc_generated_files/tmr2.c"
-void TMR2_Initialize(void)
+# 57 "mcc_generated_files/memory.c"
+uint16_t FLASH_ReadWord(uint16_t flashAddr)
 {
+uint8_t GIEBitValue = INTCONbits.GIE;
 
+INTCONbits.GIE = 0;
+EEADRL = (flashAddr & 0x00FF);
+EEADRH = ((flashAddr & 0xFF00) >> 8);
 
+EECON1bits.CFGS = 0;
+EECON1bits.EEPGD = 1;
+EECON1bits.RD = 1;
+__nop();
+__nop();
+INTCONbits.GIE = GIEBitValue;
 
-T2CON = 0x02;
-
-
-PR2 = 0xFF;
-
-
-TMR2 = 0x00;
-
-
-PIR1bits.TMR2IF = 0;
-
-
-TMR2_StartTimer();
+return ((EEDATH << 8) | EEDATL);
 }
 
-void TMR2_StartTimer(void)
+void FLASH_WriteWord(uint16_t flashAddr, uint16_t *ramBuf, uint16_t word)
 {
+uint16_t blockStartAddr = (uint16_t)(flashAddr & ((2048-1) ^ (16-1)));
+uint8_t offset = (uint8_t)(flashAddr & (16-1));
+uint8_t i;
 
-T2CONbits.TMR2ON = 1;
+
+for (i=0; i<16; i++)
+{
+ramBuf[i] = FLASH_ReadWord((blockStartAddr+i));
 }
 
-void TMR2_StopTimer(void)
-{
 
-T2CONbits.TMR2ON = 0;
+ramBuf[offset] = word;
+
+
+FLASH_WriteBlock(blockStartAddr, ramBuf);
 }
 
-uint8_t TMR2_ReadTimer(void)
+int8_t FLASH_WriteBlock(uint16_t writeAddr, uint16_t *flashWordArray)
 {
-uint8_t readVal;
+uint16_t blockStartAddr = (uint16_t )(writeAddr & ((2048-1) ^ (16-1)));
+uint8_t GIEBitValue = INTCONbits.GIE;
+uint8_t i;
 
-readVal = TMR2;
 
-return readVal;
+if( writeAddr != blockStartAddr )
+{
+return -1;
 }
 
-void TMR2_WriteTimer(uint8_t timerVal)
+INTCONbits.GIE = 0;
+
+
+FLASH_EraseBlock(writeAddr);
+
+
+EECON1bits.EEPGD = 1;
+EECON1bits.CFGS = 0;
+EECON1bits.WREN = 1;
+EECON1bits.LWLO = 1;
+
+for (i=0; i<16; i++)
 {
 
-TMR2 = timerVal;
+EEADRL = (writeAddr & 0xFF);
+
+EEADRH = ((writeAddr & 0xFF00) >> 8);
+
+
+EEDATL = flashWordArray[i];
+EEDATH = ((flashWordArray[i] & 0xFF00) >> 8);
+
+if(i == (16-1))
+{
+
+EECON1bits.LWLO = 0;
 }
 
-void TMR2_LoadPeriodRegister(uint8_t periodVal)
-{
-PR2 = periodVal;
+EECON2 = 0x55;
+EECON2 = 0xAA;
+EECON1bits.WR = 1;
+__nop();
+__nop();
+
+writeAddr++;
 }
 
-bool TMR2_HasOverflowOccured(void)
-{
+EECON1bits.WREN = 0;
+INTCONbits.GIE = GIEBitValue;
 
-bool status = PIR1bits.TMR2IF;
-if(status)
-{
-
-PIR1bits.TMR2IF = 0;
+return 0;
 }
-return status;
+
+void FLASH_EraseBlock(uint16_t startAddr)
+{
+uint8_t GIEBitValue = INTCONbits.GIE;
+
+INTCONbits.GIE = 0;
+
+EEADRL = (startAddr & 0xFF);
+
+EEADRH = ((startAddr & 0xFF00) >> 8);
+
+
+EECON1bits.CFGS = 0;
+EECON1bits.EEPGD = 1;
+EECON1bits.FREE = 1;
+EECON1bits.WREN = 1;
+
+
+EECON2 = 0x55;
+EECON2 = 0xAA;
+EECON1bits.WR = 1;
+__nop();
+__nop();
+
+EECON1bits.WREN = 0;
+INTCONbits.GIE = GIEBitValue;
+}
+
+# 180
+void DATAEE_WriteByte(uint8_t bAdd, uint8_t bData)
+{
+uint8_t GIEBitValue = 0;
+
+EEADRL = (bAdd & 0x0ff);
+EEDATL = bData;
+EECON1bits.EEPGD = 0;
+EECON1bits.CFGS = 0;
+EECON1bits.WREN = 1;
+
+GIEBitValue = INTCONbits.GIE;
+INTCONbits.GIE = 0;
+EECON2 = 0x55;
+EECON2 = 0xAA;
+EECON1bits.WR = 1;
+
+while (EECON1bits.WR)
+{
+}
+
+EECON1bits.WREN = 0;
+INTCONbits.GIE = GIEBitValue;
+}
+
+uint8_t DATAEE_ReadByte(uint8_t bAdd)
+{
+EEADRL = (bAdd & 0x0ff);
+EECON1bits.CFGS = 0;
+EECON1bits.EEPGD = 0;
+EECON1bits.RD = 1;
+__nop();
+__nop();
+
+return (EEDATL);
 }
 

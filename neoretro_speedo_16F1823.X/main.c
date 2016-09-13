@@ -161,23 +161,68 @@ void main(void)
     
     // test PWM now!
     
-    uint16_t test_value = 0x00FF;
-    EPWM_LoadDutyValue(test_value);
-    
+    //uint16_t motor_load = 128; // == 0-1024 for 0-100% motor load
+    uint16_t motor_load = 0;
+    EPWM_LoadDutyValue(1023);    
     TMR2_StartTimer();
-    
-    /*while(1)
-    {
-    }*/
+    __delay_sec(5);
     
     GPS_Initialize();
-
+    bool up = true;
+    
+    // test loop
+    /*
     while (1)
     {
-          GPS_read_speed(); // read/check one NMEA sentence
-          // check if last VTG data is old (> how many sec?)
-          // if so, we may have lost the fix => PWM to zero?
+        __delay_ms(200);
+        if (up == true)
+            motor_load += 1;
+        else
+            motor_load -= 1;
+        if (motor_load > 450)   //730
+            up = false;
+        else if (motor_load == 0)
+            up = true;
+        EPWM_LoadDutyValue(1023-motor_load);
+    }*/
+    
+    // good stuff
+    
+    // impulsion pour décoller!
+    EPWM_LoadDutyValue(0);
+    __delay_ms(10);
+    EPWM_LoadDutyValue(1023-148);
+    __delay_sec(5);
+    while (1)
+    {
+        if (up == true)
+            motor_load += 1;
+        else
+            motor_load -= 1;
+        if (motor_load > 300)
+            up = false;
+        else if (motor_load == 0)
+        {
+            up = true;
+            EPWM_LoadDutyValue(1023);
+            __delay_sec(5);
+            // impulsion pour décoller!
+            EPWM_LoadDutyValue(0);
+            __delay_ms(10);
+        }
+        if (motor_load < 148)   // threshold en dessous de 10MPH
+            EPWM_LoadDutyValue(1023-135);//148-%
+        else
+            EPWM_LoadDutyValue(1023-motor_load);
+        __delay_ms(50);
     }
+    
+    /*while (1)
+    {
+        GPS_read_speed(); // read/check one NMEA sentence
+        // check if last VTG data is old (> how many sec?)
+        // if so, we may have lost the fix => PWM to zero?
+    }*/
 
     /*while (1)
     {

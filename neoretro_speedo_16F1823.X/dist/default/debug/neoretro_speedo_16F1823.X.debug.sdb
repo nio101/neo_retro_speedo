@@ -242,17 +242,13 @@ KPH 1
 "100 C:\Users\nicolas\Desktop\neoretro_driver\github\neoretro_speedo_16F1823.X\main.c
 [v _main main `(v  1 e 1 0 ]
 {
-"208
-[v main@tmp_482 tmp `uc  1 a 1 12 ]
-"195
-[v main@tmp_481 tmp `uc  1 a 1 11 ]
 "168
 [v main@tmp tmp `uc  1 a 1 10 ]
 "165
-[v main@motor_load motor_load `ui  1 a 2 13 ]
+[v main@motor_load motor_load `ui  1 a 2 11 ]
 "171
 [v main@up up `uc  1 a 1 9 ]
-"235
+"229
 } 0
 "69 C:\Users\nicolas\Desktop\neoretro_driver\github\neoretro_speedo_16F1823.X\mcc_generated_files/mcc.c
 [v _SYSTEM_Initialize SYSTEM_Initialize `(v  1 e 1 0 ]

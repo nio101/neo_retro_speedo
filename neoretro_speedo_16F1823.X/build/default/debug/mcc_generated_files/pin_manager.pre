@@ -1,5 +1,5 @@
 
-# 1 "mcc_generated_files/tmr2.c"
+# 1 "mcc_generated_files/pin_manager.c"
 
 # 26 "D:\Program Files\Microchip\xc8\v1.38\include\htc.h"
 extern const char __xc8_OPTIM_SPEED;
@@ -3183,182 +3183,25 @@ extern unsigned char __resetbits;
 extern __bit __powerdown;
 extern __bit __timeout;
 
-# 13 "D:\Program Files\Microchip\xc8\v1.38\include\stdint.h"
-typedef signed char int8_t;
+# 137 "mcc_generated_files/pin_manager.h"
+void PIN_MANAGER_Initialize (void);
 
-# 20
-typedef signed int int16_t;
-
-# 28
-typedef signed short long int int24_t;
-
-# 36
-typedef signed long int int32_t;
-
-# 43
-typedef unsigned char uint8_t;
-
-# 49
-typedef unsigned int uint16_t;
-
-# 56
-typedef unsigned short long int uint24_t;
-
-# 63
-typedef unsigned long int uint32_t;
-
-# 71
-typedef signed char int_least8_t;
-
-# 78
-typedef signed int int_least16_t;
-
-# 90
-typedef signed short long int int_least24_t;
-
-# 98
-typedef signed long int int_least32_t;
-
-# 105
-typedef unsigned char uint_least8_t;
-
-# 111
-typedef unsigned int uint_least16_t;
-
-# 121
-typedef unsigned short long int uint_least24_t;
-
-# 128
-typedef unsigned long int uint_least32_t;
-
-# 137
-typedef signed char int_fast8_t;
-
-# 144
-typedef signed int int_fast16_t;
-
-# 156
-typedef signed short long int int_fast24_t;
-
-# 164
-typedef signed long int int_fast32_t;
-
-# 171
-typedef unsigned char uint_fast8_t;
-
-# 177
-typedef unsigned int uint_fast16_t;
-
-# 187
-typedef unsigned short long int uint_fast24_t;
-
-# 194
-typedef unsigned long int uint_fast32_t;
-
-# 200
-typedef int32_t intmax_t;
-
-
-
-
-typedef uint32_t uintmax_t;
-
-
-
-
-typedef int16_t intptr_t;
-
-
-
-
-typedef uint16_t uintptr_t;
-
-# 12 "D:\Program Files\Microchip\xc8\v1.38\include\stdbool.h"
-typedef unsigned char bool;
-
-# 102 "mcc_generated_files/tmr2.h"
-void TMR2_Initialize(void);
-
-# 131
-void TMR2_StartTimer(void);
-
-# 163
-void TMR2_StopTimer(void);
-
-# 198
-uint8_t TMR2_ReadTimer(void);
-
-# 237
-void TMR2_WriteTimer(uint8_t timerVal);
-
-# 289
-void TMR2_LoadPeriodRegister(uint8_t periodVal);
-
-# 324
-bool TMR2_HasOverflowOccured(void);
-
-# 57 "mcc_generated_files/tmr2.c"
-void TMR2_Initialize(void)
+# 49 "mcc_generated_files/pin_manager.c"
+void PIN_MANAGER_Initialize(void)
 {
+LATA = 0x0;
+LATC = 0x0;
+ANSELA = 0x17;
+ANSELC = 0xF;
+WPUA = 0x3F;
+WPUC = 0x3F;
+TRISC = 0x37;
+TRISA = 0x1F;
+
+OPTION_REGbits.nWPUEN = 0x0;
+APFCON = 0x00;
 
 
 
-T2CON = 0x02;
-
-
-PR2 = 0xFF;
-
-
-TMR2 = 0x00;
-
-
-PIR1bits.TMR2IF = 0;
-
-
-TMR2_StartTimer();
-}
-
-void TMR2_StartTimer(void)
-{
-
-T2CONbits.TMR2ON = 1;
-}
-
-void TMR2_StopTimer(void)
-{
-
-T2CONbits.TMR2ON = 0;
-}
-
-uint8_t TMR2_ReadTimer(void)
-{
-uint8_t readVal;
-
-readVal = TMR2;
-
-return readVal;
-}
-
-void TMR2_WriteTimer(uint8_t timerVal)
-{
-
-TMR2 = timerVal;
-}
-
-void TMR2_LoadPeriodRegister(uint8_t periodVal)
-{
-PR2 = periodVal;
-}
-
-bool TMR2_HasOverflowOccured(void)
-{
-
-bool status = PIR1bits.TMR2IF;
-if(status)
-{
-
-PIR1bits.TMR2IF = 0;
-}
-return status;
 }
 

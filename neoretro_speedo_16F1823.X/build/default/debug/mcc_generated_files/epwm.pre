@@ -1,5 +1,5 @@
 
-# 1 "mcc_generated_files/tmr2.c"
+# 1 "mcc_generated_files/epwm.c"
 
 # 26 "D:\Program Files\Microchip\xc8\v1.38\include\htc.h"
 extern const char __xc8_OPTIM_SPEED;
@@ -3273,92 +3273,43 @@ typedef int16_t intptr_t;
 
 typedef uint16_t uintptr_t;
 
-# 12 "D:\Program Files\Microchip\xc8\v1.38\include\stdbool.h"
-typedef unsigned char bool;
+# 95 "mcc_generated_files/epwm.h"
+void EPWM_Initialize(void);
 
-# 102 "mcc_generated_files/tmr2.h"
-void TMR2_Initialize(void);
+# 121
+void EPWM_LoadDutyValue(uint16_t dutyValue);
 
-# 131
-void TMR2_StartTimer(void);
-
-# 163
-void TMR2_StopTimer(void);
-
-# 198
-uint8_t TMR2_ReadTimer(void);
-
-# 237
-void TMR2_WriteTimer(uint8_t timerVal);
-
-# 289
-void TMR2_LoadPeriodRegister(uint8_t periodVal);
-
-# 324
-bool TMR2_HasOverflowOccured(void);
-
-# 57 "mcc_generated_files/tmr2.c"
-void TMR2_Initialize(void)
+# 63 "mcc_generated_files/epwm.c"
+void EPWM_Initialize (void)
 {
 
 
 
-T2CON = 0x02;
+CCP1CON = 0x3C;
 
 
-PR2 = 0xFF;
+ECCP1AS = 0x00;
 
 
-TMR2 = 0x00;
+PWM1CON = 0x80;
 
 
-PIR1bits.TMR2IF = 0;
+PSTR1CON = 0x04;
 
 
-TMR2_StartTimer();
+CCPR1L = 0x7F;
+
+
+CCPR1H = 0x00;
+
 }
 
-void TMR2_StartTimer(void)
+void EPWM_LoadDutyValue(uint16_t dutyValue)
 {
 
-T2CONbits.TMR2ON = 1;
-}
+CCPR1L = ((dutyValue & 0x03FC)>>2);
 
-void TMR2_StopTimer(void)
-{
 
-T2CONbits.TMR2ON = 0;
-}
-
-uint8_t TMR2_ReadTimer(void)
-{
-uint8_t readVal;
-
-readVal = TMR2;
-
-return readVal;
-}
-
-void TMR2_WriteTimer(uint8_t timerVal)
-{
-
-TMR2 = timerVal;
-}
-
-void TMR2_LoadPeriodRegister(uint8_t periodVal)
-{
-PR2 = periodVal;
-}
-
-bool TMR2_HasOverflowOccured(void)
-{
-
-bool status = PIR1bits.TMR2IF;
-if(status)
-{
-
-PIR1bits.TMR2IF = 0;
-}
-return status;
+CCP1CON = (CCP1CON & 0xCF) | ((dutyValue & 0x0003)<<4);
 }
 

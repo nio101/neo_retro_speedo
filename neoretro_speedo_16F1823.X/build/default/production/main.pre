@@ -3466,22 +3466,44 @@ SYSTEM_Initialize();
 
 (INTCONbits.PEIE = 1);
 
-# 164
-uint16_t test_value = 0x00FF;
-EPWM_LoadDutyValue(test_value);
-
+# 165
+uint16_t motor_load = 0;
+EPWM_LoadDutyValue(1023);
 TMR2_StartTimer();
+for(unsigned char tmp=0;tmp<(10*5);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
 
-# 173
 GPS_Initialize();
+bool up = 1;
 
+# 192
+EPWM_LoadDutyValue(0);
+_delay((unsigned long)((10)*(32000000/4000.0)));
+EPWM_LoadDutyValue(1023-148);
+for(unsigned char tmp=0;tmp<(10*5);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
 while (1)
 {
-GPS_read_speed();
+if (up == 1)
+motor_load += 1;
+else
+motor_load -= 1;
+if (motor_load > 300)
+up = 0;
+else if (motor_load == 0)
+{
+up = 1;
+EPWM_LoadDutyValue(1023);
+for(unsigned char tmp=0;tmp<(10*5);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
 
-
+EPWM_LoadDutyValue(0);
+_delay((unsigned long)((10)*(32000000/4000.0)));
+}
+if (motor_load < 148)
+EPWM_LoadDutyValue(1023-135);
+else
+EPWM_LoadDutyValue(1023-motor_load);
+_delay((unsigned long)((50)*(32000000/4000.0)));
 }
 
-# 190
+# 235
 }
 

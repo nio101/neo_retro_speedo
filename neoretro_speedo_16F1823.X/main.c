@@ -49,6 +49,8 @@
  * Helpers
  */
 
+#define NMEA_BUFFER_SIZE 40
+
 void my10msTimerISR(void);  // custom function called every 10ms,
                             // used for LED blinking and push button debounce
 
@@ -57,7 +59,8 @@ void my10msTimerISR(void);  // custom function called every 10ms,
 // to store current speed value and units
 typedef enum _speed_unit_type { MPH = 0, KPH } speed_unit_type;
 speed_unit_type speed_units = MPH;  // MPH by default
-float speed = 0.0;
+unsigned short speed_int = 0;
+unsigned short speed_dec = 0;
 
 // to store speedometer calibration
 //[type?] Pcal[13]; // stores percentage calibration values for
@@ -74,27 +77,151 @@ void GPS_Initialize(void)
     __delay_ms(100);
 }
 
-void GPS_read_speed(void) // read & parse/check one NMEA sentence
+bool GPS_read_speed(void) // read & parse/check one NMEA sentence
 {   
-    unsigned char char_buffer[40];
+    
+    // TODO: ne pas bufferiser & parser la chaine complète, mais
+    // détecter les changements de champs au travers d'états dédiés
+    // + calculer checksum au fil de l'eau
+    // sinon pas assez de RAM pour faire la calibration... :s
+    
+    // example of VTG sentence:
+    // $GPVTG,165.48,T,,M,0.03,N,0.06,K,A*37
+    
+    // Part 1/2: let's record a complete NMEA sentence
+    
+    unsigned char buffer[NMEA_BUFFER_SIZE];
+    unsigned char i_buff = 0;
     // we are going to wait for a '$' to begin recording received chars
     // until another '$' comes (restart recording), or an <LF> (parse sentence)
     // if the sentence is a correct VTG, read the speed and reset dedicated tmr
     bool done = false;
+    bool recording = false;
     unsigned char m_char;
     while (!done)
     {
         if(eusartRxCount==0)
         {
-            STATUS_LED_SetLow();
+            //STATUS_LED_SetLow();
         }        
         else if(eusartRxCount!=0)
         {
             m_char=EUSART_Read();  // read a byte for RX
-            STATUS_LED_SetHigh();
-            __delay_ms(1);
+            //STATUS_LED_SetHigh();
+            //__delay_ms(1);
+            if (m_char == '$')
+            {
+                recording = true;
+                i_buff = 0;
+            }
+            else if (recording)
+            {
+                if (m_char == 0x0D) // <CR>
+                    done = true;
+                else
+                    buffer[i_buff++] = m_char;
+                if (i_buff > NMEA_BUFFER_SIZE)
+                {
+                    // NMEA sentence is too long for buffer!
+                    // ignore it, then to avoid critical error
+                    recording = false;
+                }
+            }
         }
     }
+    
+    unsigned char i_buff2 = 0;
+    unsigned short read_speed_int = 0;
+    unsigned short read_speed_dec = 0;
+    // Part 2/2: parse the NMEA sentence
+    if ((buffer[i_buff2++] == 'G')&&(buffer[i_buff2++] == 'P')&&(buffer[i_buff2++] == 'V')&&(buffer[i_buff2++] == 'T')&&(buffer[i_buff2++] == 'G'))
+    {
+        // T field
+        while ((i_buff2 < i_buff)&&(buffer[i_buff2]!=','))  //reach the next ','
+            i_buff2++;
+        if (i_buff2 >= i_buff)
+            return false;
+        i_buff2++; // step over the ','
+        if (buffer[i_buff2++] != 'T')
+            return false;
+        i_buff2++; // step over the ','
+
+        // M field
+        while ((i_buff2 < i_buff)&&(buffer[i_buff2]!=','))  //reach the next ','
+            i_buff2++;
+        if (i_buff2 >= i_buff)
+            return false;
+        i_buff2++; // step over the ','
+        if (buffer[i_buff2++] != 'M')
+            return false;
+        i_buff2++; // step over the ','
+
+        // N field
+        while ((i_buff2 < i_buff)&&(buffer[i_buff2]!=','))  //reach the next ','
+            i_buff2++;
+        if (i_buff2 >= i_buff)
+            return false;
+        i_buff2++; // step over the ','
+        if (buffer[i_buff2++] != 'N')
+            return false;
+        i_buff2++; // step over the ','
+        
+        // K field
+        bool before_dot = true;
+        while ((i_buff2 < i_buff)&&(buffer[i_buff2]!=','))  //reach the next ','
+            if (buffer[i_buff2]=='.')
+            {
+                before_dot = false;
+                i_buff2++;  // step over the '.'
+            }
+            else
+            {
+                if ((buffer[i_buff2]<0x30)||(buffer[i_buff2]>0x39))
+                    return false;   // not a digit, abort!
+                else
+                {
+                    // convert the ascii digit to speed decimal
+                    // un float est trop gourmand... +600 instructions pour
+                    // la routine suivante:
+                    // read_speed = read_speed * 10 + (buffer[i_buff2]-0x30);
+                    // utiliser deux unsigned short pour coder la vitesse!
+                    // et faire une structure et des fonctions de calcul
+                    if (before_dot)
+                        //read_speed = read_speed * 10 + (buffer[i_buff2]-0x30);
+                        read_speed_int = read_speed_int*10 + (buffer[i_buff2]-0x30);
+                    else
+                    {
+                        //read_speed = read_speed * 10 + (buffer[i_buff2]-0x30);
+                        read_speed_dec = read_speed_int*10 + (buffer[i_buff2]-0x30);
+                    }
+                    i_buff2++;
+                }
+            }
+        if (i_buff2 >= i_buff)
+            return false;
+        i_buff2++; // step over the ','
+        if (buffer[i_buff2++] != 'M')
+            return false;
+        i_buff2++; // step over the ','
+        
+        // now that we have the speed, let's reach the checksum
+        while ((i_buff2 < i_buff)&&(buffer[i_buff2]!='*'))
+            i_buff2++;
+        if (i_buff2 >= i_buff)
+            return false;
+        unsigned char checksum = 0;
+        for (unsigned char i=0;i<i_buff2;i++)
+            checksum ^= buffer[i];
+        
+        // now compare checksum & buffer[i_buff2]/buffer[i_buff2+1]
+        // if not equal then stop here!
+        
+        // update the speed
+        speed_int = read_speed_int;
+        speed_dec = read_speed_dec;
+        return true;
+    }
+    else return false;
 }
 
 /*
@@ -162,6 +289,16 @@ void main(void)
     // 2ème étape: lire les trames NMEA, éventuellement updater la vitesse
     // et la passer à zero si pas de trame récente (pour éviter de rester
     // scotché en cas de perte de fix)
+
+    GPS_Initialize();
+
+    // test NMEA speed reading!
+    while (1)
+    {
+        bool res = GPS_read_speed(); // read/parse one NMEA sentence
+        // check if last VTG data is old (> how many sec?)
+        // if so, we may have lost the fix => PWM to zero?
+    }    
     
     // Test DA LED output! :)
     LED_set_state(slow_blinking);
@@ -195,11 +332,7 @@ void main(void)
     TMR2_StartTimer();
     __delay_sec(5);
     
-    GPS_Initialize();
     bool up = true;
-    
-    // test NMEA speed reading!
-    
     
     // test loop, slowly from 0 to --- and back to 0
     /*
@@ -252,15 +385,6 @@ void main(void)
         GPS_read_speed(); // read/check one NMEA sentence
         // check if last VTG data is old (> how many sec?)
         // if so, we may have lost the fix => PWM to zero?
-    }*/
-
-    /*while (1)
-    {
-        // Add your application code
-        STATUS_LED_SetHigh();
-        __delay_sec(1);
-        STATUS_LED_SetLow();
-        __delay_sec(1);
     }*/
 }
 

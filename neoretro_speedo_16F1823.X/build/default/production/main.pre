@@ -3472,15 +3472,16 @@ volatile bool b_has_once_been_released;
 void button_init();
 void button_update_loop();
 
-# 52 "main.c"
+# 54 "main.c"
 void my10msTimerISR(void);
 
-# 58
+# 60
 typedef enum _speed_unit_type { MPH = 0, KPH } speed_unit_type;
 speed_unit_type speed_units = MPH;
-float speed = 0.0;
+unsigned short speed_int = 0;
+unsigned short speed_dec = 0;
 
-# 67
+# 70
 void GPS_Initialize(void)
 {
 for(unsigned char tmp=0;tmp<(10*1);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
@@ -3491,43 +3492,162 @@ printf("$PMTK220,100*2F\r\n");
 _delay((unsigned long)((100)*(32000000/4000.0)));
 }
 
-void GPS_read_speed(void)
+bool GPS_read_speed(void)
 {
-unsigned char char_buffer[40];
+
+# 93
+unsigned char buffer[40];
+unsigned char i_buff = 0;
 
 
 
 bool done = 0;
+bool recording = 0;
 unsigned char m_char;
 while (!done)
 {
 if(eusartRxCount==0)
 {
-do { LATA5 = 0; } while(0);
+
 }
 else if(eusartRxCount!=0)
 {
 m_char=EUSART_Read();
-do { LATA5 = 1; } while(0);
-_delay((unsigned long)((1)*(32000000/4000.0)));
+
+
+if (m_char == '$')
+{
+recording = 1;
+i_buff = 0;
+}
+else if (recording)
+{
+if (m_char == 0x0D)
+done = 1;
+else
+buffer[i_buff++] = m_char;
+if (i_buff > 40)
+{
+
+
+recording = 0;
+}
 }
 }
 }
 
-# 103
+unsigned char i_buff2 = 0;
+unsigned short read_speed_int = 0;
+unsigned short read_speed_dec = 0;
+
+if ((buffer[i_buff2++] == 'G')&&(buffer[i_buff2++] == 'P')&&(buffer[i_buff2++] == 'V')&&(buffer[i_buff2++] == 'T')&&(buffer[i_buff2++] == 'G'))
+{
+
+while ((i_buff2 < i_buff)&&(buffer[i_buff2]!=','))
+i_buff2++;
+if (i_buff2 >= i_buff)
+return 0;
+i_buff2++;
+if (buffer[i_buff2++] != 'T')
+return 0;
+i_buff2++;
+
+
+while ((i_buff2 < i_buff)&&(buffer[i_buff2]!=','))
+i_buff2++;
+if (i_buff2 >= i_buff)
+return 0;
+i_buff2++;
+if (buffer[i_buff2++] != 'M')
+return 0;
+i_buff2++;
+
+
+while ((i_buff2 < i_buff)&&(buffer[i_buff2]!=','))
+i_buff2++;
+if (i_buff2 >= i_buff)
+return 0;
+i_buff2++;
+if (buffer[i_buff2++] != 'N')
+return 0;
+i_buff2++;
+
+
+bool before_dot = 1;
+while ((i_buff2 < i_buff)&&(buffer[i_buff2]!=','))
+if (buffer[i_buff2]=='.')
+{
+before_dot = 0;
+i_buff2++;
+}
+else
+{
+if ((buffer[i_buff2]<0x30)||(buffer[i_buff2]>0x39))
+return 0;
+else
+{
+
+# 189
+if (before_dot)
+
+read_speed_int = read_speed_int*10 + (buffer[i_buff2]-0x30);
+else
+{
+
+read_speed_dec = read_speed_int*10 + (buffer[i_buff2]-0x30);
+}
+i_buff2++;
+}
+}
+if (i_buff2 >= i_buff)
+return 0;
+i_buff2++;
+if (buffer[i_buff2++] != 'M')
+return 0;
+i_buff2++;
+
+
+while ((i_buff2 < i_buff)&&(buffer[i_buff2]!='*'))
+i_buff2++;
+if (i_buff2 >= i_buff)
+return 0;
+unsigned char checksum = 0;
+for (unsigned char i=0;i<i_buff2;i++)
+checksum ^= buffer[i];
+
+# 220
+speed_int = read_speed_int;
+speed_dec = read_speed_dec;
+return 1;
+}
+else return 0;
+}
+
+# 230
 void main(void)
 {
 
 SYSTEM_Initialize();
 TMR0_SetInterruptHandler(my10msTimerISR);
 
-# 113
+# 240
 (INTCONbits.GIE = 1);
 
 
 (INTCONbits.PEIE = 1);
 
-# 167
+# 293
+GPS_Initialize();
+
+
+while (1)
+{
+bool res = GPS_read_speed();
+
+
+}
+
+
 LED_set_state(slow_blinking);
 for(unsigned char tmp=0;tmp<(10*5);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
 LED_set_state(fast_blinking);
@@ -3559,10 +3679,9 @@ EPWM_LoadDutyValue(1023-motor_load);
 TMR2_StartTimer();
 for(unsigned char tmp=0;tmp<(10*5);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
 
-GPS_Initialize();
 bool up = 1;
 
-# 222
+# 355
 EPWM_LoadDutyValue(0);
 _delay((unsigned long)((10)*(32000000/4000.0)));
 EPWM_LoadDutyValue(1023-148);
@@ -3591,7 +3710,7 @@ EPWM_LoadDutyValue(1023-motor_load);
 _delay((unsigned long)((50)*(32000000/4000.0)));
 }
 
-# 265
+# 389
 }
 
 void my10msTimerISR(void)

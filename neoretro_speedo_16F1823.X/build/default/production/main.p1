@@ -6,7 +6,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 "47
 [c E2618 0 1 2 .. ]
 [n E2618 . nothing short_push long_push  ]
-"59 main.c
+"61 main.c
 [c E2634 0 1 .. ]
 [n E2634 _speed_unit_type MPH KPH  ]
 [v F2438 `(v ~T0 @X0 1 tf1`ul ]
@@ -17,16 +17,14 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _printf `(i ~T0 @X0 0 ev`*Cuc ]
 "78 mcc_generated_files/eusart.h
 [v _eusartRxCount `Vuc ~T0 @X0 0 e ]
-"5928 /opt/microchip/xc8/v1.38/include/pic16f1823.h
-[v _LATA5 `Vb ~T0 @X0 0 e@2149 ]
-"155 mcc_generated_files/eusart.h
+"155
 [v _EUSART_Read `(uc ~T0 @X0 0 ef ]
 [p mainexit ]
 "72 mcc_generated_files/mcc.h
 [v _SYSTEM_Initialize `(v ~T0 @X0 0 ef ]
 "262 mcc_generated_files/tmr0.h
 [v _TMR0_SetInterruptHandler `(v ~T0 @X0 0 ef1`*v ]
-"52 main.c
+"54 main.c
 [v _my10msTimerISR `(v ~T0 @X0 0 ef ]
 "343 /opt/microchip/xc8/v1.38/include/pic16f1823.h
 [s S27 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
@@ -2532,30 +2530,36 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;interact.h: 54: volatile bool b_has_once_been_released;
 [; ;interact.h: 56: void button_init();
 [; ;interact.h: 57: void button_update_loop();
-[; ;main.c: 52: void my10msTimerISR(void);
-[; ;main.c: 58: typedef enum _speed_unit_type { MPH = 0, KPH } speed_unit_type;
-"59 main.c
+[; ;main.c: 54: void my10msTimerISR(void);
+[; ;main.c: 60: typedef enum _speed_unit_type { MPH = 0, KPH } speed_unit_type;
+"61 main.c
 [v _speed_units `E2634 ~T0 @X0 1 e ]
 [i _speed_units
 . `E2634 0
 ]
-[; ;main.c: 59: speed_unit_type speed_units = MPH;
-"60
-[v _speed `f ~T0 @X0 1 e ]
-[i _speed
--> .0.0 `f
+[; ;main.c: 61: speed_unit_type speed_units = MPH;
+"62
+[v _speed_int `us ~T0 @X0 1 e ]
+[i _speed_int
+-> -> 0 `i `us
 ]
-[; ;main.c: 60: float speed = 0.0;
-"67
+[; ;main.c: 62: unsigned short speed_int = 0;
+"63
+[v _speed_dec `us ~T0 @X0 1 e ]
+[i _speed_dec
+-> -> 0 `i `us
+]
+[; ;main.c: 63: unsigned short speed_dec = 0;
+"70
 [v _GPS_Initialize `(v ~T0 @X0 1 ef ]
-"68
+"71
 {
-[; ;main.c: 67: void GPS_Initialize(void)
-[; ;main.c: 68: {
+[; ;main.c: 70: void GPS_Initialize(void)
+[; ;main.c: 71: {
 [e :U _GPS_Initialize ]
 [f ]
-[; ;main.c: 69: for(unsigned char tmp=0;tmp<(10*1);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
-"69
+[; ;main.c: 72: for(unsigned char tmp=0;tmp<(10*1);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
+"72
 {
 [v _tmp `uc ~T0 @X0 1 a ]
 [e = _tmp -> -> 0 `i `uc ]
@@ -2569,404 +2573,745 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $ < -> _tmp `i * -> 10 `i -> 1 `i 295  ]
 [e :U 296 ]
 }
-[; ;main.c: 71: printf("$PMTK314,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0*29\r\n");
-"71
-[e ( _printf :s 1C ]
-[; ;main.c: 72: _delay((unsigned long)((100)*(32000000/4000.0)));
-"72
-[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
-[; ;main.c: 73: printf("$PMTK220,100*2F\r\n");
-"73
-[e ( _printf :s 2C ]
-[; ;main.c: 74: _delay((unsigned long)((100)*(32000000/4000.0)));
+[; ;main.c: 74: printf("$PMTK314,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0*29\r\n");
 "74
-[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
-[; ;main.c: 75: }
+[e ( _printf :s 1C ]
+[; ;main.c: 75: _delay((unsigned long)((100)*(32000000/4000.0)));
 "75
+[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+[; ;main.c: 76: printf("$PMTK220,100*2F\r\n");
+"76
+[e ( _printf :s 2C ]
+[; ;main.c: 77: _delay((unsigned long)((100)*(32000000/4000.0)));
+"77
+[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+[; ;main.c: 78: }
+"78
 [e :UE 294 ]
 }
-"77
-[v _GPS_read_speed `(v ~T0 @X0 1 ef ]
-"78
+"80
+[v _GPS_read_speed `(uc ~T0 @X0 1 ef ]
+"81
 {
-[; ;main.c: 77: void GPS_read_speed(void)
-[; ;main.c: 78: {
+[; ;main.c: 80: bool GPS_read_speed(void)
+[; ;main.c: 81: {
 [e :U _GPS_read_speed ]
 [f ]
-"79
-[v _char_buffer `uc ~T0 @X0 -> 40 `i a ]
-"83
+"93
+[v _buffer `uc ~T0 @X0 -> 40 `i a ]
+"94
+[v _i_buff `uc ~T0 @X0 1 a ]
+[; ;main.c: 93: unsigned char buffer[40];
+[; ;main.c: 94: unsigned char i_buff = 0;
+[e = _i_buff -> -> 0 `i `uc ]
+"98
 [v _done `uc ~T0 @X0 1 a ]
-[; ;main.c: 79: unsigned char char_buffer[40];
-[; ;main.c: 83: bool done = 0;
+[; ;main.c: 98: bool done = 0;
 [e = _done -> -> 0 `i `uc ]
-"84
+"99
+[v _recording `uc ~T0 @X0 1 a ]
+[; ;main.c: 99: bool recording = 0;
+[e = _recording -> -> 0 `i `uc ]
+"100
 [v _m_char `uc ~T0 @X0 1 a ]
-[; ;main.c: 84: unsigned char m_char;
-[; ;main.c: 85: while (!done)
-"85
+[; ;main.c: 100: unsigned char m_char;
+[; ;main.c: 101: while (!done)
+"101
 [e $U 299  ]
 [e :U 300 ]
-[; ;main.c: 86: {
-"86
+[; ;main.c: 102: {
+"102
 {
-[; ;main.c: 87: if(eusartRxCount==0)
-"87
-[e $ ! == -> _eusartRxCount `i -> 0 `i 302  ]
-[; ;main.c: 88: {
-"88
-{
-[; ;main.c: 89: do { LATA5 = 0; } while(0);
-"89
-[e :U 305 ]
-{
-[e = _LATA5 -> -> 0 `i `b ]
-}
-[e :U 304 ]
-"90
-}
-[; ;main.c: 90: }
-[e $U 306  ]
-"91
-[e :U 302 ]
-[; ;main.c: 91: else if(eusartRxCount!=0)
-[e $ ! != -> _eusartRxCount `i -> 0 `i 307  ]
-[; ;main.c: 92: {
-"92
-{
-[; ;main.c: 93: m_char=EUSART_Read();
-"93
-[e = _m_char ( _EUSART_Read ..  ]
-[; ;main.c: 94: do { LATA5 = 1; } while(0);
-"94
-[e :U 310 ]
-{
-[e = _LATA5 -> -> 1 `i `b ]
-}
-[e :U 309 ]
-[; ;main.c: 95: _delay((unsigned long)((1)*(32000000/4000.0)));
-"95
-[e ( __delay (1 -> * -> -> 1 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
-"96
-}
-[e :U 307 ]
-"97
-[e :U 306 ]
-}
-[e :U 299 ]
-"85
-[e $ ! != -> _done `i -> -> -> 0 `i `uc `i 300  ]
-[e :U 301 ]
-[; ;main.c: 96: }
-[; ;main.c: 97: }
-[; ;main.c: 98: }
-"98
-[e :UE 298 ]
-}
+[; ;main.c: 103: if(eusartRxCount==0)
 "103
-[v _main `(v ~T0 @X0 1 ef ]
+[e $ ! == -> _eusartRxCount `i -> 0 `i 302  ]
+[; ;main.c: 104: {
 "104
 {
-[; ;main.c: 103: void main(void)
-[; ;main.c: 104: {
+"106
+}
+[; ;main.c: 106: }
+[e $U 303  ]
+"107
+[e :U 302 ]
+[; ;main.c: 107: else if(eusartRxCount!=0)
+[e $ ! != -> _eusartRxCount `i -> 0 `i 304  ]
+[; ;main.c: 108: {
+"108
+{
+[; ;main.c: 109: m_char=EUSART_Read();
+"109
+[e = _m_char ( _EUSART_Read ..  ]
+[; ;main.c: 112: if (m_char == '$')
+"112
+[e $ ! == -> _m_char `ui -> 36 `ui 305  ]
+[; ;main.c: 113: {
+"113
+{
+[; ;main.c: 114: recording = 1;
+"114
+[e = _recording -> -> 1 `i `uc ]
+[; ;main.c: 115: i_buff = 0;
+"115
+[e = _i_buff -> -> 0 `i `uc ]
+"116
+}
+[; ;main.c: 116: }
+[e $U 306  ]
+"117
+[e :U 305 ]
+[; ;main.c: 117: else if (recording)
+[e $ ! != -> _recording `i -> -> -> 0 `i `uc `i 307  ]
+[; ;main.c: 118: {
+"118
+{
+[; ;main.c: 119: if (m_char == 0x0D)
+"119
+[e $ ! == -> _m_char `i -> 13 `i 308  ]
+[; ;main.c: 120: done = 1;
+"120
+[e = _done -> -> 1 `i `uc ]
+[e $U 309  ]
+"121
+[e :U 308 ]
+[; ;main.c: 121: else
+[; ;main.c: 122: buffer[i_buff++] = m_char;
+"122
+[e = *U + &U _buffer * -> ++ _i_buff -> -> 1 `i `uc `ux -> -> # *U &U _buffer `ui `ux _m_char ]
+[e :U 309 ]
+[; ;main.c: 123: if (i_buff > 40)
+"123
+[e $ ! > -> _i_buff `i -> 40 `i 310  ]
+[; ;main.c: 124: {
+"124
+{
+[; ;main.c: 127: recording = 0;
+"127
+[e = _recording -> -> 0 `i `uc ]
+"128
+}
+[e :U 310 ]
+"129
+}
+[e :U 307 ]
+"130
+[e :U 306 ]
+}
+[e :U 304 ]
+"131
+[e :U 303 ]
+}
+[e :U 299 ]
+"101
+[e $ ! != -> _done `i -> -> -> 0 `i `uc `i 300  ]
+[e :U 301 ]
+"133
+[v _i_buff2 `uc ~T0 @X0 1 a ]
+[; ;main.c: 128: }
+[; ;main.c: 129: }
+[; ;main.c: 130: }
+[; ;main.c: 131: }
+[; ;main.c: 133: unsigned char i_buff2 = 0;
+[e = _i_buff2 -> -> 0 `i `uc ]
+"134
+[v _read_speed_int `us ~T0 @X0 1 a ]
+[; ;main.c: 134: unsigned short read_speed_int = 0;
+[e = _read_speed_int -> -> 0 `i `us ]
+"135
+[v _read_speed_dec `us ~T0 @X0 1 a ]
+[; ;main.c: 135: unsigned short read_speed_dec = 0;
+[e = _read_speed_dec -> -> 0 `i `us ]
+[; ;main.c: 137: if ((buffer[i_buff2++] == 'G')&&(buffer[i_buff2++] == 'P')&&(buffer[i_buff2++] == 'V')&&(buffer[i_buff2++] == 'T')&&(buffer[i_buff2++] == 'G'))
+"137
+[e $ ! && && && && == -> *U + &U _buffer * -> ++ _i_buff2 -> -> 1 `i `uc `ux -> -> # *U &U _buffer `ui `ux `ui -> 71 `ui == -> *U + &U _buffer * -> ++ _i_buff2 -> -> 1 `i `uc `ux -> -> # *U &U _buffer `ui `ux `ui -> 80 `ui == -> *U + &U _buffer * -> ++ _i_buff2 -> -> 1 `i `uc `ux -> -> # *U &U _buffer `ui `ux `ui -> 86 `ui == -> *U + &U _buffer * -> ++ _i_buff2 -> -> 1 `i `uc `ux -> -> # *U &U _buffer `ui `ux `ui -> 84 `ui == -> *U + &U _buffer * -> ++ _i_buff2 -> -> 1 `i `uc `ux -> -> # *U &U _buffer `ui `ux `ui -> 71 `ui 311  ]
+[; ;main.c: 138: {
+"138
+{
+[; ;main.c: 140: while ((i_buff2 < i_buff)&&(buffer[i_buff2]!=','))
+"140
+[e $U 312  ]
+[e :U 313 ]
+[; ;main.c: 141: i_buff2++;
+"141
+[e ++ _i_buff2 -> -> 1 `i `uc ]
+[e :U 312 ]
+"140
+[e $ && < -> _i_buff2 `i -> _i_buff `i != -> *U + &U _buffer * -> _i_buff2 `ux -> -> # *U &U _buffer `ui `ux `ui -> 44 `ui 313  ]
+[e :U 314 ]
+[; ;main.c: 142: if (i_buff2 >= i_buff)
+"142
+[e $ ! >= -> _i_buff2 `i -> _i_buff `i 315  ]
+[; ;main.c: 143: return 0;
+"143
+[e ) -> -> 0 `i `uc ]
+[e $UE 298  ]
+[e :U 315 ]
+[; ;main.c: 144: i_buff2++;
+"144
+[e ++ _i_buff2 -> -> 1 `i `uc ]
+[; ;main.c: 145: if (buffer[i_buff2++] != 'T')
+"145
+[e $ ! != -> *U + &U _buffer * -> ++ _i_buff2 -> -> 1 `i `uc `ux -> -> # *U &U _buffer `ui `ux `ui -> 84 `ui 316  ]
+[; ;main.c: 146: return 0;
+"146
+[e ) -> -> 0 `i `uc ]
+[e $UE 298  ]
+[e :U 316 ]
+[; ;main.c: 147: i_buff2++;
+"147
+[e ++ _i_buff2 -> -> 1 `i `uc ]
+[; ;main.c: 150: while ((i_buff2 < i_buff)&&(buffer[i_buff2]!=','))
+"150
+[e $U 317  ]
+[e :U 318 ]
+[; ;main.c: 151: i_buff2++;
+"151
+[e ++ _i_buff2 -> -> 1 `i `uc ]
+[e :U 317 ]
+"150
+[e $ && < -> _i_buff2 `i -> _i_buff `i != -> *U + &U _buffer * -> _i_buff2 `ux -> -> # *U &U _buffer `ui `ux `ui -> 44 `ui 318  ]
+[e :U 319 ]
+[; ;main.c: 152: if (i_buff2 >= i_buff)
+"152
+[e $ ! >= -> _i_buff2 `i -> _i_buff `i 320  ]
+[; ;main.c: 153: return 0;
+"153
+[e ) -> -> 0 `i `uc ]
+[e $UE 298  ]
+[e :U 320 ]
+[; ;main.c: 154: i_buff2++;
+"154
+[e ++ _i_buff2 -> -> 1 `i `uc ]
+[; ;main.c: 155: if (buffer[i_buff2++] != 'M')
+"155
+[e $ ! != -> *U + &U _buffer * -> ++ _i_buff2 -> -> 1 `i `uc `ux -> -> # *U &U _buffer `ui `ux `ui -> 77 `ui 321  ]
+[; ;main.c: 156: return 0;
+"156
+[e ) -> -> 0 `i `uc ]
+[e $UE 298  ]
+[e :U 321 ]
+[; ;main.c: 157: i_buff2++;
+"157
+[e ++ _i_buff2 -> -> 1 `i `uc ]
+[; ;main.c: 160: while ((i_buff2 < i_buff)&&(buffer[i_buff2]!=','))
+"160
+[e $U 322  ]
+[e :U 323 ]
+[; ;main.c: 161: i_buff2++;
+"161
+[e ++ _i_buff2 -> -> 1 `i `uc ]
+[e :U 322 ]
+"160
+[e $ && < -> _i_buff2 `i -> _i_buff `i != -> *U + &U _buffer * -> _i_buff2 `ux -> -> # *U &U _buffer `ui `ux `ui -> 44 `ui 323  ]
+[e :U 324 ]
+[; ;main.c: 162: if (i_buff2 >= i_buff)
+"162
+[e $ ! >= -> _i_buff2 `i -> _i_buff `i 325  ]
+[; ;main.c: 163: return 0;
+"163
+[e ) -> -> 0 `i `uc ]
+[e $UE 298  ]
+[e :U 325 ]
+[; ;main.c: 164: i_buff2++;
+"164
+[e ++ _i_buff2 -> -> 1 `i `uc ]
+[; ;main.c: 165: if (buffer[i_buff2++] != 'N')
+"165
+[e $ ! != -> *U + &U _buffer * -> ++ _i_buff2 -> -> 1 `i `uc `ux -> -> # *U &U _buffer `ui `ux `ui -> 78 `ui 326  ]
+[; ;main.c: 166: return 0;
+"166
+[e ) -> -> 0 `i `uc ]
+[e $UE 298  ]
+[e :U 326 ]
+[; ;main.c: 167: i_buff2++;
+"167
+[e ++ _i_buff2 -> -> 1 `i `uc ]
+"170
+[v _before_dot `uc ~T0 @X0 1 a ]
+[; ;main.c: 170: bool before_dot = 1;
+[e = _before_dot -> -> 1 `i `uc ]
+[; ;main.c: 171: while ((i_buff2 < i_buff)&&(buffer[i_buff2]!=','))
+"171
+[e $U 327  ]
+[e :U 328 ]
+[; ;main.c: 172: if (buffer[i_buff2]=='.')
+"172
+[e $ ! == -> *U + &U _buffer * -> _i_buff2 `ux -> -> # *U &U _buffer `ui `ux `ui -> 46 `ui 330  ]
+[; ;main.c: 173: {
+"173
+{
+[; ;main.c: 174: before_dot = 0;
+"174
+[e = _before_dot -> -> 0 `i `uc ]
+[; ;main.c: 175: i_buff2++;
+"175
+[e ++ _i_buff2 -> -> 1 `i `uc ]
+"176
+}
+[; ;main.c: 176: }
+[e $U 331  ]
+"177
+[e :U 330 ]
+[; ;main.c: 177: else
+[; ;main.c: 178: {
+"178
+{
+[; ;main.c: 179: if ((buffer[i_buff2]<0x30)||(buffer[i_buff2]>0x39))
+"179
+[e $ ! || < -> *U + &U _buffer * -> _i_buff2 `ux -> -> # *U &U _buffer `ui `ux `i -> 48 `i > -> *U + &U _buffer * -> _i_buff2 `ux -> -> # *U &U _buffer `ui `ux `i -> 57 `i 332  ]
+[; ;main.c: 180: return 0;
+"180
+[e ) -> -> 0 `i `uc ]
+[e $UE 298  ]
+[e $U 333  ]
+"181
+[e :U 332 ]
+[; ;main.c: 181: else
+[; ;main.c: 182: {
+"182
+{
+[; ;main.c: 189: if (before_dot)
+"189
+[e $ ! != -> _before_dot `i -> -> -> 0 `i `uc `i 334  ]
+[; ;main.c: 191: read_speed_int = read_speed_int*10 + (buffer[i_buff2]-0x30);
+"191
+[e = _read_speed_int -> + * -> _read_speed_int `ui -> -> 10 `i `ui -> - -> *U + &U _buffer * -> _i_buff2 `ux -> -> # *U &U _buffer `ui `ux `i -> 48 `i `ui `us ]
+[e $U 335  ]
+"192
+[e :U 334 ]
+[; ;main.c: 192: else
+[; ;main.c: 193: {
+"193
+{
+[; ;main.c: 195: read_speed_dec = read_speed_int*10 + (buffer[i_buff2]-0x30);
+"195
+[e = _read_speed_dec -> + * -> _read_speed_int `ui -> -> 10 `i `ui -> - -> *U + &U _buffer * -> _i_buff2 `ux -> -> # *U &U _buffer `ui `ux `i -> 48 `i `ui `us ]
+"196
+}
+[e :U 335 ]
+[; ;main.c: 196: }
+[; ;main.c: 197: i_buff2++;
+"197
+[e ++ _i_buff2 -> -> 1 `i `uc ]
+"198
+}
+[e :U 333 ]
+"199
+}
+[e :U 331 ]
+[e :U 327 ]
+"171
+[e $ && < -> _i_buff2 `i -> _i_buff `i != -> *U + &U _buffer * -> _i_buff2 `ux -> -> # *U &U _buffer `ui `ux `ui -> 44 `ui 328  ]
+[e :U 329 ]
+[; ;main.c: 198: }
+[; ;main.c: 199: }
+[; ;main.c: 200: if (i_buff2 >= i_buff)
+"200
+[e $ ! >= -> _i_buff2 `i -> _i_buff `i 336  ]
+[; ;main.c: 201: return 0;
+"201
+[e ) -> -> 0 `i `uc ]
+[e $UE 298  ]
+[e :U 336 ]
+[; ;main.c: 202: i_buff2++;
+"202
+[e ++ _i_buff2 -> -> 1 `i `uc ]
+[; ;main.c: 203: if (buffer[i_buff2++] != 'M')
+"203
+[e $ ! != -> *U + &U _buffer * -> ++ _i_buff2 -> -> 1 `i `uc `ux -> -> # *U &U _buffer `ui `ux `ui -> 77 `ui 337  ]
+[; ;main.c: 204: return 0;
+"204
+[e ) -> -> 0 `i `uc ]
+[e $UE 298  ]
+[e :U 337 ]
+[; ;main.c: 205: i_buff2++;
+"205
+[e ++ _i_buff2 -> -> 1 `i `uc ]
+[; ;main.c: 208: while ((i_buff2 < i_buff)&&(buffer[i_buff2]!='*'))
+"208
+[e $U 338  ]
+[e :U 339 ]
+[; ;main.c: 209: i_buff2++;
+"209
+[e ++ _i_buff2 -> -> 1 `i `uc ]
+[e :U 338 ]
+"208
+[e $ && < -> _i_buff2 `i -> _i_buff `i != -> *U + &U _buffer * -> _i_buff2 `ux -> -> # *U &U _buffer `ui `ux `ui -> 42 `ui 339  ]
+[e :U 340 ]
+[; ;main.c: 210: if (i_buff2 >= i_buff)
+"210
+[e $ ! >= -> _i_buff2 `i -> _i_buff `i 341  ]
+[; ;main.c: 211: return 0;
+"211
+[e ) -> -> 0 `i `uc ]
+[e $UE 298  ]
+[e :U 341 ]
+"212
+[v _checksum `uc ~T0 @X0 1 a ]
+[; ;main.c: 212: unsigned char checksum = 0;
+[e = _checksum -> -> 0 `i `uc ]
+[; ;main.c: 213: for (unsigned char i=0;i<i_buff2;i++)
+"213
+{
+[v _i `uc ~T0 @X0 1 a ]
+[e = _i -> -> 0 `i `uc ]
+[e $U 345  ]
+"214
+[e :U 342 ]
+[; ;main.c: 214: checksum ^= buffer[i];
+[e =^ _checksum *U + &U _buffer * -> _i `ux -> -> # *U &U _buffer `ui `ux ]
+"213
+[e ++ _i -> -> 1 `i `uc ]
+[e :U 345 ]
+[e $ < -> _i `i -> _i_buff2 `i 342  ]
+[e :U 343 ]
+"214
+}
+[; ;main.c: 220: speed_int = read_speed_int;
+"220
+[e = _speed_int _read_speed_int ]
+[; ;main.c: 221: speed_dec = read_speed_dec;
+"221
+[e = _speed_dec _read_speed_dec ]
+[; ;main.c: 222: return 1;
+"222
+[e ) -> -> 1 `i `uc ]
+[e $UE 298  ]
+"223
+}
+[; ;main.c: 223: }
+[e $U 346  ]
+"224
+[e :U 311 ]
+[; ;main.c: 224: else return 0;
+[e ) -> -> 0 `i `uc ]
+[e $UE 298  ]
+[e :U 346 ]
+[; ;main.c: 225: }
+"225
+[e :UE 298 ]
+}
+"230
+[v _main `(v ~T0 @X0 1 ef ]
+"231
+{
+[; ;main.c: 230: void main(void)
+[; ;main.c: 231: {
 [e :U _main ]
 [f ]
-[; ;main.c: 106: SYSTEM_Initialize();
-"106
-[e ( _SYSTEM_Initialize ..  ]
-[; ;main.c: 107: TMR0_SetInterruptHandler(my10msTimerISR);
-"107
-[e ( _TMR0_SetInterruptHandler (1 -> &U _my10msTimerISR `*v ]
-[; ;main.c: 113: (INTCONbits.GIE = 1);
-"113
-[e = . . _INTCONbits 0 7 -> -> 1 `i `uc ]
-[; ;main.c: 116: (INTCONbits.PEIE = 1);
-"116
-[e = . . _INTCONbits 0 6 -> -> 1 `i `uc ]
-[; ;main.c: 167: LED_set_state(slow_blinking);
-"167
-[e ( _LED_set_state (1 . `E2607 2 ]
-[; ;main.c: 168: for(unsigned char tmp=0;tmp<(10*5);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
-"168
-{
-[v _tmp `uc ~T0 @X0 1 a ]
-[e = _tmp -> -> 0 `i `uc ]
-[e $ < -> _tmp `i * -> 10 `i -> 5 `i 312  ]
-[e $U 313  ]
-[e :U 312 ]
-{
-[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
-}
-[e ++ _tmp -> -> 1 `i `uc ]
-[e $ < -> _tmp `i * -> 10 `i -> 5 `i 312  ]
-[e :U 313 ]
-}
-[; ;main.c: 169: LED_set_state(fast_blinking);
-"169
-[e ( _LED_set_state (1 . `E2607 3 ]
-[; ;main.c: 170: for(unsigned char tmp=0;tmp<(10*5);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
-"170
-{
-[v _tmp `uc ~T0 @X0 1 a ]
-[e = _tmp -> -> 0 `i `uc ]
-[e $ < -> _tmp `i * -> 10 `i -> 5 `i 315  ]
-[e $U 316  ]
-[e :U 315 ]
-{
-[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
-}
-[e ++ _tmp -> -> 1 `i `uc ]
-[e $ < -> _tmp `i * -> 10 `i -> 5 `i 315  ]
-[e :U 316 ]
-}
-[; ;main.c: 171: LED_set_state(always_on);
-"171
-[e ( _LED_set_state (1 . `E2607 0 ]
-[; ;main.c: 172: for(unsigned char tmp=0;tmp<(10*5);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
-"172
-{
-[v _tmp `uc ~T0 @X0 1 a ]
-[e = _tmp -> -> 0 `i `uc ]
-[e $ < -> _tmp `i * -> 10 `i -> 5 `i 318  ]
-[e $U 319  ]
-[e :U 318 ]
-{
-[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
-}
-[e ++ _tmp -> -> 1 `i `uc ]
-[e $ < -> _tmp `i * -> 10 `i -> 5 `i 318  ]
-[e :U 319 ]
-}
-[; ;main.c: 173: LED_set_state(always_off);
-"173
-[e ( _LED_set_state (1 . `E2607 1 ]
-[; ;main.c: 174: for(unsigned char tmp=0;tmp<(10*5);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
-"174
-{
-[v _tmp `uc ~T0 @X0 1 a ]
-[e = _tmp -> -> 0 `i `uc ]
-[e $ < -> _tmp `i * -> 10 `i -> 5 `i 321  ]
-[e $U 322  ]
-[e :U 321 ]
-{
-[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
-}
-[e ++ _tmp -> -> 1 `i `uc ]
-[e $ < -> _tmp `i * -> 10 `i -> 5 `i 321  ]
-[e :U 322 ]
-}
-[; ;main.c: 177: LED_set_state(always_on);
-"177
-[e ( _LED_set_state (1 . `E2607 0 ]
-[; ;main.c: 178: button_init();
-"178
-[e ( _button_init ..  ]
-[; ;main.c: 179: while (b_confirmed_state == nothing)
-"179
-[e $U 324  ]
-[e :U 325 ]
-[; ;main.c: 180: {}
-"180
-{
-}
-[e :U 324 ]
-"179
-[e $ == -> _b_confirmed_state `i -> . `E2618 0 `i 325  ]
-[e :U 326 ]
-[; ;main.c: 182: if (b_confirmed_state == short_push)
-"182
-[e $ ! == -> _b_confirmed_state `i -> . `E2618 1 `i 327  ]
-[; ;main.c: 183: LED_set_state(fast_blinking);
-"183
-[e ( _LED_set_state (1 . `E2607 3 ]
-[e $U 328  ]
-"184
-[e :U 327 ]
-[; ;main.c: 184: else if (b_confirmed_state == long_push)
-[e $ ! == -> _b_confirmed_state `i -> . `E2618 2 `i 329  ]
-[; ;main.c: 185: LED_set_state(slow_blinking);
-"185
-[e ( _LED_set_state (1 . `E2607 2 ]
-[e :U 329 ]
-"187
-[e :U 328 ]
-[; ;main.c: 187: while(1)
-[e :U 331 ]
-[; ;main.c: 188: {}
-"188
-{
-}
-[e :U 330 ]
-"187
-[e $U 331  ]
-[e :U 332 ]
-"193
-[v _motor_load `ui ~T0 @X0 1 a ]
-[; ;main.c: 193: uint16_t motor_load = 0;
-[e = _motor_load -> -> 0 `i `ui ]
-[; ;main.c: 194: EPWM_LoadDutyValue(1023-motor_load);
-"194
-[e ( _EPWM_LoadDutyValue (1 - -> -> 1023 `i `ui _motor_load ]
-[; ;main.c: 195: TMR2_StartTimer();
-"195
-[e ( _TMR2_StartTimer ..  ]
-[; ;main.c: 196: for(unsigned char tmp=0;tmp<(10*5);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
-"196
-{
-[v _tmp `uc ~T0 @X0 1 a ]
-[e = _tmp -> -> 0 `i `uc ]
-[e $ < -> _tmp `i * -> 10 `i -> 5 `i 333  ]
-[e $U 334  ]
-[e :U 333 ]
-{
-[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
-}
-[e ++ _tmp -> -> 1 `i `uc ]
-[e $ < -> _tmp `i * -> 10 `i -> 5 `i 333  ]
-[e :U 334 ]
-}
-[; ;main.c: 198: GPS_Initialize();
-"198
-[e ( _GPS_Initialize ..  ]
-"199
-[v _up `uc ~T0 @X0 1 a ]
-[; ;main.c: 199: bool up = 1;
-[e = _up -> -> 1 `i `uc ]
-[; ;main.c: 222: EPWM_LoadDutyValue(0);
-"222
-[e ( _EPWM_LoadDutyValue (1 -> -> 0 `i `ui ]
-[; ;main.c: 223: _delay((unsigned long)((10)*(32000000/4000.0)));
-"223
-[e ( __delay (1 -> * -> -> 10 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
-[; ;main.c: 224: EPWM_LoadDutyValue(1023-148);
-"224
-[e ( _EPWM_LoadDutyValue (1 -> - -> 1023 `i -> 148 `i `ui ]
-[; ;main.c: 225: for(unsigned char tmp=0;tmp<(10*5);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
-"225
-{
-[v _tmp `uc ~T0 @X0 1 a ]
-[e = _tmp -> -> 0 `i `uc ]
-[e $ < -> _tmp `i * -> 10 `i -> 5 `i 336  ]
-[e $U 337  ]
-[e :U 336 ]
-{
-[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
-}
-[e ++ _tmp -> -> 1 `i `uc ]
-[e $ < -> _tmp `i * -> 10 `i -> 5 `i 336  ]
-[e :U 337 ]
-}
-[; ;main.c: 226: while (1)
-"226
-[e :U 340 ]
-[; ;main.c: 227: {
-"227
-{
-[; ;main.c: 228: if (up == 1)
-"228
-[e $ ! == -> _up `i -> 1 `i 342  ]
-[; ;main.c: 229: motor_load += 1;
-"229
-[e =+ _motor_load -> -> 1 `i `ui ]
-[e $U 343  ]
-"230
-[e :U 342 ]
-[; ;main.c: 230: else
-[; ;main.c: 231: motor_load -= 1;
-"231
-[e =- _motor_load -> -> 1 `i `ui ]
-[e :U 343 ]
-[; ;main.c: 232: if (motor_load > 300)
-"232
-[e $ ! > _motor_load -> -> 300 `i `ui 344  ]
-[; ;main.c: 233: up = 0;
+[; ;main.c: 233: SYSTEM_Initialize();
 "233
-[e = _up -> -> 0 `i `uc ]
-[e $U 345  ]
+[e ( _SYSTEM_Initialize ..  ]
+[; ;main.c: 234: TMR0_SetInterruptHandler(my10msTimerISR);
 "234
-[e :U 344 ]
-[; ;main.c: 234: else if (motor_load == 0)
-[e $ ! == _motor_load -> -> 0 `i `ui 346  ]
-[; ;main.c: 235: {
-"235
+[e ( _TMR0_SetInterruptHandler (1 -> &U _my10msTimerISR `*v ]
+[; ;main.c: 240: (INTCONbits.GIE = 1);
+"240
+[e = . . _INTCONbits 0 7 -> -> 1 `i `uc ]
+[; ;main.c: 243: (INTCONbits.PEIE = 1);
+"243
+[e = . . _INTCONbits 0 6 -> -> 1 `i `uc ]
+[; ;main.c: 293: GPS_Initialize();
+"293
+[e ( _GPS_Initialize ..  ]
+[; ;main.c: 296: while (1)
+"296
+[e :U 349 ]
+[; ;main.c: 297: {
+"297
 {
-[; ;main.c: 236: up = 1;
-"236
-[e = _up -> -> 1 `i `uc ]
-[; ;main.c: 237: EPWM_LoadDutyValue(1023);
-"237
-[e ( _EPWM_LoadDutyValue (1 -> -> 1023 `i `ui ]
-[; ;main.c: 238: for(unsigned char tmp=0;tmp<(10*5);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
-"238
+"298
+[v _res `uc ~T0 @X0 1 a ]
+[; ;main.c: 298: bool res = GPS_read_speed();
+[e = _res ( _GPS_read_speed ..  ]
+"301
+}
+[e :U 348 ]
+"296
+[e $U 349  ]
+[e :U 350 ]
+[; ;main.c: 301: }
+[; ;main.c: 304: LED_set_state(slow_blinking);
+"304
+[e ( _LED_set_state (1 . `E2607 2 ]
+[; ;main.c: 305: for(unsigned char tmp=0;tmp<(10*5);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
+"305
 {
 [v _tmp `uc ~T0 @X0 1 a ]
 [e = _tmp -> -> 0 `i `uc ]
-[e $ < -> _tmp `i * -> 10 `i -> 5 `i 347  ]
-[e $U 348  ]
-[e :U 347 ]
+[e $ < -> _tmp `i * -> 10 `i -> 5 `i 351  ]
+[e $U 352  ]
+[e :U 351 ]
 {
 [e ( __delay (1 -> * -> -> 100 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
 }
 [e ++ _tmp -> -> 1 `i `uc ]
-[e $ < -> _tmp `i * -> 10 `i -> 5 `i 347  ]
-[e :U 348 ]
+[e $ < -> _tmp `i * -> 10 `i -> 5 `i 351  ]
+[e :U 352 ]
 }
-[; ;main.c: 240: EPWM_LoadDutyValue(0);
-"240
-[e ( _EPWM_LoadDutyValue (1 -> -> 0 `i `ui ]
-[; ;main.c: 241: _delay((unsigned long)((10)*(32000000/4000.0)));
-"241
-[e ( __delay (1 -> * -> -> 10 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
-"242
-}
-[e :U 346 ]
-"243
-[e :U 345 ]
-[; ;main.c: 242: }
-[; ;main.c: 243: if (motor_load < 148)
-[e $ ! < _motor_load -> -> 148 `i `ui 350  ]
-[; ;main.c: 244: EPWM_LoadDutyValue(1023-135);
-"244
-[e ( _EPWM_LoadDutyValue (1 -> - -> 1023 `i -> 135 `i `ui ]
-[e $U 351  ]
-"245
-[e :U 350 ]
-[; ;main.c: 245: else
-[; ;main.c: 246: EPWM_LoadDutyValue(1023-motor_load);
-"246
-[e ( _EPWM_LoadDutyValue (1 - -> -> 1023 `i `ui _motor_load ]
-[e :U 351 ]
-[; ;main.c: 247: _delay((unsigned long)((50)*(32000000/4000.0)));
-"247
-[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
-"248
-}
-[e :U 339 ]
-"226
-[e $U 340  ]
-[e :U 341 ]
-[; ;main.c: 248: }
-[; ;main.c: 265: }
-"265
-[e :UE 311 ]
-}
-"267
-[v _my10msTimerISR `(v ~T0 @X0 1 ef ]
-"268
+[; ;main.c: 306: LED_set_state(fast_blinking);
+"306
+[e ( _LED_set_state (1 . `E2607 3 ]
+[; ;main.c: 307: for(unsigned char tmp=0;tmp<(10*5);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
+"307
 {
-[; ;main.c: 267: void my10msTimerISR(void)
-[; ;main.c: 268: {
+[v _tmp `uc ~T0 @X0 1 a ]
+[e = _tmp -> -> 0 `i `uc ]
+[e $ < -> _tmp `i * -> 10 `i -> 5 `i 354  ]
+[e $U 355  ]
+[e :U 354 ]
+{
+[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+}
+[e ++ _tmp -> -> 1 `i `uc ]
+[e $ < -> _tmp `i * -> 10 `i -> 5 `i 354  ]
+[e :U 355 ]
+}
+[; ;main.c: 308: LED_set_state(always_on);
+"308
+[e ( _LED_set_state (1 . `E2607 0 ]
+[; ;main.c: 309: for(unsigned char tmp=0;tmp<(10*5);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
+"309
+{
+[v _tmp `uc ~T0 @X0 1 a ]
+[e = _tmp -> -> 0 `i `uc ]
+[e $ < -> _tmp `i * -> 10 `i -> 5 `i 357  ]
+[e $U 358  ]
+[e :U 357 ]
+{
+[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+}
+[e ++ _tmp -> -> 1 `i `uc ]
+[e $ < -> _tmp `i * -> 10 `i -> 5 `i 357  ]
+[e :U 358 ]
+}
+[; ;main.c: 310: LED_set_state(always_off);
+"310
+[e ( _LED_set_state (1 . `E2607 1 ]
+[; ;main.c: 311: for(unsigned char tmp=0;tmp<(10*5);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
+"311
+{
+[v _tmp `uc ~T0 @X0 1 a ]
+[e = _tmp -> -> 0 `i `uc ]
+[e $ < -> _tmp `i * -> 10 `i -> 5 `i 360  ]
+[e $U 361  ]
+[e :U 360 ]
+{
+[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+}
+[e ++ _tmp -> -> 1 `i `uc ]
+[e $ < -> _tmp `i * -> 10 `i -> 5 `i 360  ]
+[e :U 361 ]
+}
+[; ;main.c: 314: LED_set_state(always_on);
+"314
+[e ( _LED_set_state (1 . `E2607 0 ]
+[; ;main.c: 315: button_init();
+"315
+[e ( _button_init ..  ]
+[; ;main.c: 316: while (b_confirmed_state == nothing)
+"316
+[e $U 363  ]
+[e :U 364 ]
+[; ;main.c: 317: {}
+"317
+{
+}
+[e :U 363 ]
+"316
+[e $ == -> _b_confirmed_state `i -> . `E2618 0 `i 364  ]
+[e :U 365 ]
+[; ;main.c: 319: if (b_confirmed_state == short_push)
+"319
+[e $ ! == -> _b_confirmed_state `i -> . `E2618 1 `i 366  ]
+[; ;main.c: 320: LED_set_state(fast_blinking);
+"320
+[e ( _LED_set_state (1 . `E2607 3 ]
+[e $U 367  ]
+"321
+[e :U 366 ]
+[; ;main.c: 321: else if (b_confirmed_state == long_push)
+[e $ ! == -> _b_confirmed_state `i -> . `E2618 2 `i 368  ]
+[; ;main.c: 322: LED_set_state(slow_blinking);
+"322
+[e ( _LED_set_state (1 . `E2607 2 ]
+[e :U 368 ]
+"324
+[e :U 367 ]
+[; ;main.c: 324: while(1)
+[e :U 370 ]
+[; ;main.c: 325: {}
+"325
+{
+}
+[e :U 369 ]
+"324
+[e $U 370  ]
+[e :U 371 ]
+"330
+[v _motor_load `ui ~T0 @X0 1 a ]
+[; ;main.c: 330: uint16_t motor_load = 0;
+[e = _motor_load -> -> 0 `i `ui ]
+[; ;main.c: 331: EPWM_LoadDutyValue(1023-motor_load);
+"331
+[e ( _EPWM_LoadDutyValue (1 - -> -> 1023 `i `ui _motor_load ]
+[; ;main.c: 332: TMR2_StartTimer();
+"332
+[e ( _TMR2_StartTimer ..  ]
+[; ;main.c: 333: for(unsigned char tmp=0;tmp<(10*5);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
+"333
+{
+[v _tmp `uc ~T0 @X0 1 a ]
+[e = _tmp -> -> 0 `i `uc ]
+[e $ < -> _tmp `i * -> 10 `i -> 5 `i 372  ]
+[e $U 373  ]
+[e :U 372 ]
+{
+[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+}
+[e ++ _tmp -> -> 1 `i `uc ]
+[e $ < -> _tmp `i * -> 10 `i -> 5 `i 372  ]
+[e :U 373 ]
+}
+"335
+[v _up `uc ~T0 @X0 1 a ]
+[; ;main.c: 335: bool up = 1;
+[e = _up -> -> 1 `i `uc ]
+[; ;main.c: 355: EPWM_LoadDutyValue(0);
+"355
+[e ( _EPWM_LoadDutyValue (1 -> -> 0 `i `ui ]
+[; ;main.c: 356: _delay((unsigned long)((10)*(32000000/4000.0)));
+"356
+[e ( __delay (1 -> * -> -> 10 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+[; ;main.c: 357: EPWM_LoadDutyValue(1023-148);
+"357
+[e ( _EPWM_LoadDutyValue (1 -> - -> 1023 `i -> 148 `i `ui ]
+[; ;main.c: 358: for(unsigned char tmp=0;tmp<(10*5);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
+"358
+{
+[v _tmp `uc ~T0 @X0 1 a ]
+[e = _tmp -> -> 0 `i `uc ]
+[e $ < -> _tmp `i * -> 10 `i -> 5 `i 375  ]
+[e $U 376  ]
+[e :U 375 ]
+{
+[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+}
+[e ++ _tmp -> -> 1 `i `uc ]
+[e $ < -> _tmp `i * -> 10 `i -> 5 `i 375  ]
+[e :U 376 ]
+}
+[; ;main.c: 359: while (1)
+"359
+[e :U 379 ]
+[; ;main.c: 360: {
+"360
+{
+[; ;main.c: 361: if (up == 1)
+"361
+[e $ ! == -> _up `i -> 1 `i 381  ]
+[; ;main.c: 362: motor_load += 1;
+"362
+[e =+ _motor_load -> -> 1 `i `ui ]
+[e $U 382  ]
+"363
+[e :U 381 ]
+[; ;main.c: 363: else
+[; ;main.c: 364: motor_load -= 1;
+"364
+[e =- _motor_load -> -> 1 `i `ui ]
+[e :U 382 ]
+[; ;main.c: 365: if (motor_load > 300)
+"365
+[e $ ! > _motor_load -> -> 300 `i `ui 383  ]
+[; ;main.c: 366: up = 0;
+"366
+[e = _up -> -> 0 `i `uc ]
+[e $U 384  ]
+"367
+[e :U 383 ]
+[; ;main.c: 367: else if (motor_load == 0)
+[e $ ! == _motor_load -> -> 0 `i `ui 385  ]
+[; ;main.c: 368: {
+"368
+{
+[; ;main.c: 369: up = 1;
+"369
+[e = _up -> -> 1 `i `uc ]
+[; ;main.c: 370: EPWM_LoadDutyValue(1023);
+"370
+[e ( _EPWM_LoadDutyValue (1 -> -> 1023 `i `ui ]
+[; ;main.c: 371: for(unsigned char tmp=0;tmp<(10*5);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
+"371
+{
+[v _tmp `uc ~T0 @X0 1 a ]
+[e = _tmp -> -> 0 `i `uc ]
+[e $ < -> _tmp `i * -> 10 `i -> 5 `i 386  ]
+[e $U 387  ]
+[e :U 386 ]
+{
+[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+}
+[e ++ _tmp -> -> 1 `i `uc ]
+[e $ < -> _tmp `i * -> 10 `i -> 5 `i 386  ]
+[e :U 387 ]
+}
+[; ;main.c: 373: EPWM_LoadDutyValue(0);
+"373
+[e ( _EPWM_LoadDutyValue (1 -> -> 0 `i `ui ]
+[; ;main.c: 374: _delay((unsigned long)((10)*(32000000/4000.0)));
+"374
+[e ( __delay (1 -> * -> -> 10 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+"375
+}
+[e :U 385 ]
+"376
+[e :U 384 ]
+[; ;main.c: 375: }
+[; ;main.c: 376: if (motor_load < 148)
+[e $ ! < _motor_load -> -> 148 `i `ui 389  ]
+[; ;main.c: 377: EPWM_LoadDutyValue(1023-135);
+"377
+[e ( _EPWM_LoadDutyValue (1 -> - -> 1023 `i -> 135 `i `ui ]
+[e $U 390  ]
+"378
+[e :U 389 ]
+[; ;main.c: 378: else
+[; ;main.c: 379: EPWM_LoadDutyValue(1023-motor_load);
+"379
+[e ( _EPWM_LoadDutyValue (1 - -> -> 1023 `i `ui _motor_load ]
+[e :U 390 ]
+[; ;main.c: 380: _delay((unsigned long)((50)*(32000000/4000.0)));
+"380
+[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+"381
+}
+[e :U 378 ]
+"359
+[e $U 379  ]
+[e :U 380 ]
+[; ;main.c: 381: }
+[; ;main.c: 389: }
+"389
+[e :UE 347 ]
+}
+"391
+[v _my10msTimerISR `(v ~T0 @X0 1 ef ]
+"392
+{
+[; ;main.c: 391: void my10msTimerISR(void)
+[; ;main.c: 392: {
 [e :U _my10msTimerISR ]
 [f ]
-[; ;main.c: 269: LED_update_loop();
-"269
+[; ;main.c: 393: LED_update_loop();
+"393
 [e ( _LED_update_loop ..  ]
-[; ;main.c: 270: button_update_loop();
-"270
+[; ;main.c: 394: button_update_loop();
+"394
 [e ( _button_update_loop ..  ]
-[; ;main.c: 271: }
-"271
-[e :UE 352 ]
+[; ;main.c: 395: }
+"395
+[e :UE 391 ]
 }
 [p f _printf 8388608 ]
 [a 2C 36 80 77 84 75 50 50 48 44 49 48 48 42 50 70 13 10 0 ]

@@ -50,7 +50,7 @@ void PIN_MANAGER_Initialize(void)
 {
     LATA = 0x0;
     LATC = 0x0;
-    ANSELA = 0x17;
+    ANSELA = 0x7;
     ANSELC = 0xF;
     WPUA = 0x3F;
     WPUC = 0x3F;

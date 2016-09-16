@@ -2370,7 +2370,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic.h: 186: extern unsigned char __resetbits;
 [; ;pic.h: 187: extern __bit __powerdown;
 [; ;pic.h: 188: extern __bit __timeout;
-[; ;pin_manager.h: 137: void PIN_MANAGER_Initialize (void);
+[; ;pin_manager.h: 107: void PIN_MANAGER_Initialize (void);
 "49 mcc_generated_files/pin_manager.c
 [v _PIN_MANAGER_Initialize `(v ~T0 @X0 1 ef ]
 "50
@@ -2385,9 +2385,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pin_manager.c: 52: LATC = 0x0;
 "52
 [e = _LATC -> -> 0 `i `uc ]
-[; ;pin_manager.c: 53: ANSELA = 0x17;
+[; ;pin_manager.c: 53: ANSELA = 0x7;
 "53
-[e = _ANSELA -> -> 23 `i `uc ]
+[e = _ANSELA -> -> 7 `i `uc ]
 [; ;pin_manager.c: 54: ANSELC = 0xF;
 "54
 [e = _ANSELC -> -> 15 `i `uc ]

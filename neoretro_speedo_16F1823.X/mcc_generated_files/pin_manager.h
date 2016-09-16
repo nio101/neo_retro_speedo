@@ -59,36 +59,23 @@
 #define PULL_UP_ENABLED      1
 #define PULL_UP_DISABLED     0
 
-// get/set STATUS_LED aliases
-#define STATUS_LED_TRIS               TRISA5
-#define STATUS_LED_LAT                LATA5
-#define STATUS_LED_PORT               RA5
-#define STATUS_LED_WPU                WPUA5
-#define STATUS_LED_SetHigh()    do { LATA5 = 1; } while(0)
-#define STATUS_LED_SetLow()   do { LATA5 = 0; } while(0)
-#define STATUS_LED_Toggle()   do { LATA5 = ~LATA5; } while(0)
-#define STATUS_LED_GetValue()         PORTAbits.RA5
-#define STATUS_LED_SetDigitalInput()    do { TRISA5 = 1; } while(0)
-#define STATUS_LED_SetDigitalOutput()   do { TRISA5 = 0; } while(0)
+// get/set BUTTON aliases
+#define BUTTON_TRIS               TRISA4
+#define BUTTON_LAT                LATA4
+#define BUTTON_PORT               RA4
+#define BUTTON_WPU                WPUA4
+#define BUTTON_ANS                ANSA4
+#define BUTTON_SetHigh()    do { LATA4 = 1; } while(0)
+#define BUTTON_SetLow()   do { LATA4 = 0; } while(0)
+#define BUTTON_Toggle()   do { LATA4 = ~LATA4; } while(0)
+#define BUTTON_GetValue()         PORTAbits.RA4
+#define BUTTON_SetDigitalInput()    do { TRISA4 = 1; } while(0)
+#define BUTTON_SetDigitalOutput()   do { TRISA4 = 0; } while(0)
 
-#define STATUS_LED_SetPullup()    do { WPUA5 = 1; } while(0)
-#define STATUS_LED_ResetPullup()   do { WPUA5 = 0; } while(0)
-
-
-// get/set STATUS_LED aliases
-#define STATUS_LED_TRIS               TRISA5
-#define STATUS_LED_LAT                LATA5
-#define STATUS_LED_PORT               RA5
-#define STATUS_LED_WPU                WPUA5
-#define STATUS_LED_SetHigh()    do { LATA5 = 1; } while(0)
-#define STATUS_LED_SetLow()   do { LATA5 = 0; } while(0)
-#define STATUS_LED_Toggle()   do { LATA5 = ~LATA5; } while(0)
-#define STATUS_LED_GetValue()         PORTAbits.RA5
-#define STATUS_LED_SetDigitalInput()    do { TRISA5 = 1; } while(0)
-#define STATUS_LED_SetDigitalOutput()   do { TRISA5 = 0; } while(0)
-
-#define STATUS_LED_SetPullup()    do { WPUA5 = 1; } while(0)
-#define STATUS_LED_ResetPullup()   do { WPUA5 = 0; } while(0)
+#define BUTTON_SetPullup()    do { WPUA4 = 1; } while(0)
+#define BUTTON_ResetPullup()   do { WPUA4 = 0; } while(0)
+#define BUTTON_SetAnalogMode()   do { ANSA4 = 1; } while(0)
+#define BUTTON_SetDigitalMode()   do { ANSA4 = 0; } while(0)
 
 
 // get/set STATUS_LED aliases
@@ -105,23 +92,6 @@
 
 #define STATUS_LED_SetPullup()    do { WPUA5 = 1; } while(0)
 #define STATUS_LED_ResetPullup()   do { WPUA5 = 0; } while(0)
-
-
-// get/set STATUS_LED aliases
-#define STATUS_LED_TRIS               TRISA5
-#define STATUS_LED_LAT                LATA5
-#define STATUS_LED_PORT               RA5
-#define STATUS_LED_WPU                WPUA5
-#define STATUS_LED_SetHigh()    do { LATA5 = 1; } while(0)
-#define STATUS_LED_SetLow()   do { LATA5 = 0; } while(0)
-#define STATUS_LED_Toggle()   do { LATA5 = ~LATA5; } while(0)
-#define STATUS_LED_GetValue()         PORTAbits.RA5
-#define STATUS_LED_SetDigitalInput()    do { TRISA5 = 1; } while(0)
-#define STATUS_LED_SetDigitalOutput()   do { TRISA5 = 0; } while(0)
-
-#define STATUS_LED_SetPullup()    do { WPUA5 = 1; } while(0)
-#define STATUS_LED_ResetPullup()   do { WPUA5 = 0; } while(0)
-
 
 
 /**

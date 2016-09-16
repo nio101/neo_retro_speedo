@@ -1,14 +1,42 @@
 Version 3.2 HI-TECH Software Intermediate Code
 [v F2491 `(v ~T0 @X0 0 tf ]
-"5 interact.c
-[c E2612 0 1 2 3 .. ]
-[n E2612 . always_on always_off slow_blinking fast_blinking  ]
+"16 interact.h
+[c E2607 0 1 2 3 .. ]
+[n E2607 . always_on always_off slow_blinking fast_blinking  ]
+"47
+[c E2618 0 1 2 .. ]
+[n E2618 . nothing short_push long_push  ]
 "5928 /opt/microchip/xc8/v1.38/include/pic16f1823.h
 [v _LATA5 `Vb ~T0 @X0 0 e@2149 ]
-"14 interact.h
-[v _LED_counter `Vuc ~T0 @X0 0 e ]
-"13
-[v _LED_state `E2612 ~T0 @X0 0 e ]
+"420
+[s S30 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S30 . RA0 RA1 RA2 RA3 RA4 RA5 ]
+"428
+[s S31 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S31 . AN0 AN1 AN2 . AN3 ]
+"435
+[s S32 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S32 . CPS0 CPS1 CPS2 . CPS3 ]
+"442
+[s S33 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S33 . C1INP C12IN0N C1OUT nSS SDO ]
+"449
+[s S34 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S34 . TX RX T0CKI nMCLR CLKR T1OSI ]
+"457
+[s S35 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S35 . CK DT FLT0 . T1OSO T1CKI ]
+"465
+[s S36 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S36 . DACOUT SRI SRQ . OSC2 OSC1 ]
+"473
+[s S37 :4 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S37 . . CLKOUT CLKIN ]
+"419
+[u S29 `S30 1 `S31 1 `S32 1 `S33 1 `S34 1 `S35 1 `S36 1 `S37 1 ]
+[n S29 . . . . . . . . . ]
+"479
+[v _PORTAbits `VS29 ~T0 @X0 0 e@12 ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
@@ -2351,7 +2379,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic.h: 186: extern unsigned char __resetbits;
 [; ;pic.h: 187: extern __bit __powerdown;
 [; ;pic.h: 188: extern __bit __timeout;
-[; ;pin_manager.h: 137: void PIN_MANAGER_Initialize (void);
+[; ;pin_manager.h: 107: void PIN_MANAGER_Initialize (void);
 [; ;stdint.h: 13: typedef signed char int8_t;
 [; ;stdint.h: 20: typedef signed int int16_t;
 [; ;stdint.h: 28: typedef signed short long int int24_t;
@@ -2447,154 +2475,355 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;tmr2.h: 324: bool TMR2_HasOverflowOccured(void);
 [; ;mcc.h: 72: void SYSTEM_Initialize(void);
 [; ;mcc.h: 85: void OSCILLATOR_Initialize(void);
-[; ;interact.h: 4: typedef enum {
-[; ;interact.h: 5: unknown, short_push, long_push
-[; ;interact.h: 6: } confirmed_state_t;
-[; ;interact.h: 9: typedef enum {
-[; ;interact.h: 10: always_on, always_off, slow_blinking, fast_blinking
-[; ;interact.h: 11: } LED_state_t;
-[; ;interact.h: 13: extern LED_state_t LED_state;
-[; ;interact.h: 14: extern unsigned char volatile LED_counter;
-[; ;interact.h: 19: void LED_set_state(LED_state_t new_state);
-[; ;interact.h: 20: void LED_update_loop();
-"4 interact.c
-[v _LED_set_state `(v ~T0 @X0 1 ef1`E2612 ]
-"5
+[; ;interact.h: 12: typedef enum {
+[; ;interact.h: 13: always_on, always_off, slow_blinking, fast_blinking
+[; ;interact.h: 14: } LED_state_t;
+"16 interact.h
+[v _LED_state `E2607 ~T0 @X0 1 e ]
+[i _LED_state
+. `E2607 1
+]
+[; ;interact.h: 16: LED_state_t LED_state=always_off;
+"17
+[v _LED_counter `Vuc ~T0 @X0 1 e ]
+[i _LED_counter
+-> -> 0 `i `uc
+]
+[; ;interact.h: 17: volatile unsigned char LED_counter=0;
+[; ;interact.h: 22: void LED_set_state(LED_state_t new_state);
+[; ;interact.h: 23: void LED_update_loop();
+[; ;interact.h: 44: typedef enum {
+[; ;interact.h: 45: nothing, short_push, long_push
+[; ;interact.h: 46: } confirmed_state_t;
+"47
+[v _b_confirmed_state `VE2618 ~T0 @X0 1 e ]
+[; ;interact.h: 47: volatile confirmed_state_t b_confirmed_state;
+"49
+[v _b_count_pressed `Vuc ~T0 @X0 1 e ]
+[; ;interact.h: 49: volatile unsigned char b_count_pressed;
+"50
+[v _b_count_released `Vuc ~T0 @X0 1 e ]
+[; ;interact.h: 50: volatile unsigned char b_count_released;
+"51
+[v _b_push_confirmed `Vuc ~T0 @X0 1 e ]
+[; ;interact.h: 51: volatile bool b_push_confirmed;
+"52
+[v _b_release_confirmed `Vuc ~T0 @X0 1 e ]
+[; ;interact.h: 52: volatile bool b_release_confirmed;
+"53
+[v _b_last_state `Vui ~T0 @X0 1 e ]
+[; ;interact.h: 53: volatile unsigned b_last_state;
+"54
+[v _b_has_once_been_released `Vuc ~T0 @X0 1 e ]
+[; ;interact.h: 54: volatile bool b_has_once_been_released;
+[; ;interact.h: 56: void button_init();
+[; ;interact.h: 57: void button_update_loop();
+"7 interact.c
+[v _LED_set_state `(v ~T0 @X0 1 ef1`E2607 ]
+"8
 {
-[; ;interact.c: 4: void LED_set_state(LED_state_t new_state)
-[; ;interact.c: 5: {
+[; ;interact.c: 7: void LED_set_state(LED_state_t new_state)
+[; ;interact.c: 8: {
 [e :U _LED_set_state ]
-"4
-[v _new_state `E2612 ~T0 @X0 1 r1 ]
-"5
-[f ]
-[; ;interact.c: 6: if (new_state == always_off)
-"6
-[e $ ! == -> _new_state `i -> . `E2612 1 `i 295  ]
-[; ;interact.c: 7: do { LATA5 = 0; } while(0);
 "7
+[v _new_state `E2607 ~T0 @X0 1 r1 ]
+"8
+[f ]
+[; ;interact.c: 9: if (new_state == always_off)
+"9
+[e $ ! == -> _new_state `i -> . `E2607 1 `i 295  ]
+[; ;interact.c: 10: do { LATA5 = 0; } while(0);
+"10
 [e :U 298 ]
 {
 [e = _LATA5 -> -> 0 `i `b ]
 }
 [e :U 297 ]
 [e $U 299  ]
-"8
+"11
 [e :U 295 ]
-[; ;interact.c: 8: else if (new_state == always_on)
-[e $ ! == -> _new_state `i -> . `E2612 0 `i 300  ]
-[; ;interact.c: 9: do { LATA5 = 1; } while(0);
-"9
+[; ;interact.c: 11: else if (new_state == always_on)
+[e $ ! == -> _new_state `i -> . `E2607 0 `i 300  ]
+[; ;interact.c: 12: do { LATA5 = 1; } while(0);
+"12
 [e :U 303 ]
 {
 [e = _LATA5 -> -> 1 `i `b ]
 }
 [e :U 302 ]
 [e $U 304  ]
-"10
+"13
 [e :U 300 ]
-[; ;interact.c: 10: else if ((new_state == slow_blinking)||(new_state == fast_blinking))
-[e $ ! || == -> _new_state `i -> . `E2612 2 `i == -> _new_state `i -> . `E2612 3 `i 305  ]
-[; ;interact.c: 11: {
-"11
+[; ;interact.c: 13: else if ((new_state == slow_blinking)||(new_state == fast_blinking))
+[e $ ! || == -> _new_state `i -> . `E2607 2 `i == -> _new_state `i -> . `E2607 3 `i 305  ]
+[; ;interact.c: 14: {
+"14
 {
-[; ;interact.c: 12: do { LATA5 = 1; } while(0);
-"12
+[; ;interact.c: 15: do { LATA5 = 1; } while(0);
+"15
 [e :U 308 ]
 {
 [e = _LATA5 -> -> 1 `i `b ]
 }
 [e :U 307 ]
-[; ;interact.c: 13: LED_counter = 0;
-"13
+[; ;interact.c: 16: LED_counter = 0;
+"16
 [e = _LED_counter -> -> 0 `i `uc ]
-"14
+"17
 }
 [e :U 305 ]
-"15
+"18
 [e :U 304 ]
 [e :U 299 ]
-[; ;interact.c: 14: }
-[; ;interact.c: 15: }
+[; ;interact.c: 17: }
+[; ;interact.c: 18: }
 [e :UE 294 ]
 }
-"17
+"20
 [v _LED_update_loop `(v ~T0 @X0 1 ef ]
-"18
+"21
 {
-[; ;interact.c: 17: void LED_update_loop()
-[; ;interact.c: 18: {
+[; ;interact.c: 20: void LED_update_loop()
+[; ;interact.c: 21: {
 [e :U _LED_update_loop ]
 [f ]
-[; ;interact.c: 19: if (LED_state == slow_blinking)
-"19
-[e $ ! == -> _LED_state `i -> . `E2612 2 `i 310  ]
-[; ;interact.c: 20: {
-"20
-{
-[; ;interact.c: 21: LED_counter++;
-"21
-[e ++ _LED_counter -> -> 1 `i `uc ]
-[; ;interact.c: 22: if (LED_counter >= 100)
+[; ;interact.c: 22: if (LED_state == slow_blinking)
 "22
-[e $ ! >= -> _LED_counter `i -> 100 `i 311  ]
+[e $ ! == -> _LED_state `i -> . `E2607 2 `i 310  ]
 [; ;interact.c: 23: {
 "23
 {
-[; ;interact.c: 24: LED_counter = 0;
+[; ;interact.c: 24: LED_counter++;
 "24
-[e = _LED_counter -> -> 0 `i `uc ]
-[; ;interact.c: 25: do { LATA5 = ~LATA5; } while(0);
+[e ++ _LED_counter -> -> 1 `i `uc ]
+[; ;interact.c: 25: if (LED_counter >= 100)
 "25
+[e $ ! >= -> _LED_counter `i -> 100 `i 311  ]
+[; ;interact.c: 26: {
+"26
+{
+[; ;interact.c: 27: LED_counter = 0;
+"27
+[e = _LED_counter -> -> 0 `i `uc ]
+[; ;interact.c: 28: do { LATA5 = ~LATA5; } while(0);
+"28
 [e :U 314 ]
 {
 [e = _LATA5 -> ~ -> _LATA5 `ui `b ]
 }
 [e :U 313 ]
-"26
+"29
 }
 [e :U 311 ]
-"27
-}
-[; ;interact.c: 26: }
-[; ;interact.c: 27: }
-[e $U 315  ]
-"28
-[e :U 310 ]
-[; ;interact.c: 28: else if (LED_state == fast_blinking)
-[e $ ! == -> _LED_state `i -> . `E2612 3 `i 316  ]
-[; ;interact.c: 29: {
-"29
-{
-[; ;interact.c: 30: LED_counter++;
 "30
-[e ++ _LED_counter -> -> 1 `i `uc ]
-[; ;interact.c: 31: if (LED_counter >= 50)
+}
+[; ;interact.c: 29: }
+[; ;interact.c: 30: }
+[e $U 315  ]
 "31
-[e $ ! >= -> _LED_counter `i -> 50 `i 317  ]
+[e :U 310 ]
+[; ;interact.c: 31: else if (LED_state == fast_blinking)
+[e $ ! == -> _LED_state `i -> . `E2607 3 `i 316  ]
 [; ;interact.c: 32: {
 "32
 {
-[; ;interact.c: 33: LED_counter = 0;
+[; ;interact.c: 33: LED_counter++;
 "33
-[e = _LED_counter -> -> 0 `i `uc ]
-[; ;interact.c: 34: do { LATA5 = ~LATA5; } while(0);
+[e ++ _LED_counter -> -> 1 `i `uc ]
+[; ;interact.c: 34: if (LED_counter >= 50)
 "34
+[e $ ! >= -> _LED_counter `i -> 50 `i 317  ]
+[; ;interact.c: 35: {
+"35
+{
+[; ;interact.c: 36: LED_counter = 0;
+"36
+[e = _LED_counter -> -> 0 `i `uc ]
+[; ;interact.c: 37: do { LATA5 = ~LATA5; } while(0);
+"37
 [e :U 320 ]
 {
 [e = _LATA5 -> ~ -> _LATA5 `ui `b ]
 }
 [e :U 319 ]
-"35
+"38
 }
 [e :U 317 ]
-"36
+"39
 }
 [e :U 316 ]
-"37
+"40
 [e :U 315 ]
-[; ;interact.c: 35: }
-[; ;interact.c: 36: }
-[; ;interact.c: 37: }
+[; ;interact.c: 38: }
+[; ;interact.c: 39: }
+[; ;interact.c: 40: }
 [e :UE 309 ]
+}
+"46
+[v _button_init `(v ~T0 @X0 1 ef ]
+"47
+{
+[; ;interact.c: 46: void button_init()
+[; ;interact.c: 47: {
+[e :U _button_init ]
+[f ]
+[; ;interact.c: 48: b_last_state = PORTAbits.RA4;
+"48
+[e = _b_last_state -> . . _PORTAbits 0 4 `ui ]
+[; ;interact.c: 49: b_count_pressed = 0;
+"49
+[e = _b_count_pressed -> -> 0 `i `uc ]
+[; ;interact.c: 50: b_count_released = 0;
+"50
+[e = _b_count_released -> -> 0 `i `uc ]
+[; ;interact.c: 51: b_confirmed_state = nothing;
+"51
+[e = _b_confirmed_state . `E2618 0 ]
+[; ;interact.c: 52: b_push_confirmed = 0;
+"52
+[e = _b_push_confirmed -> -> 0 `i `uc ]
+[; ;interact.c: 53: b_release_confirmed = 0;
+"53
+[e = _b_release_confirmed -> -> 0 `i `uc ]
+[; ;interact.c: 54: b_has_once_been_released = 0;
+"54
+[e = _b_has_once_been_released -> -> 0 `i `uc ]
+[; ;interact.c: 55: }
+"55
+[e :UE 321 ]
+}
+"57
+[v _button_update_loop `(v ~T0 @X0 1 ef ]
+"58
+{
+[; ;interact.c: 57: void button_update_loop()
+[; ;interact.c: 58: {
+[e :U _button_update_loop ]
+[f ]
+"59
+[v _current_state `uc ~T0 @X0 1 a ]
+[; ;interact.c: 59: unsigned char current_state = PORTAbits.RA4;
+[e = _current_state . . _PORTAbits 0 4 ]
+[; ;interact.c: 60: if (!b_push_confirmed)
+"60
+[e $ ! ! != -> _b_push_confirmed `i -> -> -> 0 `i `Vuc `i 323  ]
+[; ;interact.c: 61: {
+"61
+{
+[; ;interact.c: 63: if (current_state != b_last_state)
+"63
+[e $ ! != -> _current_state `ui _b_last_state 324  ]
+[; ;interact.c: 64: {
+"64
+{
+[; ;interact.c: 65: b_count_pressed = 0;
+"65
+[e = _b_count_pressed -> -> 0 `i `uc ]
+[; ;interact.c: 66: b_last_state = current_state;
+"66
+[e = _b_last_state -> _current_state `ui ]
+"67
+}
+[; ;interact.c: 67: }
+[e $U 325  ]
+"68
+[e :U 324 ]
+[; ;interact.c: 68: else if (b_last_state == 1)
+[e $ ! == _b_last_state -> -> 1 `i `ui 326  ]
+[; ;interact.c: 69: {
+"69
+{
+[; ;interact.c: 70: b_count_pressed++;
+"70
+[e ++ _b_count_pressed -> -> 1 `i `uc ]
+[; ;interact.c: 71: if (b_count_pressed > 10)
+"71
+[e $ ! > -> _b_count_pressed `i -> 10 `i 327  ]
+[; ;interact.c: 72: b_push_confirmed = 1;
+"72
+[e = _b_push_confirmed -> -> 1 `i `uc ]
+[e :U 327 ]
+"73
+}
+[e :U 326 ]
+"74
+[e :U 325 ]
+}
+[; ;interact.c: 73: }
+[; ;interact.c: 74: }
+[e $U 328  ]
+"75
+[e :U 323 ]
+[; ;interact.c: 75: else
+[; ;interact.c: 76: {
+"76
+{
+[; ;interact.c: 77: if (current_state != b_last_state)
+"77
+[e $ ! != -> _current_state `ui _b_last_state 329  ]
+[; ;interact.c: 78: {
+"78
+{
+[; ;interact.c: 79: b_count_released = 0;
+"79
+[e = _b_count_released -> -> 0 `i `uc ]
+[; ;interact.c: 80: b_last_state = current_state;
+"80
+[e = _b_last_state -> _current_state `ui ]
+[; ;interact.c: 81: b_has_once_been_released = 1;
+"81
+[e = _b_has_once_been_released -> -> 1 `i `uc ]
+"82
+}
+[; ;interact.c: 82: }
+[e $U 330  ]
+"83
+[e :U 329 ]
+[; ;interact.c: 83: else if ((b_last_state == 1)&&(!b_has_once_been_released))
+[e $ ! && == _b_last_state -> -> 1 `i `ui ! != -> _b_has_once_been_released `i -> -> -> 0 `i `Vuc `i 331  ]
+[; ;interact.c: 84: b_count_pressed++;
+"84
+[e ++ _b_count_pressed -> -> 1 `i `uc ]
+[e $U 332  ]
+"85
+[e :U 331 ]
+[; ;interact.c: 85: else if (b_last_state == 0)
+[e $ ! == _b_last_state -> -> 0 `i `ui 333  ]
+[; ;interact.c: 86: {
+"86
+{
+[; ;interact.c: 87: b_count_released++;
+"87
+[e ++ _b_count_released -> -> 1 `i `uc ]
+[; ;interact.c: 88: if (b_count_released > 10)
+"88
+[e $ ! > -> _b_count_released `i -> 10 `i 334  ]
+[; ;interact.c: 89: if (b_count_pressed >= 100)
+"89
+[e $ ! >= -> _b_count_pressed `i -> 100 `i 335  ]
+[; ;interact.c: 90: b_confirmed_state = long_push;
+"90
+[e = _b_confirmed_state . `E2618 2 ]
+[e $U 336  ]
+"91
+[e :U 335 ]
+[; ;interact.c: 91: else
+[; ;interact.c: 92: b_confirmed_state = short_push;
+"92
+[e = _b_confirmed_state . `E2618 1 ]
+[e :U 336 ]
+[e :U 334 ]
+"93
+}
+[e :U 333 ]
+"94
+[e :U 332 ]
+[e :U 330 ]
+}
+[e :U 328 ]
+[; ;interact.c: 93: }
+[; ;interact.c: 94: }
+[; ;interact.c: 95: }
+"95
+[e :UE 322 ]
 }

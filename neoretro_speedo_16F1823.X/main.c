@@ -52,9 +52,6 @@
 void my10msTimerISR(void);  // custom function called every 10ms,
                             // used for LED blinking and push button debounce
 
-unsigned char volatile LED_counter=0;
-LED_state_t LED_state;
-
 #define __delay_sec(x) for(unsigned char tmp=0;tmp<(10*x);tmp++){__delay_ms(100);}
 
 // to store current speed value and units
@@ -167,28 +164,42 @@ void main(void)
     // scotché en cas de perte de fix)
     
     // Test DA LED output! :)
-    LED_set_state(always_on);
-    __delay_sec(5);
-    LED_set_state(always_off);
-    __delay_sec(5);
     LED_set_state(slow_blinking);
     __delay_sec(5);
     LED_set_state(fast_blinking);
     __delay_sec(5);
+    LED_set_state(always_on);
+    __delay_sec(5);
+    LED_set_state(always_off);
+    __delay_sec(5);
+        
+    // Test DA button now!
+    LED_set_state(always_on);
+    button_init();
+    while (b_confirmed_state == nothing)
+    {}
     
+    if (b_confirmed_state == short_push)
+        LED_set_state(fast_blinking);
+    else if (b_confirmed_state == long_push)
+        LED_set_state(slow_blinking);
+
     while(1)
     {}
     
     // test PWM now!
     
-    //uint16_t motor_load = 128; // == 0-1024 for 0-100% motor load
+    //uint16_t motor_load = 128; // == 0-1023 for 100-0% motor load (inverted))
     uint16_t motor_load = 0;
-    EPWM_LoadDutyValue(1023);    
+    EPWM_LoadDutyValue(1023-motor_load);
     TMR2_StartTimer();
     __delay_sec(5);
     
     GPS_Initialize();
     bool up = true;
+    
+    // test NMEA speed reading!
+    
     
     // test loop, slowly from 0 to --- and back to 0
     /*
@@ -256,6 +267,7 @@ void main(void)
 void my10msTimerISR(void)
 {
     LED_update_loop();
+    button_update_loop();
 }
 
 /**

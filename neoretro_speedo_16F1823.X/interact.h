@@ -10,14 +10,14 @@
 // 1) LED_set_state([LED_state]);
 
 typedef enum {
-    always_on, always_off, slow_blinking, fast_blinking
+    always_on, always_off, slow_blinking, fast_blinking, manual_mode
 } LED_state_t;
 
 LED_state_t LED_state=always_off;
 volatile unsigned char LED_counter=0;
 
-#define slow_blinking_period 100
-#define fast_blinking_period 50
+#define slow_blinking_period 85
+#define fast_blinking_period 20
 
 void LED_set_state(LED_state_t new_state);
 void LED_update_loop();
@@ -34,10 +34,12 @@ void LED_update_loop();
 // 2) while (b_confirmed_state == nothing)
 // { do something while waiting for button push detection; }
 
-// 100ms min for a short push
-#define count_short_push 10
-// 1s min for a long push
-#define count_long_push 100
+// 50ms min for a short push
+#define count_short_push 5
+// 750s min for a long push
+#define count_long_push 75
+// 1s push time max
+#define max_count_push 100
 // 100ms min for a release event
 #define count_release   10
 
@@ -55,3 +57,4 @@ volatile bool b_has_once_been_released;
 
 void button_init();
 void button_update_loop();
+unsigned char get_button_state();

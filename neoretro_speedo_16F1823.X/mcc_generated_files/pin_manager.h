@@ -94,6 +94,55 @@
 #define STATUS_LED_ResetPullup()   do { WPUA5 = 0; } while(0)
 
 
+// get/set STATUS_LED aliases
+#define STATUS_LED_TRIS               TRISA5
+#define STATUS_LED_LAT                LATA5
+#define STATUS_LED_PORT               RA5
+#define STATUS_LED_WPU                WPUA5
+#define STATUS_LED_SetHigh()    do { LATA5 = 1; } while(0)
+#define STATUS_LED_SetLow()   do { LATA5 = 0; } while(0)
+#define STATUS_LED_Toggle()   do { LATA5 = ~LATA5; } while(0)
+#define STATUS_LED_GetValue()         PORTAbits.RA5
+#define STATUS_LED_SetDigitalInput()    do { TRISA5 = 1; } while(0)
+#define STATUS_LED_SetDigitalOutput()   do { TRISA5 = 0; } while(0)
+
+#define STATUS_LED_SetPullup()    do { WPUA5 = 1; } while(0)
+#define STATUS_LED_ResetPullup()   do { WPUA5 = 0; } while(0)
+
+
+// get/set STATUS_LED aliases
+#define STATUS_LED_TRIS               TRISA5
+#define STATUS_LED_LAT                LATA5
+#define STATUS_LED_PORT               RA5
+#define STATUS_LED_WPU                WPUA5
+#define STATUS_LED_SetHigh()    do { LATA5 = 1; } while(0)
+#define STATUS_LED_SetLow()   do { LATA5 = 0; } while(0)
+#define STATUS_LED_Toggle()   do { LATA5 = ~LATA5; } while(0)
+#define STATUS_LED_GetValue()         PORTAbits.RA5
+#define STATUS_LED_SetDigitalInput()    do { TRISA5 = 1; } while(0)
+#define STATUS_LED_SetDigitalOutput()   do { TRISA5 = 0; } while(0)
+
+#define STATUS_LED_SetPullup()    do { WPUA5 = 1; } while(0)
+#define STATUS_LED_ResetPullup()   do { WPUA5 = 0; } while(0)
+
+
+// get/set STATUS_LED aliases
+#define STATUS_LED_TRIS               TRISA5
+#define STATUS_LED_LAT                LATA5
+#define STATUS_LED_PORT               RA5
+#define STATUS_LED_WPU                WPUA5
+#define STATUS_LED_SetHigh()    do { LATA5 = 1; } while(0)
+#define STATUS_LED_SetLow()   do { LATA5 = 0; } while(0)
+#define STATUS_LED_Toggle()   do { LATA5 = ~LATA5; } while(0)
+#define STATUS_LED_GetValue()         PORTAbits.RA5
+#define STATUS_LED_SetDigitalInput()    do { TRISA5 = 1; } while(0)
+#define STATUS_LED_SetDigitalOutput()   do { TRISA5 = 0; } while(0)
+
+#define STATUS_LED_SetPullup()    do { WPUA5 = 1; } while(0)
+#define STATUS_LED_ResetPullup()   do { WPUA5 = 0; } while(0)
+
+
+
 /**
  * @Param
     none

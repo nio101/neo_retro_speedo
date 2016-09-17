@@ -1,17 +1,17 @@
 
 # 1 "main.c"
 
-# 26 "/opt/microchip/xc8/v1.38/include/htc.h"
+# 26 "D:\Program Files\Microchip\xc8\v1.38\include\htc.h"
 extern const char __xc8_OPTIM_SPEED;
 
 extern double __fpnormalize(double);
 
 
-# 13 "/opt/microchip/xc8/v1.38/include/xc8debug.h"
+# 13 "D:\Program Files\Microchip\xc8\v1.38\include\xc8debug.h"
 #pragma intrinsic(__builtin_software_breakpoint)
 extern void __builtin_software_breakpoint(void);
 
-# 49 "/opt/microchip/xc8/v1.38/include/pic16f1823.h"
+# 49 "D:\Program Files\Microchip\xc8\v1.38\include\pic16f1823.h"
 extern volatile unsigned char INDF0 @ 0x000;
 
 asm("INDF0 equ 00h");
@@ -3160,21 +3160,21 @@ extern volatile __bit nTO @ (((unsigned) &STATUS)*8) + 4;
 extern volatile __bit nWPUEN @ (((unsigned) &OPTION_REG)*8) + 7;
 
 
-# 27 "/opt/microchip/xc8/v1.38/include/pic.h"
+# 27 "D:\Program Files\Microchip\xc8\v1.38\include\pic.h"
 #pragma intrinsic(__nop)
 extern void __nop(void);
 
 # 77
 extern unsigned int flash_read(unsigned short addr);
 
-# 114 "/opt/microchip/xc8/v1.38/include/eeprom_routines.h"
+# 114 "D:\Program Files\Microchip\xc8\v1.38\include\eeprom_routines.h"
 extern void eeprom_write(unsigned char addr, unsigned char value);
 extern unsigned char eeprom_read(unsigned char addr);
 extern void eecpymem(volatile unsigned char *to, __eeprom unsigned char *from, unsigned char size);
 extern void memcpyee(__eeprom unsigned char *to, const unsigned char *from, unsigned char size);
 
 
-# 151 "/opt/microchip/xc8/v1.38/include/pic.h"
+# 151 "D:\Program Files\Microchip\xc8\v1.38\include\pic.h"
 #pragma intrinsic(_delay)
 extern __nonreentrant void _delay(unsigned long);
 
@@ -3183,10 +3183,10 @@ extern unsigned char __resetbits;
 extern __bit __powerdown;
 extern __bit __timeout;
 
-# 107 "mcc_generated_files/pin_manager.h"
+# 156 "mcc_generated_files/pin_manager.h"
 void PIN_MANAGER_Initialize (void);
 
-# 13 "/opt/microchip/xc8/v1.38/include/stdint.h"
+# 13 "D:\Program Files\Microchip\xc8\v1.38\include\stdint.h"
 typedef signed char int8_t;
 
 # 20
@@ -3276,7 +3276,7 @@ typedef int16_t intptr_t;
 
 typedef uint16_t uintptr_t;
 
-# 12 "/opt/microchip/xc8/v1.38/include/stdbool.h"
+# 12 "D:\Program Files\Microchip\xc8\v1.38\include\stdbool.h"
 typedef unsigned char bool;
 
 # 110 "mcc_generated_files/interrupt_manager.h"
@@ -3309,10 +3309,10 @@ void (*TMR0_InterruptHandler)(void);
 # 298
 void TMR0_DefaultInterruptHandler(void);
 
-# 4 "/opt/microchip/xc8/v1.38/include/__size_t.h"
+# 4 "D:\Program Files\Microchip\xc8\v1.38\include\__size_t.h"
 typedef unsigned size_t;
 
-# 7 "/opt/microchip/xc8/v1.38/include/stdarg.h"
+# 7 "D:\Program Files\Microchip\xc8\v1.38\include\stdarg.h"
 typedef void * va_list[1];
 
 #pragma intrinsic(__va_start)
@@ -3321,17 +3321,17 @@ extern void * __va_start(void);
 #pragma intrinsic(__va_arg)
 extern void * __va_arg(void *, ...);
 
-# 43 "/opt/microchip/xc8/v1.38/include/stdio.h"
+# 43 "D:\Program Files\Microchip\xc8\v1.38\include\stdio.h"
 struct __prbuf
 {
 char * ptr;
 void (* func)(char);
 };
 
-# 29 "/opt/microchip/xc8/v1.38/include/errno.h"
+# 29 "D:\Program Files\Microchip\xc8\v1.38\include\errno.h"
 extern int errno;
 
-# 12 "/opt/microchip/xc8/v1.38/include/conio.h"
+# 12 "D:\Program Files\Microchip\xc8\v1.38\include\conio.h"
 extern void init_uart(void);
 
 extern char getch(void);
@@ -3345,7 +3345,7 @@ extern __bit kbhit(void);
 extern char * cgets(char *);
 extern void cputs(const char *);
 
-# 88 "/opt/microchip/xc8/v1.38/include/stdio.h"
+# 88 "D:\Program Files\Microchip\xc8\v1.38\include\stdio.h"
 extern int cprintf(char *, ...);
 #pragma printf_check(cprintf)
 
@@ -3444,7 +3444,7 @@ void OSCILLATOR_Initialize(void);
 
 # 12 "interact.h"
 typedef enum {
-always_on, always_off, slow_blinking, fast_blinking
+always_on, always_off, slow_blinking, fast_blinking, manual_mode
 } LED_state_t;
 
 LED_state_t LED_state=always_off;
@@ -3456,7 +3456,7 @@ volatile unsigned char LED_counter=0;
 void LED_set_state(LED_state_t new_state);
 void LED_update_loop();
 
-# 44
+# 46
 typedef enum {
 nothing, short_push, long_push
 } confirmed_state_t;
@@ -3471,17 +3471,18 @@ volatile bool b_has_once_been_released;
 
 void button_init();
 void button_update_loop();
+unsigned char get_button_state();
 
-# 54 "main.c"
+# 55 "main.c"
 void my10msTimerISR(void);
 
-# 60
+# 61
 typedef enum _speed_unit_type { MPH = 0, KPH } speed_unit_type;
 speed_unit_type speed_units = MPH;
 unsigned short speed_int = 0;
 unsigned short speed_dec = 0;
 
-# 70
+# 71
 void GPS_Initialize(void)
 {
 for(unsigned char tmp=0;tmp<(10*1);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
@@ -3495,181 +3496,198 @@ _delay((unsigned long)((100)*(32000000/4000.0)));
 bool GPS_read_speed(void)
 {
 
-# 93
-unsigned char buffer[40];
+
+unsigned char buffer[6];
 unsigned char i_buff = 0;
+unsigned char checksum = 0x00;
 
-
-
-bool done = 0;
-bool recording = 0;
-unsigned char m_char;
-while (!done)
-{
-if(eusartRxCount==0)
-{
-
-}
-else if(eusartRxCount!=0)
-{
+unsigned char m_char = 0x00;
+while (m_char != '$')
+if(eusartRxCount!=0)
 m_char=EUSART_Read();
 
 
-if (m_char == '$')
+
+while (1)
+if (eusartRxCount!=0)
 {
-recording = 1;
-i_buff = 0;
-}
-else if (recording)
-{
-if (m_char == 0x0D)
-done = 1;
+m_char=EUSART_Read();
+checksum ^= m_char;
+if (m_char == ',')
+break;
 else
+{
 buffer[i_buff++] = m_char;
-if (i_buff > 40)
+if (i_buff >= 6)
+return 0;
+}
+}
+
+if ((buffer[0] != 'G')||(buffer[1] != 'P')||(buffer[2] != 'V')||(buffer[3] != 'T')||(buffer[4] != 'G'))
+return 0;
+i_buff = 0;
+
+
+while (1)
+if (eusartRxCount!=0)
 {
-
-
-recording = 0;
-}
-}
-}
+m_char=EUSART_Read();
+checksum ^= m_char;
+if (m_char == ',')
+break;
 }
 
-unsigned char i_buff2 = 0;
-unsigned short read_speed_int = 0;
-unsigned short read_speed_dec = 0;
-
-if ((buffer[i_buff2++] == 'G')&&(buffer[i_buff2++] == 'P')&&(buffer[i_buff2++] == 'V')&&(buffer[i_buff2++] == 'T')&&(buffer[i_buff2++] == 'G'))
+while (1)
+if (eusartRxCount!=0)
 {
-
-while ((i_buff2 < i_buff)&&(buffer[i_buff2]!=','))
-i_buff2++;
-if (i_buff2 >= i_buff)
-return 0;
-i_buff2++;
-if (buffer[i_buff2++] != 'T')
-return 0;
-i_buff2++;
-
-
-while ((i_buff2 < i_buff)&&(buffer[i_buff2]!=','))
-i_buff2++;
-if (i_buff2 >= i_buff)
-return 0;
-i_buff2++;
-if (buffer[i_buff2++] != 'M')
-return 0;
-i_buff2++;
-
-
-while ((i_buff2 < i_buff)&&(buffer[i_buff2]!=','))
-i_buff2++;
-if (i_buff2 >= i_buff)
-return 0;
-i_buff2++;
-if (buffer[i_buff2++] != 'N')
-return 0;
-i_buff2++;
-
-
-bool before_dot = 1;
-while ((i_buff2 < i_buff)&&(buffer[i_buff2]!=','))
-if (buffer[i_buff2]=='.')
-{
-before_dot = 0;
-i_buff2++;
-}
+m_char=EUSART_Read();
+checksum ^= m_char;
+if (m_char == ',')
+break;
 else
 {
-if ((buffer[i_buff2]<0x30)||(buffer[i_buff2]>0x39))
+buffer[i_buff++] = m_char;
+if (i_buff >= 6)
 return 0;
+}
+}
+if ((buffer[0] != 'T')||(i_buff != 1))
+return 0;
+i_buff = 0;
+
+
+while (1)
+if (eusartRxCount!=0)
+{
+m_char=EUSART_Read();
+checksum ^= m_char;
+if (m_char == ',')
+break;
+}
+
+while (1)
+if (eusartRxCount!=0)
+{
+m_char=EUSART_Read();
+checksum ^= m_char;
+if (m_char == ',')
+break;
 else
 {
+buffer[i_buff++] = m_char;
+if (i_buff >= 6)
+return 0;
+}
+}
+if ((buffer[0] != 'M')||(i_buff != 1))
+return 0;
+i_buff = 0;
 
-# 189
-if (before_dot)
 
-read_speed_int = read_speed_int*10 + (buffer[i_buff2]-0x30);
+while (1)
+if (eusartRxCount!=0)
+{
+m_char=EUSART_Read();
+checksum ^= m_char;
+if (m_char == ',')
+break;
+}
+
+while (1)
+if (eusartRxCount!=0)
+{
+m_char=EUSART_Read();
+checksum ^= m_char;
+if (m_char == ',')
+break;
 else
 {
-
-read_speed_dec = read_speed_int*10 + (buffer[i_buff2]-0x30);
-}
-i_buff2++;
-}
-}
-if (i_buff2 >= i_buff)
+buffer[i_buff++] = m_char;
+if (i_buff >= 6)
 return 0;
-i_buff2++;
-if (buffer[i_buff2++] != 'M')
+}
+}
+if ((buffer[0] != 'N')||(i_buff != 1))
 return 0;
-i_buff2++;
+i_buff = 0;
 
 
-while ((i_buff2 < i_buff)&&(buffer[i_buff2]!='*'))
-i_buff2++;
-if (i_buff2 >= i_buff)
+while (1)
+if (eusartRxCount!=0)
+{
+m_char=EUSART_Read();
+checksum ^= m_char;
+if (m_char == ',')
+break;
+else
+{
+buffer[i_buff++] = m_char;
+if (i_buff >= 6)
 return 0;
-unsigned char checksum = 0;
-for (unsigned char i=0;i<i_buff2;i++)
-checksum ^= buffer[i];
+}
+}
 
-# 220
-speed_int = read_speed_int;
-speed_dec = read_speed_dec;
+
+unsigned char tmp = 0;
+i_buff = 0;
+
+
+while (1)
+if (eusartRxCount!=0)
+{
+m_char=EUSART_Read();
+checksum ^= m_char;
+if (m_char == ',')
+break;
+else
+{
+buffer[i_buff++] = m_char;
+if (i_buff >= 6)
+return 0;
+}
+}
+if ((buffer[0] != 'K')||(i_buff != 1))
+return 0;
+i_buff = 0;
 return 1;
 }
-else return 0;
-}
 
-# 230
+# 243
 void main(void)
 {
 
 SYSTEM_Initialize();
 TMR0_SetInterruptHandler(my10msTimerISR);
 
-# 240
+# 253
 (INTCONbits.GIE = 1);
 
 
 (INTCONbits.PEIE = 1);
 
-# 293
+# 318
+LED_set_state(manual_mode);
+do { LATA5 = 0; } while(0);
+for(unsigned char tmp=0;tmp<(10*3);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
+
+# 337
 GPS_Initialize();
 
 
+bool res;
 while (1)
 {
-bool res = GPS_read_speed();
+res = GPS_read_speed();
+if (res)
+{
+do { LATA5 = 1; } while(0);
+_delay((unsigned long)((20)*(32000000/4000.0)));
+}
+do { LATA5 = 0; } while(0);
+
 
 
 }
-
-
-LED_set_state(slow_blinking);
-for(unsigned char tmp=0;tmp<(10*5);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
-LED_set_state(fast_blinking);
-for(unsigned char tmp=0;tmp<(10*5);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
-LED_set_state(always_on);
-for(unsigned char tmp=0;tmp<(10*5);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
-LED_set_state(always_off);
-for(unsigned char tmp=0;tmp<(10*5);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
-
-
-LED_set_state(always_on);
-button_init();
-while (b_confirmed_state == nothing)
-{}
-
-if (b_confirmed_state == short_push)
-LED_set_state(fast_blinking);
-else if (b_confirmed_state == long_push)
-LED_set_state(slow_blinking);
-
-while(1)
-{}
 
 
 
@@ -3681,7 +3699,7 @@ for(unsigned char tmp=0;tmp<(10*5);tmp++){_delay((unsigned long)((100)*(32000000
 
 bool up = 1;
 
-# 355
+# 383
 EPWM_LoadDutyValue(0);
 _delay((unsigned long)((10)*(32000000/4000.0)));
 EPWM_LoadDutyValue(1023-148);
@@ -3710,7 +3728,7 @@ EPWM_LoadDutyValue(1023-motor_load);
 _delay((unsigned long)((50)*(32000000/4000.0)));
 }
 
-# 389
+# 417
 }
 
 void my10msTimerISR(void)

@@ -6,6 +6,7 @@
 
 void LED_set_state(LED_state_t new_state)
 {
+    LED_state = new_state;
     if (new_state == always_off)
         STATUS_LED_SetLow();
     else if (new_state == always_on)
@@ -19,7 +20,9 @@ void LED_set_state(LED_state_t new_state)
 
 void LED_update_loop()
 {
-    if (LED_state == slow_blinking)
+    if (LED_state == manual_mode)
+        return;
+    else if (LED_state == slow_blinking)
     {
         LED_counter++;
         if (LED_counter >= slow_blinking_period)
@@ -43,9 +46,18 @@ void LED_update_loop()
 // push button handling
 // ----------------------------------------------------------------------------
 
+unsigned char get_button_state()
+{
+    // ! warning ! button state is pulled-up, it reads 0/GND in pushed state
+    unsigned char state = BUTTON_GetValue();
+    if (state == 1)
+        return 0;
+    else return 1;
+}
+
 void button_init()
 {
-    b_last_state = BUTTON_GetValue();
+    b_last_state = get_button_state();
     b_count_pressed = 0;
     b_count_released = 0;
     b_confirmed_state = nothing;
@@ -56,7 +68,7 @@ void button_init()
 
 void button_update_loop()
 {
-    unsigned char current_state = BUTTON_GetValue();
+    unsigned char current_state = get_button_state();
     if (!b_push_confirmed)
     {
         // button state has changed while push was not confirmed
@@ -81,7 +93,11 @@ void button_update_loop()
             b_has_once_been_released = true;
         }
         else if ((b_last_state == 1)&&(!b_has_once_been_released))
-            b_count_pressed++;            
+        {
+            b_count_pressed++;
+            if (b_count_pressed >= max_count_push)
+                b_confirmed_state = long_push;
+        }            
         else if (b_last_state == 0)
         {   // button is in the same released state
             b_count_released++;

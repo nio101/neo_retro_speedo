@@ -45,11 +45,12 @@
 
 #include "mcc_generated_files/mcc.h"
 #include "interact.h"
+
 /*
  * Helpers
  */
 
-#define NMEA_BUFFER_SIZE 40
+#define NMEA_BUFFER_SIZE 6
 
 void my10msTimerISR(void);  // custom function called every 10ms,
                             // used for LED blinking and push button debounce
@@ -79,14 +80,357 @@ void GPS_Initialize(void)
 
 bool GPS_read_speed(void) // read & parse/check one NMEA sentence
 {   
+    // example of VTG sentence:
+    // $GPVTG,165.48,T,,M,150.03,N,300.06,K,A*37
+    unsigned char buffer[NMEA_BUFFER_SIZE];
+    unsigned char i_buff = 0;
+    unsigned char checksum = 0x00;
+    // we are going to wait for a '$' to begin recording received chars
+    unsigned char m_char = 0x00;
+    while (m_char != '$')
+        if(eusartRxCount!=0)
+            m_char=EUSART_Read();  // read a byte from RX
     
+    // were are at the beginning of a new NMEA sentence
+    // let's get the NMEA header and check that it's a VTG sentence
+    while (1)
+        if (eusartRxCount!=0)
+        {
+            m_char=EUSART_Read();  // read a byte from RX
+            checksum ^= m_char;
+            if (m_char == ',')
+                break;
+            else
+            {
+                buffer[i_buff++] = m_char;
+                if (i_buff >= NMEA_BUFFER_SIZE)
+                    return false; // field too long
+            }
+        }
+    // buffer should contain 'GPVTG'...
+    if ((buffer[0] != 'G')||(buffer[1] != 'P')||(buffer[2] != 'V')||(buffer[3] != 'T')||(buffer[4] != 'G'))
+        return false;
+    i_buff = 0; // clear buffer
+    
+    // let's wait and then skip the T field...
+    while (1)
+        if (eusartRxCount!=0)
+        {
+            m_char=EUSART_Read();  // read a byte from RX
+            checksum ^= m_char;
+            if (m_char == ',')
+                break;
+        }
+    // should be the T keyword here
+    while (1)
+        if (eusartRxCount!=0)
+        {
+            m_char=EUSART_Read();  // read a byte from RX
+            checksum ^= m_char;
+            if (m_char == ',')
+                break;
+            else
+            {
+                buffer[i_buff++] = m_char;
+                if (i_buff >= NMEA_BUFFER_SIZE)
+                    return false; // field too long
+            }
+        }
+    if ((buffer[0] != 'T')||(i_buff != 1))
+        return false;
+    i_buff = 0; // clear buffer
+
+    // let's wait and then skip the M field...
+    while (1)
+        if (eusartRxCount!=0)
+        {
+            m_char=EUSART_Read();  // read a byte from RX
+            checksum ^= m_char;
+            if (m_char == ',')
+                break;
+        }
+    // should be the M keyword here
+    while (1)
+        if (eusartRxCount!=0)
+        {
+            m_char=EUSART_Read();  // read a byte from RX
+            checksum ^= m_char;
+            if (m_char == ',')
+                break;
+            else
+            {
+                buffer[i_buff++] = m_char;
+                if (i_buff >= NMEA_BUFFER_SIZE)
+                    return false; // field too long
+            }
+        }
+    if ((buffer[0] != 'M')||(i_buff != 1))
+        return false;
+    i_buff = 0; // clear buffer
+    
+    // let's wait and then skip the N field...
+    while (1)
+        if (eusartRxCount!=0)
+        {
+            m_char=EUSART_Read();  // read a byte from RX
+            checksum ^= m_char;
+            if (m_char == ',')
+                break;
+        }
+    // should be the N keyword here
+    while (1)
+        if (eusartRxCount!=0)
+        {
+            m_char=EUSART_Read();  // read a byte from RX
+            checksum ^= m_char;
+            if (m_char == ',')
+                break;
+            else
+            {
+                buffer[i_buff++] = m_char;
+                if (i_buff >= NMEA_BUFFER_SIZE)
+                    return false; // field too long
+            }
+        }
+    if ((buffer[0] != 'N')||(i_buff != 1))
+        return false;
+    i_buff = 0; // clear buffer
+    
+    // let's wait and then skip the K field...
+    while (1)
+        if (eusartRxCount!=0)
+        {
+            m_char=EUSART_Read();  // read a byte from RX
+            checksum ^= m_char;
+            if (m_char == ',')
+                break;
+            else
+            {
+                buffer[i_buff++] = m_char;
+                if (i_buff >= NMEA_BUFFER_SIZE)
+                    return false; // field too long
+            }
+        }
+    // buffer should contain the current speed reading in km/h
+    // we should read it! :)
+    unsigned char tmp = 0;
+    i_buff = 0; // clear buffer
+    
+    // should be the K keyword here
+    while (1)
+        if (eusartRxCount!=0)
+        {
+            m_char=EUSART_Read();  // read a byte from RX
+            checksum ^= m_char;
+            if (m_char == ',')
+                break;
+            else
+            {
+                buffer[i_buff++] = m_char;
+                if (i_buff >= NMEA_BUFFER_SIZE)
+                    return false; // field too long
+            }
+        }
+    if ((buffer[0] != 'K')||(i_buff != 1))
+        return false;
+    i_buff = 0; // clear buffer
+    return true;
+}
+
+/*
+                         Main application
+ */
+void main(void)
+{
+    // initialize the device
+    SYSTEM_Initialize();
+    TMR0_SetInterruptHandler(my10msTimerISR);
+    
+    // When using interrupts, you need to set the Global and Peripheral Interrupt Enable bits
+    // Use the following macros to:
+
+    // Enable the Global Interrupts
+    INTERRUPT_GlobalInterruptEnable();
+
+    // Enable the Peripheral Interrupts
+    INTERRUPT_PeripheralInterruptEnable();
+
+    // Disable the Global Interrupts
+    //INTERRUPT_GlobalInterruptDisable();
+
+    // Disable the Peripheral Interrupts
+    //INTERRUPT_PeripheralInterruptDisable();
+
+    // pour le PWM: prendre FOSC==32 MHz, PWMFreq==31.25 kHz
+    // => PR2=0xFF && TMR2 pre-scaler=1:1
+    // et du coup on a une résolution PWM de 10bits
+    // + datasheet p196 pour procédure init propre du PWM
+    
+    // pour l'UART: 9600 baud, 8data bits, no parity
+    // 1 stop bit, receive polarity: idle1
+    // output: normal (GND/3.3V)
+    
+    // EEPROM
+    
+    // pushbutton + debounce timer
+    
+    // NMEA: $VTG,,,,,*[checksum]<CR><LF>
+    // CR:0x0D LF:0x0A
+    // max length: 79 chars between '$' and "<CR><LF>"
+    // Utiliser $ pour détecter le début de trame, commencer réception
+    // si $ => retour début de trame/réinit réception
+    // si <LF> => fin réception donc analyse commande, checksum,
+    // et lecture paramètres
+    // Si buffer déborde => ignore buffer & stop réception.
+    
+    // printf de configuration du GPS:
+    
+    // API_SET_NMEA_OUTPUT pour filtrer les messages:
+    // $PMTK314,0,0,1,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0*2C<CR><LF>
+    // => VTG every fix, GGA every 5 fixes, nothing else
+    // $PMTK314,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0*29<CR><LF>
+    // => VTG every fix, nothing else)
+    
+    // SET UPDATE FREQ
+    // $PMTK220,100*2F<CR><LF>
+    // => position fix done 10 times per second (instead of 1 per second)
+
+    // 1ère étape: laisser faire l'UART initialize avec les printf
+    // et mettre le bus pirate en copie de ce que reçoit le pic
+    // => tester reset, gain de fix & perte de fix
+    
+    // 2ème étape: lire les trames NMEA, éventuellement updater la vitesse
+    // et la passer à zero si pas de trame récente (pour éviter de rester
+    // scotché en cas de perte de fix)
+    /*while(1)
+    {
+        // Test DA LED output! :)
+         LED_set_state(slow_blinking);
+         __delay_sec(5);
+         LED_set_state(fast_blinking);
+         __delay_sec(5);
+         LED_set_state(always_on);
+         __delay_sec(5);
+         LED_set_state(always_off);
+         __delay_sec(5);
+    }*/        
+
+    LED_set_state(manual_mode);
+    STATUS_LED_SetLow();
+    __delay_sec(3);
+    
+    /*while(1)
+    {
+        __delay_sec(5);
+        // Test DA button now!
+        LED_set_state(always_on);
+        button_init();
+        while (b_confirmed_state == nothing)
+        {}
+
+        if (b_confirmed_state == short_push)
+            LED_set_state(fast_blinking);
+        else if (b_confirmed_state == long_push)
+            LED_set_state(slow_blinking);
+    }*/    
+    
+    GPS_Initialize();
+
+    // test NMEA speed reading!
+    bool res;
+    while (1)
+    {
+        res = GPS_read_speed(); // read/parse one NMEA sentence
+        if (res)
+        {
+            STATUS_LED_SetHigh();
+            __delay_ms(20);
+        }
+        STATUS_LED_SetLow();
+        
+        // check if last VTG data is old (> how many sec?)
+        // if so, we may have lost the fix => PWM to zero?
+    }
+    
+    // test PWM now!
+    
+    //uint16_t motor_load = 128; // == 0-1023 for 100-0% motor load (inverted))
+    uint16_t motor_load = 0;
+    EPWM_LoadDutyValue(1023-motor_load);
+    TMR2_StartTimer();
+    __delay_sec(5);
+    
+    bool up = true;
+    
+    // test loop, slowly from 0 to --- and back to 0
+    /*
+    while (1)
+    {
+        __delay_ms(200);
+        if (up == true)
+            motor_load += 1;
+        else
+            motor_load -= 1;
+        if (motor_load > 450)   //730
+            up = false;
+        else if (motor_load == 0)
+            up = true;
+        EPWM_LoadDutyValue(1023-motor_load);
+    }*/
+    
+    // simulate use with impulse+threshold under 10MPH value
+    
+    EPWM_LoadDutyValue(0);  // impulse to start
+    __delay_ms(10);
+    EPWM_LoadDutyValue(1023-148);   // 10MPH
+    __delay_sec(5);
+    while (1)
+    {
+        if (up == true)
+            motor_load += 1;
+        else
+            motor_load -= 1;
+        if (motor_load > 300)
+            up = false;
+        else if (motor_load == 0)
+        {
+            up = true;
+            EPWM_LoadDutyValue(1023);
+            __delay_sec(5);
+            // impulsion pour décoller!
+            EPWM_LoadDutyValue(0);
+            __delay_ms(10);
+        }
+        if (motor_load < 148)   // threshold en dessous de 10MPH
+            EPWM_LoadDutyValue(1023-135);//148-%
+        else
+            EPWM_LoadDutyValue(1023-motor_load);
+        __delay_ms(50);
+    }
+    
+    /*while (1)
+    {
+        GPS_read_speed(); // read/check one NMEA sentence
+        // check if last VTG data is old (> how many sec?)
+        // if so, we may have lost the fix => PWM to zero?
+    }*/
+}
+
+void my10msTimerISR(void)
+{
+    LED_update_loop();
+    button_update_loop();
+}
+
+/**
+ End of File
+*/
+
+/*
     // TODO: ne pas bufferiser & parser la chaine complète, mais
     // détecter les changements de champs au travers d'états dédiés
     // + calculer checksum au fil de l'eau
     // sinon pas assez de RAM pour faire la calibration... :s
-    
-    // example of VTG sentence:
-    // $GPVTG,165.48,T,,M,0.03,N,0.06,K,A*37
     
     // Part 1/2: let's record a complete NMEA sentence
     
@@ -222,178 +566,4 @@ bool GPS_read_speed(void) // read & parse/check one NMEA sentence
         return true;
     }
     else return false;
-}
-
-/*
-                         Main application
- */
-void main(void)
-{
-    // initialize the device
-    SYSTEM_Initialize();
-    TMR0_SetInterruptHandler(my10msTimerISR);
-    
-    // When using interrupts, you need to set the Global and Peripheral Interrupt Enable bits
-    // Use the following macros to:
-
-    // Enable the Global Interrupts
-    INTERRUPT_GlobalInterruptEnable();
-
-    // Enable the Peripheral Interrupts
-    INTERRUPT_PeripheralInterruptEnable();
-
-    // Disable the Global Interrupts
-    //INTERRUPT_GlobalInterruptDisable();
-
-    // Disable the Peripheral Interrupts
-    //INTERRUPT_PeripheralInterruptDisable();
-
-    // pour le PWM: prendre FOSC==32 MHz, PWMFreq==31.25 kHz
-    // => PR2=0xFF && TMR2 pre-scaler=1:1
-    // et du coup on a une résolution PWM de 10bits
-    // + datasheet p196 pour procédure init propre du PWM
-    
-    // pour l'UART: 9600 baud, 8data bits, no parity
-    // 1 stop bit, receive polarity: idle1
-    // output: normal (GND/3.3V)
-    
-    // EEPROM
-    
-    // pushbutton + debounce timer
-    
-    // NMEA: $VTG,,,,,*[checksum]<CR><LF>
-    // CR:0x0D LF:0x0A
-    // max length: 79 chars between '$' and "<CR><LF>"
-    // Utiliser $ pour détecter le début de trame, commencer réception
-    // si $ => retour début de trame/réinit réception
-    // si <LF> => fin réception donc analyse commande, checksum,
-    // et lecture paramètres
-    // Si buffer déborde => ignore buffer & stop réception.
-    
-    // printf de configuration du GPS:
-    
-    // API_SET_NMEA_OUTPUT pour filtrer les messages:
-    // $PMTK314,0,0,1,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0*2C<CR><LF>
-    // => VTG every fix, GGA every 5 fixes, nothing else
-    // $PMTK314,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0*29<CR><LF>
-    // => VTG every fix, nothing else)
-    
-    // SET UPDATE FREQ
-    // $PMTK220,100*2F<CR><LF>
-    // => position fix done 10 times per second (instead of 1 per second)
-
-    // 1ère étape: laisser faire l'UART initialize avec les printf
-    // et mettre le bus pirate en copie de ce que reçoit le pic
-    // => tester reset, gain de fix & perte de fix
-    
-    // 2ème étape: lire les trames NMEA, éventuellement updater la vitesse
-    // et la passer à zero si pas de trame récente (pour éviter de rester
-    // scotché en cas de perte de fix)
-
-    GPS_Initialize();
-
-    // test NMEA speed reading!
-    while (1)
-    {
-        bool res = GPS_read_speed(); // read/parse one NMEA sentence
-        // check if last VTG data is old (> how many sec?)
-        // if so, we may have lost the fix => PWM to zero?
-    }    
-    
-    // Test DA LED output! :)
-    LED_set_state(slow_blinking);
-    __delay_sec(5);
-    LED_set_state(fast_blinking);
-    __delay_sec(5);
-    LED_set_state(always_on);
-    __delay_sec(5);
-    LED_set_state(always_off);
-    __delay_sec(5);
-        
-    // Test DA button now!
-    LED_set_state(always_on);
-    button_init();
-    while (b_confirmed_state == nothing)
-    {}
-    
-    if (b_confirmed_state == short_push)
-        LED_set_state(fast_blinking);
-    else if (b_confirmed_state == long_push)
-        LED_set_state(slow_blinking);
-
-    while(1)
-    {}
-    
-    // test PWM now!
-    
-    //uint16_t motor_load = 128; // == 0-1023 for 100-0% motor load (inverted))
-    uint16_t motor_load = 0;
-    EPWM_LoadDutyValue(1023-motor_load);
-    TMR2_StartTimer();
-    __delay_sec(5);
-    
-    bool up = true;
-    
-    // test loop, slowly from 0 to --- and back to 0
-    /*
-    while (1)
-    {
-        __delay_ms(200);
-        if (up == true)
-            motor_load += 1;
-        else
-            motor_load -= 1;
-        if (motor_load > 450)   //730
-            up = false;
-        else if (motor_load == 0)
-            up = true;
-        EPWM_LoadDutyValue(1023-motor_load);
-    }*/
-    
-    // simulate use with impulse+threshold under 10MPH value
-    
-    EPWM_LoadDutyValue(0);  // impulse to start
-    __delay_ms(10);
-    EPWM_LoadDutyValue(1023-148);   // 10MPH
-    __delay_sec(5);
-    while (1)
-    {
-        if (up == true)
-            motor_load += 1;
-        else
-            motor_load -= 1;
-        if (motor_load > 300)
-            up = false;
-        else if (motor_load == 0)
-        {
-            up = true;
-            EPWM_LoadDutyValue(1023);
-            __delay_sec(5);
-            // impulsion pour décoller!
-            EPWM_LoadDutyValue(0);
-            __delay_ms(10);
-        }
-        if (motor_load < 148)   // threshold en dessous de 10MPH
-            EPWM_LoadDutyValue(1023-135);//148-%
-        else
-            EPWM_LoadDutyValue(1023-motor_load);
-        __delay_ms(50);
-    }
-    
-    /*while (1)
-    {
-        GPS_read_speed(); // read/check one NMEA sentence
-        // check if last VTG data is old (> how many sec?)
-        // if so, we may have lost the fix => PWM to zero?
-    }*/
-}
-
-void my10msTimerISR(void)
-{
-    LED_update_loop();
-    button_update_loop();
-}
-
-/**
- End of File
-*/
+    */

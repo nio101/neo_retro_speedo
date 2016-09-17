@@ -1,32 +1,28 @@
 Version 3.2 HI-TECH Software Intermediate Code
 [v F2491 `(v ~T0 @X0 0 tf ]
-"16 interact.h
+"25 interact.h
 [c E2607 0 1 2 3 4 .. ]
 [n E2607 . always_on always_off slow_blinking fast_blinking manual_mode  ]
-"49
+"58
 [c E2619 0 1 2 .. ]
 [n E2619 . nothing short_push long_push  ]
 "62 main.c
-[c E2636 0 1 .. ]
-[n E2636 _speed_unit_type MPH KPH  ]
+[c E2643 0 1 .. ]
+[n E2643 _speed_unit_type MPH KPH  ]
 [v F2438 `(v ~T0 @X0 1 tf1`ul ]
-"152 D:\Program Files\Microchip\xc8\v1.38\include\pic.h
+"152 D:\Program Files (x86)\Microchip\xc8\v1.38\include\pic.h
 [v __delay `JF2438 ~T0 @X0 0 e ]
 [p i __delay ]
-"195 D:\Program Files\Microchip\xc8\v1.38\include\stdio.h
+"195 D:\Program Files (x86)\Microchip\xc8\v1.38\include\stdio.h
 [v _printf `(i ~T0 @X0 0 ev`*Cuc ]
 "78 mcc_generated_files/eusart.h
 [v _eusartRxCount `Vuc ~T0 @X0 0 e ]
 "155
 [v _EUSART_Read `(uc ~T0 @X0 0 ef ]
 [p mainexit ]
-"72 mcc_generated_files/mcc.h
-[v _SYSTEM_Initialize `(v ~T0 @X0 0 ef ]
-"262 mcc_generated_files/tmr0.h
-[v _TMR0_SetInterruptHandler `(v ~T0 @X0 0 ef1`*v ]
-"55 main.c
-[v _my10msTimerISR `(v ~T0 @X0 0 ef ]
-"343 D:\Program Files\Microchip\xc8\v1.38\include\pic16f1823.h
+"15 fixed_point.h
+[v _convert_to_fp `(us ~T0 @X0 0 ef2`us`us ]
+"343 D:\Program Files (x86)\Microchip\xc8\v1.38\include\pic16f1823.h
 [s S27 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S27 . IOCIF INTF TMR0IF IOCIE INTE TMR0IE PEIE GIE ]
 "353
@@ -37,23 +33,23 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S26 . . . ]
 "360
 [v _INTCONbits `VS26 ~T0 @X0 0 e@11 ]
-"22 interact.h
+"31 interact.h
 [v _LED_set_state `(v ~T0 @X0 0 ef1`E2607 ]
-"5928 D:\Program Files\Microchip\xc8\v1.38\include\pic16f1823.h
+"5928 D:\Program Files (x86)\Microchip\xc8\v1.38\include\pic16f1823.h
 [v _LATA5 `Vb ~T0 @X0 0 e@2149 ]
 "121 mcc_generated_files/epwm.h
 [v _EPWM_LoadDutyValue `(v ~T0 @X0 0 ef1`ui ]
 "131 mcc_generated_files/tmr2.h
 [v _TMR2_StartTimer `(v ~T0 @X0 0 ef ]
-"23 interact.h
+"32 interact.h
 [v _LED_update_loop `(v ~T0 @X0 0 ef ]
-"59
+"68
 [v _button_update_loop `(v ~T0 @X0 0 ef ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
 [; ;pic16f1823.h: 49: extern volatile unsigned char INDF0 @ 0x000;
-"51 D:\Program Files\Microchip\xc8\v1.38\include\pic16f1823.h
+"51 D:\Program Files (x86)\Microchip\xc8\v1.38\include\pic16f1823.h
 [; ;pic16f1823.h: 51: asm("INDF0 equ 00h");
 [; <" INDF0 equ 00h ;# ">
 [; ;pic16f1823.h: 54: typedef union {
@@ -2487,56 +2483,59 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;tmr2.h: 324: bool TMR2_HasOverflowOccured(void);
 [; ;mcc.h: 72: void SYSTEM_Initialize(void);
 [; ;mcc.h: 85: void OSCILLATOR_Initialize(void);
-[; ;interact.h: 12: typedef enum {
-[; ;interact.h: 13: always_on, always_off, slow_blinking, fast_blinking, manual_mode
-[; ;interact.h: 14: } LED_state_t;
-"16 interact.h
+[; ;interact.h: 21: typedef enum {
+[; ;interact.h: 22: always_on, always_off, slow_blinking, fast_blinking, manual_mode
+[; ;interact.h: 23: } LED_state_t;
+"25 interact.h
 [v _LED_state `E2607 ~T0 @X0 1 e ]
 [i _LED_state
 . `E2607 1
 ]
-[; ;interact.h: 16: LED_state_t LED_state=always_off;
-"17
+[; ;interact.h: 25: LED_state_t LED_state=always_off;
+"26
 [v _LED_counter `Vuc ~T0 @X0 1 e ]
 [i _LED_counter
 -> -> 0 `i `uc
 ]
-[; ;interact.h: 17: volatile unsigned char LED_counter=0;
-[; ;interact.h: 22: void LED_set_state(LED_state_t new_state);
-[; ;interact.h: 23: void LED_update_loop();
-[; ;interact.h: 46: typedef enum {
-[; ;interact.h: 47: nothing, short_push, long_push
-[; ;interact.h: 48: } confirmed_state_t;
-"49
+[; ;interact.h: 26: volatile unsigned char LED_counter=0;
+[; ;interact.h: 31: void LED_set_state(LED_state_t new_state);
+[; ;interact.h: 32: void LED_update_loop();
+[; ;interact.h: 55: typedef enum {
+[; ;interact.h: 56: nothing, short_push, long_push
+[; ;interact.h: 57: } confirmed_state_t;
+"58
 [v _b_confirmed_state `VE2619 ~T0 @X0 1 e ]
-[; ;interact.h: 49: volatile confirmed_state_t b_confirmed_state;
-"51
+[; ;interact.h: 58: volatile confirmed_state_t b_confirmed_state;
+"60
 [v _b_count_pressed `Vuc ~T0 @X0 1 e ]
-[; ;interact.h: 51: volatile unsigned char b_count_pressed;
-"52
+[; ;interact.h: 60: volatile unsigned char b_count_pressed;
+"61
 [v _b_count_released `Vuc ~T0 @X0 1 e ]
-[; ;interact.h: 52: volatile unsigned char b_count_released;
-"53
+[; ;interact.h: 61: volatile unsigned char b_count_released;
+"62
 [v _b_push_confirmed `Vuc ~T0 @X0 1 e ]
-[; ;interact.h: 53: volatile bool b_push_confirmed;
-"54
+[; ;interact.h: 62: volatile bool b_push_confirmed;
+"63
 [v _b_release_confirmed `Vuc ~T0 @X0 1 e ]
-[; ;interact.h: 54: volatile bool b_release_confirmed;
-"55
+[; ;interact.h: 63: volatile bool b_release_confirmed;
+"64
 [v _b_last_state `Vui ~T0 @X0 1 e ]
-[; ;interact.h: 55: volatile unsigned b_last_state;
-"56
+[; ;interact.h: 64: volatile unsigned b_last_state;
+"65
 [v _b_has_once_been_released `Vuc ~T0 @X0 1 e ]
-[; ;interact.h: 56: volatile bool b_has_once_been_released;
-[; ;interact.h: 58: void button_init();
-[; ;interact.h: 59: void button_update_loop();
-[; ;interact.h: 60: unsigned char get_button_state();
+[; ;interact.h: 65: volatile bool b_has_once_been_released;
+[; ;interact.h: 67: void button_init();
+[; ;interact.h: 68: void button_update_loop();
+[; ;interact.h: 69: unsigned char get_button_state();
+[; ;fixed_point.h: 13: typedef unsigned short t_fp;
+[; ;fixed_point.h: 15: t_fp convert_to_fp(unsigned short int_part, unsigned short fract_part);
+[; ;fixed_point.h: 17: t_fp multiply_fp(t_fp n1, t_fp n2);
 [; ;main.c: 55: void my10msTimerISR(void);
 [; ;main.c: 61: typedef enum _speed_unit_type { MPH = 0, KPH } speed_unit_type;
 "62 main.c
-[v _speed_units `E2636 ~T0 @X0 1 e ]
+[v _speed_units `E2643 ~T0 @X0 1 e ]
 [i _speed_units
-. `E2636 0
+. `E2643 0
 ]
 [; ;main.c: 62: speed_unit_type speed_units = MPH;
 "63
@@ -3112,30 +3111,32 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;main.c: 244: {
 [e :U _main ]
 [f ]
-[; ;main.c: 246: SYSTEM_Initialize();
-"246
-[e ( _SYSTEM_Initialize ..  ]
-[; ;main.c: 247: TMR0_SetInterruptHandler(my10msTimerISR);
-"247
-[e ( _TMR0_SetInterruptHandler (1 -> &U _my10msTimerISR `*v ]
-[; ;main.c: 253: (INTCONbits.GIE = 1);
-"253
+"252
+[v _test `us ~T0 @X0 1 a ]
+[; ;main.c: 252: t_fp test = convert_to_fp(23, 6875);
+[e = _test ( _convert_to_fp (2 , -> -> 23 `i `us -> -> 6875 `i `us ]
+"254
+[v _zob `uc ~T0 @X0 1 a ]
+[; ;main.c: 254: char zob = 'k';
+[e = _zob -> -> 107 `ui `uc ]
+[; ;main.c: 262: (INTCONbits.GIE = 1);
+"262
 [e = . . _INTCONbits 0 7 -> -> 1 `i `uc ]
-[; ;main.c: 256: (INTCONbits.PEIE = 1);
-"256
+[; ;main.c: 265: (INTCONbits.PEIE = 1);
+"265
 [e = . . _INTCONbits 0 6 -> -> 1 `i `uc ]
-[; ;main.c: 318: LED_set_state(manual_mode);
-"318
+[; ;main.c: 327: LED_set_state(manual_mode);
+"327
 [e ( _LED_set_state (1 . `E2607 4 ]
-[; ;main.c: 319: do { LATA5 = 0; } while(0);
-"319
+[; ;main.c: 328: do { LATA5 = 0; } while(0);
+"328
 [e :U 368 ]
 {
 [e = _LATA5 -> -> 0 `i `b ]
 }
 [e :U 367 ]
-[; ;main.c: 320: for(unsigned char tmp=0;tmp<(10*3);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
-"320
+[; ;main.c: 329: for(unsigned char tmp=0;tmp<(10*3);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
+"329
 {
 [v _tmp `uc ~T0 @X0 1 a ]
 [e = _tmp -> -> 0 `i `uc ]
@@ -3149,67 +3150,67 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $ < -> _tmp `i * -> 10 `i -> 3 `i 369  ]
 [e :U 370 ]
 }
-[; ;main.c: 337: GPS_Initialize();
-"337
-[e ( _GPS_Initialize ..  ]
-"340
-[v _res `uc ~T0 @X0 1 a ]
-[; ;main.c: 340: bool res;
-[; ;main.c: 341: while (1)
-"341
-[e :U 373 ]
-[; ;main.c: 342: {
-"342
-{
-[; ;main.c: 343: res = GPS_read_speed();
-"343
-[e = _res ( _GPS_read_speed ..  ]
-[; ;main.c: 344: if (res)
-"344
-[e $ ! != -> _res `i -> -> -> 0 `i `uc `i 375  ]
-[; ;main.c: 345: {
-"345
-{
-[; ;main.c: 346: do { LATA5 = 1; } while(0);
+[; ;main.c: 346: GPS_Initialize();
 "346
+[e ( _GPS_Initialize ..  ]
+"349
+[v _res `uc ~T0 @X0 1 a ]
+[; ;main.c: 349: bool res;
+[; ;main.c: 350: while (1)
+"350
+[e :U 373 ]
+[; ;main.c: 351: {
+"351
+{
+[; ;main.c: 352: res = GPS_read_speed();
+"352
+[e = _res ( _GPS_read_speed ..  ]
+[; ;main.c: 353: if (res)
+"353
+[e $ ! != -> _res `i -> -> -> 0 `i `uc `i 375  ]
+[; ;main.c: 354: {
+"354
+{
+[; ;main.c: 355: do { LATA5 = 1; } while(0);
+"355
 [e :U 378 ]
 {
 [e = _LATA5 -> -> 1 `i `b ]
 }
 [e :U 377 ]
-[; ;main.c: 347: _delay((unsigned long)((20)*(32000000/4000.0)));
-"347
+[; ;main.c: 356: _delay((unsigned long)((20)*(32000000/4000.0)));
+"356
 [e ( __delay (1 -> * -> -> 20 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
-"348
+"357
 }
 [e :U 375 ]
-[; ;main.c: 348: }
-[; ;main.c: 349: do { LATA5 = 0; } while(0);
-"349
+[; ;main.c: 357: }
+[; ;main.c: 358: do { LATA5 = 0; } while(0);
+"358
 [e :U 381 ]
 {
 [e = _LATA5 -> -> 0 `i `b ]
 }
 [e :U 380 ]
-"353
+"362
 }
 [e :U 372 ]
-"341
+"350
 [e $U 373  ]
 [e :U 374 ]
-"358
+"367
 [v _motor_load `ui ~T0 @X0 1 a ]
-[; ;main.c: 353: }
-[; ;main.c: 358: uint16_t motor_load = 0;
+[; ;main.c: 362: }
+[; ;main.c: 367: uint16_t motor_load = 0;
 [e = _motor_load -> -> 0 `i `ui ]
-[; ;main.c: 359: EPWM_LoadDutyValue(1023-motor_load);
-"359
+[; ;main.c: 368: EPWM_LoadDutyValue(1023-motor_load);
+"368
 [e ( _EPWM_LoadDutyValue (1 - -> -> 1023 `i `ui _motor_load ]
-[; ;main.c: 360: TMR2_StartTimer();
-"360
+[; ;main.c: 369: TMR2_StartTimer();
+"369
 [e ( _TMR2_StartTimer ..  ]
-[; ;main.c: 361: for(unsigned char tmp=0;tmp<(10*5);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
-"361
+[; ;main.c: 370: for(unsigned char tmp=0;tmp<(10*5);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
+"370
 {
 [v _tmp `uc ~T0 @X0 1 a ]
 [e = _tmp -> -> 0 `i `uc ]
@@ -3223,21 +3224,21 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $ < -> _tmp `i * -> 10 `i -> 5 `i 382  ]
 [e :U 383 ]
 }
-"363
+"372
 [v _up `uc ~T0 @X0 1 a ]
-[; ;main.c: 363: bool up = 1;
+[; ;main.c: 372: bool up = 1;
 [e = _up -> -> 1 `i `uc ]
-[; ;main.c: 383: EPWM_LoadDutyValue(0);
-"383
+[; ;main.c: 392: EPWM_LoadDutyValue(0);
+"392
 [e ( _EPWM_LoadDutyValue (1 -> -> 0 `i `ui ]
-[; ;main.c: 384: _delay((unsigned long)((10)*(32000000/4000.0)));
-"384
+[; ;main.c: 393: _delay((unsigned long)((10)*(32000000/4000.0)));
+"393
 [e ( __delay (1 -> * -> -> 10 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
-[; ;main.c: 385: EPWM_LoadDutyValue(1023-148);
-"385
+[; ;main.c: 394: EPWM_LoadDutyValue(1023-148);
+"394
 [e ( _EPWM_LoadDutyValue (1 -> - -> 1023 `i -> 148 `i `ui ]
-[; ;main.c: 386: for(unsigned char tmp=0;tmp<(10*5);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
-"386
+[; ;main.c: 395: for(unsigned char tmp=0;tmp<(10*5);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
+"395
 {
 [v _tmp `uc ~T0 @X0 1 a ]
 [e = _tmp -> -> 0 `i `uc ]
@@ -3251,48 +3252,48 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $ < -> _tmp `i * -> 10 `i -> 5 `i 385  ]
 [e :U 386 ]
 }
-[; ;main.c: 387: while (1)
-"387
+[; ;main.c: 396: while (1)
+"396
 [e :U 389 ]
-[; ;main.c: 388: {
-"388
+[; ;main.c: 397: {
+"397
 {
-[; ;main.c: 389: if (up == 1)
-"389
+[; ;main.c: 398: if (up == 1)
+"398
 [e $ ! == -> _up `i -> 1 `i 391  ]
-[; ;main.c: 390: motor_load += 1;
-"390
+[; ;main.c: 399: motor_load += 1;
+"399
 [e =+ _motor_load -> -> 1 `i `ui ]
 [e $U 392  ]
-"391
+"400
 [e :U 391 ]
-[; ;main.c: 391: else
-[; ;main.c: 392: motor_load -= 1;
-"392
+[; ;main.c: 400: else
+[; ;main.c: 401: motor_load -= 1;
+"401
 [e =- _motor_load -> -> 1 `i `ui ]
 [e :U 392 ]
-[; ;main.c: 393: if (motor_load > 300)
-"393
+[; ;main.c: 402: if (motor_load > 300)
+"402
 [e $ ! > _motor_load -> -> 300 `i `ui 393  ]
-[; ;main.c: 394: up = 0;
-"394
+[; ;main.c: 403: up = 0;
+"403
 [e = _up -> -> 0 `i `uc ]
 [e $U 394  ]
-"395
+"404
 [e :U 393 ]
-[; ;main.c: 395: else if (motor_load == 0)
+[; ;main.c: 404: else if (motor_load == 0)
 [e $ ! == _motor_load -> -> 0 `i `ui 395  ]
-[; ;main.c: 396: {
-"396
+[; ;main.c: 405: {
+"405
 {
-[; ;main.c: 397: up = 1;
-"397
+[; ;main.c: 406: up = 1;
+"406
 [e = _up -> -> 1 `i `uc ]
-[; ;main.c: 398: EPWM_LoadDutyValue(1023);
-"398
+[; ;main.c: 407: EPWM_LoadDutyValue(1023);
+"407
 [e ( _EPWM_LoadDutyValue (1 -> -> 1023 `i `ui ]
-[; ;main.c: 399: for(unsigned char tmp=0;tmp<(10*5);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
-"399
+[; ;main.c: 408: for(unsigned char tmp=0;tmp<(10*5);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
+"408
 {
 [v _tmp `uc ~T0 @X0 1 a ]
 [e = _tmp -> -> 0 `i `uc ]
@@ -3306,61 +3307,61 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $ < -> _tmp `i * -> 10 `i -> 5 `i 396  ]
 [e :U 397 ]
 }
-[; ;main.c: 401: EPWM_LoadDutyValue(0);
-"401
+[; ;main.c: 410: EPWM_LoadDutyValue(0);
+"410
 [e ( _EPWM_LoadDutyValue (1 -> -> 0 `i `ui ]
-[; ;main.c: 402: _delay((unsigned long)((10)*(32000000/4000.0)));
-"402
+[; ;main.c: 411: _delay((unsigned long)((10)*(32000000/4000.0)));
+"411
 [e ( __delay (1 -> * -> -> 10 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
-"403
+"412
 }
 [e :U 395 ]
-"404
+"413
 [e :U 394 ]
-[; ;main.c: 403: }
-[; ;main.c: 404: if (motor_load < 148)
+[; ;main.c: 412: }
+[; ;main.c: 413: if (motor_load < 148)
 [e $ ! < _motor_load -> -> 148 `i `ui 399  ]
-[; ;main.c: 405: EPWM_LoadDutyValue(1023-135);
-"405
+[; ;main.c: 414: EPWM_LoadDutyValue(1023-135);
+"414
 [e ( _EPWM_LoadDutyValue (1 -> - -> 1023 `i -> 135 `i `ui ]
 [e $U 400  ]
-"406
+"415
 [e :U 399 ]
-[; ;main.c: 406: else
-[; ;main.c: 407: EPWM_LoadDutyValue(1023-motor_load);
-"407
+[; ;main.c: 415: else
+[; ;main.c: 416: EPWM_LoadDutyValue(1023-motor_load);
+"416
 [e ( _EPWM_LoadDutyValue (1 - -> -> 1023 `i `ui _motor_load ]
 [e :U 400 ]
-[; ;main.c: 408: _delay((unsigned long)((50)*(32000000/4000.0)));
-"408
+[; ;main.c: 417: _delay((unsigned long)((50)*(32000000/4000.0)));
+"417
 [e ( __delay (1 -> * -> -> 50 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
-"409
+"418
 }
 [e :U 388 ]
-"387
+"396
 [e $U 389  ]
 [e :U 390 ]
-[; ;main.c: 409: }
-[; ;main.c: 417: }
-"417
+[; ;main.c: 418: }
+[; ;main.c: 426: }
+"426
 [e :UE 365 ]
 }
-"419
+"428
 [v _my10msTimerISR `(v ~T0 @X0 1 ef ]
-"420
+"429
 {
-[; ;main.c: 419: void my10msTimerISR(void)
-[; ;main.c: 420: {
+[; ;main.c: 428: void my10msTimerISR(void)
+[; ;main.c: 429: {
 [e :U _my10msTimerISR ]
 [f ]
-[; ;main.c: 421: LED_update_loop();
-"421
+[; ;main.c: 430: LED_update_loop();
+"430
 [e ( _LED_update_loop ..  ]
-[; ;main.c: 422: button_update_loop();
-"422
+[; ;main.c: 431: button_update_loop();
+"431
 [e ( _button_update_loop ..  ]
-[; ;main.c: 423: }
-"423
+[; ;main.c: 432: }
+"432
 [e :UE 401 ]
 }
 [p f _printf 8388608 ]

@@ -1,38 +1,10 @@
 Version 3.2 HI-TECH Software Intermediate Code
-"2240 D:\Program Files\Microchip\xc8\v1.38\include\pic16f1823.h
-[v _LATA `Vuc ~T0 @X0 0 e@268 ]
-"2284
-[v _LATC `Vuc ~T0 @X0 0 e@270 ]
-"3056
-[v _ANSELA `Vuc ~T0 @X0 0 e@396 ]
-"3102
-[v _ANSELC `Vuc ~T0 @X0 0 e@398 ]
-"3640
-[v _WPUA `Vuc ~T0 @X0 0 e@524 ]
-"3697
-[v _WPUC `Vuc ~T0 @X0 0 e@526 ]
-"1510
-[v _TRISC `Vuc ~T0 @X0 0 e@142 ]
-"1461
-[v _TRISA `Vuc ~T0 @X0 0 e@140 ]
-"1670
-[s S86 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S86 . PS0 PS1 PS2 PSA TMR0SE TMR0CS INTEDG nWPUEN ]
-"1680
-[s S87 :3 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S87 . PS . T0SE T0CS ]
-"1669
-[u S85 `S86 1 `S87 1 ]
-[n S85 . . . ]
-"1687
-[v _OPTION_REGbits `VS85 ~T0 @X0 0 e@149 ]
-"2937
-[v _APFCON `Vuc ~T0 @X0 0 e@285 ]
+[v F2491 `(v ~T0 @X0 0 tf ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
 [; ;pic16f1823.h: 49: extern volatile unsigned char INDF0 @ 0x000;
-"51 D:\Program Files\Microchip\xc8\v1.38\include\pic16f1823.h
+"51 D:\Program Files (x86)\Microchip\xc8\v1.38\include\pic16f1823.h
 [; ;pic16f1823.h: 51: asm("INDF0 equ 00h");
 [; <" INDF0 equ 00h ;# ">
 [; ;pic16f1823.h: 54: typedef union {
@@ -2371,45 +2343,223 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic.h: 187: extern __bit __powerdown;
 [; ;pic.h: 188: extern __bit __timeout;
 [; ;pin_manager.h: 156: void PIN_MANAGER_Initialize (void);
-"49 mcc_generated_files/pin_manager.c
-[v _PIN_MANAGER_Initialize `(v ~T0 @X0 1 ef ]
-"50
+[; ;stdint.h: 13: typedef signed char int8_t;
+[; ;stdint.h: 20: typedef signed int int16_t;
+[; ;stdint.h: 28: typedef signed short long int int24_t;
+[; ;stdint.h: 36: typedef signed long int int32_t;
+[; ;stdint.h: 43: typedef unsigned char uint8_t;
+[; ;stdint.h: 49: typedef unsigned int uint16_t;
+[; ;stdint.h: 56: typedef unsigned short long int uint24_t;
+[; ;stdint.h: 63: typedef unsigned long int uint32_t;
+[; ;stdint.h: 71: typedef signed char int_least8_t;
+[; ;stdint.h: 78: typedef signed int int_least16_t;
+[; ;stdint.h: 90: typedef signed short long int int_least24_t;
+[; ;stdint.h: 98: typedef signed long int int_least32_t;
+[; ;stdint.h: 105: typedef unsigned char uint_least8_t;
+[; ;stdint.h: 111: typedef unsigned int uint_least16_t;
+[; ;stdint.h: 121: typedef unsigned short long int uint_least24_t;
+[; ;stdint.h: 128: typedef unsigned long int uint_least32_t;
+[; ;stdint.h: 137: typedef signed char int_fast8_t;
+[; ;stdint.h: 144: typedef signed int int_fast16_t;
+[; ;stdint.h: 156: typedef signed short long int int_fast24_t;
+[; ;stdint.h: 164: typedef signed long int int_fast32_t;
+[; ;stdint.h: 171: typedef unsigned char uint_fast8_t;
+[; ;stdint.h: 177: typedef unsigned int uint_fast16_t;
+[; ;stdint.h: 187: typedef unsigned short long int uint_fast24_t;
+[; ;stdint.h: 194: typedef unsigned long int uint_fast32_t;
+[; ;stdint.h: 200: typedef int32_t intmax_t;
+[; ;stdint.h: 205: typedef uint32_t uintmax_t;
+[; ;stdint.h: 210: typedef int16_t intptr_t;
+[; ;stdint.h: 215: typedef uint16_t uintptr_t;
+[; ;stdbool.h: 12: typedef unsigned char bool;
+[; ;interrupt_manager.h: 110: void interrupt INTERRUPT_InterruptManager(void);
+[; ;tmr0.h: 103: void TMR0_Initialize(void);
+[; ;tmr0.h: 136: uint8_t TMR0_ReadTimer(void);
+[; ;tmr0.h: 175: void TMR0_WriteTimer(uint8_t timerVal);
+[; ;tmr0.h: 211: void TMR0_Reload(void);
+[; ;tmr0.h: 226: void TMR0_ISR(void);
+[; ;tmr0.h: 244: void TMR0_CallBack(void);
+[; ;tmr0.h: 262: void TMR0_SetInterruptHandler(void *InterruptHandler);
+"280 mcc_generated_files/tmr0.h
+[v _TMR0_InterruptHandler `*F2491 ~T0 @X0 1 e ]
+[; ;tmr0.h: 280: void (*TMR0_InterruptHandler)(void);
+[; ;tmr0.h: 298: void TMR0_DefaultInterruptHandler(void);
+[; ;__size_t.h: 4: typedef unsigned size_t;
+[; ;stdarg.h: 7: typedef void * va_list[1];
+[; ;stdarg.h: 10: extern void * __va_start(void);
+[; ;stdarg.h: 13: extern void * __va_arg(void *, ...);
+[; ;stdio.h: 43: struct __prbuf
+[; ;stdio.h: 44: {
+[; ;stdio.h: 45: char * ptr;
+[; ;stdio.h: 46: void (* func)(char);
+[; ;stdio.h: 47: };
+[; ;errno.h: 29: extern int errno;
+[; ;conio.h: 12: extern void init_uart(void);
+[; ;conio.h: 14: extern char getch(void);
+[; ;conio.h: 15: extern char getche(void);
+[; ;conio.h: 16: extern void putch(char);
+[; ;conio.h: 17: extern void ungetch(char);
+[; ;conio.h: 19: extern __bit kbhit(void);
+[; ;conio.h: 23: extern char * cgets(char *);
+[; ;conio.h: 24: extern void cputs(const char *);
+[; ;stdio.h: 88: extern int cprintf(char *, ...);
+[; ;stdio.h: 93: extern int _doprnt(struct __prbuf *, const register char *, register va_list);
+[; ;stdio.h: 183: extern char * gets(char *);
+[; ;stdio.h: 184: extern int puts(const char *);
+[; ;stdio.h: 185: extern int scanf(const char *, ...) __attribute__((unsupported("scanf() is not supported by this compiler")));
+[; ;stdio.h: 186: extern int sscanf(const char *, const char *, ...) __attribute__((unsupported("sscanf() is not supported by this compiler")));
+[; ;stdio.h: 187: extern int vprintf(const char *, va_list) __attribute__((unsupported("vprintf() is not supported by this compiler")));
+[; ;stdio.h: 188: extern int vsprintf(char *, const char *, va_list) __attribute__((unsupported("vsprintf() is not supported by this compiler")));
+[; ;stdio.h: 189: extern int vscanf(const char *, va_list ap) __attribute__((unsupported("vscanf() is not supported by this compiler")));
+[; ;stdio.h: 190: extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupported("vsscanf() is not supported by this compiler")));
+[; ;stdio.h: 194: extern int sprintf(char *, const char *, ...);
+[; ;stdio.h: 195: extern int printf(const char *, ...);
+[; ;eusart.h: 77: extern volatile uint8_t eusartTxBufferRemaining;
+[; ;eusart.h: 78: extern volatile uint8_t eusartRxCount;
+[; ;eusart.h: 106: void EUSART_Initialize(void);
+[; ;eusart.h: 155: uint8_t EUSART_Read(void);
+[; ;eusart.h: 180: void EUSART_Write(uint8_t txData);
+[; ;eusart.h: 201: void EUSART_Transmit_ISR(void);
+[; ;eusart.h: 222: void EUSART_Receive_ISR(void);
+[; ;memory.h: 98: uint16_t FLASH_ReadWord(uint16_t flashAddr);
+[; ;memory.h: 127: void FLASH_WriteWord(uint16_t flashAddr, uint16_t *ramBuf, uint16_t word);
+[; ;memory.h: 163: int8_t FLASH_WriteBlock(uint16_t writeAddr, uint16_t *flashWordArray);
+[; ;memory.h: 188: void FLASH_EraseBlock(uint16_t startAddr);
+[; ;memory.h: 219: void DATAEE_WriteByte(uint8_t bAdd, uint8_t bData);
+[; ;memory.h: 245: uint8_t DATAEE_ReadByte(uint8_t bAdd);
+[; ;epwm.h: 95: void EPWM_Initialize(void);
+[; ;epwm.h: 121: void EPWM_LoadDutyValue(uint16_t dutyValue);
+[; ;tmr2.h: 102: void TMR2_Initialize(void);
+[; ;tmr2.h: 131: void TMR2_StartTimer(void);
+[; ;tmr2.h: 163: void TMR2_StopTimer(void);
+[; ;tmr2.h: 198: uint8_t TMR2_ReadTimer(void);
+[; ;tmr2.h: 237: void TMR2_WriteTimer(uint8_t timerVal);
+[; ;tmr2.h: 289: void TMR2_LoadPeriodRegister(uint8_t periodVal);
+[; ;tmr2.h: 324: bool TMR2_HasOverflowOccured(void);
+[; ;mcc.h: 72: void SYSTEM_Initialize(void);
+[; ;mcc.h: 85: void OSCILLATOR_Initialize(void);
+[; ;fixed_point.h: 13: typedef unsigned short t_fp;
+[; ;fixed_point.h: 15: t_fp convert_to_fp(unsigned short int_part, unsigned short fract_part);
+[; ;fixed_point.h: 17: t_fp multiply_fp(t_fp n1, t_fp n2);
+"11 fixed_point.c
+[v _convert_to_fp `(us ~T0 @X0 1 ef2`us`us ]
+"12
 {
-[; ;pin_manager.c: 49: void PIN_MANAGER_Initialize(void)
-[; ;pin_manager.c: 50: {
-[e :U _PIN_MANAGER_Initialize ]
+[; ;fixed_point.c: 11: t_fp convert_to_fp(unsigned short int_part, unsigned short fract_part)
+[; ;fixed_point.c: 12: {
+[e :U _convert_to_fp ]
+"11
+[v _int_part `us ~T0 @X0 1 r1 ]
+[v _fract_part `us ~T0 @X0 1 r2 ]
+"12
 [f ]
-[; ;pin_manager.c: 51: LATA = 0x0;
-"51
-[e = _LATA -> -> 0 `i `uc ]
-[; ;pin_manager.c: 52: LATC = 0x0;
-"52
-[e = _LATC -> -> 0 `i `uc ]
-[; ;pin_manager.c: 53: ANSELA = 0x7;
-"53
-[e = _ANSELA -> -> 7 `i `uc ]
-[; ;pin_manager.c: 54: ANSELC = 0xF;
-"54
-[e = _ANSELC -> -> 15 `i `uc ]
-[; ;pin_manager.c: 55: WPUA = 0x3F;
-"55
-[e = _WPUA -> -> 63 `i `uc ]
-[; ;pin_manager.c: 56: WPUC = 0x3F;
-"56
-[e = _WPUC -> -> 63 `i `uc ]
-[; ;pin_manager.c: 57: TRISC = 0x37;
-"57
-[e = _TRISC -> -> 55 `i `uc ]
-[; ;pin_manager.c: 58: TRISA = 0x1F;
-"58
-[e = _TRISA -> -> 31 `i `uc ]
-[; ;pin_manager.c: 60: OPTION_REGbits.nWPUEN = 0x0;
-"60
-[e = . . _OPTION_REGbits 0 7 -> -> 0 `i `uc ]
-[; ;pin_manager.c: 61: APFCON = 0x00;
-"61
-[e = _APFCON -> -> 0 `i `uc ]
-[; ;pin_manager.c: 65: }
-"65
-[e :UE 293 ]
+"13
+[v _res `us ~T0 @X0 1 a ]
+[; ;fixed_point.c: 13: t_fp res = 0;
+[e = _res -> -> 0 `i `us ]
+[; ;fixed_point.c: 15: if (int_part > 16383)
+"15
+[e $ ! > -> _int_part `ui -> -> 16383 `i `ui 295  ]
+[; ;fixed_point.c: 16: return res;
+"16
+[e ) _res ]
+[e $UE 294  ]
+[e :U 295 ]
+[; ;fixed_point.c: 18: res = int_part;
+"18
+[e = _res _int_part ]
+[; ;fixed_point.c: 19: res = res << 4;
+"19
+[e = _res -> << -> _res `ui -> 4 `i `us ]
+"21
+[v _tmp_left `us ~T0 @X0 1 a ]
+[; ;fixed_point.c: 21: unsigned short tmp_left = fract_part;
+[e = _tmp_left _fract_part ]
+"22
+[v _res_fract `us ~T0 @X0 1 a ]
+[; ;fixed_point.c: 22: unsigned short res_fract = 0;
+[e = _res_fract -> -> 0 `i `us ]
+"23
+[v F2619 `Cus ~T0 @X0 1 s one ]
+[i F2619
+-> -> 1 `i `us
+]
+[; ;fixed_point.c: 23: const unsigned short one = 1;
+[; ;fixed_point.c: 24: for (unsigned char i_bit = 0; i_bit < 4; i_bit++)
+"24
+{
+[v _i_bit `uc ~T0 @X0 1 a ]
+[e = _i_bit -> -> 0 `i `uc ]
+[e $ < -> _i_bit `i -> 4 `i 296  ]
+[e $U 297  ]
+"25
+[e :U 296 ]
+[; ;fixed_point.c: 25: {
+{
+[; ;fixed_point.c: 26: tmp_left = tmp_left << 1;
+"26
+[e = _tmp_left -> << -> _tmp_left `ui -> 1 `i `us ]
+[; ;fixed_point.c: 27: if (tmp_left >= 10000)
+"27
+[e $ ! >= -> _tmp_left `ui -> -> 10000 `i `ui 299  ]
+[; ;fixed_point.c: 28: {
+"28
+{
+[; ;fixed_point.c: 29: res_fract = res_fract | one<<(4-i_bit-1);
+"29
+[e = _res_fract -> | -> _res_fract `ui << -> F2619 `ui - - -> 4 `i -> _i_bit `i -> 1 `i `us ]
+[; ;fixed_point.c: 30: tmp_left = tmp_left - 10000;
+"30
+[e = _tmp_left -> - -> _tmp_left `ui -> -> 10000 `i `ui `us ]
+"31
+}
+[e :U 299 ]
+"32
+}
+"24
+[e ++ _i_bit -> -> 1 `i `uc ]
+[e $ < -> _i_bit `i -> 4 `i 296  ]
+[e :U 297 ]
+"32
+}
+[; ;fixed_point.c: 31: }
+[; ;fixed_point.c: 32: }
+[; ;fixed_point.c: 34: res = res + res_fract;
+"34
+[e = _res -> + -> _res `ui -> _res_fract `ui `us ]
+[; ;fixed_point.c: 35: return res;
+"35
+[e ) _res ]
+[e $UE 294  ]
+[; ;fixed_point.c: 36: }
+"36
+[e :UE 294 ]
+}
+"38
+[v _multiply_fp `(us ~T0 @X0 1 ef2`us`us ]
+"39
+{
+[; ;fixed_point.c: 38: t_fp multiply_fp(t_fp n1, t_fp n2)
+[; ;fixed_point.c: 39: {
+[e :U _multiply_fp ]
+"38
+[v _n1 `us ~T0 @X0 1 r1 ]
+[v _n2 `us ~T0 @X0 1 r2 ]
+"39
+[f ]
+"40
+[v _tmp `ul ~T0 @X0 1 a ]
+[; ;fixed_point.c: 40: unsigned long long tmp = (unsigned long long) n1 * (unsigned long long) n2;
+[e = _tmp * -> _n1 `ul -> _n2 `ul ]
+"41
+[v _res `us ~T0 @X0 1 a ]
+[; ;fixed_point.c: 41: t_fp res = tmp >> 4;
+[e = _res -> >> _tmp -> 4 `i `us ]
+[; ;fixed_point.c: 42: return res;
+"42
+[e ) _res ]
+[e $UE 300  ]
+[; ;fixed_point.c: 43: }
+"43
+[e :UE 300 ]
 }

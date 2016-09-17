@@ -1,4 +1,13 @@
+/* 
+ * File:   interact.h
+ * Author: nio101
+ *
+ * Created on September 17, 2016, 6:04 PM
+ */
+
+
 #include "mcc_generated_files/mcc.h"
+
 
 // ----------------------------------------------------------------------------
 // blinking LED handling

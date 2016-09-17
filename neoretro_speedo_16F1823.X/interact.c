@@ -1,4 +1,13 @@
+/* 
+ * File:   fixed_point.h
+ * Author: nio101
+ *
+ * Created on September 17, 2016, 6:04 PM
+ */
+
+
 #include "interact.h"
+
 
 // ----------------------------------------------------------------------------
 // blinking LED handling

@@ -45,7 +45,7 @@
 
 #include "mcc_generated_files/mcc.h"
 #include "interact.h"
-
+#include "fixed_point.h"
 /*
  * Helpers
  */
@@ -243,9 +243,18 @@ bool GPS_read_speed(void) // read & parse/check one NMEA sentence
 void main(void)
 {
     // initialize the device
-    SYSTEM_Initialize();
-    TMR0_SetInterruptHandler(my10msTimerISR);
+    //SYSTEM_Initialize();
+    //TMR0_SetInterruptHandler(my10msTimerISR);
+ 
+    // test FP
+    //t_fp fp1 = convert_to_fp(0, 621);   // ratio mph/kmh
+    //t_fp read_speed_kph = convert_to_fp(130, 620);
+    t_fp test = convert_to_fp(23, 6875);
+    //t_fp speed_mph = multiply_fp(fp1, read_speed_kph);
+    char zob = 'k';
+    //unsigned long short f2 = toFP(2);
     
+    //unsigned long short fp_res = mult(f1, f2);
     // When using interrupts, you need to set the Global and Peripheral Interrupt Enable bits
     // Use the following macros to:
 

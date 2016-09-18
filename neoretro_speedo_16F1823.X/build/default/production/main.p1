@@ -10,15 +10,17 @@ Version 3.2 HI-TECH Software Intermediate Code
 [c E2649 0 1 .. ]
 [n E2649 _speed_unit_type MPH KPH  ]
 [v F2438 `(v ~T0 @X0 1 tf1`ul ]
-"152 D:\Program Files (x86)\Microchip\xc8\v1.38\include\pic.h
+"152 D:\Program Files\Microchip\xc8\v1.38\include\pic.h
 [v __delay `JF2438 ~T0 @X0 0 e ]
 [p i __delay ]
-"195 D:\Program Files (x86)\Microchip\xc8\v1.38\include\stdio.h
+"195 D:\Program Files\Microchip\xc8\v1.38\include\stdio.h
 [v _printf `(i ~T0 @X0 0 ev`*Cuc ]
 "78 mcc_generated_files/eusart.h
 [v _eusartRxCount `Vuc ~T0 @X0 0 e ]
 "155
 [v _EUSART_Read `(uc ~T0 @X0 0 ef ]
+"16 fixed_point.h
+[v _convert_to_fp `(um ~T0 @X0 0 ef2`us`us ]
 [p mainexit ]
 "72 mcc_generated_files/mcc.h
 [v _SYSTEM_Initialize `(v ~T0 @X0 0 ef ]
@@ -26,7 +28,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _TMR0_SetInterruptHandler `(v ~T0 @X0 0 ef1`*v ]
 "55 main.c
 [v _my10msTimerISR `(v ~T0 @X0 0 ef ]
-"343 D:\Program Files (x86)\Microchip\xc8\v1.38\include\pic16f1823.h
+"343 D:\Program Files\Microchip\xc8\v1.38\include\pic16f1823.h
 [s S27 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S27 . IOCIF INTF TMR0IF IOCIE INTE TMR0IE PEIE GIE ]
 "353
@@ -39,7 +41,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _INTCONbits `VS26 ~T0 @X0 0 e@11 ]
 "31 interact.h
 [v _LED_set_state `(v ~T0 @X0 0 ef1`E2607 ]
-"5928 D:\Program Files (x86)\Microchip\xc8\v1.38\include\pic16f1823.h
+"5928 D:\Program Files\Microchip\xc8\v1.38\include\pic16f1823.h
 [v _LATA5 `Vb ~T0 @X0 0 e@2149 ]
 "18 fixed_point.h
 [v _multiply_fp `(um ~T0 @X0 0 ef2`um`um ]
@@ -55,7 +57,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
 [; ;pic16f1823.h: 49: extern volatile unsigned char INDF0 @ 0x000;
-"51 D:\Program Files (x86)\Microchip\xc8\v1.38\include\pic16f1823.h
+"51 D:\Program Files\Microchip\xc8\v1.38\include\pic16f1823.h
 [; ;pic16f1823.h: 51: asm("INDF0 equ 00h");
 [; <" INDF0 equ 00h ;# ">
 [; ;pic16f1823.h: 54: typedef union {
@@ -3023,424 +3025,568 @@ Version 3.2 HI-TECH Software Intermediate Code
 "214
 }
 [e :U 353 ]
-"220
+"217
 [e :U 350 ]
 "201
 [e $U 351  ]
 [e :U 352 ]
+"217
+[v _i_buff2 `uc ~T0 @X0 1 a ]
 [; ;main.c: 213: }
 [; ;main.c: 214: }
-[; ;main.c: 220: i_buff = 0;
+[; ;main.c: 217: unsigned char i_buff2 = 0;
+[e = _i_buff2 -> -> 0 `i `uc ]
+"218
+[v _read_speed_int `us ~T0 @X0 1 a ]
+[; ;main.c: 218: unsigned short read_speed_int=0;
+[e = _read_speed_int -> -> 0 `i `us ]
+"219
+[v _read_speed_fra `us ~T0 @X0 1 a ]
+[; ;main.c: 219: unsigned short read_speed_fra=0;
+[e = _read_speed_fra -> -> 0 `i `us ]
 "220
-[e = _i_buff -> -> 0 `i `uc ]
-[; ;main.c: 223: while (1)
-"223
+[v _before_dot `uc ~T0 @X0 1 a ]
+[; ;main.c: 220: bool before_dot = 1;
+[e = _before_dot -> -> 1 `i `uc ]
+[; ;main.c: 221: while (i_buff2 < i_buff)
+"221
+[e $U 357  ]
 [e :U 358 ]
-[; ;main.c: 224: if (eusartRxCount!=0)
-"224
-[e $ ! != -> _eusartRxCount `i -> 0 `i 360  ]
-[; ;main.c: 225: {
-"225
-{
-[; ;main.c: 226: m_char=EUSART_Read();
-"226
-[e = _m_char ( _EUSART_Read ..  ]
-[; ;main.c: 227: checksum ^= m_char;
-"227
-[e =^ _checksum _m_char ]
-[; ;main.c: 228: if (m_char == ',')
-"228
-[e $ ! == -> _m_char `ui -> 44 `ui 361  ]
-[; ;main.c: 229: break;
-"229
-[e $U 359  ]
-[e $U 362  ]
-"230
-[e :U 361 ]
-[; ;main.c: 230: else
-[; ;main.c: 231: {
-"231
-{
-[; ;main.c: 232: buffer[i_buff++] = m_char;
-"232
-[e = *U + &U _buffer * -> ++ _i_buff -> -> 1 `i `uc `ux -> -> # *U &U _buffer `ui `ux _m_char ]
-[; ;main.c: 233: if (i_buff >= 6)
-"233
-[e $ ! >= -> _i_buff `i -> 6 `i 363  ]
-[; ;main.c: 234: return 0;
-"234
-[e ) -> -> 0 `i `uc ]
-[e $UE 298  ]
-[e :U 363 ]
-"235
-}
-[e :U 362 ]
-"236
-}
-[e :U 360 ]
-"237
-[e :U 357 ]
+[; ;main.c: 222: if (buffer[i_buff2]=='.')
+"222
+[e $ ! == -> *U + &U _buffer * -> _i_buff2 `ux -> -> # *U &U _buffer `ui `ux `ui -> 46 `ui 360  ]
+[; ;main.c: 223: {
 "223
-[e $U 358  ]
-[e :U 359 ]
-[; ;main.c: 235: }
-[; ;main.c: 236: }
-[; ;main.c: 237: if ((buffer[0] != 'K')||(i_buff != 1))
-"237
-[e $ ! || != -> *U + &U _buffer * -> -> -> 0 `i `ui `ux -> -> # *U &U _buffer `ui `ux `ui -> 75 `ui != -> _i_buff `i -> 1 `i 364  ]
-[; ;main.c: 238: return 0;
-"238
+{
+[; ;main.c: 224: before_dot = 0;
+"224
+[e = _before_dot -> -> 0 `i `uc ]
+[; ;main.c: 225: i_buff2++;
+"225
+[e ++ _i_buff2 -> -> 1 `i `uc ]
+"226
+}
+[; ;main.c: 226: }
+[e $U 361  ]
+"227
+[e :U 360 ]
+[; ;main.c: 227: else
+[; ;main.c: 228: {
+"228
+{
+[; ;main.c: 229: if ((buffer[i_buff2]<0x30)||(buffer[i_buff2]>0x39))
+"229
+[e $ ! || < -> *U + &U _buffer * -> _i_buff2 `ux -> -> # *U &U _buffer `ui `ux `i -> 48 `i > -> *U + &U _buffer * -> _i_buff2 `ux -> -> # *U &U _buffer `ui `ux `i -> 57 `i 362  ]
+[; ;main.c: 230: return 0;
+"230
 [e ) -> -> 0 `i `uc ]
 [e $UE 298  ]
+[e $U 363  ]
+"231
+[e :U 362 ]
+[; ;main.c: 231: else
+[; ;main.c: 232: {
+"232
+{
+[; ;main.c: 233: if (before_dot)
+"233
+[e $ ! != -> _before_dot `i -> -> -> 0 `i `uc `i 364  ]
+[; ;main.c: 234: read_speed_int = read_speed_int*10 + (buffer[i_buff2]-0x30);
+"234
+[e = _read_speed_int -> + * -> _read_speed_int `ui -> -> 10 `i `ui -> - -> *U + &U _buffer * -> _i_buff2 `ux -> -> # *U &U _buffer `ui `ux `i -> 48 `i `ui `us ]
+[e $U 365  ]
+"235
 [e :U 364 ]
-[; ;main.c: 239: i_buff = 0;
+[; ;main.c: 235: else
+[; ;main.c: 236: read_speed_fra = read_speed_fra*10 + (buffer[i_buff2]-0x30);
+"236
+[e = _read_speed_fra -> + * -> _read_speed_fra `ui -> -> 10 `i `ui -> - -> *U + &U _buffer * -> _i_buff2 `ux -> -> # *U &U _buffer `ui `ux `i -> 48 `i `ui `us ]
+[e :U 365 ]
+[; ;main.c: 237: i_buff2++;
+"237
+[e ++ _i_buff2 -> -> 1 `i `uc ]
+"238
+}
+[e :U 363 ]
 "239
-[e = _i_buff -> -> 0 `i `uc ]
-"242
-[v _no_more_checksum `uc ~T0 @X0 1 a ]
-[; ;main.c: 242: bool no_more_checksum = 0;
-[e = _no_more_checksum -> -> 0 `i `uc ]
-[; ;main.c: 243: while (1)
+}
+[e :U 361 ]
+[e :U 357 ]
+"221
+[e $ < -> _i_buff2 `i -> _i_buff `i 358  ]
+[e :U 359 ]
+[; ;main.c: 238: }
+[; ;main.c: 239: }
+[; ;main.c: 243: read_speed_fra *= 100;
 "243
-[e :U 366 ]
-[; ;main.c: 244: if (eusartRxCount!=0)
-"244
-[e $ ! != -> _eusartRxCount `i -> 0 `i 368  ]
-[; ;main.c: 245: {
-"245
-{
-[; ;main.c: 246: m_char=EUSART_Read();
+[e =* _read_speed_fra -> -> 100 `i `us ]
+[; ;main.c: 246: i_buff = 0;
 "246
-[e = _m_char ( _EUSART_Read ..  ]
-[; ;main.c: 247: if (m_char == '*')
-"247
-[e $ ! == -> _m_char `ui -> 42 `ui 369  ]
-[; ;main.c: 248: no_more_checksum = 1;
-"248
-[e = _no_more_checksum -> -> 1 `i `uc ]
-[e :U 369 ]
-[; ;main.c: 249: if (!no_more_checksum)
+[e = _i_buff -> -> 0 `i `uc ]
+[; ;main.c: 249: while (1)
 "249
-[e $ ! ! != -> _no_more_checksum `i -> -> -> 0 `i `uc `i 370  ]
-[; ;main.c: 250: checksum ^= m_char;
+[e :U 367 ]
+[; ;main.c: 250: if (eusartRxCount!=0)
 "250
-[e =^ _checksum _m_char ]
-[e :U 370 ]
-[; ;main.c: 251: if (m_char == 0x0D)
+[e $ ! != -> _eusartRxCount `i -> 0 `i 369  ]
+[; ;main.c: 251: {
 "251
-[e $ ! == -> _m_char `i -> 13 `i 371  ]
-[; ;main.c: 252: break;
-"252
-[e $U 367  ]
-[e $U 372  ]
-"253
-[e :U 371 ]
-[; ;main.c: 253: else
-[; ;main.c: 254: {
-"254
 {
-[; ;main.c: 255: buffer[i_buff++] = m_char;
+[; ;main.c: 252: m_char=EUSART_Read();
+"252
+[e = _m_char ( _EUSART_Read ..  ]
+[; ;main.c: 253: checksum ^= m_char;
+"253
+[e =^ _checksum _m_char ]
+[; ;main.c: 254: if (m_char == ',')
+"254
+[e $ ! == -> _m_char `ui -> 44 `ui 370  ]
+[; ;main.c: 255: break;
 "255
-[e = *U + &U _buffer * -> ++ _i_buff -> -> 1 `i `uc `ux -> -> # *U &U _buffer `ui `ux _m_char ]
-[; ;main.c: 256: if (i_buff >= 6)
+[e $U 368  ]
+[e $U 371  ]
 "256
-[e $ ! >= -> _i_buff `i -> 6 `i 373  ]
-[; ;main.c: 257: return 0;
+[e :U 370 ]
+[; ;main.c: 256: else
+[; ;main.c: 257: {
 "257
+{
+[; ;main.c: 258: buffer[i_buff++] = m_char;
+"258
+[e = *U + &U _buffer * -> ++ _i_buff -> -> 1 `i `uc `ux -> -> # *U &U _buffer `ui `ux _m_char ]
+[; ;main.c: 259: if (i_buff >= 6)
+"259
+[e $ ! >= -> _i_buff `i -> 6 `i 372  ]
+[; ;main.c: 260: return 0;
+"260
+[e ) -> -> 0 `i `uc ]
+[e $UE 298  ]
+[e :U 372 ]
+"261
+}
+[e :U 371 ]
+"262
+}
+[e :U 369 ]
+"263
+[e :U 366 ]
+"249
+[e $U 367  ]
+[e :U 368 ]
+[; ;main.c: 261: }
+[; ;main.c: 262: }
+[; ;main.c: 263: if ((buffer[0] != 'K')||(i_buff != 1))
+"263
+[e $ ! || != -> *U + &U _buffer * -> -> -> 0 `i `ui `ux -> -> # *U &U _buffer `ui `ux `ui -> 75 `ui != -> _i_buff `i -> 1 `i 373  ]
+[; ;main.c: 264: return 0;
+"264
 [e ) -> -> 0 `i `uc ]
 [e $UE 298  ]
 [e :U 373 ]
-"258
-}
-[e :U 372 ]
-"259
-}
-[e :U 368 ]
-"260
-[e :U 365 ]
-"243
-[e $U 366  ]
-[e :U 367 ]
-[; ;main.c: 258: }
-[; ;main.c: 259: }
-[; ;main.c: 260: if ((buffer[1] != '*')||(i_buff != 4))
-"260
-[e $ ! || != -> *U + &U _buffer * -> -> -> 1 `i `ui `ux -> -> # *U &U _buffer `ui `ux `ui -> 42 `ui != -> _i_buff `i -> 4 `i 374  ]
-[; ;main.c: 261: return 0;
-"261
+[; ;main.c: 265: i_buff = 0;
+"265
+[e = _i_buff -> -> 0 `i `uc ]
+"268
+[v _no_more_checksum `uc ~T0 @X0 1 a ]
+[; ;main.c: 268: bool no_more_checksum = 0;
+[e = _no_more_checksum -> -> 0 `i `uc ]
+[; ;main.c: 269: while (1)
+"269
+[e :U 375 ]
+[; ;main.c: 270: if (eusartRxCount!=0)
+"270
+[e $ ! != -> _eusartRxCount `i -> 0 `i 377  ]
+[; ;main.c: 271: {
+"271
+{
+[; ;main.c: 272: m_char=EUSART_Read();
+"272
+[e = _m_char ( _EUSART_Read ..  ]
+[; ;main.c: 273: if (m_char == '*')
+"273
+[e $ ! == -> _m_char `ui -> 42 `ui 378  ]
+[; ;main.c: 274: no_more_checksum = 1;
+"274
+[e = _no_more_checksum -> -> 1 `i `uc ]
+[e :U 378 ]
+[; ;main.c: 275: if (!no_more_checksum)
+"275
+[e $ ! ! != -> _no_more_checksum `i -> -> -> 0 `i `uc `i 379  ]
+[; ;main.c: 276: checksum ^= m_char;
+"276
+[e =^ _checksum _m_char ]
+[e :U 379 ]
+[; ;main.c: 277: if (m_char == 0x0D)
+"277
+[e $ ! == -> _m_char `i -> 13 `i 380  ]
+[; ;main.c: 278: break;
+"278
+[e $U 376  ]
+[e $U 381  ]
+"279
+[e :U 380 ]
+[; ;main.c: 279: else
+[; ;main.c: 280: {
+"280
+{
+[; ;main.c: 281: buffer[i_buff++] = m_char;
+"281
+[e = *U + &U _buffer * -> ++ _i_buff -> -> 1 `i `uc `ux -> -> # *U &U _buffer `ui `ux _m_char ]
+[; ;main.c: 282: if (i_buff >= 6)
+"282
+[e $ ! >= -> _i_buff `i -> 6 `i 382  ]
+[; ;main.c: 283: return 0;
+"283
 [e ) -> -> 0 `i `uc ]
 [e $UE 298  ]
+[e :U 382 ]
+"284
+}
+[e :U 381 ]
+"285
+}
+[e :U 377 ]
+"286
 [e :U 374 ]
-[; ;main.c: 265: return 1;
-"265
+"269
+[e $U 375  ]
+[e :U 376 ]
+[; ;main.c: 284: }
+[; ;main.c: 285: }
+[; ;main.c: 286: if ((buffer[1] != '*')||(i_buff != 4))
+"286
+[e $ ! || != -> *U + &U _buffer * -> -> -> 1 `i `ui `ux -> -> # *U &U _buffer `ui `ux `ui -> 42 `ui != -> _i_buff `i -> 4 `i 383  ]
+[; ;main.c: 287: return 0;
+"287
+[e ) -> -> 0 `i `uc ]
+[e $UE 298  ]
+[e :U 383 ]
+"290
+[v _checksum2 `uc ~T0 @X0 1 a ]
+[; ;main.c: 290: unsigned char checksum2 = 0;
+[e = _checksum2 -> -> 0 `i `uc ]
+[; ;main.c: 291: if (buffer[2] > 0x39)
+"291
+[e $ ! > -> *U + &U _buffer * -> -> -> 2 `i `ui `ux -> -> # *U &U _buffer `ui `ux `i -> 57 `i 384  ]
+[; ;main.c: 292: checksum2 = buffer[2] - 0x37;
+"292
+[e = _checksum2 -> - -> *U + &U _buffer * -> -> -> 2 `i `ui `ux -> -> # *U &U _buffer `ui `ux `i -> 55 `i `uc ]
+[e $U 385  ]
+"293
+[e :U 384 ]
+[; ;main.c: 293: else
+[; ;main.c: 294: checksum2 = buffer[2] - 0x30;
+"294
+[e = _checksum2 -> - -> *U + &U _buffer * -> -> -> 2 `i `ui `ux -> -> # *U &U _buffer `ui `ux `i -> 48 `i `uc ]
+[e :U 385 ]
+[; ;main.c: 295: checksum2 = checksum2 << 4;
+"295
+[e = _checksum2 -> << -> _checksum2 `i -> 4 `i `uc ]
+[; ;main.c: 296: if (buffer[3] > 0x39)
+"296
+[e $ ! > -> *U + &U _buffer * -> -> -> 3 `i `ui `ux -> -> # *U &U _buffer `ui `ux `i -> 57 `i 386  ]
+[; ;main.c: 297: checksum2 += buffer[3] - 0x37;
+"297
+[e =+ _checksum2 -> - -> *U + &U _buffer * -> -> -> 3 `i `ui `ux -> -> # *U &U _buffer `ui `ux `i -> 55 `i `uc ]
+[e $U 387  ]
+"298
+[e :U 386 ]
+[; ;main.c: 298: else
+[; ;main.c: 299: checksum2 += buffer[3] - 0x30;
+"299
+[e =+ _checksum2 -> - -> *U + &U _buffer * -> -> -> 3 `i `ui `ux -> -> # *U &U _buffer `ui `ux `i -> 48 `i `uc ]
+[e :U 387 ]
+[; ;main.c: 300: if (checksum == checksum2)
+"300
+[e $ ! == -> _checksum `i -> _checksum2 `i 388  ]
+[; ;main.c: 301: {
+"301
+{
+[; ;main.c: 302: speed = convert_to_fp(read_speed_int, read_speed_fra);
+"302
+[e = _speed ( _convert_to_fp (2 , _read_speed_int _read_speed_fra ]
+[; ;main.c: 303: return 1;
+"303
 [e ) -> -> 1 `i `uc ]
 [e $UE 298  ]
-[; ;main.c: 266: }
-"266
+"304
+}
+[; ;main.c: 304: }
+[e $U 389  ]
+"305
+[e :U 388 ]
+[; ;main.c: 305: else
+[; ;main.c: 306: return 0;
+"306
+[e ) -> -> 0 `i `uc ]
+[e $UE 298  ]
+[e :U 389 ]
+[; ;main.c: 307: }
+"307
 [e :UE 298 ]
 }
-"271
+"312
 [v _main `(v ~T0 @X0 1 ef ]
-"272
+"313
 {
-[; ;main.c: 271: void main(void)
-[; ;main.c: 272: {
+[; ;main.c: 312: void main(void)
+[; ;main.c: 313: {
 [e :U _main ]
 [f ]
-[; ;main.c: 274: SYSTEM_Initialize();
-"274
+[; ;main.c: 315: SYSTEM_Initialize();
+"315
 [e ( _SYSTEM_Initialize ..  ]
-[; ;main.c: 275: TMR0_SetInterruptHandler(my10msTimerISR);
-"275
+[; ;main.c: 316: TMR0_SetInterruptHandler(my10msTimerISR);
+"316
 [e ( _TMR0_SetInterruptHandler (1 -> &U _my10msTimerISR `*v ]
-[; ;main.c: 277: (INTCONbits.GIE = 1);
-"277
+[; ;main.c: 318: (INTCONbits.GIE = 1);
+"318
 [e = . . _INTCONbits 0 7 -> -> 1 `i `uc ]
-[; ;main.c: 279: (INTCONbits.PEIE = 1);
-"279
+[; ;main.c: 320: (INTCONbits.PEIE = 1);
+"320
 [e = . . _INTCONbits 0 6 -> -> 1 `i `uc ]
-[; ;main.c: 281: LED_set_state(manual_mode);
-"281
+[; ;main.c: 322: LED_set_state(manual_mode);
+"322
 [e ( _LED_set_state (1 . `E2607 4 ]
-[; ;main.c: 282: do { LATA5 = 0; } while(0);
-"282
-[e :U 378 ]
+[; ;main.c: 323: do { LATA5 = 0; } while(0);
+"323
+[e :U 393 ]
 {
 [e = _LATA5 -> -> 0 `i `b ]
 }
-[e :U 377 ]
-[; ;main.c: 283: for(unsigned char tmp=0;tmp<(10*3);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
-"283
+[e :U 392 ]
+[; ;main.c: 324: for(unsigned char tmp=0;tmp<(10*3);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
+"324
 {
 [v _tmp `uc ~T0 @X0 1 a ]
 [e = _tmp -> -> 0 `i `uc ]
-[e $ < -> _tmp `i * -> 10 `i -> 3 `i 379  ]
-[e $U 380  ]
-[e :U 379 ]
+[e $ < -> _tmp `i * -> 10 `i -> 3 `i 394  ]
+[e $U 395  ]
+[e :U 394 ]
 {
 [e ( __delay (1 -> * -> -> 100 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
 }
 [e ++ _tmp -> -> 1 `i `uc ]
-[e $ < -> _tmp `i * -> 10 `i -> 3 `i 379  ]
-[e :U 380 ]
+[e $ < -> _tmp `i * -> 10 `i -> 3 `i 394  ]
+[e :U 395 ]
 }
-[; ;main.c: 285: GPS_Initialize();
-"285
+[; ;main.c: 326: GPS_Initialize();
+"326
 [e ( _GPS_Initialize ..  ]
-[; ;main.c: 287: speed = 0;
-"287
+[; ;main.c: 328: speed = 0;
+"328
 [e = _speed -> -> -> 0 `i `m `um ]
-[; ;main.c: 289: while (1)
-"289
-[e :U 383 ]
-[; ;main.c: 290: {
-"290
+[; ;main.c: 330: while (1)
+"330
+[e :U 398 ]
+[; ;main.c: 331: {
+"331
 {
-[; ;main.c: 292: if (GPS_read_speed())
-"292
-[e $ ! != -> ( _GPS_read_speed ..  `i -> -> -> 0 `i `uc `i 385  ]
-[; ;main.c: 293: {
-"293
+[; ;main.c: 333: if (GPS_read_speed())
+"333
+[e $ ! != -> ( _GPS_read_speed ..  `i -> -> -> 0 `i `uc `i 400  ]
+[; ;main.c: 334: {
+"334
 {
-[; ;main.c: 295: if (speed_units == MPH)
-"295
-[e $ ! == -> _speed_units `i -> . `E2649 0 `i 386  ]
-[; ;main.c: 296: speed = multiply_fp(speed, ratio_mph);
-"296
+[; ;main.c: 336: if (speed_units == MPH)
+"336
+[e $ ! == -> _speed_units `i -> . `E2649 0 `i 401  ]
+[; ;main.c: 337: speed = multiply_fp(speed, ratio_mph);
+"337
 [e = _speed ( _multiply_fp (2 , _speed _ratio_mph ]
-[e :U 386 ]
-[; ;main.c: 298: do { LATA5 = 1; } while(0);
-"298
-[e :U 389 ]
+[e :U 401 ]
+[; ;main.c: 339: do { LATA5 = 1; } while(0);
+"339
+[e :U 404 ]
 {
 [e = _LATA5 -> -> 1 `i `b ]
 }
-[e :U 388 ]
-[; ;main.c: 299: _delay((unsigned long)((20)*(32000000/4000.0)));
-"299
+[e :U 403 ]
+[; ;main.c: 340: _delay((unsigned long)((20)*(32000000/4000.0)));
+"340
 [e ( __delay (1 -> * -> -> 20 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
-"300
+"341
 }
-[e :U 385 ]
-[; ;main.c: 300: }
-[; ;main.c: 301: do { LATA5 = 0; } while(0);
-"301
-[e :U 392 ]
+[e :U 400 ]
+[; ;main.c: 341: }
+[; ;main.c: 342: do { LATA5 = 0; } while(0);
+"342
+[e :U 407 ]
 {
 [e = _LATA5 -> -> 0 `i `b ]
 }
-[e :U 391 ]
-"306
-}
-[e :U 382 ]
-"289
-[e $U 383  ]
-[e :U 384 ]
-"311
-[v _motor_load `ui ~T0 @X0 1 a ]
-[; ;main.c: 306: }
-[; ;main.c: 311: uint16_t motor_load = 0;
-[e = _motor_load -> -> 0 `i `ui ]
-[; ;main.c: 312: EPWM_LoadDutyValue(1023-motor_load);
-"312
-[e ( _EPWM_LoadDutyValue (1 - -> -> 1023 `i `ui _motor_load ]
-[; ;main.c: 313: TMR2_StartTimer();
-"313
-[e ( _TMR2_StartTimer ..  ]
-[; ;main.c: 314: for(unsigned char tmp=0;tmp<(10*5);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
-"314
-{
-[v _tmp `uc ~T0 @X0 1 a ]
-[e = _tmp -> -> 0 `i `uc ]
-[e $ < -> _tmp `i * -> 10 `i -> 5 `i 393  ]
-[e $U 394  ]
-[e :U 393 ]
-{
-[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
-}
-[e ++ _tmp -> -> 1 `i `uc ]
-[e $ < -> _tmp `i * -> 10 `i -> 5 `i 393  ]
-[e :U 394 ]
-}
-"316
-[v _up `uc ~T0 @X0 1 a ]
-[; ;main.c: 316: bool up = 1;
-[e = _up -> -> 1 `i `uc ]
-[; ;main.c: 336: EPWM_LoadDutyValue(0);
-"336
-[e ( _EPWM_LoadDutyValue (1 -> -> 0 `i `ui ]
-[; ;main.c: 337: _delay((unsigned long)((10)*(32000000/4000.0)));
-"337
-[e ( __delay (1 -> * -> -> 10 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
-[; ;main.c: 338: EPWM_LoadDutyValue(1023-148);
-"338
-[e ( _EPWM_LoadDutyValue (1 -> - -> 1023 `i -> 148 `i `ui ]
-[; ;main.c: 339: for(unsigned char tmp=0;tmp<(10*5);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
-"339
-{
-[v _tmp `uc ~T0 @X0 1 a ]
-[e = _tmp -> -> 0 `i `uc ]
-[e $ < -> _tmp `i * -> 10 `i -> 5 `i 396  ]
-[e $U 397  ]
-[e :U 396 ]
-{
-[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
-}
-[e ++ _tmp -> -> 1 `i `uc ]
-[e $ < -> _tmp `i * -> 10 `i -> 5 `i 396  ]
-[e :U 397 ]
-}
-[; ;main.c: 340: while (1)
-"340
-[e :U 400 ]
-[; ;main.c: 341: {
-"341
-{
-[; ;main.c: 342: if (up == 1)
-"342
-[e $ ! == -> _up `i -> 1 `i 402  ]
-[; ;main.c: 343: motor_load += 1;
-"343
-[e =+ _motor_load -> -> 1 `i `ui ]
-[e $U 403  ]
-"344
-[e :U 402 ]
-[; ;main.c: 344: else
-[; ;main.c: 345: motor_load -= 1;
-"345
-[e =- _motor_load -> -> 1 `i `ui ]
-[e :U 403 ]
-[; ;main.c: 346: if (motor_load > 300)
-"346
-[e $ ! > _motor_load -> -> 300 `i `ui 404  ]
-[; ;main.c: 347: up = 0;
-"347
-[e = _up -> -> 0 `i `uc ]
-[e $U 405  ]
-"348
-[e :U 404 ]
-[; ;main.c: 348: else if (motor_load == 0)
-[e $ ! == _motor_load -> -> 0 `i `ui 406  ]
-[; ;main.c: 349: {
-"349
-{
-[; ;main.c: 350: up = 1;
-"350
-[e = _up -> -> 1 `i `uc ]
-[; ;main.c: 351: EPWM_LoadDutyValue(1023);
-"351
-[e ( _EPWM_LoadDutyValue (1 -> -> 1023 `i `ui ]
-[; ;main.c: 352: for(unsigned char tmp=0;tmp<(10*5);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
-"352
-{
-[v _tmp `uc ~T0 @X0 1 a ]
-[e = _tmp -> -> 0 `i `uc ]
-[e $ < -> _tmp `i * -> 10 `i -> 5 `i 407  ]
-[e $U 408  ]
-[e :U 407 ]
-{
-[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
-}
-[e ++ _tmp -> -> 1 `i `uc ]
-[e $ < -> _tmp `i * -> 10 `i -> 5 `i 407  ]
-[e :U 408 ]
-}
-[; ;main.c: 354: EPWM_LoadDutyValue(0);
-"354
-[e ( _EPWM_LoadDutyValue (1 -> -> 0 `i `ui ]
-[; ;main.c: 355: _delay((unsigned long)((10)*(32000000/4000.0)));
-"355
-[e ( __delay (1 -> * -> -> 10 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
-"356
-}
 [e :U 406 ]
-"357
-[e :U 405 ]
-[; ;main.c: 356: }
-[; ;main.c: 357: if (motor_load < 148)
-[e $ ! < _motor_load -> -> 148 `i `ui 410  ]
-[; ;main.c: 358: EPWM_LoadDutyValue(1023-135);
-"358
-[e ( _EPWM_LoadDutyValue (1 -> - -> 1023 `i -> 135 `i `ui ]
-[e $U 411  ]
-"359
-[e :U 410 ]
-[; ;main.c: 359: else
-[; ;main.c: 360: EPWM_LoadDutyValue(1023-motor_load);
-"360
-[e ( _EPWM_LoadDutyValue (1 - -> -> 1023 `i `ui _motor_load ]
-[e :U 411 ]
-[; ;main.c: 361: _delay((unsigned long)((50)*(32000000/4000.0)));
-"361
-[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
-"362
+"347
 }
+[e :U 397 ]
+"330
+[e $U 398  ]
 [e :U 399 ]
-"340
-[e $U 400  ]
-[e :U 401 ]
-[; ;main.c: 362: }
-[; ;main.c: 363: }
-"363
-[e :UE 375 ]
-}
-"365
-[v _my10msTimerISR `(v ~T0 @X0 1 ef ]
-"366
+"352
+[v _motor_load `ui ~T0 @X0 1 a ]
+[; ;main.c: 347: }
+[; ;main.c: 352: uint16_t motor_load = 0;
+[e = _motor_load -> -> 0 `i `ui ]
+[; ;main.c: 353: EPWM_LoadDutyValue(1023-motor_load);
+"353
+[e ( _EPWM_LoadDutyValue (1 - -> -> 1023 `i `ui _motor_load ]
+[; ;main.c: 354: TMR2_StartTimer();
+"354
+[e ( _TMR2_StartTimer ..  ]
+[; ;main.c: 355: for(unsigned char tmp=0;tmp<(10*5);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
+"355
 {
-[; ;main.c: 365: void my10msTimerISR(void)
-[; ;main.c: 366: {
+[v _tmp `uc ~T0 @X0 1 a ]
+[e = _tmp -> -> 0 `i `uc ]
+[e $ < -> _tmp `i * -> 10 `i -> 5 `i 408  ]
+[e $U 409  ]
+[e :U 408 ]
+{
+[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+}
+[e ++ _tmp -> -> 1 `i `uc ]
+[e $ < -> _tmp `i * -> 10 `i -> 5 `i 408  ]
+[e :U 409 ]
+}
+"357
+[v _up `uc ~T0 @X0 1 a ]
+[; ;main.c: 357: bool up = 1;
+[e = _up -> -> 1 `i `uc ]
+[; ;main.c: 377: EPWM_LoadDutyValue(0);
+"377
+[e ( _EPWM_LoadDutyValue (1 -> -> 0 `i `ui ]
+[; ;main.c: 378: _delay((unsigned long)((10)*(32000000/4000.0)));
+"378
+[e ( __delay (1 -> * -> -> 10 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+[; ;main.c: 379: EPWM_LoadDutyValue(1023-148);
+"379
+[e ( _EPWM_LoadDutyValue (1 -> - -> 1023 `i -> 148 `i `ui ]
+[; ;main.c: 380: for(unsigned char tmp=0;tmp<(10*5);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
+"380
+{
+[v _tmp `uc ~T0 @X0 1 a ]
+[e = _tmp -> -> 0 `i `uc ]
+[e $ < -> _tmp `i * -> 10 `i -> 5 `i 411  ]
+[e $U 412  ]
+[e :U 411 ]
+{
+[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+}
+[e ++ _tmp -> -> 1 `i `uc ]
+[e $ < -> _tmp `i * -> 10 `i -> 5 `i 411  ]
+[e :U 412 ]
+}
+[; ;main.c: 381: while (1)
+"381
+[e :U 415 ]
+[; ;main.c: 382: {
+"382
+{
+[; ;main.c: 383: if (up == 1)
+"383
+[e $ ! == -> _up `i -> 1 `i 417  ]
+[; ;main.c: 384: motor_load += 1;
+"384
+[e =+ _motor_load -> -> 1 `i `ui ]
+[e $U 418  ]
+"385
+[e :U 417 ]
+[; ;main.c: 385: else
+[; ;main.c: 386: motor_load -= 1;
+"386
+[e =- _motor_load -> -> 1 `i `ui ]
+[e :U 418 ]
+[; ;main.c: 387: if (motor_load > 300)
+"387
+[e $ ! > _motor_load -> -> 300 `i `ui 419  ]
+[; ;main.c: 388: up = 0;
+"388
+[e = _up -> -> 0 `i `uc ]
+[e $U 420  ]
+"389
+[e :U 419 ]
+[; ;main.c: 389: else if (motor_load == 0)
+[e $ ! == _motor_load -> -> 0 `i `ui 421  ]
+[; ;main.c: 390: {
+"390
+{
+[; ;main.c: 391: up = 1;
+"391
+[e = _up -> -> 1 `i `uc ]
+[; ;main.c: 392: EPWM_LoadDutyValue(1023);
+"392
+[e ( _EPWM_LoadDutyValue (1 -> -> 1023 `i `ui ]
+[; ;main.c: 393: for(unsigned char tmp=0;tmp<(10*5);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
+"393
+{
+[v _tmp `uc ~T0 @X0 1 a ]
+[e = _tmp -> -> 0 `i `uc ]
+[e $ < -> _tmp `i * -> 10 `i -> 5 `i 422  ]
+[e $U 423  ]
+[e :U 422 ]
+{
+[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+}
+[e ++ _tmp -> -> 1 `i `uc ]
+[e $ < -> _tmp `i * -> 10 `i -> 5 `i 422  ]
+[e :U 423 ]
+}
+[; ;main.c: 395: EPWM_LoadDutyValue(0);
+"395
+[e ( _EPWM_LoadDutyValue (1 -> -> 0 `i `ui ]
+[; ;main.c: 396: _delay((unsigned long)((10)*(32000000/4000.0)));
+"396
+[e ( __delay (1 -> * -> -> 10 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+"397
+}
+[e :U 421 ]
+"398
+[e :U 420 ]
+[; ;main.c: 397: }
+[; ;main.c: 398: if (motor_load < 148)
+[e $ ! < _motor_load -> -> 148 `i `ui 425  ]
+[; ;main.c: 399: EPWM_LoadDutyValue(1023-135);
+"399
+[e ( _EPWM_LoadDutyValue (1 -> - -> 1023 `i -> 135 `i `ui ]
+[e $U 426  ]
+"400
+[e :U 425 ]
+[; ;main.c: 400: else
+[; ;main.c: 401: EPWM_LoadDutyValue(1023-motor_load);
+"401
+[e ( _EPWM_LoadDutyValue (1 - -> -> 1023 `i `ui _motor_load ]
+[e :U 426 ]
+[; ;main.c: 402: _delay((unsigned long)((50)*(32000000/4000.0)));
+"402
+[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+"403
+}
+[e :U 414 ]
+"381
+[e $U 415  ]
+[e :U 416 ]
+[; ;main.c: 403: }
+[; ;main.c: 404: }
+"404
+[e :UE 390 ]
+}
+"406
+[v _my10msTimerISR `(v ~T0 @X0 1 ef ]
+"407
+{
+[; ;main.c: 406: void my10msTimerISR(void)
+[; ;main.c: 407: {
 [e :U _my10msTimerISR ]
 [f ]
-[; ;main.c: 367: LED_update_loop();
-"367
+[; ;main.c: 408: LED_update_loop();
+"408
 [e ( _LED_update_loop ..  ]
-[; ;main.c: 368: button_update_loop();
-"368
+[; ;main.c: 409: button_update_loop();
+"409
 [e ( _button_update_loop ..  ]
-[; ;main.c: 369: }
-"369
-[e :UE 412 ]
+[; ;main.c: 410: }
+"410
+[e :UE 427 ]
 }
 [p f _printf 8388608 ]
 [a 2C 36 80 77 84 75 50 50 48 44 49 48 48 42 50 70 13 10 0 ]

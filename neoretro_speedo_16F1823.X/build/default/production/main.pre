@@ -1,17 +1,17 @@
 
 # 1 "main.c"
 
-# 26 "D:\Program Files (x86)\Microchip\xc8\v1.38\include\htc.h"
+# 26 "D:\Program Files\Microchip\xc8\v1.38\include\htc.h"
 extern const char __xc8_OPTIM_SPEED;
 
 extern double __fpnormalize(double);
 
 
-# 13 "D:\Program Files (x86)\Microchip\xc8\v1.38\include\xc8debug.h"
+# 13 "D:\Program Files\Microchip\xc8\v1.38\include\xc8debug.h"
 #pragma intrinsic(__builtin_software_breakpoint)
 extern void __builtin_software_breakpoint(void);
 
-# 49 "D:\Program Files (x86)\Microchip\xc8\v1.38\include\pic16f1823.h"
+# 49 "D:\Program Files\Microchip\xc8\v1.38\include\pic16f1823.h"
 extern volatile unsigned char INDF0 @ 0x000;
 
 asm("INDF0 equ 00h");
@@ -3160,21 +3160,21 @@ extern volatile __bit nTO @ (((unsigned) &STATUS)*8) + 4;
 extern volatile __bit nWPUEN @ (((unsigned) &OPTION_REG)*8) + 7;
 
 
-# 27 "D:\Program Files (x86)\Microchip\xc8\v1.38\include\pic.h"
+# 27 "D:\Program Files\Microchip\xc8\v1.38\include\pic.h"
 #pragma intrinsic(__nop)
 extern void __nop(void);
 
 # 77
 extern unsigned int flash_read(unsigned short addr);
 
-# 114 "D:\Program Files (x86)\Microchip\xc8\v1.38\include\eeprom_routines.h"
+# 114 "D:\Program Files\Microchip\xc8\v1.38\include\eeprom_routines.h"
 extern void eeprom_write(unsigned char addr, unsigned char value);
 extern unsigned char eeprom_read(unsigned char addr);
 extern void eecpymem(volatile unsigned char *to, __eeprom unsigned char *from, unsigned char size);
 extern void memcpyee(__eeprom unsigned char *to, const unsigned char *from, unsigned char size);
 
 
-# 151 "D:\Program Files (x86)\Microchip\xc8\v1.38\include\pic.h"
+# 151 "D:\Program Files\Microchip\xc8\v1.38\include\pic.h"
 #pragma intrinsic(_delay)
 extern __nonreentrant void _delay(unsigned long);
 
@@ -3186,7 +3186,7 @@ extern __bit __timeout;
 # 156 "mcc_generated_files/pin_manager.h"
 void PIN_MANAGER_Initialize (void);
 
-# 13 "D:\Program Files (x86)\Microchip\xc8\v1.38\include\stdint.h"
+# 13 "D:\Program Files\Microchip\xc8\v1.38\include\stdint.h"
 typedef signed char int8_t;
 
 # 20
@@ -3276,7 +3276,7 @@ typedef int16_t intptr_t;
 
 typedef uint16_t uintptr_t;
 
-# 12 "D:\Program Files (x86)\Microchip\xc8\v1.38\include\stdbool.h"
+# 12 "D:\Program Files\Microchip\xc8\v1.38\include\stdbool.h"
 typedef unsigned char bool;
 
 # 110 "mcc_generated_files/interrupt_manager.h"
@@ -3309,10 +3309,10 @@ void (*TMR0_InterruptHandler)(void);
 # 298
 void TMR0_DefaultInterruptHandler(void);
 
-# 4 "D:\Program Files (x86)\Microchip\xc8\v1.38\include\__size_t.h"
+# 4 "D:\Program Files\Microchip\xc8\v1.38\include\__size_t.h"
 typedef unsigned size_t;
 
-# 7 "D:\Program Files (x86)\Microchip\xc8\v1.38\include\stdarg.h"
+# 7 "D:\Program Files\Microchip\xc8\v1.38\include\stdarg.h"
 typedef void * va_list[1];
 
 #pragma intrinsic(__va_start)
@@ -3321,17 +3321,17 @@ extern void * __va_start(void);
 #pragma intrinsic(__va_arg)
 extern void * __va_arg(void *, ...);
 
-# 43 "D:\Program Files (x86)\Microchip\xc8\v1.38\include\stdio.h"
+# 43 "D:\Program Files\Microchip\xc8\v1.38\include\stdio.h"
 struct __prbuf
 {
 char * ptr;
 void (* func)(char);
 };
 
-# 29 "D:\Program Files (x86)\Microchip\xc8\v1.38\include\errno.h"
+# 29 "D:\Program Files\Microchip\xc8\v1.38\include\errno.h"
 extern int errno;
 
-# 12 "D:\Program Files (x86)\Microchip\xc8\v1.38\include\conio.h"
+# 12 "D:\Program Files\Microchip\xc8\v1.38\include\conio.h"
 extern void init_uart(void);
 
 extern char getch(void);
@@ -3345,7 +3345,7 @@ extern __bit kbhit(void);
 extern char * cgets(char *);
 extern void cputs(const char *);
 
-# 88 "D:\Program Files (x86)\Microchip\xc8\v1.38\include\stdio.h"
+# 88 "D:\Program Files\Microchip\xc8\v1.38\include\stdio.h"
 extern int cprintf(char *, ...);
 #pragma printf_check(cprintf)
 
@@ -3637,7 +3637,36 @@ return 0;
 }
 }
 
-# 220
+
+unsigned char i_buff2 = 0;
+unsigned short read_speed_int=0;
+unsigned short read_speed_fra=0;
+bool before_dot = 1;
+while (i_buff2 < i_buff)
+if (buffer[i_buff2]=='.')
+{
+before_dot = 0;
+i_buff2++;
+}
+else
+{
+if ((buffer[i_buff2]<0x30)||(buffer[i_buff2]>0x39))
+return 0;
+else
+{
+if (before_dot)
+read_speed_int = read_speed_int*10 + (buffer[i_buff2]-0x30);
+else
+read_speed_fra = read_speed_fra*10 + (buffer[i_buff2]-0x30);
+i_buff2++;
+}
+}
+
+
+
+read_speed_fra *= 100;
+
+
 i_buff = 0;
 
 
@@ -3682,11 +3711,26 @@ if ((buffer[1] != '*')||(i_buff != 4))
 return 0;
 
 
-
+unsigned char checksum2 = 0;
+if (buffer[2] > 0x39)
+checksum2 = buffer[2] - 0x37;
+else
+checksum2 = buffer[2] - 0x30;
+checksum2 = checksum2 << 4;
+if (buffer[3] > 0x39)
+checksum2 += buffer[3] - 0x37;
+else
+checksum2 += buffer[3] - 0x30;
+if (checksum == checksum2)
+{
+speed = convert_to_fp(read_speed_int, read_speed_fra);
 return 1;
 }
+else
+return 0;
+}
 
-# 271
+# 312
 void main(void)
 {
 
@@ -3734,7 +3778,7 @@ for(unsigned char tmp=0;tmp<(10*5);tmp++){_delay((unsigned long)((100)*(32000000
 
 bool up = 1;
 
-# 336
+# 377
 EPWM_LoadDutyValue(0);
 _delay((unsigned long)((10)*(32000000/4000.0)));
 EPWM_LoadDutyValue(1023-148);

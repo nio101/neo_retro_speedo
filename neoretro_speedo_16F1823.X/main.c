@@ -213,10 +213,36 @@ bool GPS_read_speed(void) // read & parse/check one NMEA sentence
             }
         }
     // buffer should contain the current speed reading in km/h
-    // we should read it! :)
-    
     // read it now and convert it to speed/FP
-    
+    unsigned char i_buff2 = 0;
+    unsigned short read_speed_int=0;
+    unsigned short read_speed_fra=0;
+    bool before_dot = true;
+    while (i_buff2 < i_buff)
+        if (buffer[i_buff2]=='.')
+        {
+            before_dot = false;
+            i_buff2++;  // step over the '.'
+        }
+        else
+        {
+            if ((buffer[i_buff2]<0x30)||(buffer[i_buff2]>0x39))
+                return false;   // not a digit, abort!
+            else
+            {
+                if (before_dot)
+                    read_speed_int = read_speed_int*10 + (buffer[i_buff2]-0x30);
+                else
+                    read_speed_fra = read_speed_fra*10 + (buffer[i_buff2]-0x30);
+                i_buff2++;
+            }
+        }
+    // this type of GPS always outputs 2 digits avec dot
+    // so multiply the fractional part by 100
+    // to comply with the FP definition/convertion
+    read_speed_fra *= 100;
+    // read_speed_int/fra now contain the read speed
+    // if checksum is ok, overwrite speed later
     i_buff = 0; // clear buffer
     
     // should be the K keyword here
@@ -261,8 +287,23 @@ bool GPS_read_speed(void) // read & parse/check one NMEA sentence
         return false;
 
     // now check the checksum against ours
-    
-    return true;
+    unsigned char checksum2 = 0;
+    if (buffer[2] > 0x39)   // not 0-9, more A-F
+        checksum2 = buffer[2] - 0x37;
+    else
+        checksum2 = buffer[2] - 0x30;
+    checksum2 = checksum2 << 4;
+    if (buffer[3] > 0x39)   // not 0-9, more A-F
+        checksum2 += buffer[3] - 0x37;
+    else
+        checksum2 += buffer[3] - 0x30;
+    if (checksum == checksum2)
+    {
+        speed = convert_to_fp(read_speed_int, read_speed_fra);
+        return true;
+    }
+    else
+        return false;
 }
 
 /*

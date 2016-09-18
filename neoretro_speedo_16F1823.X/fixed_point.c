@@ -35,9 +35,24 @@ t_fp  convert_to_fp(unsigned short int_part, unsigned short fract_part)
     return res;
 }
 
-t_fp multiply_fp(t_fp n1, t_fp n2)  //!OVERFLOW POSSIBLE! 24*24 needs 48, not 32
+t_fp multiply_fp(t_fp n1, t_fp n2)  //!OVERFLOW POSSIBLE!
 {
-    unsigned long long tmp = (unsigned long long) n1 * (unsigned long long) n2;
-    t_fp res = tmp >> FIXED_POINT_FRACT;    // !OVERFLOW POSSIBLE! 
+    t_fp n1_fra, n2_fra;
+    n1_fra = (n1 << (FIXED_POINT_TOTAL_SIZE-FIXED_POINT_FRACT)) >> (FIXED_POINT_TOTAL_SIZE-FIXED_POINT_FRACT);
+    n2_fra = (n2 << (FIXED_POINT_TOTAL_SIZE-FIXED_POINT_FRACT)) >> (FIXED_POINT_TOTAL_SIZE-FIXED_POINT_FRACT);
+    unsigned long long res = ((unsigned long long) (n1 >> FIXED_POINT_FRACT) * (unsigned long long) (n2 >> FIXED_POINT_FRACT))<<FIXED_POINT_FRACT;
+    res+ = ((unsigned long long) (n1 >> FIXED_POINT_FRACT) * (unsigned long long) n2_fra);
+    res+ = ((unsigned long long) (n2 >> FIXED_POINT_FRACT) * (unsigned long long) n1_fra);
+    res+ = ((unsigned long long) n1_fra * (unsigned long long) n2_fra)>>FIXED_POINT_FRACT;
     return res;
+}
+
+t_fp  add(t_fp n1, t_fp n2)
+{
+    return (t_fp)(n1+n2);
+}
+
+t_fp  substract(t_fp n1, t_fp n2)
+{
+    return (t_fp)(n1-n2);
 }

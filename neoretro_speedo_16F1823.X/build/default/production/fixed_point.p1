@@ -2438,11 +2438,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;tmr2.h: 324: bool TMR2_HasOverflowOccured(void);
 [; ;mcc.h: 72: void SYSTEM_Initialize(void);
 [; ;mcc.h: 85: void OSCILLATOR_Initialize(void);
-[; ;fixed_point.h: 13: typedef unsigned short t_fp;
-[; ;fixed_point.h: 15: t_fp convert_to_fp(unsigned short int_part, unsigned short fract_part);
-[; ;fixed_point.h: 17: t_fp multiply_fp(t_fp n1, t_fp n2);
+[; ;fixed_point.h: 14: typedef unsigned short long t_fp;
+[; ;fixed_point.h: 16: t_fp convert_to_fp(unsigned short int_part, unsigned short fract_part);
+[; ;fixed_point.h: 18: t_fp multiply_fp(t_fp n1, t_fp n2);
+[; ;fixed_point.h: 19: t_fp add(t_fp n1, t_fp n2);
+[; ;fixed_point.h: 20: t_fp substract(t_fp n1, t_fp n2);
 "11 fixed_point.c
-[v _convert_to_fp `(us ~T0 @X0 1 ef2`us`us ]
+[v _convert_to_fp `(um ~T0 @X0 1 ef2`us`us ]
 "12
 {
 [; ;fixed_point.c: 11: t_fp convert_to_fp(unsigned short int_part, unsigned short fract_part)
@@ -2454,9 +2456,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "12
 [f ]
 "13
-[v _res `us ~T0 @X0 1 a ]
+[v _res `um ~T0 @X0 1 a ]
 [; ;fixed_point.c: 13: t_fp res = 0;
-[e = _res -> -> 0 `i `us ]
+[e = _res -> -> -> 0 `i `m `um ]
 [; ;fixed_point.c: 15: if (int_part > 16383)
 "15
 [e $ ! > -> _int_part `ui -> -> 16383 `i `ui 295  ]
@@ -2467,10 +2469,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U 295 ]
 [; ;fixed_point.c: 18: res = int_part;
 "18
-[e = _res _int_part ]
-[; ;fixed_point.c: 19: res = res << 4;
+[e = _res -> _int_part `um ]
+[; ;fixed_point.c: 19: res = res << 14;
 "19
-[e = _res -> << -> _res `ui -> 4 `i `us ]
+[e = _res << _res -> 14 `i ]
 "21
 [v _tmp_left `us ~T0 @X0 1 a ]
 [; ;fixed_point.c: 21: unsigned short tmp_left = fract_part;
@@ -2480,17 +2482,17 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;fixed_point.c: 22: unsigned short res_fract = 0;
 [e = _res_fract -> -> 0 `i `us ]
 "23
-[v F2619 `Cus ~T0 @X0 1 s one ]
-[i F2619
+[v F2625 `Cus ~T0 @X0 1 s one ]
+[i F2625
 -> -> 1 `i `us
 ]
 [; ;fixed_point.c: 23: const unsigned short one = 1;
-[; ;fixed_point.c: 24: for (unsigned char i_bit = 0; i_bit < 4; i_bit++)
+[; ;fixed_point.c: 24: for (unsigned char i_bit = 0; i_bit < 14; i_bit++)
 "24
 {
 [v _i_bit `uc ~T0 @X0 1 a ]
 [e = _i_bit -> -> 0 `i `uc ]
-[e $ < -> _i_bit `i -> 4 `i 296  ]
+[e $ < -> _i_bit `i -> 14 `i 296  ]
 [e $U 297  ]
 "25
 [e :U 296 ]
@@ -2505,9 +2507,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;fixed_point.c: 28: {
 "28
 {
-[; ;fixed_point.c: 29: res_fract = res_fract | one<<(4-i_bit-1);
+[; ;fixed_point.c: 29: res_fract = res_fract | one<<(14-i_bit-1);
 "29
-[e = _res_fract -> | -> _res_fract `ui << -> F2619 `ui - - -> 4 `i -> _i_bit `i -> 1 `i `us ]
+[e = _res_fract -> | -> _res_fract `ui << -> F2625 `ui - - -> 14 `i -> _i_bit `i -> 1 `i `us ]
 [; ;fixed_point.c: 30: tmp_left = tmp_left - 10000;
 "30
 [e = _tmp_left -> - -> _tmp_left `ui -> -> 10000 `i `ui `us ]
@@ -2518,7 +2520,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 }
 "24
 [e ++ _i_bit -> -> 1 `i `uc ]
-[e $ < -> _i_bit `i -> 4 `i 296  ]
+[e $ < -> _i_bit `i -> 14 `i 296  ]
 [e :U 297 ]
 "32
 }
@@ -2526,7 +2528,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;fixed_point.c: 32: }
 [; ;fixed_point.c: 34: res = res + res_fract;
 "34
-[e = _res -> + -> _res `ui -> _res_fract `ui `us ]
+[e = _res + _res -> _res_fract `um ]
 [; ;fixed_point.c: 35: return res;
 "35
 [e ) _res ]
@@ -2536,30 +2538,85 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :UE 294 ]
 }
 "38
-[v _multiply_fp `(us ~T0 @X0 1 ef2`us`us ]
+[v _multiply_fp `(um ~T0 @X0 1 ef2`um`um ]
 "39
 {
 [; ;fixed_point.c: 38: t_fp multiply_fp(t_fp n1, t_fp n2)
 [; ;fixed_point.c: 39: {
 [e :U _multiply_fp ]
 "38
-[v _n1 `us ~T0 @X0 1 r1 ]
-[v _n2 `us ~T0 @X0 1 r2 ]
+[v _n1 `um ~T0 @X0 1 r1 ]
+[v _n2 `um ~T0 @X0 1 r2 ]
 "39
 [f ]
 "40
-[v _tmp `ul ~T0 @X0 1 a ]
-[; ;fixed_point.c: 40: unsigned long long tmp = (unsigned long long) n1 * (unsigned long long) n2;
-[e = _tmp * -> _n1 `ul -> _n2 `ul ]
+[v _n1_fra `um ~T0 @X0 1 a ]
+[v _n2_fra `um ~T0 @X0 1 a ]
+[; ;fixed_point.c: 40: t_fp n1_fra, n2_fra;
+[; ;fixed_point.c: 41: n1_fra = (n1 << (24-14)) >> (24-14);
 "41
-[v _res `us ~T0 @X0 1 a ]
-[; ;fixed_point.c: 41: t_fp res = tmp >> 4;
-[e = _res -> >> _tmp -> 4 `i `us ]
-[; ;fixed_point.c: 42: return res;
+[e = _n1_fra >> << _n1 - -> 24 `i -> 14 `i - -> 24 `i -> 14 `i ]
+[; ;fixed_point.c: 42: n2_fra = (n2 << (24-14)) >> (24-14);
 "42
-[e ) _res ]
-[e $UE 300  ]
-[; ;fixed_point.c: 43: }
+[e = _n2_fra >> << _n2 - -> 24 `i -> 14 `i - -> 24 `i -> 14 `i ]
 "43
+[v _res `ul ~T0 @X0 1 a ]
+[; ;fixed_point.c: 43: unsigned long long res = ((unsigned long long) (n1 >> 14) * (unsigned long long) (n2 >> 14))<<14;
+[e = _res << * -> >> _n1 -> 14 `i `ul -> >> _n2 -> 14 `i `ul -> 14 `i ]
+[; ;fixed_point.c: 44: res+ = ((unsigned long long) (n1 >> 14) * (unsigned long long) n2_fra);
+"44
+[e =+ _res * -> >> _n1 -> 14 `i `ul -> _n2_fra `ul ]
+[; ;fixed_point.c: 45: res+ = ((unsigned long long) (n2 >> 14) * (unsigned long long) n1_fra);
+"45
+[e =+ _res * -> >> _n2 -> 14 `i `ul -> _n1_fra `ul ]
+[; ;fixed_point.c: 46: res+ = ((unsigned long long) n1_fra * (unsigned long long) n2_fra)>>14;
+"46
+[e =+ _res >> * -> _n1_fra `ul -> _n2_fra `ul -> 14 `i ]
+[; ;fixed_point.c: 47: return res;
+"47
+[e ) -> _res `um ]
+[e $UE 300  ]
+[; ;fixed_point.c: 48: }
+"48
 [e :UE 300 ]
+}
+"50
+[v _add `(um ~T0 @X0 1 ef2`um`um ]
+"51
+{
+[; ;fixed_point.c: 50: t_fp add(t_fp n1, t_fp n2)
+[; ;fixed_point.c: 51: {
+[e :U _add ]
+"50
+[v _n1 `um ~T0 @X0 1 r1 ]
+[v _n2 `um ~T0 @X0 1 r2 ]
+"51
+[f ]
+[; ;fixed_point.c: 52: return (t_fp)(n1+n2);
+"52
+[e ) + _n1 _n2 ]
+[e $UE 301  ]
+[; ;fixed_point.c: 53: }
+"53
+[e :UE 301 ]
+}
+"55
+[v _substract `(um ~T0 @X0 1 ef2`um`um ]
+"56
+{
+[; ;fixed_point.c: 55: t_fp substract(t_fp n1, t_fp n2)
+[; ;fixed_point.c: 56: {
+[e :U _substract ]
+"55
+[v _n1 `um ~T0 @X0 1 r1 ]
+[v _n2 `um ~T0 @X0 1 r2 ]
+"56
+[f ]
+[; ;fixed_point.c: 57: return (t_fp)(n1-n2);
+"57
+[e ) - _n1 _n2 ]
+[e $UE 302  ]
+[; ;fixed_point.c: 58: }
+"58
+[e :UE 302 ]
 }

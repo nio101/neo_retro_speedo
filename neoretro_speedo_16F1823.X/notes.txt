@@ -1,0 +1,219 @@
+    /*
+    // test FP
+    t_fp fp1 = convert_to_fp(0, 6210);   // ratio mph/kmh
+    t_fp read_speed_kph = convert_to_fp(130, 6200);
+    //t_fp test = convert_to_fp(23, 6875);
+    t_fp speed_mph = multiply_fp(fp1, read_speed_kph);
+    */
+
+   // pour le PWM: prendre FOSC==32 MHz, PWMFreq==31.25 kHz
+    // => PR2=0xFF && TMR2 pre-scaler=1:1
+    // et du coup on a une résolution PWM de 10bits
+    // + datasheet p196 pour procédure init propre du PWM
+    
+    // pour l'UART: 9600 baud, 8data bits, no parity
+    // 1 stop bit, receive polarity: idle1
+    // output: normal (GND/3.3V)
+    
+    // EEPROM
+    
+    // pushbutton + debounce timer
+    
+    // NMEA: $VTG,,,,,*[checksum]<CR><LF>
+    // CR:0x0D LF:0x0A
+    // max length: 79 chars between '$' and "<CR><LF>"
+    // Utiliser $ pour détecter le début de trame, commencer réception
+    // si $ => retour début de trame/réinit réception
+    // si <LF> => fin réception donc analyse commande, checksum,
+    // et lecture paramètres
+    // Si buffer déborde => ignore buffer & stop réception.
+    
+    // printf de configuration du GPS:
+    
+    // API_SET_NMEA_OUTPUT pour filtrer les messages:
+    // $PMTK314,0,0,1,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0*2C<CR><LF>
+    // => VTG every fix, GGA every 5 fixes, nothing else
+    // $PMTK314,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0*29<CR><LF>
+    // => VTG every fix, nothing else)
+    
+    // SET UPDATE FREQ
+    // $PMTK220,100*2F<CR><LF>
+    // => position fix done 10 times per second (instead of 1 per second)
+
+    // 1ère étape: laisser faire l'UART initialize avec les printf
+    // et mettre le bus pirate en copie de ce que reçoit le pic
+    // => tester reset, gain de fix & perte de fix
+    
+    // 2ème étape: lire les trames NMEA, éventuellement updater la vitesse
+    // et la passer à zero si pas de trame récente (pour éviter de rester
+    // scotché en cas de perte de fix)
+    /*while(1)
+    {
+        // Test DA LED output! :)
+         LED_set_state(slow_blinking);
+         __delay_sec(5);
+         LED_set_state(fast_blinking);
+         __delay_sec(5);
+         LED_set_state(always_on);
+         __delay_sec(5);
+         LED_set_state(always_off);
+         __delay_sec(5);
+    }*/     
+
+
+    /*while(1)
+    {
+        __delay_sec(5);
+        // Test DA button now!
+        LED_set_state(always_on);
+        button_init();
+        while (b_confirmed_state == nothing)
+        {}
+
+        if (b_confirmed_state == short_push)
+            LED_set_state(fast_blinking);
+        else if (b_confirmed_state == long_push)
+            LED_set_state(slow_blinking);
+    }*/    
+
+/*
+    // TODO: ne pas bufferiser & parser la chaine complète, mais
+    // détecter les changements de champs au travers d'états dédiés
+    // + calculer checksum au fil de l'eau
+    // sinon pas assez de RAM pour faire la calibration... :s
+    
+    // Part 1/2: let's record a complete NMEA sentence
+    
+    unsigned char buffer[NMEA_BUFFER_SIZE];
+    unsigned char i_buff = 0;
+    // we are going to wait for a '$' to begin recording received chars
+    // until another '$' comes (restart recording), or an <LF> (parse sentence)
+    // if the sentence is a correct VTG, read the speed and reset dedicated tmr
+    bool done = false;
+    bool recording = false;
+    unsigned char m_char;
+    while (!done)
+    {
+        if(eusartRxCount==0)
+        {
+            //STATUS_LED_SetLow();
+        }        
+        else if(eusartRxCount!=0)
+        {
+            m_char=EUSART_Read();  // read a byte for RX
+            //STATUS_LED_SetHigh();
+            //__delay_ms(1);
+            if (m_char == '$')
+            {
+                recording = true;
+                i_buff = 0;
+            }
+            else if (recording)
+            {
+                if (m_char == 0x0D) // <CR>
+                    done = true;
+                else
+                    buffer[i_buff++] = m_char;
+                if (i_buff > NMEA_BUFFER_SIZE)
+                {
+                    // NMEA sentence is too long for buffer!
+                    // ignore it, then to avoid critical error
+                    recording = false;
+                }
+            }
+        }
+    }
+    
+    unsigned char i_buff2 = 0;
+    unsigned short read_speed_int = 0;
+    unsigned short read_speed_dec = 0;
+    // Part 2/2: parse the NMEA sentence
+    if ((buffer[i_buff2++] == 'G')&&(buffer[i_buff2++] == 'P')&&(buffer[i_buff2++] == 'V')&&(buffer[i_buff2++] == 'T')&&(buffer[i_buff2++] == 'G'))
+    {
+        // T field
+        while ((i_buff2 < i_buff)&&(buffer[i_buff2]!=','))  //reach the next ','
+            i_buff2++;
+        if (i_buff2 >= i_buff)
+            return false;
+        i_buff2++; // step over the ','
+        if (buffer[i_buff2++] != 'T')
+            return false;
+        i_buff2++; // step over the ','
+
+        // M field
+        while ((i_buff2 < i_buff)&&(buffer[i_buff2]!=','))  //reach the next ','
+            i_buff2++;
+        if (i_buff2 >= i_buff)
+            return false;
+        i_buff2++; // step over the ','
+        if (buffer[i_buff2++] != 'M')
+            return false;
+        i_buff2++; // step over the ','
+
+        // N field
+        while ((i_buff2 < i_buff)&&(buffer[i_buff2]!=','))  //reach the next ','
+            i_buff2++;
+        if (i_buff2 >= i_buff)
+            return false;
+        i_buff2++; // step over the ','
+        if (buffer[i_buff2++] != 'N')
+            return false;
+        i_buff2++; // step over the ','
+        
+        // K field
+        bool before_dot = true;
+        while ((i_buff2 < i_buff)&&(buffer[i_buff2]!=','))  //reach the next ','
+            if (buffer[i_buff2]=='.')
+            {
+                before_dot = false;
+                i_buff2++;  // step over the '.'
+            }
+            else
+            {
+                if ((buffer[i_buff2]<0x30)||(buffer[i_buff2]>0x39))
+                    return false;   // not a digit, abort!
+                else
+                {
+                    // convert the ascii digit to speed decimal
+                    // un float est trop gourmand... +600 instructions pour
+                    // la routine suivante:
+                    // read_speed = read_speed * 10 + (buffer[i_buff2]-0x30);
+                    // utiliser deux unsigned short pour coder la vitesse!
+                    // et faire une structure et des fonctions de calcul
+                    if (before_dot)
+                        //read_speed = read_speed * 10 + (buffer[i_buff2]-0x30);
+                        read_speed_int = read_speed_int*10 + (buffer[i_buff2]-0x30);
+                    else
+                    {
+                        //read_speed = read_speed * 10 + (buffer[i_buff2]-0x30);
+                        read_speed_dec = read_speed_int*10 + (buffer[i_buff2]-0x30);
+                    }
+                    i_buff2++;
+                }
+            }
+        if (i_buff2 >= i_buff)
+            return false;
+        i_buff2++; // step over the ','
+        if (buffer[i_buff2++] != 'M')
+            return false;
+        i_buff2++; // step over the ','
+        
+        // now that we have the speed, let's reach the checksum
+        while ((i_buff2 < i_buff)&&(buffer[i_buff2]!='*'))
+            i_buff2++;
+        if (i_buff2 >= i_buff)
+            return false;
+        unsigned char checksum = 0;
+        for (unsigned char i=0;i<i_buff2;i++)
+            checksum ^= buffer[i];
+        
+        // now compare checksum & buffer[i_buff2]/buffer[i_buff2+1]
+        // if not equal then stop here!
+        
+        // update the speed
+        speed_int = read_speed_int;
+        speed_dec = read_speed_dec;
+        return true;
+    }
+    else return false;
+    */

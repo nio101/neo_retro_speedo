@@ -3473,12 +3473,14 @@ void button_init();
 void button_update_loop();
 unsigned char get_button_state();
 
-# 13 "fixed_point.h"
-typedef unsigned short t_fp;
+# 14 "fixed_point.h"
+typedef unsigned short long t_fp;
 
 t_fp convert_to_fp(unsigned short int_part, unsigned short fract_part);
 
 t_fp multiply_fp(t_fp n1, t_fp n2);
+t_fp add(t_fp n1, t_fp n2);
+t_fp substract(t_fp n1, t_fp n2);
 
 # 55 "main.c"
 void my10msTimerISR(void);
@@ -3486,10 +3488,11 @@ void my10msTimerISR(void);
 # 61
 typedef enum _speed_unit_type { MPH = 0, KPH } speed_unit_type;
 speed_unit_type speed_units = MPH;
-unsigned short speed_int = 0;
-unsigned short speed_dec = 0;
+t_fp speed;
 
-# 71
+const t_fp ratio_mph = 0x0027BE;
+
+# 72
 void GPS_Initialize(void)
 {
 for(unsigned char tmp=0;tmp<(10*1);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
@@ -3634,8 +3637,7 @@ return 0;
 }
 }
 
-
-unsigned char tmp = 0;
+# 220
 i_buff = 0;
 
 
@@ -3656,43 +3658,67 @@ return 0;
 if ((buffer[0] != 'K')||(i_buff != 1))
 return 0;
 i_buff = 0;
+
+
+bool no_more_checksum = 0;
+while (1)
+if (eusartRxCount!=0)
+{
+m_char=EUSART_Read();
+if (m_char == '*')
+no_more_checksum = 1;
+if (!no_more_checksum)
+checksum ^= m_char;
+if (m_char == 0x0D)
+break;
+else
+{
+buffer[i_buff++] = m_char;
+if (i_buff >= 6)
+return 0;
+}
+}
+if ((buffer[1] != '*')||(i_buff != 4))
+return 0;
+
+
+
 return 1;
 }
 
-# 243
+# 271
 void main(void)
 {
 
-# 252
-t_fp test = convert_to_fp(23, 6875);
+SYSTEM_Initialize();
+TMR0_SetInterruptHandler(my10msTimerISR);
 
-char zob = 'k';
-
-# 262
 (INTCONbits.GIE = 1);
-
 
 (INTCONbits.PEIE = 1);
 
-# 327
 LED_set_state(manual_mode);
 do { LATA5 = 0; } while(0);
 for(unsigned char tmp=0;tmp<(10*3);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
 
-# 346
 GPS_Initialize();
 
+speed = 0;
 
-bool res;
 while (1)
 {
-res = GPS_read_speed();
-if (res)
+
+if (GPS_read_speed())
 {
+
+if (speed_units == MPH)
+speed = multiply_fp(speed, ratio_mph);
+
 do { LATA5 = 1; } while(0);
 _delay((unsigned long)((20)*(32000000/4000.0)));
 }
 do { LATA5 = 0; } while(0);
+
 
 
 
@@ -3708,7 +3734,7 @@ for(unsigned char tmp=0;tmp<(10*5);tmp++){_delay((unsigned long)((100)*(32000000
 
 bool up = 1;
 
-# 392
+# 336
 EPWM_LoadDutyValue(0);
 _delay((unsigned long)((10)*(32000000/4000.0)));
 EPWM_LoadDutyValue(1023-148);
@@ -3736,8 +3762,6 @@ else
 EPWM_LoadDutyValue(1023-motor_load);
 _delay((unsigned long)((50)*(32000000/4000.0)));
 }
-
-# 426
 }
 
 void my10msTimerISR(void)

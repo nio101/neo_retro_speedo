@@ -7,8 +7,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [c E2619 0 1 2 .. ]
 [n E2619 . nothing short_push long_push  ]
 "62 main.c
-[c E2643 0 1 .. ]
-[n E2643 _speed_unit_type MPH KPH  ]
+[c E2649 0 1 .. ]
+[n E2649 _speed_unit_type MPH KPH  ]
 [v F2438 `(v ~T0 @X0 1 tf1`ul ]
 "152 D:\Program Files (x86)\Microchip\xc8\v1.38\include\pic.h
 [v __delay `JF2438 ~T0 @X0 0 e ]
@@ -20,8 +20,12 @@ Version 3.2 HI-TECH Software Intermediate Code
 "155
 [v _EUSART_Read `(uc ~T0 @X0 0 ef ]
 [p mainexit ]
-"15 fixed_point.h
-[v _convert_to_fp `(us ~T0 @X0 0 ef2`us`us ]
+"72 mcc_generated_files/mcc.h
+[v _SYSTEM_Initialize `(v ~T0 @X0 0 ef ]
+"262 mcc_generated_files/tmr0.h
+[v _TMR0_SetInterruptHandler `(v ~T0 @X0 0 ef1`*v ]
+"55 main.c
+[v _my10msTimerISR `(v ~T0 @X0 0 ef ]
 "343 D:\Program Files (x86)\Microchip\xc8\v1.38\include\pic16f1823.h
 [s S27 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S27 . IOCIF INTF TMR0IF IOCIE INTE TMR0IE PEIE GIE ]
@@ -37,6 +41,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _LED_set_state `(v ~T0 @X0 0 ef1`E2607 ]
 "5928 D:\Program Files (x86)\Microchip\xc8\v1.38\include\pic16f1823.h
 [v _LATA5 `Vb ~T0 @X0 0 e@2149 ]
+"18 fixed_point.h
+[v _multiply_fp `(um ~T0 @X0 0 ef2`um`um ]
 "121 mcc_generated_files/epwm.h
 [v _EPWM_LoadDutyValue `(v ~T0 @X0 0 ef1`ui ]
 "131 mcc_generated_files/tmr2.h
@@ -2527,39 +2533,38 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;interact.h: 67: void button_init();
 [; ;interact.h: 68: void button_update_loop();
 [; ;interact.h: 69: unsigned char get_button_state();
-[; ;fixed_point.h: 13: typedef unsigned short t_fp;
-[; ;fixed_point.h: 15: t_fp convert_to_fp(unsigned short int_part, unsigned short fract_part);
-[; ;fixed_point.h: 17: t_fp multiply_fp(t_fp n1, t_fp n2);
+[; ;fixed_point.h: 14: typedef unsigned short long t_fp;
+[; ;fixed_point.h: 16: t_fp convert_to_fp(unsigned short int_part, unsigned short fract_part);
+[; ;fixed_point.h: 18: t_fp multiply_fp(t_fp n1, t_fp n2);
+[; ;fixed_point.h: 19: t_fp add(t_fp n1, t_fp n2);
+[; ;fixed_point.h: 20: t_fp substract(t_fp n1, t_fp n2);
 [; ;main.c: 55: void my10msTimerISR(void);
 [; ;main.c: 61: typedef enum _speed_unit_type { MPH = 0, KPH } speed_unit_type;
 "62 main.c
-[v _speed_units `E2643 ~T0 @X0 1 e ]
+[v _speed_units `E2649 ~T0 @X0 1 e ]
 [i _speed_units
-. `E2643 0
+. `E2649 0
 ]
 [; ;main.c: 62: speed_unit_type speed_units = MPH;
 "63
-[v _speed_int `us ~T0 @X0 1 e ]
-[i _speed_int
--> -> 0 `i `us
+[v _speed `um ~T0 @X0 1 e ]
+[; ;main.c: 63: t_fp speed;
+"65
+[v _ratio_mph `Cum ~T0 @X0 1 e ]
+[i _ratio_mph
+-> -> -> 10174 `i `m `um
 ]
-[; ;main.c: 63: unsigned short speed_int = 0;
-"64
-[v _speed_dec `us ~T0 @X0 1 e ]
-[i _speed_dec
--> -> 0 `i `us
-]
-[; ;main.c: 64: unsigned short speed_dec = 0;
-"71
-[v _GPS_Initialize `(v ~T0 @X0 1 ef ]
+[; ;main.c: 65: const t_fp ratio_mph = 0x0027BE;
 "72
+[v _GPS_Initialize `(v ~T0 @X0 1 ef ]
+"73
 {
-[; ;main.c: 71: void GPS_Initialize(void)
-[; ;main.c: 72: {
+[; ;main.c: 72: void GPS_Initialize(void)
+[; ;main.c: 73: {
 [e :U _GPS_Initialize ]
 [f ]
-[; ;main.c: 73: for(unsigned char tmp=0;tmp<(10*1);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
-"73
+[; ;main.c: 74: for(unsigned char tmp=0;tmp<(10*1);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
+"74
 {
 [v _tmp `uc ~T0 @X0 1 a ]
 [e = _tmp -> -> 0 `i `uc ]
@@ -2573,727 +2578,745 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $ < -> _tmp `i * -> 10 `i -> 1 `i 295  ]
 [e :U 296 ]
 }
-[; ;main.c: 75: printf("$PMTK314,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0*29\r\n");
-"75
-[e ( _printf :s 1C ]
-[; ;main.c: 76: _delay((unsigned long)((100)*(32000000/4000.0)));
+[; ;main.c: 76: printf("$PMTK314,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0*29\r\n");
 "76
-[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
-[; ;main.c: 77: printf("$PMTK220,100*2F\r\n");
+[e ( _printf :s 1C ]
+[; ;main.c: 77: _delay((unsigned long)((100)*(32000000/4000.0)));
 "77
-[e ( _printf :s 2C ]
-[; ;main.c: 78: _delay((unsigned long)((100)*(32000000/4000.0)));
-"78
 [e ( __delay (1 -> * -> -> 100 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
-[; ;main.c: 79: }
+[; ;main.c: 78: printf("$PMTK220,100*2F\r\n");
+"78
+[e ( _printf :s 2C ]
+[; ;main.c: 79: _delay((unsigned long)((100)*(32000000/4000.0)));
 "79
+[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+[; ;main.c: 80: }
+"80
 [e :UE 294 ]
 }
-"81
-[v _GPS_read_speed `(uc ~T0 @X0 1 ef ]
 "82
+[v _GPS_read_speed `(uc ~T0 @X0 1 ef ]
+"83
 {
-[; ;main.c: 81: bool GPS_read_speed(void)
-[; ;main.c: 82: {
+[; ;main.c: 82: bool GPS_read_speed(void)
+[; ;main.c: 83: {
 [e :U _GPS_read_speed ]
 [f ]
-"85
-[v _buffer `uc ~T0 @X0 -> 6 `i a ]
 "86
-[v _i_buff `uc ~T0 @X0 1 a ]
-[; ;main.c: 85: unsigned char buffer[6];
-[; ;main.c: 86: unsigned char i_buff = 0;
-[e = _i_buff -> -> 0 `i `uc ]
+[v _buffer `uc ~T0 @X0 -> 6 `i a ]
 "87
+[v _i_buff `uc ~T0 @X0 1 a ]
+[; ;main.c: 86: unsigned char buffer[6];
+[; ;main.c: 87: unsigned char i_buff = 0;
+[e = _i_buff -> -> 0 `i `uc ]
+"88
 [v _checksum `uc ~T0 @X0 1 a ]
-[; ;main.c: 87: unsigned char checksum = 0x00;
+[; ;main.c: 88: unsigned char checksum = 0x00;
 [e = _checksum -> -> 0 `i `uc ]
-"89
-[v _m_char `uc ~T0 @X0 1 a ]
-[; ;main.c: 89: unsigned char m_char = 0x00;
-[e = _m_char -> -> 0 `i `uc ]
-[; ;main.c: 90: while (m_char != '$')
 "90
+[v _m_char `uc ~T0 @X0 1 a ]
+[; ;main.c: 90: unsigned char m_char = 0x00;
+[e = _m_char -> -> 0 `i `uc ]
+[; ;main.c: 91: while (m_char != '$')
+"91
 [e $U 299  ]
 [e :U 300 ]
-[; ;main.c: 91: if(eusartRxCount!=0)
-"91
-[e $ ! != -> _eusartRxCount `i -> 0 `i 302  ]
-[; ;main.c: 92: m_char=EUSART_Read();
+[; ;main.c: 92: if(eusartRxCount!=0)
 "92
+[e $ ! != -> _eusartRxCount `i -> 0 `i 302  ]
+[; ;main.c: 93: m_char=EUSART_Read();
+"93
 [e = _m_char ( _EUSART_Read ..  ]
 [e :U 302 ]
-"96
+"97
 [e :U 299 ]
-"90
+"91
 [e $ != -> _m_char `ui -> 36 `ui 300  ]
 [e :U 301 ]
-[; ;main.c: 96: while (1)
-"96
-[e :U 304 ]
-[; ;main.c: 97: if (eusartRxCount!=0)
+[; ;main.c: 97: while (1)
 "97
-[e $ ! != -> _eusartRxCount `i -> 0 `i 306  ]
-[; ;main.c: 98: {
+[e :U 304 ]
+[; ;main.c: 98: if (eusartRxCount!=0)
 "98
-{
-[; ;main.c: 99: m_char=EUSART_Read();
+[e $ ! != -> _eusartRxCount `i -> 0 `i 306  ]
+[; ;main.c: 99: {
 "99
-[e = _m_char ( _EUSART_Read ..  ]
-[; ;main.c: 100: checksum ^= m_char;
+{
+[; ;main.c: 100: m_char=EUSART_Read();
 "100
-[e =^ _checksum _m_char ]
-[; ;main.c: 101: if (m_char == ',')
+[e = _m_char ( _EUSART_Read ..  ]
+[; ;main.c: 101: checksum ^= m_char;
 "101
-[e $ ! == -> _m_char `ui -> 44 `ui 307  ]
-[; ;main.c: 102: break;
+[e =^ _checksum _m_char ]
+[; ;main.c: 102: if (m_char == ',')
 "102
+[e $ ! == -> _m_char `ui -> 44 `ui 307  ]
+[; ;main.c: 103: break;
+"103
 [e $U 305  ]
 [e $U 308  ]
-"103
-[e :U 307 ]
-[; ;main.c: 103: else
-[; ;main.c: 104: {
 "104
-{
-[; ;main.c: 105: buffer[i_buff++] = m_char;
+[e :U 307 ]
+[; ;main.c: 104: else
+[; ;main.c: 105: {
 "105
-[e = *U + &U _buffer * -> ++ _i_buff -> -> 1 `i `uc `ux -> -> # *U &U _buffer `ui `ux _m_char ]
-[; ;main.c: 106: if (i_buff >= 6)
+{
+[; ;main.c: 106: buffer[i_buff++] = m_char;
 "106
-[e $ ! >= -> _i_buff `i -> 6 `i 309  ]
-[; ;main.c: 107: return 0;
+[e = *U + &U _buffer * -> ++ _i_buff -> -> 1 `i `uc `ux -> -> # *U &U _buffer `ui `ux _m_char ]
+[; ;main.c: 107: if (i_buff >= 6)
 "107
+[e $ ! >= -> _i_buff `i -> 6 `i 309  ]
+[; ;main.c: 108: return 0;
+"108
 [e ) -> -> 0 `i `uc ]
 [e $UE 298  ]
 [e :U 309 ]
-"108
-}
-[e :U 308 ]
 "109
 }
+[e :U 308 ]
+"110
+}
 [e :U 306 ]
-"111
+"112
 [e :U 303 ]
-"96
+"97
 [e $U 304  ]
 [e :U 305 ]
-[; ;main.c: 108: }
 [; ;main.c: 109: }
-[; ;main.c: 111: if ((buffer[0] != 'G')||(buffer[1] != 'P')||(buffer[2] != 'V')||(buffer[3] != 'T')||(buffer[4] != 'G'))
-"111
-[e $ ! || || || || != -> *U + &U _buffer * -> -> -> 0 `i `ui `ux -> -> # *U &U _buffer `ui `ux `ui -> 71 `ui != -> *U + &U _buffer * -> -> -> 1 `i `ui `ux -> -> # *U &U _buffer `ui `ux `ui -> 80 `ui != -> *U + &U _buffer * -> -> -> 2 `i `ui `ux -> -> # *U &U _buffer `ui `ux `ui -> 86 `ui != -> *U + &U _buffer * -> -> -> 3 `i `ui `ux -> -> # *U &U _buffer `ui `ux `ui -> 84 `ui != -> *U + &U _buffer * -> -> -> 4 `i `ui `ux -> -> # *U &U _buffer `ui `ux `ui -> 71 `ui 310  ]
-[; ;main.c: 112: return 0;
+[; ;main.c: 110: }
+[; ;main.c: 112: if ((buffer[0] != 'G')||(buffer[1] != 'P')||(buffer[2] != 'V')||(buffer[3] != 'T')||(buffer[4] != 'G'))
 "112
+[e $ ! || || || || != -> *U + &U _buffer * -> -> -> 0 `i `ui `ux -> -> # *U &U _buffer `ui `ux `ui -> 71 `ui != -> *U + &U _buffer * -> -> -> 1 `i `ui `ux -> -> # *U &U _buffer `ui `ux `ui -> 80 `ui != -> *U + &U _buffer * -> -> -> 2 `i `ui `ux -> -> # *U &U _buffer `ui `ux `ui -> 86 `ui != -> *U + &U _buffer * -> -> -> 3 `i `ui `ux -> -> # *U &U _buffer `ui `ux `ui -> 84 `ui != -> *U + &U _buffer * -> -> -> 4 `i `ui `ux -> -> # *U &U _buffer `ui `ux `ui -> 71 `ui 310  ]
+[; ;main.c: 113: return 0;
+"113
 [e ) -> -> 0 `i `uc ]
 [e $UE 298  ]
 [e :U 310 ]
-[; ;main.c: 113: i_buff = 0;
-"113
+[; ;main.c: 114: i_buff = 0;
+"114
 [e = _i_buff -> -> 0 `i `uc ]
-[; ;main.c: 116: while (1)
-"116
-[e :U 312 ]
-[; ;main.c: 117: if (eusartRxCount!=0)
+[; ;main.c: 117: while (1)
 "117
-[e $ ! != -> _eusartRxCount `i -> 0 `i 314  ]
-[; ;main.c: 118: {
+[e :U 312 ]
+[; ;main.c: 118: if (eusartRxCount!=0)
 "118
-{
-[; ;main.c: 119: m_char=EUSART_Read();
+[e $ ! != -> _eusartRxCount `i -> 0 `i 314  ]
+[; ;main.c: 119: {
 "119
-[e = _m_char ( _EUSART_Read ..  ]
-[; ;main.c: 120: checksum ^= m_char;
+{
+[; ;main.c: 120: m_char=EUSART_Read();
 "120
-[e =^ _checksum _m_char ]
-[; ;main.c: 121: if (m_char == ',')
+[e = _m_char ( _EUSART_Read ..  ]
+[; ;main.c: 121: checksum ^= m_char;
 "121
-[e $ ! == -> _m_char `ui -> 44 `ui 315  ]
-[; ;main.c: 122: break;
+[e =^ _checksum _m_char ]
+[; ;main.c: 122: if (m_char == ',')
 "122
+[e $ ! == -> _m_char `ui -> 44 `ui 315  ]
+[; ;main.c: 123: break;
+"123
 [e $U 313  ]
 [e :U 315 ]
-"123
+"124
 }
 [e :U 314 ]
-"125
+"126
 [e :U 311 ]
-"116
+"117
 [e $U 312  ]
 [e :U 313 ]
-[; ;main.c: 123: }
-[; ;main.c: 125: while (1)
-"125
-[e :U 317 ]
-[; ;main.c: 126: if (eusartRxCount!=0)
+[; ;main.c: 124: }
+[; ;main.c: 126: while (1)
 "126
-[e $ ! != -> _eusartRxCount `i -> 0 `i 319  ]
-[; ;main.c: 127: {
+[e :U 317 ]
+[; ;main.c: 127: if (eusartRxCount!=0)
 "127
-{
-[; ;main.c: 128: m_char=EUSART_Read();
+[e $ ! != -> _eusartRxCount `i -> 0 `i 319  ]
+[; ;main.c: 128: {
 "128
-[e = _m_char ( _EUSART_Read ..  ]
-[; ;main.c: 129: checksum ^= m_char;
+{
+[; ;main.c: 129: m_char=EUSART_Read();
 "129
-[e =^ _checksum _m_char ]
-[; ;main.c: 130: if (m_char == ',')
+[e = _m_char ( _EUSART_Read ..  ]
+[; ;main.c: 130: checksum ^= m_char;
 "130
-[e $ ! == -> _m_char `ui -> 44 `ui 320  ]
-[; ;main.c: 131: break;
+[e =^ _checksum _m_char ]
+[; ;main.c: 131: if (m_char == ',')
 "131
+[e $ ! == -> _m_char `ui -> 44 `ui 320  ]
+[; ;main.c: 132: break;
+"132
 [e $U 318  ]
 [e $U 321  ]
-"132
-[e :U 320 ]
-[; ;main.c: 132: else
-[; ;main.c: 133: {
 "133
-{
-[; ;main.c: 134: buffer[i_buff++] = m_char;
+[e :U 320 ]
+[; ;main.c: 133: else
+[; ;main.c: 134: {
 "134
-[e = *U + &U _buffer * -> ++ _i_buff -> -> 1 `i `uc `ux -> -> # *U &U _buffer `ui `ux _m_char ]
-[; ;main.c: 135: if (i_buff >= 6)
+{
+[; ;main.c: 135: buffer[i_buff++] = m_char;
 "135
-[e $ ! >= -> _i_buff `i -> 6 `i 322  ]
-[; ;main.c: 136: return 0;
+[e = *U + &U _buffer * -> ++ _i_buff -> -> 1 `i `uc `ux -> -> # *U &U _buffer `ui `ux _m_char ]
+[; ;main.c: 136: if (i_buff >= 6)
 "136
+[e $ ! >= -> _i_buff `i -> 6 `i 322  ]
+[; ;main.c: 137: return 0;
+"137
 [e ) -> -> 0 `i `uc ]
 [e $UE 298  ]
 [e :U 322 ]
-"137
-}
-[e :U 321 ]
 "138
 }
-[e :U 319 ]
+[e :U 321 ]
 "139
+}
+[e :U 319 ]
+"140
 [e :U 316 ]
-"125
+"126
 [e $U 317  ]
 [e :U 318 ]
-[; ;main.c: 137: }
 [; ;main.c: 138: }
-[; ;main.c: 139: if ((buffer[0] != 'T')||(i_buff != 1))
-"139
-[e $ ! || != -> *U + &U _buffer * -> -> -> 0 `i `ui `ux -> -> # *U &U _buffer `ui `ux `ui -> 84 `ui != -> _i_buff `i -> 1 `i 323  ]
-[; ;main.c: 140: return 0;
+[; ;main.c: 139: }
+[; ;main.c: 140: if ((buffer[0] != 'T')||(i_buff != 1))
 "140
+[e $ ! || != -> *U + &U _buffer * -> -> -> 0 `i `ui `ux -> -> # *U &U _buffer `ui `ux `ui -> 84 `ui != -> _i_buff `i -> 1 `i 323  ]
+[; ;main.c: 141: return 0;
+"141
 [e ) -> -> 0 `i `uc ]
 [e $UE 298  ]
 [e :U 323 ]
-[; ;main.c: 141: i_buff = 0;
-"141
+[; ;main.c: 142: i_buff = 0;
+"142
 [e = _i_buff -> -> 0 `i `uc ]
-[; ;main.c: 144: while (1)
-"144
-[e :U 325 ]
-[; ;main.c: 145: if (eusartRxCount!=0)
+[; ;main.c: 145: while (1)
 "145
-[e $ ! != -> _eusartRxCount `i -> 0 `i 327  ]
-[; ;main.c: 146: {
+[e :U 325 ]
+[; ;main.c: 146: if (eusartRxCount!=0)
 "146
-{
-[; ;main.c: 147: m_char=EUSART_Read();
+[e $ ! != -> _eusartRxCount `i -> 0 `i 327  ]
+[; ;main.c: 147: {
 "147
-[e = _m_char ( _EUSART_Read ..  ]
-[; ;main.c: 148: checksum ^= m_char;
+{
+[; ;main.c: 148: m_char=EUSART_Read();
 "148
-[e =^ _checksum _m_char ]
-[; ;main.c: 149: if (m_char == ',')
+[e = _m_char ( _EUSART_Read ..  ]
+[; ;main.c: 149: checksum ^= m_char;
 "149
-[e $ ! == -> _m_char `ui -> 44 `ui 328  ]
-[; ;main.c: 150: break;
+[e =^ _checksum _m_char ]
+[; ;main.c: 150: if (m_char == ',')
 "150
+[e $ ! == -> _m_char `ui -> 44 `ui 328  ]
+[; ;main.c: 151: break;
+"151
 [e $U 326  ]
 [e :U 328 ]
-"151
+"152
 }
 [e :U 327 ]
-"153
+"154
 [e :U 324 ]
-"144
+"145
 [e $U 325  ]
 [e :U 326 ]
-[; ;main.c: 151: }
-[; ;main.c: 153: while (1)
-"153
-[e :U 330 ]
-[; ;main.c: 154: if (eusartRxCount!=0)
+[; ;main.c: 152: }
+[; ;main.c: 154: while (1)
 "154
-[e $ ! != -> _eusartRxCount `i -> 0 `i 332  ]
-[; ;main.c: 155: {
+[e :U 330 ]
+[; ;main.c: 155: if (eusartRxCount!=0)
 "155
-{
-[; ;main.c: 156: m_char=EUSART_Read();
+[e $ ! != -> _eusartRxCount `i -> 0 `i 332  ]
+[; ;main.c: 156: {
 "156
-[e = _m_char ( _EUSART_Read ..  ]
-[; ;main.c: 157: checksum ^= m_char;
+{
+[; ;main.c: 157: m_char=EUSART_Read();
 "157
-[e =^ _checksum _m_char ]
-[; ;main.c: 158: if (m_char == ',')
+[e = _m_char ( _EUSART_Read ..  ]
+[; ;main.c: 158: checksum ^= m_char;
 "158
-[e $ ! == -> _m_char `ui -> 44 `ui 333  ]
-[; ;main.c: 159: break;
+[e =^ _checksum _m_char ]
+[; ;main.c: 159: if (m_char == ',')
 "159
+[e $ ! == -> _m_char `ui -> 44 `ui 333  ]
+[; ;main.c: 160: break;
+"160
 [e $U 331  ]
 [e $U 334  ]
-"160
-[e :U 333 ]
-[; ;main.c: 160: else
-[; ;main.c: 161: {
 "161
-{
-[; ;main.c: 162: buffer[i_buff++] = m_char;
+[e :U 333 ]
+[; ;main.c: 161: else
+[; ;main.c: 162: {
 "162
-[e = *U + &U _buffer * -> ++ _i_buff -> -> 1 `i `uc `ux -> -> # *U &U _buffer `ui `ux _m_char ]
-[; ;main.c: 163: if (i_buff >= 6)
+{
+[; ;main.c: 163: buffer[i_buff++] = m_char;
 "163
-[e $ ! >= -> _i_buff `i -> 6 `i 335  ]
-[; ;main.c: 164: return 0;
+[e = *U + &U _buffer * -> ++ _i_buff -> -> 1 `i `uc `ux -> -> # *U &U _buffer `ui `ux _m_char ]
+[; ;main.c: 164: if (i_buff >= 6)
 "164
+[e $ ! >= -> _i_buff `i -> 6 `i 335  ]
+[; ;main.c: 165: return 0;
+"165
 [e ) -> -> 0 `i `uc ]
 [e $UE 298  ]
 [e :U 335 ]
-"165
-}
-[e :U 334 ]
 "166
 }
-[e :U 332 ]
+[e :U 334 ]
 "167
+}
+[e :U 332 ]
+"168
 [e :U 329 ]
-"153
+"154
 [e $U 330  ]
 [e :U 331 ]
-[; ;main.c: 165: }
 [; ;main.c: 166: }
-[; ;main.c: 167: if ((buffer[0] != 'M')||(i_buff != 1))
-"167
-[e $ ! || != -> *U + &U _buffer * -> -> -> 0 `i `ui `ux -> -> # *U &U _buffer `ui `ux `ui -> 77 `ui != -> _i_buff `i -> 1 `i 336  ]
-[; ;main.c: 168: return 0;
+[; ;main.c: 167: }
+[; ;main.c: 168: if ((buffer[0] != 'M')||(i_buff != 1))
 "168
+[e $ ! || != -> *U + &U _buffer * -> -> -> 0 `i `ui `ux -> -> # *U &U _buffer `ui `ux `ui -> 77 `ui != -> _i_buff `i -> 1 `i 336  ]
+[; ;main.c: 169: return 0;
+"169
 [e ) -> -> 0 `i `uc ]
 [e $UE 298  ]
 [e :U 336 ]
-[; ;main.c: 169: i_buff = 0;
-"169
+[; ;main.c: 170: i_buff = 0;
+"170
 [e = _i_buff -> -> 0 `i `uc ]
-[; ;main.c: 172: while (1)
-"172
-[e :U 338 ]
-[; ;main.c: 173: if (eusartRxCount!=0)
+[; ;main.c: 173: while (1)
 "173
-[e $ ! != -> _eusartRxCount `i -> 0 `i 340  ]
-[; ;main.c: 174: {
+[e :U 338 ]
+[; ;main.c: 174: if (eusartRxCount!=0)
 "174
-{
-[; ;main.c: 175: m_char=EUSART_Read();
+[e $ ! != -> _eusartRxCount `i -> 0 `i 340  ]
+[; ;main.c: 175: {
 "175
-[e = _m_char ( _EUSART_Read ..  ]
-[; ;main.c: 176: checksum ^= m_char;
+{
+[; ;main.c: 176: m_char=EUSART_Read();
 "176
-[e =^ _checksum _m_char ]
-[; ;main.c: 177: if (m_char == ',')
+[e = _m_char ( _EUSART_Read ..  ]
+[; ;main.c: 177: checksum ^= m_char;
 "177
-[e $ ! == -> _m_char `ui -> 44 `ui 341  ]
-[; ;main.c: 178: break;
+[e =^ _checksum _m_char ]
+[; ;main.c: 178: if (m_char == ',')
 "178
+[e $ ! == -> _m_char `ui -> 44 `ui 341  ]
+[; ;main.c: 179: break;
+"179
 [e $U 339  ]
 [e :U 341 ]
-"179
+"180
 }
 [e :U 340 ]
-"181
+"182
 [e :U 337 ]
-"172
+"173
 [e $U 338  ]
 [e :U 339 ]
-[; ;main.c: 179: }
-[; ;main.c: 181: while (1)
-"181
-[e :U 343 ]
-[; ;main.c: 182: if (eusartRxCount!=0)
+[; ;main.c: 180: }
+[; ;main.c: 182: while (1)
 "182
-[e $ ! != -> _eusartRxCount `i -> 0 `i 345  ]
-[; ;main.c: 183: {
+[e :U 343 ]
+[; ;main.c: 183: if (eusartRxCount!=0)
 "183
-{
-[; ;main.c: 184: m_char=EUSART_Read();
+[e $ ! != -> _eusartRxCount `i -> 0 `i 345  ]
+[; ;main.c: 184: {
 "184
-[e = _m_char ( _EUSART_Read ..  ]
-[; ;main.c: 185: checksum ^= m_char;
+{
+[; ;main.c: 185: m_char=EUSART_Read();
 "185
-[e =^ _checksum _m_char ]
-[; ;main.c: 186: if (m_char == ',')
+[e = _m_char ( _EUSART_Read ..  ]
+[; ;main.c: 186: checksum ^= m_char;
 "186
-[e $ ! == -> _m_char `ui -> 44 `ui 346  ]
-[; ;main.c: 187: break;
+[e =^ _checksum _m_char ]
+[; ;main.c: 187: if (m_char == ',')
 "187
+[e $ ! == -> _m_char `ui -> 44 `ui 346  ]
+[; ;main.c: 188: break;
+"188
 [e $U 344  ]
 [e $U 347  ]
-"188
-[e :U 346 ]
-[; ;main.c: 188: else
-[; ;main.c: 189: {
 "189
-{
-[; ;main.c: 190: buffer[i_buff++] = m_char;
+[e :U 346 ]
+[; ;main.c: 189: else
+[; ;main.c: 190: {
 "190
-[e = *U + &U _buffer * -> ++ _i_buff -> -> 1 `i `uc `ux -> -> # *U &U _buffer `ui `ux _m_char ]
-[; ;main.c: 191: if (i_buff >= 6)
+{
+[; ;main.c: 191: buffer[i_buff++] = m_char;
 "191
-[e $ ! >= -> _i_buff `i -> 6 `i 348  ]
-[; ;main.c: 192: return 0;
+[e = *U + &U _buffer * -> ++ _i_buff -> -> 1 `i `uc `ux -> -> # *U &U _buffer `ui `ux _m_char ]
+[; ;main.c: 192: if (i_buff >= 6)
 "192
+[e $ ! >= -> _i_buff `i -> 6 `i 348  ]
+[; ;main.c: 193: return 0;
+"193
 [e ) -> -> 0 `i `uc ]
 [e $UE 298  ]
 [e :U 348 ]
-"193
-}
-[e :U 347 ]
 "194
 }
-[e :U 345 ]
+[e :U 347 ]
 "195
+}
+[e :U 345 ]
+"196
 [e :U 342 ]
-"181
+"182
 [e $U 343  ]
 [e :U 344 ]
-[; ;main.c: 193: }
 [; ;main.c: 194: }
-[; ;main.c: 195: if ((buffer[0] != 'N')||(i_buff != 1))
-"195
-[e $ ! || != -> *U + &U _buffer * -> -> -> 0 `i `ui `ux -> -> # *U &U _buffer `ui `ux `ui -> 78 `ui != -> _i_buff `i -> 1 `i 349  ]
-[; ;main.c: 196: return 0;
+[; ;main.c: 195: }
+[; ;main.c: 196: if ((buffer[0] != 'N')||(i_buff != 1))
 "196
+[e $ ! || != -> *U + &U _buffer * -> -> -> 0 `i `ui `ux -> -> # *U &U _buffer `ui `ux `ui -> 78 `ui != -> _i_buff `i -> 1 `i 349  ]
+[; ;main.c: 197: return 0;
+"197
 [e ) -> -> 0 `i `uc ]
 [e $UE 298  ]
 [e :U 349 ]
-[; ;main.c: 197: i_buff = 0;
-"197
+[; ;main.c: 198: i_buff = 0;
+"198
 [e = _i_buff -> -> 0 `i `uc ]
-[; ;main.c: 200: while (1)
-"200
-[e :U 351 ]
-[; ;main.c: 201: if (eusartRxCount!=0)
+[; ;main.c: 201: while (1)
 "201
-[e $ ! != -> _eusartRxCount `i -> 0 `i 353  ]
-[; ;main.c: 202: {
+[e :U 351 ]
+[; ;main.c: 202: if (eusartRxCount!=0)
 "202
-{
-[; ;main.c: 203: m_char=EUSART_Read();
+[e $ ! != -> _eusartRxCount `i -> 0 `i 353  ]
+[; ;main.c: 203: {
 "203
-[e = _m_char ( _EUSART_Read ..  ]
-[; ;main.c: 204: checksum ^= m_char;
+{
+[; ;main.c: 204: m_char=EUSART_Read();
 "204
-[e =^ _checksum _m_char ]
-[; ;main.c: 205: if (m_char == ',')
+[e = _m_char ( _EUSART_Read ..  ]
+[; ;main.c: 205: checksum ^= m_char;
 "205
-[e $ ! == -> _m_char `ui -> 44 `ui 354  ]
-[; ;main.c: 206: break;
+[e =^ _checksum _m_char ]
+[; ;main.c: 206: if (m_char == ',')
 "206
+[e $ ! == -> _m_char `ui -> 44 `ui 354  ]
+[; ;main.c: 207: break;
+"207
 [e $U 352  ]
 [e $U 355  ]
-"207
-[e :U 354 ]
-[; ;main.c: 207: else
-[; ;main.c: 208: {
 "208
-{
-[; ;main.c: 209: buffer[i_buff++] = m_char;
+[e :U 354 ]
+[; ;main.c: 208: else
+[; ;main.c: 209: {
 "209
-[e = *U + &U _buffer * -> ++ _i_buff -> -> 1 `i `uc `ux -> -> # *U &U _buffer `ui `ux _m_char ]
-[; ;main.c: 210: if (i_buff >= 6)
+{
+[; ;main.c: 210: buffer[i_buff++] = m_char;
 "210
-[e $ ! >= -> _i_buff `i -> 6 `i 356  ]
-[; ;main.c: 211: return 0;
+[e = *U + &U _buffer * -> ++ _i_buff -> -> 1 `i `uc `ux -> -> # *U &U _buffer `ui `ux _m_char ]
+[; ;main.c: 211: if (i_buff >= 6)
 "211
+[e $ ! >= -> _i_buff `i -> 6 `i 356  ]
+[; ;main.c: 212: return 0;
+"212
 [e ) -> -> 0 `i `uc ]
 [e $UE 298  ]
 [e :U 356 ]
-"212
-}
-[e :U 355 ]
 "213
 }
+[e :U 355 ]
+"214
+}
 [e :U 353 ]
-"216
+"220
 [e :U 350 ]
-"200
+"201
 [e $U 351  ]
 [e :U 352 ]
-"216
-[v _tmp `uc ~T0 @X0 1 a ]
-[; ;main.c: 212: }
 [; ;main.c: 213: }
-[; ;main.c: 216: unsigned char tmp = 0;
-[e = _tmp -> -> 0 `i `uc ]
-[; ;main.c: 217: i_buff = 0;
-"217
-[e = _i_buff -> -> 0 `i `uc ]
-[; ;main.c: 220: while (1)
+[; ;main.c: 214: }
+[; ;main.c: 220: i_buff = 0;
 "220
-[e :U 358 ]
-[; ;main.c: 221: if (eusartRxCount!=0)
-"221
-[e $ ! != -> _eusartRxCount `i -> 0 `i 360  ]
-[; ;main.c: 222: {
-"222
-{
-[; ;main.c: 223: m_char=EUSART_Read();
+[e = _i_buff -> -> 0 `i `uc ]
+[; ;main.c: 223: while (1)
 "223
-[e = _m_char ( _EUSART_Read ..  ]
-[; ;main.c: 224: checksum ^= m_char;
+[e :U 358 ]
+[; ;main.c: 224: if (eusartRxCount!=0)
 "224
-[e =^ _checksum _m_char ]
-[; ;main.c: 225: if (m_char == ',')
+[e $ ! != -> _eusartRxCount `i -> 0 `i 360  ]
+[; ;main.c: 225: {
 "225
-[e $ ! == -> _m_char `ui -> 44 `ui 361  ]
-[; ;main.c: 226: break;
+{
+[; ;main.c: 226: m_char=EUSART_Read();
 "226
+[e = _m_char ( _EUSART_Read ..  ]
+[; ;main.c: 227: checksum ^= m_char;
+"227
+[e =^ _checksum _m_char ]
+[; ;main.c: 228: if (m_char == ',')
+"228
+[e $ ! == -> _m_char `ui -> 44 `ui 361  ]
+[; ;main.c: 229: break;
+"229
 [e $U 359  ]
 [e $U 362  ]
-"227
-[e :U 361 ]
-[; ;main.c: 227: else
-[; ;main.c: 228: {
-"228
-{
-[; ;main.c: 229: buffer[i_buff++] = m_char;
-"229
-[e = *U + &U _buffer * -> ++ _i_buff -> -> 1 `i `uc `ux -> -> # *U &U _buffer `ui `ux _m_char ]
-[; ;main.c: 230: if (i_buff >= 6)
 "230
-[e $ ! >= -> _i_buff `i -> 6 `i 363  ]
-[; ;main.c: 231: return 0;
+[e :U 361 ]
+[; ;main.c: 230: else
+[; ;main.c: 231: {
 "231
+{
+[; ;main.c: 232: buffer[i_buff++] = m_char;
+"232
+[e = *U + &U _buffer * -> ++ _i_buff -> -> 1 `i `uc `ux -> -> # *U &U _buffer `ui `ux _m_char ]
+[; ;main.c: 233: if (i_buff >= 6)
+"233
+[e $ ! >= -> _i_buff `i -> 6 `i 363  ]
+[; ;main.c: 234: return 0;
+"234
 [e ) -> -> 0 `i `uc ]
 [e $UE 298  ]
 [e :U 363 ]
-"232
+"235
 }
 [e :U 362 ]
-"233
+"236
 }
 [e :U 360 ]
-"234
+"237
 [e :U 357 ]
-"220
+"223
 [e $U 358  ]
 [e :U 359 ]
-[; ;main.c: 232: }
-[; ;main.c: 233: }
-[; ;main.c: 234: if ((buffer[0] != 'K')||(i_buff != 1))
-"234
+[; ;main.c: 235: }
+[; ;main.c: 236: }
+[; ;main.c: 237: if ((buffer[0] != 'K')||(i_buff != 1))
+"237
 [e $ ! || != -> *U + &U _buffer * -> -> -> 0 `i `ui `ux -> -> # *U &U _buffer `ui `ux `ui -> 75 `ui != -> _i_buff `i -> 1 `i 364  ]
-[; ;main.c: 235: return 0;
-"235
+[; ;main.c: 238: return 0;
+"238
 [e ) -> -> 0 `i `uc ]
 [e $UE 298  ]
 [e :U 364 ]
-[; ;main.c: 236: i_buff = 0;
-"236
+[; ;main.c: 239: i_buff = 0;
+"239
 [e = _i_buff -> -> 0 `i `uc ]
-[; ;main.c: 237: return 1;
-"237
+"242
+[v _no_more_checksum `uc ~T0 @X0 1 a ]
+[; ;main.c: 242: bool no_more_checksum = 0;
+[e = _no_more_checksum -> -> 0 `i `uc ]
+[; ;main.c: 243: while (1)
+"243
+[e :U 366 ]
+[; ;main.c: 244: if (eusartRxCount!=0)
+"244
+[e $ ! != -> _eusartRxCount `i -> 0 `i 368  ]
+[; ;main.c: 245: {
+"245
+{
+[; ;main.c: 246: m_char=EUSART_Read();
+"246
+[e = _m_char ( _EUSART_Read ..  ]
+[; ;main.c: 247: if (m_char == '*')
+"247
+[e $ ! == -> _m_char `ui -> 42 `ui 369  ]
+[; ;main.c: 248: no_more_checksum = 1;
+"248
+[e = _no_more_checksum -> -> 1 `i `uc ]
+[e :U 369 ]
+[; ;main.c: 249: if (!no_more_checksum)
+"249
+[e $ ! ! != -> _no_more_checksum `i -> -> -> 0 `i `uc `i 370  ]
+[; ;main.c: 250: checksum ^= m_char;
+"250
+[e =^ _checksum _m_char ]
+[e :U 370 ]
+[; ;main.c: 251: if (m_char == 0x0D)
+"251
+[e $ ! == -> _m_char `i -> 13 `i 371  ]
+[; ;main.c: 252: break;
+"252
+[e $U 367  ]
+[e $U 372  ]
+"253
+[e :U 371 ]
+[; ;main.c: 253: else
+[; ;main.c: 254: {
+"254
+{
+[; ;main.c: 255: buffer[i_buff++] = m_char;
+"255
+[e = *U + &U _buffer * -> ++ _i_buff -> -> 1 `i `uc `ux -> -> # *U &U _buffer `ui `ux _m_char ]
+[; ;main.c: 256: if (i_buff >= 6)
+"256
+[e $ ! >= -> _i_buff `i -> 6 `i 373  ]
+[; ;main.c: 257: return 0;
+"257
+[e ) -> -> 0 `i `uc ]
+[e $UE 298  ]
+[e :U 373 ]
+"258
+}
+[e :U 372 ]
+"259
+}
+[e :U 368 ]
+"260
+[e :U 365 ]
+"243
+[e $U 366  ]
+[e :U 367 ]
+[; ;main.c: 258: }
+[; ;main.c: 259: }
+[; ;main.c: 260: if ((buffer[1] != '*')||(i_buff != 4))
+"260
+[e $ ! || != -> *U + &U _buffer * -> -> -> 1 `i `ui `ux -> -> # *U &U _buffer `ui `ux `ui -> 42 `ui != -> _i_buff `i -> 4 `i 374  ]
+[; ;main.c: 261: return 0;
+"261
+[e ) -> -> 0 `i `uc ]
+[e $UE 298  ]
+[e :U 374 ]
+[; ;main.c: 265: return 1;
+"265
 [e ) -> -> 1 `i `uc ]
 [e $UE 298  ]
-[; ;main.c: 238: }
-"238
+[; ;main.c: 266: }
+"266
 [e :UE 298 ]
 }
-"243
+"271
 [v _main `(v ~T0 @X0 1 ef ]
-"244
+"272
 {
-[; ;main.c: 243: void main(void)
-[; ;main.c: 244: {
+[; ;main.c: 271: void main(void)
+[; ;main.c: 272: {
 [e :U _main ]
 [f ]
-"252
-[v _test `us ~T0 @X0 1 a ]
-[; ;main.c: 252: t_fp test = convert_to_fp(23, 6875);
-[e = _test ( _convert_to_fp (2 , -> -> 23 `i `us -> -> 6875 `i `us ]
-"254
-[v _zob `uc ~T0 @X0 1 a ]
-[; ;main.c: 254: char zob = 'k';
-[e = _zob -> -> 107 `ui `uc ]
-[; ;main.c: 262: (INTCONbits.GIE = 1);
-"262
+[; ;main.c: 274: SYSTEM_Initialize();
+"274
+[e ( _SYSTEM_Initialize ..  ]
+[; ;main.c: 275: TMR0_SetInterruptHandler(my10msTimerISR);
+"275
+[e ( _TMR0_SetInterruptHandler (1 -> &U _my10msTimerISR `*v ]
+[; ;main.c: 277: (INTCONbits.GIE = 1);
+"277
 [e = . . _INTCONbits 0 7 -> -> 1 `i `uc ]
-[; ;main.c: 265: (INTCONbits.PEIE = 1);
-"265
+[; ;main.c: 279: (INTCONbits.PEIE = 1);
+"279
 [e = . . _INTCONbits 0 6 -> -> 1 `i `uc ]
-[; ;main.c: 327: LED_set_state(manual_mode);
-"327
+[; ;main.c: 281: LED_set_state(manual_mode);
+"281
 [e ( _LED_set_state (1 . `E2607 4 ]
-[; ;main.c: 328: do { LATA5 = 0; } while(0);
-"328
-[e :U 368 ]
+[; ;main.c: 282: do { LATA5 = 0; } while(0);
+"282
+[e :U 378 ]
 {
 [e = _LATA5 -> -> 0 `i `b ]
 }
-[e :U 367 ]
-[; ;main.c: 329: for(unsigned char tmp=0;tmp<(10*3);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
-"329
+[e :U 377 ]
+[; ;main.c: 283: for(unsigned char tmp=0;tmp<(10*3);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
+"283
 {
 [v _tmp `uc ~T0 @X0 1 a ]
 [e = _tmp -> -> 0 `i `uc ]
-[e $ < -> _tmp `i * -> 10 `i -> 3 `i 369  ]
-[e $U 370  ]
-[e :U 369 ]
+[e $ < -> _tmp `i * -> 10 `i -> 3 `i 379  ]
+[e $U 380  ]
+[e :U 379 ]
 {
 [e ( __delay (1 -> * -> -> 100 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
 }
 [e ++ _tmp -> -> 1 `i `uc ]
-[e $ < -> _tmp `i * -> 10 `i -> 3 `i 369  ]
-[e :U 370 ]
+[e $ < -> _tmp `i * -> 10 `i -> 3 `i 379  ]
+[e :U 380 ]
 }
-[; ;main.c: 346: GPS_Initialize();
-"346
+[; ;main.c: 285: GPS_Initialize();
+"285
 [e ( _GPS_Initialize ..  ]
-"349
-[v _res `uc ~T0 @X0 1 a ]
-[; ;main.c: 349: bool res;
-[; ;main.c: 350: while (1)
-"350
-[e :U 373 ]
-[; ;main.c: 351: {
-"351
+[; ;main.c: 287: speed = 0;
+"287
+[e = _speed -> -> -> 0 `i `m `um ]
+[; ;main.c: 289: while (1)
+"289
+[e :U 383 ]
+[; ;main.c: 290: {
+"290
 {
-[; ;main.c: 352: res = GPS_read_speed();
-"352
-[e = _res ( _GPS_read_speed ..  ]
-[; ;main.c: 353: if (res)
-"353
-[e $ ! != -> _res `i -> -> -> 0 `i `uc `i 375  ]
-[; ;main.c: 354: {
-"354
+[; ;main.c: 292: if (GPS_read_speed())
+"292
+[e $ ! != -> ( _GPS_read_speed ..  `i -> -> -> 0 `i `uc `i 385  ]
+[; ;main.c: 293: {
+"293
 {
-[; ;main.c: 355: do { LATA5 = 1; } while(0);
-"355
-[e :U 378 ]
+[; ;main.c: 295: if (speed_units == MPH)
+"295
+[e $ ! == -> _speed_units `i -> . `E2649 0 `i 386  ]
+[; ;main.c: 296: speed = multiply_fp(speed, ratio_mph);
+"296
+[e = _speed ( _multiply_fp (2 , _speed _ratio_mph ]
+[e :U 386 ]
+[; ;main.c: 298: do { LATA5 = 1; } while(0);
+"298
+[e :U 389 ]
 {
 [e = _LATA5 -> -> 1 `i `b ]
 }
-[e :U 377 ]
-[; ;main.c: 356: _delay((unsigned long)((20)*(32000000/4000.0)));
-"356
+[e :U 388 ]
+[; ;main.c: 299: _delay((unsigned long)((20)*(32000000/4000.0)));
+"299
 [e ( __delay (1 -> * -> -> 20 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
-"357
+"300
 }
-[e :U 375 ]
-[; ;main.c: 357: }
-[; ;main.c: 358: do { LATA5 = 0; } while(0);
-"358
-[e :U 381 ]
+[e :U 385 ]
+[; ;main.c: 300: }
+[; ;main.c: 301: do { LATA5 = 0; } while(0);
+"301
+[e :U 392 ]
 {
 [e = _LATA5 -> -> 0 `i `b ]
 }
-[e :U 380 ]
-"362
-}
-[e :U 372 ]
-"350
-[e $U 373  ]
-[e :U 374 ]
-"367
-[v _motor_load `ui ~T0 @X0 1 a ]
-[; ;main.c: 362: }
-[; ;main.c: 367: uint16_t motor_load = 0;
-[e = _motor_load -> -> 0 `i `ui ]
-[; ;main.c: 368: EPWM_LoadDutyValue(1023-motor_load);
-"368
-[e ( _EPWM_LoadDutyValue (1 - -> -> 1023 `i `ui _motor_load ]
-[; ;main.c: 369: TMR2_StartTimer();
-"369
-[e ( _TMR2_StartTimer ..  ]
-[; ;main.c: 370: for(unsigned char tmp=0;tmp<(10*5);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
-"370
-{
-[v _tmp `uc ~T0 @X0 1 a ]
-[e = _tmp -> -> 0 `i `uc ]
-[e $ < -> _tmp `i * -> 10 `i -> 5 `i 382  ]
-[e $U 383  ]
-[e :U 382 ]
-{
-[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
-}
-[e ++ _tmp -> -> 1 `i `uc ]
-[e $ < -> _tmp `i * -> 10 `i -> 5 `i 382  ]
-[e :U 383 ]
-}
-"372
-[v _up `uc ~T0 @X0 1 a ]
-[; ;main.c: 372: bool up = 1;
-[e = _up -> -> 1 `i `uc ]
-[; ;main.c: 392: EPWM_LoadDutyValue(0);
-"392
-[e ( _EPWM_LoadDutyValue (1 -> -> 0 `i `ui ]
-[; ;main.c: 393: _delay((unsigned long)((10)*(32000000/4000.0)));
-"393
-[e ( __delay (1 -> * -> -> 10 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
-[; ;main.c: 394: EPWM_LoadDutyValue(1023-148);
-"394
-[e ( _EPWM_LoadDutyValue (1 -> - -> 1023 `i -> 148 `i `ui ]
-[; ;main.c: 395: for(unsigned char tmp=0;tmp<(10*5);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
-"395
-{
-[v _tmp `uc ~T0 @X0 1 a ]
-[e = _tmp -> -> 0 `i `uc ]
-[e $ < -> _tmp `i * -> 10 `i -> 5 `i 385  ]
-[e $U 386  ]
-[e :U 385 ]
-{
-[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
-}
-[e ++ _tmp -> -> 1 `i `uc ]
-[e $ < -> _tmp `i * -> 10 `i -> 5 `i 385  ]
-[e :U 386 ]
-}
-[; ;main.c: 396: while (1)
-"396
-[e :U 389 ]
-[; ;main.c: 397: {
-"397
-{
-[; ;main.c: 398: if (up == 1)
-"398
-[e $ ! == -> _up `i -> 1 `i 391  ]
-[; ;main.c: 399: motor_load += 1;
-"399
-[e =+ _motor_load -> -> 1 `i `ui ]
-[e $U 392  ]
-"400
 [e :U 391 ]
-[; ;main.c: 400: else
-[; ;main.c: 401: motor_load -= 1;
-"401
-[e =- _motor_load -> -> 1 `i `ui ]
-[e :U 392 ]
-[; ;main.c: 402: if (motor_load > 300)
-"402
-[e $ ! > _motor_load -> -> 300 `i `ui 393  ]
-[; ;main.c: 403: up = 0;
-"403
-[e = _up -> -> 0 `i `uc ]
-[e $U 394  ]
-"404
-[e :U 393 ]
-[; ;main.c: 404: else if (motor_load == 0)
-[e $ ! == _motor_load -> -> 0 `i `ui 395  ]
-[; ;main.c: 405: {
-"405
+"306
+}
+[e :U 382 ]
+"289
+[e $U 383  ]
+[e :U 384 ]
+"311
+[v _motor_load `ui ~T0 @X0 1 a ]
+[; ;main.c: 306: }
+[; ;main.c: 311: uint16_t motor_load = 0;
+[e = _motor_load -> -> 0 `i `ui ]
+[; ;main.c: 312: EPWM_LoadDutyValue(1023-motor_load);
+"312
+[e ( _EPWM_LoadDutyValue (1 - -> -> 1023 `i `ui _motor_load ]
+[; ;main.c: 313: TMR2_StartTimer();
+"313
+[e ( _TMR2_StartTimer ..  ]
+[; ;main.c: 314: for(unsigned char tmp=0;tmp<(10*5);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
+"314
 {
-[; ;main.c: 406: up = 1;
-"406
+[v _tmp `uc ~T0 @X0 1 a ]
+[e = _tmp -> -> 0 `i `uc ]
+[e $ < -> _tmp `i * -> 10 `i -> 5 `i 393  ]
+[e $U 394  ]
+[e :U 393 ]
+{
+[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+}
+[e ++ _tmp -> -> 1 `i `uc ]
+[e $ < -> _tmp `i * -> 10 `i -> 5 `i 393  ]
+[e :U 394 ]
+}
+"316
+[v _up `uc ~T0 @X0 1 a ]
+[; ;main.c: 316: bool up = 1;
 [e = _up -> -> 1 `i `uc ]
-[; ;main.c: 407: EPWM_LoadDutyValue(1023);
-"407
-[e ( _EPWM_LoadDutyValue (1 -> -> 1023 `i `ui ]
-[; ;main.c: 408: for(unsigned char tmp=0;tmp<(10*5);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
-"408
+[; ;main.c: 336: EPWM_LoadDutyValue(0);
+"336
+[e ( _EPWM_LoadDutyValue (1 -> -> 0 `i `ui ]
+[; ;main.c: 337: _delay((unsigned long)((10)*(32000000/4000.0)));
+"337
+[e ( __delay (1 -> * -> -> 10 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+[; ;main.c: 338: EPWM_LoadDutyValue(1023-148);
+"338
+[e ( _EPWM_LoadDutyValue (1 -> - -> 1023 `i -> 148 `i `ui ]
+[; ;main.c: 339: for(unsigned char tmp=0;tmp<(10*5);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
+"339
 {
 [v _tmp `uc ~T0 @X0 1 a ]
 [e = _tmp -> -> 0 `i `uc ]
@@ -3307,62 +3330,117 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $ < -> _tmp `i * -> 10 `i -> 5 `i 396  ]
 [e :U 397 ]
 }
-[; ;main.c: 410: EPWM_LoadDutyValue(0);
-"410
-[e ( _EPWM_LoadDutyValue (1 -> -> 0 `i `ui ]
-[; ;main.c: 411: _delay((unsigned long)((10)*(32000000/4000.0)));
-"411
-[e ( __delay (1 -> * -> -> 10 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
-"412
-}
-[e :U 395 ]
-"413
-[e :U 394 ]
-[; ;main.c: 412: }
-[; ;main.c: 413: if (motor_load < 148)
-[e $ ! < _motor_load -> -> 148 `i `ui 399  ]
-[; ;main.c: 414: EPWM_LoadDutyValue(1023-135);
-"414
-[e ( _EPWM_LoadDutyValue (1 -> - -> 1023 `i -> 135 `i `ui ]
-[e $U 400  ]
-"415
-[e :U 399 ]
-[; ;main.c: 415: else
-[; ;main.c: 416: EPWM_LoadDutyValue(1023-motor_load);
-"416
-[e ( _EPWM_LoadDutyValue (1 - -> -> 1023 `i `ui _motor_load ]
+[; ;main.c: 340: while (1)
+"340
 [e :U 400 ]
-[; ;main.c: 417: _delay((unsigned long)((50)*(32000000/4000.0)));
-"417
-[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
-"418
-}
-[e :U 388 ]
-"396
-[e $U 389  ]
-[e :U 390 ]
-[; ;main.c: 418: }
-[; ;main.c: 426: }
-"426
-[e :UE 365 ]
-}
-"428
-[v _my10msTimerISR `(v ~T0 @X0 1 ef ]
-"429
+[; ;main.c: 341: {
+"341
 {
-[; ;main.c: 428: void my10msTimerISR(void)
-[; ;main.c: 429: {
+[; ;main.c: 342: if (up == 1)
+"342
+[e $ ! == -> _up `i -> 1 `i 402  ]
+[; ;main.c: 343: motor_load += 1;
+"343
+[e =+ _motor_load -> -> 1 `i `ui ]
+[e $U 403  ]
+"344
+[e :U 402 ]
+[; ;main.c: 344: else
+[; ;main.c: 345: motor_load -= 1;
+"345
+[e =- _motor_load -> -> 1 `i `ui ]
+[e :U 403 ]
+[; ;main.c: 346: if (motor_load > 300)
+"346
+[e $ ! > _motor_load -> -> 300 `i `ui 404  ]
+[; ;main.c: 347: up = 0;
+"347
+[e = _up -> -> 0 `i `uc ]
+[e $U 405  ]
+"348
+[e :U 404 ]
+[; ;main.c: 348: else if (motor_load == 0)
+[e $ ! == _motor_load -> -> 0 `i `ui 406  ]
+[; ;main.c: 349: {
+"349
+{
+[; ;main.c: 350: up = 1;
+"350
+[e = _up -> -> 1 `i `uc ]
+[; ;main.c: 351: EPWM_LoadDutyValue(1023);
+"351
+[e ( _EPWM_LoadDutyValue (1 -> -> 1023 `i `ui ]
+[; ;main.c: 352: for(unsigned char tmp=0;tmp<(10*5);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
+"352
+{
+[v _tmp `uc ~T0 @X0 1 a ]
+[e = _tmp -> -> 0 `i `uc ]
+[e $ < -> _tmp `i * -> 10 `i -> 5 `i 407  ]
+[e $U 408  ]
+[e :U 407 ]
+{
+[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+}
+[e ++ _tmp -> -> 1 `i `uc ]
+[e $ < -> _tmp `i * -> 10 `i -> 5 `i 407  ]
+[e :U 408 ]
+}
+[; ;main.c: 354: EPWM_LoadDutyValue(0);
+"354
+[e ( _EPWM_LoadDutyValue (1 -> -> 0 `i `ui ]
+[; ;main.c: 355: _delay((unsigned long)((10)*(32000000/4000.0)));
+"355
+[e ( __delay (1 -> * -> -> 10 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+"356
+}
+[e :U 406 ]
+"357
+[e :U 405 ]
+[; ;main.c: 356: }
+[; ;main.c: 357: if (motor_load < 148)
+[e $ ! < _motor_load -> -> 148 `i `ui 410  ]
+[; ;main.c: 358: EPWM_LoadDutyValue(1023-135);
+"358
+[e ( _EPWM_LoadDutyValue (1 -> - -> 1023 `i -> 135 `i `ui ]
+[e $U 411  ]
+"359
+[e :U 410 ]
+[; ;main.c: 359: else
+[; ;main.c: 360: EPWM_LoadDutyValue(1023-motor_load);
+"360
+[e ( _EPWM_LoadDutyValue (1 - -> -> 1023 `i `ui _motor_load ]
+[e :U 411 ]
+[; ;main.c: 361: _delay((unsigned long)((50)*(32000000/4000.0)));
+"361
+[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+"362
+}
+[e :U 399 ]
+"340
+[e $U 400  ]
+[e :U 401 ]
+[; ;main.c: 362: }
+[; ;main.c: 363: }
+"363
+[e :UE 375 ]
+}
+"365
+[v _my10msTimerISR `(v ~T0 @X0 1 ef ]
+"366
+{
+[; ;main.c: 365: void my10msTimerISR(void)
+[; ;main.c: 366: {
 [e :U _my10msTimerISR ]
 [f ]
-[; ;main.c: 430: LED_update_loop();
-"430
+[; ;main.c: 367: LED_update_loop();
+"367
 [e ( _LED_update_loop ..  ]
-[; ;main.c: 431: button_update_loop();
-"431
+[; ;main.c: 368: button_update_loop();
+"368
 [e ( _button_update_loop ..  ]
-[; ;main.c: 432: }
-"432
-[e :UE 401 ]
+[; ;main.c: 369: }
+"369
+[e :UE 412 ]
 }
 [p f _printf 8388608 ]
 [a 2C 36 80 77 84 75 50 50 48 44 49 48 48 42 50 70 13 10 0 ]

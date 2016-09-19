@@ -8,7 +8,6 @@
 
 #include "fixed_point.h"
 
-// warning: unsigned values only!
 
 t_fp  convert_to_fp(signed short int_part, signed short fract_part)
 {
@@ -16,7 +15,6 @@ t_fp  convert_to_fp(signed short int_part, signed short fract_part)
     // fract_part should be in 1/10000th (4 digits after dot)
     // example: for 0.621371, fract_part should be 6213
     // example 2: for 0.005, fract_part should be 50
-    
     t_fp res = 0;
     // fill in the integer part
     res = int_part;
@@ -44,43 +42,46 @@ t_fp  convert_to_fp(signed short int_part, signed short fract_part)
 
 t_fp multiply_fp(t_fp n1, t_fp n2)  //!OVERFLOW POSSIBLE!
 {
-    t_fp n1_fra, n2_fra;
-    n1_fra = n1 & 0x0000FFFF;
-    n2_fra = n2 & 0x0000FFFF;
+    // decompose n1 & n2 in integer + fractional parts & compute them
+    // to minimize the resolution loss
     signed long long res = ((signed long long) (n1 >> FIXED_POINT_FRACT) * (signed long long) (n2 >> FIXED_POINT_FRACT))<<FIXED_POINT_FRACT;
-    res+ = ((signed long long) (n1 >> FIXED_POINT_FRACT) * (signed long long) n2_fra);
-    res+ = ((signed long long) (n2 >> FIXED_POINT_FRACT) * (signed long long) n1_fra);
-    res+ = ((signed long long) n1_fra * (signed long long) n2_fra)>>FIXED_POINT_FRACT;
+    res+= ((signed long long) (n1 >> FIXED_POINT_FRACT) * (signed long long) (n2 & 0x0000FFFF));
+    res+= ((signed long long) (n2 >> FIXED_POINT_FRACT) * (signed long long) (n1 & 0x0000FFFF));
+    res+= (((signed long long) (n1 & 0x0000FFFF) * (signed long long) (n2 & 0x0000FFFF))>>FIXED_POINT_FRACT)& 0x0000FFFF;
     return res;
 }
 
-t_fp reciprocal_fp(t_fp n)  // using Newton?Raphson division
+t_fp reciprocal_fp(t_fp n)  // using Newton Raphson algorithm
 {
-    //t_fp a = fp_x0_a;
-    //t_fp b = multiply_fp(fp_x0_b, n);
-    //t_fp X0 = a - b;
-    
-    // Apply a bit-shift to the divisor D to scale it so that 0.5 ? D ? 1.
-    // => le faire sur n en notant le nombre de bitshifts vers la droite
-    // il faudra faire l'inverse sur le résultat trouvé à la fin!
-    
-    // uniquement si 0.5 ? n ? 1
+    // Apply a bit-shift to the divisor D to scale it so that 0.5 <= D <= 1.
+    signed char shift = 0;
+    bool neg = (n < 0);
+    if (neg)
+        n = -n;
+    if (n < 0x00008000) // 0.5
+        while (n < 0x00008000) // 0.5
+        {
+            n = n << 1;
+            shift ++;
+        }
+    else if (n > 0x00010000) // 1
+        while (n > 0x00010000) // 1
+        {
+            n = n >> 1;
+            shift --;
+        }
     t_fp x = fp_x0_a - multiply_fp(fp_x0_b, n);
-    
-    // begin iterations
-    // automatiser avec un delta threshold qui arrête la boucle
-    // + nombre max si delta non atteint
-    for (unsigned char i=0; i<=10; i++)
-        x = x + multiply_fp(x, (0x00010000 - multiply_fp(x, n)));
-    return x;
+    // begin iterations - 3 are enough
+    for (unsigned char i=0; i<3; i++)
+        x = multiply_fp(x, (0x00020000 - multiply_fp(x, n)));
+        //x = x + multiply_fp(x, (0x00010000 - multiply_fp(x, n))); // same
+    // now we have to shift also the result
+    if (shift < 0)
+        x = x >> (-shift);
+    else if (shift > 0)
+        x = x << (shift);
+    if (neg)
+        return -x;
+    else
+        return x;
 }
-
-/*t_fp add(t_fp n1, t_fp n2)  //!OVERFLOW POSSIBLE!
-{
-    return (t_fp)(n1+n2);
-}
-
-t_fp substract(t_fp n1, t_fp n2)
-{
-    return (t_fp)(n1-n2);
-}*/

@@ -1,0 +1,170 @@
+[p LITE_MODE AUTOSTATIC PIC14 PIC14E ]
+[d version 1.1 ]
+[d edition pro ]
+[d chip 16F1827 ]
+[d frameptr 6 ]
+"25 D:\uc_stuff\neo_retro_speedo\neo_retro_speedo_16F1827.X\interact.h
+[e E2805 . `uc
+always_on 0
+always_off 1
+slow_blinking 2
+fast_blinking 3
+manual_mode 4
+]
+"58
+[e E2817 . `uc
+nothing 0
+short_push 1
+long_push 2
+]
+"25
+[e E2805 . `uc
+always_on 0
+always_off 1
+slow_blinking 2
+fast_blinking 3
+manual_mode 4
+]
+"58
+[e E2817 . `uc
+nothing 0
+short_push 1
+long_push 2
+]
+"62 D:\Program Files (x86)\Microchip\xc8\v1.38\sources\common\float.c
+[v ___ftpack __ftpack `(f  1 e 3 0 ]
+"86 D:\Program Files (x86)\Microchip\xc8\v1.38\sources\common\ftadd.c
+[v ___ftadd __ftadd `(f  1 e 3 0 ]
+"15 D:\Program Files (x86)\Microchip\xc8\v1.38\sources\common\Umul32.c
+[v ___lmul __lmul `(ul  1 e 4 0 ]
+"6 D:\Program Files (x86)\Microchip\xc8\v1.38\sources\pic\eeprom.c
+[v _eecpymem eecpymem `(v  1 e 1 0 ]
+"39
+[v _memcpyee memcpyee `(v  1 e 1 0 ]
+"11 D:\uc_stuff\neo_retro_speedo\neo_retro_speedo_16F1827.X\fixed_point.c
+[v _convert_to_fp convert_to_fp `(ul  1 e 4 0 ]
+"40
+[v _multiply_fp multiply_fp `(ul  1 e 4 0 ]
+"58 D:\uc_stuff\neo_retro_speedo\neo_retro_speedo_16F1827.X\interact.c
+[v _get_button_state get_button_state `(uc  1 e 1 0 ]
+"59 D:\uc_stuff\neo_retro_speedo\neo_retro_speedo_16F1827.X\main.c
+[v _main main `(v  1 e 1 0 ]
+"76 D:\uc_stuff\neo_retro_speedo\neo_retro_speedo_16F1827.X\mcc_generated_files/mcc.c
+[v _OSCILLATOR_Initialize OSCILLATOR_Initialize `(v  1 e 1 0 ]
+"49 D:\uc_stuff\neo_retro_speedo\neo_retro_speedo_16F1827.X\mcc_generated_files/pin_manager.c
+[v _PIN_MANAGER_Initialize PIN_MANAGER_Initialize `(v  1 e 1 0 ]
+"1120 D:\Program Files (x86)\Microchip\xc8\v1.38\include\pic16f1827.h
+[v _TRISA TRISA `VEuc  1 e 1 @140 ]
+"1181
+[v _TRISB TRISB `VEuc  1 e 1 @141 ]
+[s S77 . 1 `uc 1 PS0 1 0 :1:0 
+`uc 1 PS1 1 0 :1:1 
+`uc 1 PS2 1 0 :1:2 
+`uc 1 PSA 1 0 :1:3 
+`uc 1 TMR0SE 1 0 :1:4 
+`uc 1 TMR0CS 1 0 :1:5 
+`uc 1 INTEDG 1 0 :1:6 
+`uc 1 nWPUEN 1 0 :1:7 
+]
+"1440
+[s S86 . 1 `uc 1 PS 1 0 :3:0 
+`uc 1 . 1 0 :1:3 
+`uc 1 T0SE 1 0 :1:4 
+`uc 1 T0CS 1 0 :1:5 
+]
+[u S91 . 1 `S77 1 . 1 0 `S86 1 . 1 0 ]
+[v _OPTION_REGbits OPTION_REGbits `VES91  1 e 1 @149 ]
+"1607
+[v _OSCTUNE OSCTUNE `VEuc  1 e 1 @152 ]
+"1664
+[v _OSCCON OSCCON `VEuc  1 e 1 @153 ]
+"1735
+[v _OSCSTAT OSCSTAT `VEuc  1 e 1 @154 ]
+"1990
+[v _LATA LATA `VEuc  1 e 1 @268 ]
+"2046
+[v _LATB LATB `VEuc  1 e 1 @269 ]
+"2717
+[v _APFCON0 APFCON0 `VEuc  1 e 1 @285 ]
+"2778
+[v _APFCON1 APFCON1 `VEuc  1 e 1 @286 ]
+"2797
+[v _ANSELA ANSELA `VEuc  1 e 1 @396 ]
+"2848
+[v _ANSELB ANSELB `VEuc  1 e 1 @397 ]
+"3405
+[v _WPUA WPUA `VEuc  1 e 1 @524 ]
+"3433
+[v _WPUB WPUB `VEuc  1 e 1 @525 ]
+"7186
+[v _PLLR PLLR `VEb  1 e 0 @1238 ]
+"25 D:\uc_stuff\neo_retro_speedo\neo_retro_speedo_16F1827.X\interact.h
+[v _LED_state LED_state `E2805  1 e 1 0 ]
+"26
+[v _LED_counter LED_counter `VEuc  1 e 1 0 ]
+"58
+[v _b_confirmed_state b_confirmed_state `VEE2817  1 e 1 0 ]
+"60
+[v _b_count_pressed b_count_pressed `VEuc  1 e 1 0 ]
+"61
+[v _b_count_released b_count_released `VEuc  1 e 1 0 ]
+"62
+[v _b_push_confirmed b_push_confirmed `VEuc  1 e 1 0 ]
+"63
+[v _b_release_confirmed b_release_confirmed `VEuc  1 e 1 0 ]
+"64
+[v _b_last_state b_last_state `VEui  1 e 2 0 ]
+"65
+[v _b_has_once_been_released b_has_once_been_released `VEuc  1 e 1 0 ]
+"59 D:\uc_stuff\neo_retro_speedo\neo_retro_speedo_16F1827.X\main.c
+[v _main main `(v  1 e 1 0 ]
+{
+"62
+[v main@speed speed `ul  1 a 4 37 ]
+"60
+[v main@ratio_mph ratio_mph `ul  1 a 4 33 ]
+"65
+[v main@tmp tmp `uc  1 a 1 32 ]
+"88
+} 0
+"40 D:\uc_stuff\neo_retro_speedo\neo_retro_speedo_16F1827.X\fixed_point.c
+[v _multiply_fp multiply_fp `(ul  1 e 4 0 ]
+{
+"42
+[v multiply_fp@n2_fra n2_fra `ul  1 a 4 28 ]
+[v multiply_fp@n1_fra n1_fra `ul  1 a 4 24 ]
+"45
+[v multiply_fp@res res `ul  1 a 4 20 ]
+"40
+[v multiply_fp@n1 n1 `ul  1 p 4 0 ]
+[v multiply_fp@n2 n2 `ul  1 p 4 4 ]
+"50
+} 0
+"15 D:\Program Files (x86)\Microchip\xc8\v1.38\sources\common\Umul32.c
+[v ___lmul __lmul `(ul  1 e 4 0 ]
+{
+"17
+[v ___lmul@product product `ul  1 a 4 8 ]
+"15
+[v ___lmul@multiplier multiplier `ul  1 p 4 0 ]
+[v ___lmul@multiplicand multiplicand `ul  1 p 4 4 ]
+"129
+} 0
+"11 D:\uc_stuff\neo_retro_speedo\neo_retro_speedo_16F1827.X\fixed_point.c
+[v _convert_to_fp convert_to_fp `(ul  1 e 4 0 ]
+{
+"26
+[v convert_to_fp@i_bit i_bit `uc  1 a 1 4 ]
+"18
+[v convert_to_fp@res res `ul  1 a 4 5 ]
+"23
+[v convert_to_fp@tmp_left tmp_left `us  1 a 2 2 ]
+"24
+[v convert_to_fp@res_fract res_fract `us  1 a 2 0 ]
+"11
+[v convert_to_fp@int_part int_part `us  1 p 2 0 ]
+[v convert_to_fp@fract_part fract_part `us  1 p 2 2 ]
+"25
+[v convert_to_fp@one one `DCCus  1 s 2 one ]
+"38
+} 0

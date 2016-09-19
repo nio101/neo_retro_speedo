@@ -1,21 +1,21 @@
 /**
-  @Generated MPLAB(c) Code Configurator Header File
+  EUSART Generated Driver File
 
-  @Company:
+  @Company
     Microchip Technology Inc.
 
-  @File Name:
-    mcc.h
+  @File Name
+    eusart.c
 
-  @Summary:
-    This is the mcc.h file generated using MPLAB(c) Code Configurator
+  @Summary
+    This is the generated driver implementation file for the EUSART driver using MPLAB(c) Code Configurator
 
-  @Description:
-    This header file provides implementations for driver APIs for all modules selected in the GUI.
+  @Description
+    This header file provides implementations for driver APIs for EUSART.
     Generation Information :
         Product Revision  :  MPLAB(c) Code Configurator - 3.16
         Device            :  PIC16F1827
-        Version           :  1.02
+        Driver Version    :  2.00
     The generated drivers are tested against the following:
         Compiler          :  XC8 1.35
         MPLAB             :  MPLAB X 3.20
@@ -43,46 +43,65 @@
     TERMS.
 */
 
-#ifndef MCC_H
-#define	MCC_H
-#include <xc.h>
-#include "pin_manager.h"
-#include <stdint.h>
-#include <stdbool.h>
-#include "interrupt_manager.h"
-#include "tmr0.h"
+/**
+  Section: Included Files
+*/
 #include "eusart.h"
 
-#define _XTAL_FREQ  32000000
-
 /**
- * @Param
-    none
- * @Returns
-    none
- * @Description
-    Initializes the device to the default states configured in the
- *                  MCC GUI
- * @Example
-    SYSTEM_Initialize(void);
- */
-void SYSTEM_Initialize(void);
+  Section: EUSART APIs
+*/
 
+void EUSART_Initialize(void)
+{
+    // Set the EUSART module to the options selected in the user interface.
+
+    // ABDOVF no_overflow; SCKP Non-Inverted; BRG16 16bit_generator; WUE disabled; ABDEN disabled; 
+    BAUDCON = 0x08;
+
+    // SPEN enabled; RX9 8-bit; CREN enabled; ADDEN disabled; SREN disabled; 
+    RCSTA = 0x90;
+
+    // TX9 8-bit; TX9D 0; SENDB sync_break_complete; TXEN enabled; SYNC asynchronous; BRGH hi_speed; CSRC slave; 
+    TXSTA = 0x24;
+
+    // Baud Rate = 9600; SPBRGL 64; 
+    SPBRGL = 0x40;
+
+    // Baud Rate = 9600; SPBRGH 3; 
+    SPBRGH = 0x03;
+
+}
+
+
+uint8_t EUSART_Read(void)
+{
+
+   RCSTAbits.SREN = 1;
+    while(!PIR1bits.RCIF)
+    {
+    }
+
+    
+    if(1 == RCSTAbits.OERR)
+    {
+        // EUSART error - restart
+
+        RCSTAbits.SPEN = 0; 
+        RCSTAbits.SPEN = 1; 
+    }
+
+    return RCREG;
+}
+
+void EUSART_Write(uint8_t txData)
+{
+    while(0 == PIR1bits.TXIF)
+    {
+    }
+
+    TXREG = txData;    // Write the data byte to the USART.
+}
 /**
- * @Param
-    none
- * @Returns
-    none
- * @Description
-    Initializes the oscillator to the default states configured in the
- *                  MCC GUI
- * @Example
-    OSCILLATOR_Initialize(void);
- */
-void OSCILLATOR_Initialize(void);
-
-
-#endif	/* MCC_H */
-/**
- End of File
+  End of File
 */

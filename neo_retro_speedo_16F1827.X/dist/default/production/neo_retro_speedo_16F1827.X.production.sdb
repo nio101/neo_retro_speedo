@@ -3,8 +3,8 @@
 [d edition pro ]
 [d chip 16F1827 ]
 [d frameptr 6 ]
-"25 D:\uc_stuff\neo_retro_speedo\neo_retro_speedo_16F1827.X\interact.h
-[e E2805 . `uc
+"25 C:\Users\nicolas\Desktop\neoretro_driver\github\neo_retro_speedo_16F1827.X\interact.h
+[e E2833 . `uc
 always_on 0
 always_off 1
 slow_blinking 2
@@ -12,13 +12,13 @@ fast_blinking 3
 manual_mode 4
 ]
 "58
-[e E2817 . `uc
+[e E2845 . `uc
 nothing 0
 short_push 1
 long_push 2
 ]
 "25
-[e E2805 . `uc
+[e E2833 . `uc
 always_on 0
 always_off 1
 slow_blinking 2
@@ -26,36 +26,108 @@ fast_blinking 3
 manual_mode 4
 ]
 "58
-[e E2817 . `uc
+[e E2845 . `uc
 nothing 0
 short_push 1
 long_push 2
 ]
-"62 D:\Program Files (x86)\Microchip\xc8\v1.38\sources\common\float.c
+"62 D:\Program Files\Microchip\xc8\v1.38\sources\common\float.c
 [v ___ftpack __ftpack `(f  1 e 3 0 ]
-"86 D:\Program Files (x86)\Microchip\xc8\v1.38\sources\common\ftadd.c
+"86 D:\Program Files\Microchip\xc8\v1.38\sources\common\ftadd.c
 [v ___ftadd __ftadd `(f  1 e 3 0 ]
-"15 D:\Program Files (x86)\Microchip\xc8\v1.38\sources\common\Umul32.c
+"15 D:\Program Files\Microchip\xc8\v1.38\sources\common\Umul32.c
 [v ___lmul __lmul `(ul  1 e 4 0 ]
-"6 D:\Program Files (x86)\Microchip\xc8\v1.38\sources\pic\eeprom.c
+"6 D:\Program Files\Microchip\xc8\v1.38\sources\pic\eeprom.c
 [v _eecpymem eecpymem `(v  1 e 1 0 ]
 "39
 [v _memcpyee memcpyee `(v  1 e 1 0 ]
-"43 D:\uc_stuff\neo_retro_speedo\neo_retro_speedo_16F1827.X\fixed_point.c
+"43 C:\Users\nicolas\Desktop\neoretro_driver\github\neo_retro_speedo_16F1827.X\fixed_point.c
 [v _multiply_fp multiply_fp `(l  1 e 4 0 ]
-"58 D:\uc_stuff\neo_retro_speedo\neo_retro_speedo_16F1827.X\interact.c
+"16 C:\Users\nicolas\Desktop\neoretro_driver\github\neo_retro_speedo_16F1827.X\interact.c
+[v _LED_set_state LED_set_state `(v  1 e 1 0 ]
+"30
+[v _LED_update_loop LED_update_loop `(v  1 e 1 0 ]
+"58
 [v _get_button_state get_button_state `(uc  1 e 1 0 ]
-"59 D:\uc_stuff\neo_retro_speedo\neo_retro_speedo_16F1827.X\main.c
+[v i1_get_button_state get_button_state `(uc  1 e 1 0 ]
+"67
+[v _button_init button_init `(v  1 e 1 0 ]
+"78
+[v _button_update_loop button_update_loop `(v  1 e 1 0 ]
+"64 C:\Users\nicolas\Desktop\neoretro_driver\github\neo_retro_speedo_16F1827.X\main.c
 [v _main main `(v  1 e 1 0 ]
-"76 D:\uc_stuff\neo_retro_speedo\neo_retro_speedo_16F1827.X\mcc_generated_files/mcc.c
+"92
+[v _my10msTimerISR my10msTimerISR `(v  1 e 1 0 ]
+"55 C:\Users\nicolas\Desktop\neoretro_driver\github\neo_retro_speedo_16F1827.X\mcc_generated_files/eusart.c
+[v _EUSART_Initialize EUSART_Initialize `(v  1 e 1 0 ]
+"51 C:\Users\nicolas\Desktop\neoretro_driver\github\neo_retro_speedo_16F1827.X\mcc_generated_files/interrupt_manager.c
+[v _INTERRUPT_InterruptManager INTERRUPT_InterruptManager `II(v  1 e 1 0 ]
+"69 C:\Users\nicolas\Desktop\neoretro_driver\github\neo_retro_speedo_16F1827.X\mcc_generated_files/mcc.c
+[v _SYSTEM_Initialize SYSTEM_Initialize `(v  1 e 1 0 ]
+"78
 [v _OSCILLATOR_Initialize OSCILLATOR_Initialize `(v  1 e 1 0 ]
-"49 D:\uc_stuff\neo_retro_speedo\neo_retro_speedo_16F1827.X\mcc_generated_files/pin_manager.c
+"49 C:\Users\nicolas\Desktop\neoretro_driver\github\neo_retro_speedo_16F1827.X\mcc_generated_files/pin_manager.c
 [v _PIN_MANAGER_Initialize PIN_MANAGER_Initialize `(v  1 e 1 0 ]
-"1120 D:\Program Files (x86)\Microchip\xc8\v1.38\include\pic16f1827.h
+"63 C:\Users\nicolas\Desktop\neoretro_driver\github\neo_retro_speedo_16F1827.X\mcc_generated_files/tmr0.c
+[v _TMR0_Initialize TMR0_Initialize `(v  1 e 1 0 ]
+"108
+[v _TMR0_ISR TMR0_ISR `(v  1 e 1 0 ]
+"130
+[v _TMR0_CallBack TMR0_CallBack `(v  1 e 1 0 ]
+"140
+[v _TMR0_SetInterruptHandler TMR0_SetInterruptHandler `(v  1 e 1 0 ]
+"144
+[v _TMR0_DefaultInterruptHandler TMR0_DefaultInterruptHandler `(v  1 e 1 0 ]
+[s S115 . 1 `uc 1 IOCIF 1 0 :1:0 
+`uc 1 INTF 1 0 :1:1 
+`uc 1 TMR0IF 1 0 :1:2 
+`uc 1 IOCIE 1 0 :1:3 
+`uc 1 INTE 1 0 :1:4 
+`uc 1 TMR0IE 1 0 :1:5 
+`uc 1 PEIE 1 0 :1:6 
+`uc 1 GIE 1 0 :1:7 
+]
+"360 D:\Program Files\Microchip\xc8\v1.38\include\pic16f1827.h
+[s S124 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 T0IF 1 0 :1:2 
+`uc 1 . 1 0 :2:3 
+`uc 1 T0IE 1 0 :1:5 
+]
+[u S129 . 1 `S115 1 . 1 0 `S124 1 . 1 0 ]
+[v _INTCONbits INTCONbits `VES129  1 e 1 @11 ]
+[s S230 . 1 `uc 1 RB0 1 0 :1:0 
+`uc 1 RB1 1 0 :1:1 
+`uc 1 RB2 1 0 :1:2 
+`uc 1 RB3 1 0 :1:3 
+`uc 1 RB4 1 0 :1:4 
+`uc 1 RB5 1 0 :1:5 
+`uc 1 RB6 1 0 :1:6 
+`uc 1 RB7 1 0 :1:7 
+]
+"492
+[u S239 . 1 `S230 1 . 1 0 ]
+[v _PORTBbits PORTBbits `VES239  1 e 1 @13 ]
+[s S379 . 1 `uc 1 TMR1IF 1 0 :1:0 
+`uc 1 TMR2IF 1 0 :1:1 
+`uc 1 CCP1IF 1 0 :1:2 
+`uc 1 SSP1IF 1 0 :1:3 
+`uc 1 TXIF 1 0 :1:4 
+`uc 1 RCIF 1 0 :1:5 
+`uc 1 ADIF 1 0 :1:6 
+`uc 1 TMR1GIF 1 0 :1:7 
+]
+"553
+[u S388 . 1 `S379 1 . 1 0 ]
+[v _PIR1bits PIR1bits `VES388  1 e 1 @17 ]
+"711
+[v _TMR0 TMR0 `VEuc  1 e 1 @21 ]
+"1120
 [v _TRISA TRISA `VEuc  1 e 1 @140 ]
 "1181
 [v _TRISB TRISB `VEuc  1 e 1 @141 ]
-[s S41 . 1 `uc 1 PS0 1 0 :1:0 
+"1417
+[v _OPTION_REG OPTION_REG `VEuc  1 e 1 @149 ]
+[s S51 . 1 `uc 1 PS0 1 0 :1:0 
 `uc 1 PS1 1 0 :1:1 
 `uc 1 PS2 1 0 :1:2 
 `uc 1 PSA 1 0 :1:3 
@@ -65,13 +137,13 @@ long_push 2
 `uc 1 nWPUEN 1 0 :1:7 
 ]
 "1440
-[s S50 . 1 `uc 1 PS 1 0 :3:0 
+[s S60 . 1 `uc 1 PS 1 0 :3:0 
 `uc 1 . 1 0 :1:3 
 `uc 1 T0SE 1 0 :1:4 
 `uc 1 T0CS 1 0 :1:5 
 ]
-[u S55 . 1 `S41 1 . 1 0 `S50 1 . 1 0 ]
-[v _OPTION_REGbits OPTION_REGbits `VES55  1 e 1 @149 ]
+[u S65 . 1 `S51 1 . 1 0 `S60 1 . 1 0 ]
+[v _OPTION_REGbits OPTION_REGbits `VES65  1 e 1 @149 ]
 "1607
 [v _OSCTUNE OSCTUNE `VEuc  1 e 1 @152 ]
 "1664
@@ -90,22 +162,50 @@ long_push 2
 [v _ANSELA ANSELA `VEuc  1 e 1 @396 ]
 "2848
 [v _ANSELB ANSELB `VEuc  1 e 1 @397 ]
+"3098
+[v _RCREG RCREG `VEuc  1 e 1 @409 ]
+"3117
+[v _TXREG TXREG `VEuc  1 e 1 @410 ]
+"3151
+[v _SPBRGL SPBRGL `VEuc  1 e 1 @411 ]
+"3200
+[v _SPBRGH SPBRGH `VEuc  1 e 1 @412 ]
+"3232
+[v _RCSTA RCSTA `VEuc  1 e 1 @413 ]
+[s S358 . 1 `uc 1 RX9D 1 0 :1:0 
+`uc 1 OERR 1 0 :1:1 
+`uc 1 FERR 1 0 :1:2 
+`uc 1 ADDEN 1 0 :1:3 
+`uc 1 CREN 1 0 :1:4 
+`uc 1 SREN 1 0 :1:5 
+`uc 1 RX9 1 0 :1:6 
+`uc 1 SPEN 1 0 :1:7 
+]
+"3249
+[u S367 . 1 `S358 1 . 1 0 ]
+[v _RCSTAbits RCSTAbits `VES367  1 e 1 @413 ]
+"3293
+[v _TXSTA TXSTA `VEuc  1 e 1 @414 ]
+"3354
+[v _BAUDCON BAUDCON `VEuc  1 e 1 @415 ]
 "3405
 [v _WPUA WPUA `VEuc  1 e 1 @524 ]
 "3433
 [v _WPUB WPUB `VEuc  1 e 1 @525 ]
+"7044
+[v _LATA2 LATA2 `VEb  1 e 0 @2146 ]
 "7186
 [v _PLLR PLLR `VEb  1 e 0 @1238 ]
-"17 D:\uc_stuff\neo_retro_speedo\neo_retro_speedo_16F1827.X\fixed_point.h
+"17 C:\Users\nicolas\Desktop\neoretro_driver\github\neo_retro_speedo_16F1827.X\fixed_point.h
 [v _fp_x0_a fp_x0_a `DCCl  1 e 4 0 ]
 "18
 [v _fp_x0_b fp_x0_b `DCCl  1 e 4 0 ]
-"25 D:\uc_stuff\neo_retro_speedo\neo_retro_speedo_16F1827.X\interact.h
-[v _LED_state LED_state `E2805  1 e 1 0 ]
+"25 C:\Users\nicolas\Desktop\neoretro_driver\github\neo_retro_speedo_16F1827.X\interact.h
+[v _LED_state LED_state `E2833  1 e 1 0 ]
 "26
 [v _LED_counter LED_counter `VEuc  1 e 1 0 ]
 "58
-[v _b_confirmed_state b_confirmed_state `VEE2817  1 e 1 0 ]
+[v _b_confirmed_state b_confirmed_state `VEE2845  1 e 1 0 ]
 "60
 [v _b_count_pressed b_count_pressed `VEuc  1 e 1 0 ]
 "61
@@ -118,8 +218,111 @@ long_push 2
 [v _b_last_state b_last_state `VEui  1 e 2 0 ]
 "65
 [v _b_has_once_been_released b_has_once_been_released `VEuc  1 e 1 0 ]
-"59 D:\uc_stuff\neo_retro_speedo\neo_retro_speedo_16F1827.X\main.c
+"57 C:\Users\nicolas\Desktop\neoretro_driver\github\neo_retro_speedo_16F1827.X\mcc_generated_files/tmr0.c
+[v _timer0ReloadVal timer0ReloadVal `VEuc  1 e 1 0 ]
+"280 C:\Users\nicolas\Desktop\neoretro_driver\github\neo_retro_speedo_16F1827.X\mcc_generated_files/tmr0.h
+[v _TMR0_InterruptHandler TMR0_InterruptHandler `*.37(v  1 e 2 0 ]
+"64 C:\Users\nicolas\Desktop\neoretro_driver\github\neo_retro_speedo_16F1827.X\main.c
 [v _main main `(v  1 e 1 0 ]
 {
-"83
+"78
+[v main@tmp tmp `uc  1 a 1 6 ]
+"90
+} 0
+"67 C:\Users\nicolas\Desktop\neoretro_driver\github\neo_retro_speedo_16F1827.X\interact.c
+[v _button_init button_init `(v  1 e 1 0 ]
+{
+"76
+} 0
+"58
+[v _get_button_state get_button_state `(uc  1 e 1 0 ]
+{
+"61
+[v get_button_state@state state `uc  1 a 1 0 ]
+"65
+} 0
+"69 C:\Users\nicolas\Desktop\neoretro_driver\github\neo_retro_speedo_16F1827.X\mcc_generated_files/mcc.c
+[v _SYSTEM_Initialize SYSTEM_Initialize `(v  1 e 1 0 ]
+{
+"76
+} 0
+"63 C:\Users\nicolas\Desktop\neoretro_driver\github\neo_retro_speedo_16F1827.X\mcc_generated_files/tmr0.c
+[v _TMR0_Initialize TMR0_Initialize `(v  1 e 1 0 ]
+{
+"84
+} 0
+"140
+[v _TMR0_SetInterruptHandler TMR0_SetInterruptHandler `(v  1 e 1 0 ]
+{
+[v TMR0_SetInterruptHandler@InterruptHandler InterruptHandler `*.37v  1 p 2 0 ]
+"142
+} 0
+"49 C:\Users\nicolas\Desktop\neoretro_driver\github\neo_retro_speedo_16F1827.X\mcc_generated_files/pin_manager.c
+[v _PIN_MANAGER_Initialize PIN_MANAGER_Initialize `(v  1 e 1 0 ]
+{
+"66
+} 0
+"78 C:\Users\nicolas\Desktop\neoretro_driver\github\neo_retro_speedo_16F1827.X\mcc_generated_files/mcc.c
+[v _OSCILLATOR_Initialize OSCILLATOR_Initialize `(v  1 e 1 0 ]
+{
+"92
+} 0
+"55 C:\Users\nicolas\Desktop\neoretro_driver\github\neo_retro_speedo_16F1827.X\mcc_generated_files/eusart.c
+[v _EUSART_Initialize EUSART_Initialize `(v  1 e 1 0 ]
+{
+"74
+} 0
+"16 C:\Users\nicolas\Desktop\neoretro_driver\github\neo_retro_speedo_16F1827.X\interact.c
+[v _LED_set_state LED_set_state `(v  1 e 1 0 ]
+{
+[v LED_set_state@new_state new_state `E2833  1 a 1 wreg ]
+[v LED_set_state@new_state new_state `E2833  1 a 1 wreg ]
+"18
+[v LED_set_state@new_state new_state `E2833  1 a 1 1 ]
+"28
+} 0
+"51 C:\Users\nicolas\Desktop\neoretro_driver\github\neo_retro_speedo_16F1827.X\mcc_generated_files/interrupt_manager.c
+[v _INTERRUPT_InterruptManager INTERRUPT_InterruptManager `II(v  1 e 1 0 ]
+{
+"62
+} 0
+"108 C:\Users\nicolas\Desktop\neoretro_driver\github\neo_retro_speedo_16F1827.X\mcc_generated_files/tmr0.c
+[v _TMR0_ISR TMR0_ISR `(v  1 e 1 0 ]
+{
+"110
+[v TMR0_ISR@CountCallBack CountCallBack `VEui  1 s 2 CountCallBack ]
+"128
+} 0
+"130
+[v _TMR0_CallBack TMR0_CallBack `(v  1 e 1 0 ]
+{
+"138
+} 0
+"144
+[v _TMR0_DefaultInterruptHandler TMR0_DefaultInterruptHandler `(v  1 e 1 0 ]
+{
+"147
+} 0
+"92 C:\Users\nicolas\Desktop\neoretro_driver\github\neo_retro_speedo_16F1827.X\main.c
+[v _my10msTimerISR my10msTimerISR `(v  1 e 1 0 ]
+{
+"96
+} 0
+"78 C:\Users\nicolas\Desktop\neoretro_driver\github\neo_retro_speedo_16F1827.X\interact.c
+[v _button_update_loop button_update_loop `(v  1 e 1 0 ]
+{
+"80
+[v button_update_loop@current_state current_state `uc  1 a 1 3 ]
+"120
+} 0
+"58
+[v i1_get_button_state get_button_state `(uc  1 e 1 0 ]
+{
+[v i1get_button_state@state get_button_state `uc  1 a 1 0 ]
+"65
+} 0
+"30
+[v _LED_update_loop LED_update_loop `(v  1 e 1 0 ]
+{
+"52
 } 0

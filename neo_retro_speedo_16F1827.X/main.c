@@ -49,6 +49,11 @@
 #include "fixed_point.h"
 
 
+#define __delay_sec(x) for(unsigned char tmp=0;tmp<(10*x);tmp++){__delay_ms(100);}
+
+void my10msTimerISR(void);  // custom function called every 10ms,
+                            // used for LED blinking and push button debounce
+
 // mph/kmh ratio
 const t_fp ratio_mph = 0x00009F14;  // equals to 0.6214 in FP16.16
 
@@ -59,28 +64,37 @@ const t_fp ratio_mph = 0x00009F14;  // equals to 0.6214 in FP16.16
 void main(void)
 {
     // initialize the device
-    //SYSTEM_Initialize();
+    SYSTEM_Initialize();
 
-    // When using interrupts, you need to set the Global and Peripheral Interrupt Enable bits
-    // Use the following macros to:
+    TMR0_SetInterruptHandler(my10msTimerISR);
 
     // Enable the Global Interrupts
-    //INTERRUPT_GlobalInterruptEnable();
-
+    INTERRUPT_GlobalInterruptEnable();
     // Enable the Peripheral Interrupts
-    //INTERRUPT_PeripheralInterruptEnable();
-
-    // Disable the Global Interrupts
-    //INTERRUPT_GlobalInterruptDisable();
-
-    // Disable the Peripheral Interrupts
-    //INTERRUPT_PeripheralInterruptDisable();
+    INTERRUPT_PeripheralInterruptEnable();
 
     while (1)
     {
-        // Add your application code
+        __delay_sec(5);
+        // Test DA button now!
+        LED_set_state(always_on);
+        button_init();
+        while (b_confirmed_state == nothing)
+        {}
+
+        if (b_confirmed_state == short_push)
+            LED_set_state(fast_blinking);
+        else if (b_confirmed_state == long_push)
+            LED_set_state(slow_blinking);
     }
 }
+
+void my10msTimerISR(void)
+{
+    LED_update_loop();
+    button_update_loop();
+}
+
 /**
  End of File
 */

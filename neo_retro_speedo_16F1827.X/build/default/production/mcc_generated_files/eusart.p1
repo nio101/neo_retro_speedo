@@ -1,41 +1,34 @@
 Version 3.2 HI-TECH Software Intermediate Code
-[v F2819 `(v ~T0 @X0 0 tf ]
-"25 interact.h
-[c E2833 0 1 2 3 4 .. ]
-[n E2833 . always_on always_off slow_blinking fast_blinking manual_mode  ]
-"58
-[c E2845 0 1 2 .. ]
-[n E2845 . nothing short_push long_push  ]
-[p mainexit ]
-"69 mcc_generated_files/mcc.h
-[v _SYSTEM_Initialize `(v ~T0 @X0 0 ef ]
-"262 mcc_generated_files/tmr0.h
-[v _TMR0_SetInterruptHandler `(v ~T0 @X0 0 ef1`*v ]
-"54 main.c
-[v _my10msTimerISR `(v ~T0 @X0 0 ef ]
-"343 D:\Program Files\Microchip\xc8\v1.38\include\pic16f1827.h
-[s S27 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S27 . IOCIF INTF TMR0IF IOCIE INTE TMR0IE PEIE GIE ]
-"353
-[s S28 :2 `uc 1 :1 `uc 1 :2 `uc 1 :1 `uc 1 ]
-[n S28 . . T0IF . T0IE ]
-"342
-[u S26 `S27 1 `S28 1 ]
-[n S26 . . . ]
-"360
-[v _INTCONbits `VS26 ~T0 @X0 0 e@11 ]
-[v F2766 `(v ~T0 @X0 1 tf1`ul ]
-"152 D:\Program Files\Microchip\xc8\v1.38\include\pic.h
-[v __delay `JF2766 ~T0 @X0 0 e ]
-[p i __delay ]
-"31 interact.h
-[v _LED_set_state `(v ~T0 @X0 0 ef1`E2833 ]
-"67
-[v _button_init `(v ~T0 @X0 0 ef ]
-"32
-[v _LED_update_loop `(v ~T0 @X0 0 ef ]
-"68
-[v _button_update_loop `(v ~T0 @X0 0 ef ]
+"3354 D:\Program Files\Microchip\xc8\v1.38\include\pic16f1827.h
+[v _BAUDCON `Vuc ~T0 @X0 0 e@415 ]
+"3232
+[v _RCSTA `Vuc ~T0 @X0 0 e@413 ]
+"3293
+[v _TXSTA `Vuc ~T0 @X0 0 e@414 ]
+"3151
+[v _SPBRGL `Vuc ~T0 @X0 0 e@411 ]
+"3200
+[v _SPBRGH `Vuc ~T0 @X0 0 e@412 ]
+"3238
+[s S176 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S176 . RX9D OERR FERR ADDEN CREN SREN RX9 SPEN ]
+"3237
+[u S175 `S176 1 ]
+[n S175 . . ]
+"3249
+[v _RCSTAbits `VS175 ~T0 @X0 0 e@413 ]
+"542
+[s S34 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S34 . TMR1IF TMR2IF CCP1IF SSP1IF TXIF RCIF ADIF TMR1GIF ]
+"541
+[u S33 `S34 1 ]
+[n S33 . . ]
+"553
+[v _PIR1bits `VS33 ~T0 @X0 0 e@17 ]
+"3098
+[v _RCREG `Vuc ~T0 @X0 0 e@409 ]
+"3117
+[v _TXREG `Vuc ~T0 @X0 0 e@410 ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
@@ -2790,7 +2783,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic.h: 186: extern unsigned char __resetbits;
 [; ;pic.h: 187: extern __bit __powerdown;
 [; ;pic.h: 188: extern __bit __timeout;
-[; ;pin_manager.h: 137: void PIN_MANAGER_Initialize (void);
+[; ;stdbool.h: 12: typedef unsigned char bool;
 [; ;stdint.h: 13: typedef signed char int8_t;
 [; ;stdint.h: 20: typedef signed int int16_t;
 [; ;stdint.h: 28: typedef signed short long int int24_t;
@@ -2819,192 +2812,114 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;stdint.h: 205: typedef uint32_t uintmax_t;
 [; ;stdint.h: 210: typedef int16_t intptr_t;
 [; ;stdint.h: 215: typedef uint16_t uintptr_t;
-[; ;stdbool.h: 12: typedef unsigned char bool;
-[; ;interrupt_manager.h: 110: void interrupt INTERRUPT_InterruptManager(void);
-[; ;tmr0.h: 103: void TMR0_Initialize(void);
-[; ;tmr0.h: 136: uint8_t TMR0_ReadTimer(void);
-[; ;tmr0.h: 175: void TMR0_WriteTimer(uint8_t timerVal);
-[; ;tmr0.h: 211: void TMR0_Reload(void);
-[; ;tmr0.h: 226: void TMR0_ISR(void);
-[; ;tmr0.h: 244: void TMR0_CallBack(void);
-[; ;tmr0.h: 262: void TMR0_SetInterruptHandler(void *InterruptHandler);
-"280 mcc_generated_files/tmr0.h
-[v _TMR0_InterruptHandler `*F2819 ~T0 @X0 1 e ]
-[; ;tmr0.h: 280: void (*TMR0_InterruptHandler)(void);
-[; ;tmr0.h: 298: void TMR0_DefaultInterruptHandler(void);
 [; ;eusart.h: 94: void EUSART_Initialize(void);
 [; ;eusart.h: 114: uint8_t EUSART_Read(void);
 [; ;eusart.h: 134: void EUSART_Write(uint8_t txData);
-[; ;mcc.h: 69: void SYSTEM_Initialize(void);
-[; ;mcc.h: 82: void OSCILLATOR_Initialize(void);
-[; ;interact.h: 21: typedef enum {
-[; ;interact.h: 22: always_on, always_off, slow_blinking, fast_blinking, manual_mode
-[; ;interact.h: 23: } LED_state_t;
-"25 interact.h
-[v _LED_state `E2833 ~T0 @X0 1 e ]
-[i _LED_state
-. `E2833 1
-]
-[; ;interact.h: 25: LED_state_t LED_state=always_off;
-"26
-[v _LED_counter `Vuc ~T0 @X0 1 e ]
-[i _LED_counter
--> -> 0 `i `uc
-]
-[; ;interact.h: 26: volatile unsigned char LED_counter=0;
-[; ;interact.h: 31: void LED_set_state(LED_state_t new_state);
-[; ;interact.h: 32: void LED_update_loop();
-[; ;interact.h: 55: typedef enum {
-[; ;interact.h: 56: nothing, short_push, long_push
-[; ;interact.h: 57: } confirmed_state_t;
-"58
-[v _b_confirmed_state `VE2845 ~T0 @X0 1 e ]
-[; ;interact.h: 58: volatile confirmed_state_t b_confirmed_state;
-"60
-[v _b_count_pressed `Vuc ~T0 @X0 1 e ]
-[; ;interact.h: 60: volatile unsigned char b_count_pressed;
-"61
-[v _b_count_released `Vuc ~T0 @X0 1 e ]
-[; ;interact.h: 61: volatile unsigned char b_count_released;
-"62
-[v _b_push_confirmed `Vuc ~T0 @X0 1 e ]
-[; ;interact.h: 62: volatile bool b_push_confirmed;
-"63
-[v _b_release_confirmed `Vuc ~T0 @X0 1 e ]
-[; ;interact.h: 63: volatile bool b_release_confirmed;
-"64
-[v _b_last_state `Vui ~T0 @X0 1 e ]
-[; ;interact.h: 64: volatile unsigned b_last_state;
-"65
-[v _b_has_once_been_released `Vuc ~T0 @X0 1 e ]
-[; ;interact.h: 65: volatile bool b_has_once_been_released;
-[; ;interact.h: 67: void button_init();
-[; ;interact.h: 68: void button_update_loop();
-[; ;interact.h: 69: unsigned char get_button_state();
-[; ;fixed_point.h: 15: typedef signed long long t_fp;
-"17 fixed_point.h
-[v _fp_x0_a `Cl ~T0 @X0 1 e ]
-[i _fp_x0_a
--> 185040 `l
-]
-[; ;fixed_point.h: 17: const t_fp fp_x0_a = 0x0002D2D0;
-"18
-[v _fp_x0_b `Cl ~T0 @X0 1 e ]
-[i _fp_x0_b
--> 123364 `l
-]
-[; ;fixed_point.h: 18: const t_fp fp_x0_b = 0x0001E1E4;
-[; ;fixed_point.h: 20: t_fp convert_to_fp(signed short int_part, signed short fract_part);
-[; ;fixed_point.h: 21: t_fp multiply_fp(t_fp n1, t_fp n2);
-[; ;fixed_point.h: 22: t_fp reciprocal_fp(t_fp n);
-[; ;main.c: 54: void my10msTimerISR(void);
-"58 main.c
-[v _ratio_mph `Cl ~T0 @X0 1 e ]
-[i _ratio_mph
--> -> 40724 `ui `l
-]
-[; ;main.c: 58: const t_fp ratio_mph = 0x00009F14;
-"64
-[v _main `(v ~T0 @X0 1 ef ]
-"65
+"55 mcc_generated_files/eusart.c
+[v _EUSART_Initialize `(v ~T0 @X0 1 ef ]
+"56
 {
-[; ;main.c: 64: void main(void)
-[; ;main.c: 65: {
-[e :U _main ]
+[; ;eusart.c: 55: void EUSART_Initialize(void)
+[; ;eusart.c: 56: {
+[e :U _EUSART_Initialize ]
 [f ]
-[; ;main.c: 67: SYSTEM_Initialize();
-"67
-[e ( _SYSTEM_Initialize ..  ]
-[; ;main.c: 69: TMR0_SetInterruptHandler(my10msTimerISR);
+[; ;eusart.c: 60: BAUDCON = 0x08;
+"60
+[e = _BAUDCON -> -> 8 `i `uc ]
+[; ;eusart.c: 63: RCSTA = 0x90;
+"63
+[e = _RCSTA -> -> 144 `i `uc ]
+[; ;eusart.c: 66: TXSTA = 0x24;
+"66
+[e = _TXSTA -> -> 36 `i `uc ]
+[; ;eusart.c: 69: SPBRGL = 0x40;
 "69
-[e ( _TMR0_SetInterruptHandler (1 -> &U _my10msTimerISR `*v ]
-[; ;main.c: 72: (INTCONbits.GIE = 1);
+[e = _SPBRGL -> -> 64 `i `uc ]
+[; ;eusart.c: 72: SPBRGH = 0x03;
 "72
-[e = . . _INTCONbits 0 7 -> -> 1 `i `uc ]
-[; ;main.c: 74: (INTCONbits.PEIE = 1);
+[e = _SPBRGH -> -> 3 `i `uc ]
+[; ;eusart.c: 74: }
 "74
-[e = . . _INTCONbits 0 6 -> -> 1 `i `uc ]
-[; ;main.c: 76: while (1)
-"76
-[e :U 352 ]
-[; ;main.c: 77: {
-"77
-{
-[; ;main.c: 78: for(unsigned char tmp=0;tmp<(10*5);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
-"78
-{
-[v _tmp `uc ~T0 @X0 1 a ]
-[e = _tmp -> -> 0 `i `uc ]
-[e $ < -> _tmp `i * -> 10 `i -> 5 `i 354  ]
-[e $U 355  ]
-[e :U 354 ]
-{
-[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
-}
-[e ++ _tmp -> -> 1 `i `uc ]
-[e $ < -> _tmp `i * -> 10 `i -> 5 `i 354  ]
-[e :U 355 ]
-}
-[; ;main.c: 80: LED_set_state(always_on);
-"80
-[e ( _LED_set_state (1 . `E2833 0 ]
-[; ;main.c: 81: button_init();
-"81
-[e ( _button_init ..  ]
-[; ;main.c: 82: while (b_confirmed_state == nothing)
-"82
-[e $U 357  ]
-[e :U 358 ]
-[; ;main.c: 83: {}
-"83
-{
-}
-[e :U 357 ]
-"82
-[e $ == -> _b_confirmed_state `i -> . `E2845 0 `i 358  ]
-[e :U 359 ]
-[; ;main.c: 85: if (b_confirmed_state == short_push)
-"85
-[e $ ! == -> _b_confirmed_state `i -> . `E2845 1 `i 360  ]
-[; ;main.c: 86: LED_set_state(fast_blinking);
-"86
-[e ( _LED_set_state (1 . `E2833 3 ]
-[e $U 361  ]
-"87
-[e :U 360 ]
-[; ;main.c: 87: else if (b_confirmed_state == long_push)
-[e $ ! == -> _b_confirmed_state `i -> . `E2845 2 `i 362  ]
-[; ;main.c: 88: LED_set_state(slow_blinking);
-"88
-[e ( _LED_set_state (1 . `E2833 2 ]
-[e :U 362 ]
-"89
-[e :U 361 ]
-}
-[e :U 351 ]
-"76
-[e $U 352  ]
-[e :U 353 ]
-[; ;main.c: 89: }
-[; ;main.c: 90: }
-"90
 [e :UE 350 ]
 }
-"92
-[v _my10msTimerISR `(v ~T0 @X0 1 ef ]
-"93
+"77
+[v _EUSART_Read `(uc ~T0 @X0 1 ef ]
+"78
 {
-[; ;main.c: 92: void my10msTimerISR(void)
-[; ;main.c: 93: {
-[e :U _my10msTimerISR ]
+[; ;eusart.c: 77: uint8_t EUSART_Read(void)
+[; ;eusart.c: 78: {
+[e :U _EUSART_Read ]
 [f ]
-[; ;main.c: 94: LED_update_loop();
+[; ;eusart.c: 80: RCSTAbits.SREN = 1;
+"80
+[e = . . _RCSTAbits 0 5 -> -> 1 `i `uc ]
+[; ;eusart.c: 81: while(!PIR1bits.RCIF)
+"81
+[e $U 352  ]
+[e :U 353 ]
+[; ;eusart.c: 82: {
+"82
+{
+"83
+}
+[e :U 352 ]
+"81
+[e $ ! != -> . . _PIR1bits 0 5 `i -> -> -> 0 `i `Vuc `i 353  ]
+[e :U 354 ]
+[; ;eusart.c: 83: }
+[; ;eusart.c: 86: if(1 == RCSTAbits.OERR)
+"86
+[e $ ! == -> 1 `i -> . . _RCSTAbits 0 1 `i 355  ]
+[; ;eusart.c: 87: {
+"87
+{
+[; ;eusart.c: 90: RCSTAbits.SPEN = 0;
+"90
+[e = . . _RCSTAbits 0 7 -> -> 0 `i `uc ]
+[; ;eusart.c: 91: RCSTAbits.SPEN = 1;
+"91
+[e = . . _RCSTAbits 0 7 -> -> 1 `i `uc ]
+"92
+}
+[e :U 355 ]
+[; ;eusart.c: 92: }
+[; ;eusart.c: 94: return RCREG;
 "94
-[e ( _LED_update_loop ..  ]
-[; ;main.c: 95: button_update_loop();
+[e ) _RCREG ]
+[e $UE 351  ]
+[; ;eusart.c: 95: }
 "95
-[e ( _button_update_loop ..  ]
-[; ;main.c: 96: }
-"96
-[e :UE 363 ]
+[e :UE 351 ]
+}
+"97
+[v _EUSART_Write `(v ~T0 @X0 1 ef1`uc ]
+"98
+{
+[; ;eusart.c: 97: void EUSART_Write(uint8_t txData)
+[; ;eusart.c: 98: {
+[e :U _EUSART_Write ]
+"97
+[v _txData `uc ~T0 @X0 1 r1 ]
+"98
+[f ]
+[; ;eusart.c: 99: while(0 == PIR1bits.TXIF)
+"99
+[e $U 357  ]
+[e :U 358 ]
+[; ;eusart.c: 100: {
+"100
+{
+"101
+}
+[e :U 357 ]
+"99
+[e $ == -> 0 `i -> . . _PIR1bits 0 4 `i 358  ]
+[e :U 359 ]
+[; ;eusart.c: 101: }
+[; ;eusart.c: 103: TXREG = txData;
+"103
+[e = _TXREG _txData ]
+[; ;eusart.c: 104: }
+"104
+[e :UE 356 ]
 }

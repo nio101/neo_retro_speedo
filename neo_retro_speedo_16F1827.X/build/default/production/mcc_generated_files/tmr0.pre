@@ -1,5 +1,5 @@
 
-# 1 "main.c"
+# 1 "mcc_generated_files/tmr0.c"
 
 # 26 "D:\Program Files\Microchip\xc8\v1.38\include\htc.h"
 extern const char __xc8_OPTIM_SPEED;
@@ -3718,9 +3718,6 @@ extern unsigned char __resetbits;
 extern __bit __powerdown;
 extern __bit __timeout;
 
-# 137 "mcc_generated_files/pin_manager.h"
-void PIN_MANAGER_Initialize (void);
-
 # 13 "D:\Program Files\Microchip\xc8\v1.38\include\stdint.h"
 typedef signed char int8_t;
 
@@ -3814,9 +3811,6 @@ typedef uint16_t uintptr_t;
 # 12 "D:\Program Files\Microchip\xc8\v1.38\include\stdbool.h"
 typedef unsigned char bool;
 
-# 110 "mcc_generated_files/interrupt_manager.h"
-void interrupt INTERRUPT_InterruptManager(void);
-
 # 103 "mcc_generated_files/tmr0.h"
 void TMR0_Initialize(void);
 
@@ -3844,101 +3838,93 @@ void (*TMR0_InterruptHandler)(void);
 # 298
 void TMR0_DefaultInterruptHandler(void);
 
-# 94 "mcc_generated_files/eusart.h"
-void EUSART_Initialize(void);
+# 57 "mcc_generated_files/tmr0.c"
+volatile uint8_t timer0ReloadVal;
 
-# 114
-uint8_t EUSART_Read(void);
-
-# 134
-void EUSART_Write(uint8_t txData);
-
-# 69 "mcc_generated_files/mcc.h"
-void SYSTEM_Initialize(void);
-
-# 82
-void OSCILLATOR_Initialize(void);
-
-# 21 "interact.h"
-typedef enum {
-always_on, always_off, slow_blinking, fast_blinking, manual_mode
-} LED_state_t;
-
-LED_state_t LED_state=always_off;
-volatile unsigned char LED_counter=0;
-
-
-
-
-void LED_set_state(LED_state_t new_state);
-void LED_update_loop();
-
-# 55
-typedef enum {
-nothing, short_push, long_push
-} confirmed_state_t;
-volatile confirmed_state_t b_confirmed_state;
-
-volatile unsigned char b_count_pressed;
-volatile unsigned char b_count_released;
-volatile bool b_push_confirmed;
-volatile bool b_release_confirmed;
-volatile unsigned b_last_state;
-volatile bool b_has_once_been_released;
-
-void button_init();
-void button_update_loop();
-unsigned char get_button_state();
-
-# 15 "fixed_point.h"
-typedef signed long long t_fp;
-
-const t_fp fp_x0_a = 0x0002D2D0;
-const t_fp fp_x0_b = 0x0001E1E4;
-
-t_fp convert_to_fp(signed short int_part, signed short fract_part);
-t_fp multiply_fp(t_fp n1, t_fp n2);
-t_fp reciprocal_fp(t_fp n);
-
-# 54 "main.c"
-void my10msTimerISR(void);
-
-
-
-const t_fp ratio_mph = 0x00009F14;
-
-# 64
-void main(void)
+# 63
+void TMR0_Initialize(void)
 {
 
-SYSTEM_Initialize();
-
-TMR0_SetInterruptHandler(my10msTimerISR);
 
 
-(INTCONbits.GIE = 1);
+OPTION_REG = (OPTION_REG & 0xC0) | 0xD7 & 0x3F;
 
-(INTCONbits.PEIE = 1);
 
-while (1)
+TMR0 = 0x64;
+
+
+timer0ReloadVal= 100;
+
+
+INTCONbits.TMR0IF = 0;
+
+
+INTCONbits.TMR0IE = 1;
+
+
+TMR0_SetInterruptHandler(TMR0_DefaultInterruptHandler);
+}
+
+
+uint8_t TMR0_ReadTimer(void)
 {
-for(unsigned char tmp=0;tmp<(10*5);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
+uint8_t readVal;
 
-LED_set_state(always_on);
-button_init();
-while (b_confirmed_state == nothing)
-{}
+readVal = TMR0;
 
-if (b_confirmed_state == short_push)
-LED_set_state(fast_blinking);
-else if (b_confirmed_state == long_push)
-LED_set_state(slow_blinking);
+return readVal;
+}
+
+void TMR0_WriteTimer(uint8_t timerVal)
+{
+
+TMR0 = timerVal;
+}
+
+void TMR0_Reload(void)
+{
+
+TMR0 = timer0ReloadVal;
+}
+
+void TMR0_ISR(void)
+{
+static volatile uint16_t CountCallBack = 0;
+
+
+INTCONbits.TMR0IF = 0;
+
+TMR0 = timer0ReloadVal;
+
+
+if (++CountCallBack >= 2)
+{
+
+TMR0_CallBack();
+
+
+CountCallBack = 0;
+}
+
+
+}
+
+void TMR0_CallBack(void)
+{
+
+
+if(TMR0_InterruptHandler)
+{
+TMR0_InterruptHandler();
 }
 }
 
-void my10msTimerISR(void)
-{
-LED_update_loop();
-button_update_loop();
+void TMR0_SetInterruptHandler(void* InterruptHandler){
+TMR0_InterruptHandler = InterruptHandler;
+}
+
+void TMR0_DefaultInterruptHandler(void){
+
+
 }
 

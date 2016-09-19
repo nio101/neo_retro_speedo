@@ -1,19 +1,10 @@
 Version 3.2 HI-TECH Software Intermediate Code
-[v F2819 `(v ~T0 @X0 0 tf ]
-"25 interact.h
-[c E2833 0 1 2 3 4 .. ]
-[n E2833 . always_on always_off slow_blinking fast_blinking manual_mode  ]
-"58
-[c E2845 0 1 2 .. ]
-[n E2845 . nothing short_push long_push  ]
-[p mainexit ]
-"69 mcc_generated_files/mcc.h
-[v _SYSTEM_Initialize `(v ~T0 @X0 0 ef ]
-"262 mcc_generated_files/tmr0.h
-[v _TMR0_SetInterruptHandler `(v ~T0 @X0 0 ef1`*v ]
-"54 main.c
-[v _my10msTimerISR `(v ~T0 @X0 0 ef ]
-"343 D:\Program Files\Microchip\xc8\v1.38\include\pic16f1827.h
+[v F2814 `(v ~T0 @X0 0 tf ]
+"1417 D:\Program Files\Microchip\xc8\v1.38\include\pic16f1827.h
+[v _OPTION_REG `Vuc ~T0 @X0 0 e@149 ]
+"711
+[v _TMR0 `Vuc ~T0 @X0 0 e@21 ]
+"343
 [s S27 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S27 . IOCIF INTF TMR0IF IOCIE INTE TMR0IE PEIE GIE ]
 "353
@@ -24,18 +15,12 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S26 . . . ]
 "360
 [v _INTCONbits `VS26 ~T0 @X0 0 e@11 ]
-[v F2766 `(v ~T0 @X0 1 tf1`ul ]
-"152 D:\Program Files\Microchip\xc8\v1.38\include\pic.h
-[v __delay `JF2766 ~T0 @X0 0 e ]
-[p i __delay ]
-"31 interact.h
-[v _LED_set_state `(v ~T0 @X0 0 ef1`E2833 ]
-"67
-[v _button_init `(v ~T0 @X0 0 ef ]
-"32
-[v _LED_update_loop `(v ~T0 @X0 0 ef ]
-"68
-[v _button_update_loop `(v ~T0 @X0 0 ef ]
+"262 mcc_generated_files/tmr0.h
+[v _TMR0_SetInterruptHandler `(v ~T0 @X0 0 ef1`*v ]
+"298
+[v _TMR0_DefaultInterruptHandler `(v ~T0 @X0 0 ef ]
+"244
+[v _TMR0_CallBack `(v ~T0 @X0 0 ef ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
@@ -2790,7 +2775,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic.h: 186: extern unsigned char __resetbits;
 [; ;pic.h: 187: extern __bit __powerdown;
 [; ;pic.h: 188: extern __bit __timeout;
-[; ;pin_manager.h: 137: void PIN_MANAGER_Initialize (void);
 [; ;stdint.h: 13: typedef signed char int8_t;
 [; ;stdint.h: 20: typedef signed int int16_t;
 [; ;stdint.h: 28: typedef signed short long int int24_t;
@@ -2820,7 +2804,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;stdint.h: 210: typedef int16_t intptr_t;
 [; ;stdint.h: 215: typedef uint16_t uintptr_t;
 [; ;stdbool.h: 12: typedef unsigned char bool;
-[; ;interrupt_manager.h: 110: void interrupt INTERRUPT_InterruptManager(void);
 [; ;tmr0.h: 103: void TMR0_Initialize(void);
 [; ;tmr0.h: 136: uint8_t TMR0_ReadTimer(void);
 [; ;tmr0.h: 175: void TMR0_WriteTimer(uint8_t timerVal);
@@ -2829,182 +2812,183 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;tmr0.h: 244: void TMR0_CallBack(void);
 [; ;tmr0.h: 262: void TMR0_SetInterruptHandler(void *InterruptHandler);
 "280 mcc_generated_files/tmr0.h
-[v _TMR0_InterruptHandler `*F2819 ~T0 @X0 1 e ]
+[v _TMR0_InterruptHandler `*F2814 ~T0 @X0 1 e ]
 [; ;tmr0.h: 280: void (*TMR0_InterruptHandler)(void);
 [; ;tmr0.h: 298: void TMR0_DefaultInterruptHandler(void);
-[; ;eusart.h: 94: void EUSART_Initialize(void);
-[; ;eusart.h: 114: uint8_t EUSART_Read(void);
-[; ;eusart.h: 134: void EUSART_Write(uint8_t txData);
-[; ;mcc.h: 69: void SYSTEM_Initialize(void);
-[; ;mcc.h: 82: void OSCILLATOR_Initialize(void);
-[; ;interact.h: 21: typedef enum {
-[; ;interact.h: 22: always_on, always_off, slow_blinking, fast_blinking, manual_mode
-[; ;interact.h: 23: } LED_state_t;
-"25 interact.h
-[v _LED_state `E2833 ~T0 @X0 1 e ]
-[i _LED_state
-. `E2833 1
-]
-[; ;interact.h: 25: LED_state_t LED_state=always_off;
-"26
-[v _LED_counter `Vuc ~T0 @X0 1 e ]
-[i _LED_counter
--> -> 0 `i `uc
-]
-[; ;interact.h: 26: volatile unsigned char LED_counter=0;
-[; ;interact.h: 31: void LED_set_state(LED_state_t new_state);
-[; ;interact.h: 32: void LED_update_loop();
-[; ;interact.h: 55: typedef enum {
-[; ;interact.h: 56: nothing, short_push, long_push
-[; ;interact.h: 57: } confirmed_state_t;
-"58
-[v _b_confirmed_state `VE2845 ~T0 @X0 1 e ]
-[; ;interact.h: 58: volatile confirmed_state_t b_confirmed_state;
-"60
-[v _b_count_pressed `Vuc ~T0 @X0 1 e ]
-[; ;interact.h: 60: volatile unsigned char b_count_pressed;
-"61
-[v _b_count_released `Vuc ~T0 @X0 1 e ]
-[; ;interact.h: 61: volatile unsigned char b_count_released;
-"62
-[v _b_push_confirmed `Vuc ~T0 @X0 1 e ]
-[; ;interact.h: 62: volatile bool b_push_confirmed;
+"57 mcc_generated_files/tmr0.c
+[v _timer0ReloadVal `Vuc ~T0 @X0 1 e ]
+[; ;tmr0.c: 57: volatile uint8_t timer0ReloadVal;
 "63
-[v _b_release_confirmed `Vuc ~T0 @X0 1 e ]
-[; ;interact.h: 63: volatile bool b_release_confirmed;
+[v _TMR0_Initialize `(v ~T0 @X0 1 ef ]
 "64
-[v _b_last_state `Vui ~T0 @X0 1 e ]
-[; ;interact.h: 64: volatile unsigned b_last_state;
-"65
-[v _b_has_once_been_released `Vuc ~T0 @X0 1 e ]
-[; ;interact.h: 65: volatile bool b_has_once_been_released;
-[; ;interact.h: 67: void button_init();
-[; ;interact.h: 68: void button_update_loop();
-[; ;interact.h: 69: unsigned char get_button_state();
-[; ;fixed_point.h: 15: typedef signed long long t_fp;
-"17 fixed_point.h
-[v _fp_x0_a `Cl ~T0 @X0 1 e ]
-[i _fp_x0_a
--> 185040 `l
-]
-[; ;fixed_point.h: 17: const t_fp fp_x0_a = 0x0002D2D0;
-"18
-[v _fp_x0_b `Cl ~T0 @X0 1 e ]
-[i _fp_x0_b
--> 123364 `l
-]
-[; ;fixed_point.h: 18: const t_fp fp_x0_b = 0x0001E1E4;
-[; ;fixed_point.h: 20: t_fp convert_to_fp(signed short int_part, signed short fract_part);
-[; ;fixed_point.h: 21: t_fp multiply_fp(t_fp n1, t_fp n2);
-[; ;fixed_point.h: 22: t_fp reciprocal_fp(t_fp n);
-[; ;main.c: 54: void my10msTimerISR(void);
-"58 main.c
-[v _ratio_mph `Cl ~T0 @X0 1 e ]
-[i _ratio_mph
--> -> 40724 `ui `l
-]
-[; ;main.c: 58: const t_fp ratio_mph = 0x00009F14;
-"64
-[v _main `(v ~T0 @X0 1 ef ]
-"65
 {
-[; ;main.c: 64: void main(void)
-[; ;main.c: 65: {
-[e :U _main ]
+[; ;tmr0.c: 63: void TMR0_Initialize(void)
+[; ;tmr0.c: 64: {
+[e :U _TMR0_Initialize ]
 [f ]
-[; ;main.c: 67: SYSTEM_Initialize();
-"67
-[e ( _SYSTEM_Initialize ..  ]
-[; ;main.c: 69: TMR0_SetInterruptHandler(my10msTimerISR);
-"69
-[e ( _TMR0_SetInterruptHandler (1 -> &U _my10msTimerISR `*v ]
-[; ;main.c: 72: (INTCONbits.GIE = 1);
-"72
-[e = . . _INTCONbits 0 7 -> -> 1 `i `uc ]
-[; ;main.c: 74: (INTCONbits.PEIE = 1);
+[; ;tmr0.c: 68: OPTION_REG = (OPTION_REG & 0xC0) | 0xD7 & 0x3F;
+"68
+[e = _OPTION_REG -> | & -> _OPTION_REG `i -> 192 `i & -> 215 `i -> 63 `i `uc ]
+[; ;tmr0.c: 71: TMR0 = 0x64;
+"71
+[e = _TMR0 -> -> 100 `i `uc ]
+[; ;tmr0.c: 74: timer0ReloadVal= 100;
 "74
-[e = . . _INTCONbits 0 6 -> -> 1 `i `uc ]
-[; ;main.c: 76: while (1)
-"76
-[e :U 352 ]
-[; ;main.c: 77: {
+[e = _timer0ReloadVal -> -> 100 `i `uc ]
+[; ;tmr0.c: 77: INTCONbits.TMR0IF = 0;
 "77
-{
-[; ;main.c: 78: for(unsigned char tmp=0;tmp<(10*5);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
-"78
-{
-[v _tmp `uc ~T0 @X0 1 a ]
-[e = _tmp -> -> 0 `i `uc ]
-[e $ < -> _tmp `i * -> 10 `i -> 5 `i 354  ]
-[e $U 355  ]
-[e :U 354 ]
-{
-[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
-}
-[e ++ _tmp -> -> 1 `i `uc ]
-[e $ < -> _tmp `i * -> 10 `i -> 5 `i 354  ]
-[e :U 355 ]
-}
-[; ;main.c: 80: LED_set_state(always_on);
+[e = . . _INTCONbits 0 2 -> -> 0 `i `uc ]
+[; ;tmr0.c: 80: INTCONbits.TMR0IE = 1;
 "80
-[e ( _LED_set_state (1 . `E2833 0 ]
-[; ;main.c: 81: button_init();
-"81
-[e ( _button_init ..  ]
-[; ;main.c: 82: while (b_confirmed_state == nothing)
-"82
-[e $U 357  ]
-[e :U 358 ]
-[; ;main.c: 83: {}
+[e = . . _INTCONbits 0 5 -> -> 1 `i `uc ]
+[; ;tmr0.c: 83: TMR0_SetInterruptHandler(TMR0_DefaultInterruptHandler);
 "83
-{
-}
-[e :U 357 ]
-"82
-[e $ == -> _b_confirmed_state `i -> . `E2845 0 `i 358  ]
-[e :U 359 ]
-[; ;main.c: 85: if (b_confirmed_state == short_push)
-"85
-[e $ ! == -> _b_confirmed_state `i -> . `E2845 1 `i 360  ]
-[; ;main.c: 86: LED_set_state(fast_blinking);
-"86
-[e ( _LED_set_state (1 . `E2833 3 ]
-[e $U 361  ]
-"87
-[e :U 360 ]
-[; ;main.c: 87: else if (b_confirmed_state == long_push)
-[e $ ! == -> _b_confirmed_state `i -> . `E2845 2 `i 362  ]
-[; ;main.c: 88: LED_set_state(slow_blinking);
-"88
-[e ( _LED_set_state (1 . `E2833 2 ]
-[e :U 362 ]
-"89
-[e :U 361 ]
-}
-[e :U 351 ]
-"76
-[e $U 352  ]
-[e :U 353 ]
-[; ;main.c: 89: }
-[; ;main.c: 90: }
-"90
+[e ( _TMR0_SetInterruptHandler (1 -> &U _TMR0_DefaultInterruptHandler `*v ]
+[; ;tmr0.c: 84: }
+"84
 [e :UE 350 ]
 }
-"92
-[v _my10msTimerISR `(v ~T0 @X0 1 ef ]
-"93
+"87
+[v _TMR0_ReadTimer `(uc ~T0 @X0 1 ef ]
+"88
 {
-[; ;main.c: 92: void my10msTimerISR(void)
-[; ;main.c: 93: {
-[e :U _my10msTimerISR ]
+[; ;tmr0.c: 87: uint8_t TMR0_ReadTimer(void)
+[; ;tmr0.c: 88: {
+[e :U _TMR0_ReadTimer ]
 [f ]
-[; ;main.c: 94: LED_update_loop();
+"89
+[v _readVal `uc ~T0 @X0 1 a ]
+[; ;tmr0.c: 89: uint8_t readVal;
+[; ;tmr0.c: 91: readVal = TMR0;
+"91
+[e = _readVal _TMR0 ]
+[; ;tmr0.c: 93: return readVal;
+"93
+[e ) _readVal ]
+[e $UE 351  ]
+[; ;tmr0.c: 94: }
 "94
-[e ( _LED_update_loop ..  ]
-[; ;main.c: 95: button_update_loop();
-"95
-[e ( _button_update_loop ..  ]
-[; ;main.c: 96: }
+[e :UE 351 ]
+}
 "96
-[e :UE 363 ]
+[v _TMR0_WriteTimer `(v ~T0 @X0 1 ef1`uc ]
+"97
+{
+[; ;tmr0.c: 96: void TMR0_WriteTimer(uint8_t timerVal)
+[; ;tmr0.c: 97: {
+[e :U _TMR0_WriteTimer ]
+"96
+[v _timerVal `uc ~T0 @X0 1 r1 ]
+"97
+[f ]
+[; ;tmr0.c: 99: TMR0 = timerVal;
+"99
+[e = _TMR0 _timerVal ]
+[; ;tmr0.c: 100: }
+"100
+[e :UE 352 ]
+}
+"102
+[v _TMR0_Reload `(v ~T0 @X0 1 ef ]
+"103
+{
+[; ;tmr0.c: 102: void TMR0_Reload(void)
+[; ;tmr0.c: 103: {
+[e :U _TMR0_Reload ]
+[f ]
+[; ;tmr0.c: 105: TMR0 = timer0ReloadVal;
+"105
+[e = _TMR0 _timer0ReloadVal ]
+[; ;tmr0.c: 106: }
+"106
+[e :UE 353 ]
+}
+"108
+[v _TMR0_ISR `(v ~T0 @X0 1 ef ]
+"109
+{
+[; ;tmr0.c: 108: void TMR0_ISR(void)
+[; ;tmr0.c: 109: {
+[e :U _TMR0_ISR ]
+[f ]
+"110
+[v F2826 `Vui ~T0 @X0 1 s CountCallBack ]
+[i F2826
+-> -> 0 `i `ui
+]
+[; ;tmr0.c: 110: static volatile uint16_t CountCallBack = 0;
+[; ;tmr0.c: 113: INTCONbits.TMR0IF = 0;
+"113
+[e = . . _INTCONbits 0 2 -> -> 0 `i `uc ]
+[; ;tmr0.c: 115: TMR0 = timer0ReloadVal;
+"115
+[e = _TMR0 _timer0ReloadVal ]
+[; ;tmr0.c: 118: if (++CountCallBack >= 2)
+"118
+[e $ ! >= =+ F2826 -> -> 1 `i `ui -> -> 2 `i `ui 355  ]
+[; ;tmr0.c: 119: {
+"119
+{
+[; ;tmr0.c: 121: TMR0_CallBack();
+"121
+[e ( _TMR0_CallBack ..  ]
+[; ;tmr0.c: 124: CountCallBack = 0;
+"124
+[e = F2826 -> -> 0 `i `ui ]
+"125
+}
+[e :U 355 ]
+[; ;tmr0.c: 125: }
+[; ;tmr0.c: 128: }
+"128
+[e :UE 354 ]
+}
+"130
+[v _TMR0_CallBack `(v ~T0 @X0 1 ef ]
+"131
+{
+[; ;tmr0.c: 130: void TMR0_CallBack(void)
+[; ;tmr0.c: 131: {
+[e :U _TMR0_CallBack ]
+[f ]
+[; ;tmr0.c: 134: if(TMR0_InterruptHandler)
+"134
+[e $ ! != _TMR0_InterruptHandler -> -> 0 `i `*F2814 357  ]
+[; ;tmr0.c: 135: {
+"135
+{
+[; ;tmr0.c: 136: TMR0_InterruptHandler();
+"136
+[e ( *U _TMR0_InterruptHandler ..  ]
+"137
+}
+[e :U 357 ]
+[; ;tmr0.c: 137: }
+[; ;tmr0.c: 138: }
+"138
+[e :UE 356 ]
+}
+"140
+[v _TMR0_SetInterruptHandler `(v ~T0 @X0 1 ef1`*v ]
+{
+[; ;tmr0.c: 140: void TMR0_SetInterruptHandler(void* InterruptHandler){
+[e :U _TMR0_SetInterruptHandler ]
+[v _InterruptHandler `*v ~T0 @X0 1 r1 ]
+[f ]
+[; ;tmr0.c: 141: TMR0_InterruptHandler = InterruptHandler;
+"141
+[e = _TMR0_InterruptHandler -> _InterruptHandler `*F2814 ]
+[; ;tmr0.c: 142: }
+"142
+[e :UE 358 ]
+}
+"144
+[v _TMR0_DefaultInterruptHandler `(v ~T0 @X0 1 ef ]
+{
+[; ;tmr0.c: 144: void TMR0_DefaultInterruptHandler(void){
+[e :U _TMR0_DefaultInterruptHandler ]
+[f ]
+[; ;tmr0.c: 147: }
+"147
+[e :UE 359 ]
 }

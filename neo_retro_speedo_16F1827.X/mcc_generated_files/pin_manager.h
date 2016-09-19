@@ -59,6 +59,70 @@
 #define PULL_UP_ENABLED      1
 #define PULL_UP_DISABLED     0
 
+// get/set STATUS_LED aliases
+#define STATUS_LED_TRIS               TRISA2
+#define STATUS_LED_LAT                LATA2
+#define STATUS_LED_PORT               RA2
+#define STATUS_LED_ANS                ANSA2
+#define STATUS_LED_SetHigh()    do { LATA2 = 1; } while(0)
+#define STATUS_LED_SetLow()   do { LATA2 = 0; } while(0)
+#define STATUS_LED_Toggle()   do { LATA2 = ~LATA2; } while(0)
+#define STATUS_LED_GetValue()         PORTAbits.RA2
+#define STATUS_LED_SetDigitalInput()    do { TRISA2 = 1; } while(0)
+#define STATUS_LED_SetDigitalOutput()   do { TRISA2 = 0; } while(0)
+
+#define STATUS_LED_SetAnalogMode()   do { ANSA2 = 1; } while(0)
+#define STATUS_LED_SetDigitalMode()   do { ANSA2 = 0; } while(0)
+
+
+// get/set BUTTON aliases
+#define BUTTON_TRIS               TRISB0
+#define BUTTON_LAT                LATB0
+#define BUTTON_PORT               RB0
+#define BUTTON_WPU                WPUB0
+#define BUTTON_SetHigh()    do { LATB0 = 1; } while(0)
+#define BUTTON_SetLow()   do { LATB0 = 0; } while(0)
+#define BUTTON_Toggle()   do { LATB0 = ~LATB0; } while(0)
+#define BUTTON_GetValue()         PORTBbits.RB0
+#define BUTTON_SetDigitalInput()    do { TRISB0 = 1; } while(0)
+#define BUTTON_SetDigitalOutput()   do { TRISB0 = 0; } while(0)
+
+#define BUTTON_SetPullup()    do { WPUB0 = 1; } while(0)
+#define BUTTON_ResetPullup()   do { WPUB0 = 0; } while(0)
+
+
+// get/set BUTTON aliases
+#define BUTTON_TRIS               TRISB0
+#define BUTTON_LAT                LATB0
+#define BUTTON_PORT               RB0
+#define BUTTON_WPU                WPUB0
+#define BUTTON_SetHigh()    do { LATB0 = 1; } while(0)
+#define BUTTON_SetLow()   do { LATB0 = 0; } while(0)
+#define BUTTON_Toggle()   do { LATB0 = ~LATB0; } while(0)
+#define BUTTON_GetValue()         PORTBbits.RB0
+#define BUTTON_SetDigitalInput()    do { TRISB0 = 1; } while(0)
+#define BUTTON_SetDigitalOutput()   do { TRISB0 = 0; } while(0)
+
+#define BUTTON_SetPullup()    do { WPUB0 = 1; } while(0)
+#define BUTTON_ResetPullup()   do { WPUB0 = 0; } while(0)
+
+
+// get/set BUTTON aliases
+#define BUTTON_TRIS               TRISB0
+#define BUTTON_LAT                LATB0
+#define BUTTON_PORT               RB0
+#define BUTTON_WPU                WPUB0
+#define BUTTON_SetHigh()    do { LATB0 = 1; } while(0)
+#define BUTTON_SetLow()   do { LATB0 = 0; } while(0)
+#define BUTTON_Toggle()   do { LATB0 = ~LATB0; } while(0)
+#define BUTTON_GetValue()         PORTBbits.RB0
+#define BUTTON_SetDigitalInput()    do { TRISB0 = 1; } while(0)
+#define BUTTON_SetDigitalOutput()   do { TRISB0 = 0; } while(0)
+
+#define BUTTON_SetPullup()    do { WPUB0 = 1; } while(0)
+#define BUTTON_ResetPullup()   do { WPUB0 = 0; } while(0)
+
+
 
 /**
  * @Param

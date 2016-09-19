@@ -51,13 +51,13 @@ void PIN_MANAGER_Initialize(void)
     LATB = 0x0;
     LATA = 0x0;
     ANSELA = 0x1F;
-    ANSELB = 0xFE;
+    ANSELB = 0xF8;
     WPUA = 0x20;
     WPUB = 0xFF;
     TRISB = 0xFF;
-    TRISA = 0xFF;
+    TRISA = 0xFB;
 
-    OPTION_REGbits.nWPUEN = 0x1;
+    OPTION_REGbits.nWPUEN = 0x0;
     APFCON0 = 0x00;
     APFCON1 = 0x00;
 

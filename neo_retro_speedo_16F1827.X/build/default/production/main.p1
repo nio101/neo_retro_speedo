@@ -6,15 +6,15 @@ Version 3.2 HI-TECH Software Intermediate Code
 [c E2817 0 1 2 .. ]
 [n E2817 . nothing short_push long_push  ]
 [p mainexit ]
-"18 fixed_point.h
-[v _convert_to_fp `(ul ~T0 @X0 0 ef2`us`us ]
-"20
-[v _multiply_fp `(ul ~T0 @X0 0 ef2`ul`ul ]
+"21 fixed_point.h
+[v _convert_to_fp `(l ~T0 @X0 0 ef2`s`s ]
+"25
+[v _reciprocal_fp `(l ~T0 @X0 0 ef1`l ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
 [; ;pic16f1827.h: 49: extern volatile unsigned char INDF0 @ 0x000;
-"51 D:\Program Files (x86)\Microchip\xc8\v1.38\include\pic16f1827.h
+"51 /opt/microchip/xc8/v1.38/include/pic16f1827.h
 [; ;pic16f1827.h: 51: asm("INDF0 equ 00h");
 [; <" INDF0 equ 00h ;# ">
 [; ;pic16f1827.h: 54: typedef union {
@@ -2840,15 +2840,26 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;interact.h: 67: void button_init();
 [; ;interact.h: 68: void button_update_loop();
 [; ;interact.h: 69: unsigned char get_button_state();
-[; ;fixed_point.h: 16: typedef unsigned long long t_fp;
-[; ;fixed_point.h: 18: t_fp convert_to_fp(unsigned short int_part, unsigned short fract_part);
-[; ;fixed_point.h: 20: t_fp multiply_fp(t_fp n1, t_fp n2);
-[; ;fixed_point.h: 21: t_fp add(t_fp n1, t_fp n2);
-[; ;fixed_point.h: 22: t_fp substract(t_fp n1, t_fp n2);
+[; ;fixed_point.h: 15: typedef signed long long t_fp;
+"17 fixed_point.h
+[v _fp_x0_a `Cl ~T0 @X0 1 e ]
+[i _fp_x0_a
+-> 185040 `l
+]
+[; ;fixed_point.h: 17: const t_fp fp_x0_a = 0x0002D2D0;
+"18
+[v _fp_x0_b `Cl ~T0 @X0 1 e ]
+[i _fp_x0_b
+-> 123364 `l
+]
+[; ;fixed_point.h: 18: const t_fp fp_x0_b = 0x0001E1E4;
+[; ;fixed_point.h: 21: t_fp convert_to_fp(signed short int_part, signed short fract_part);
+[; ;fixed_point.h: 24: t_fp multiply_fp(t_fp n1, t_fp n2);
+[; ;fixed_point.h: 25: t_fp reciprocal_fp(t_fp n);
 "53 main.c
-[v _ratio_mph `Cul ~T0 @X0 1 e ]
+[v _ratio_mph `Cl ~T0 @X0 1 e ]
 [i _ratio_mph
--> -> 40724 `ui `ul
+-> -> 40724 `ui `l
 ]
 [; ;main.c: 53: const t_fp ratio_mph = 0x00009F14;
 "59
@@ -2859,27 +2870,28 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;main.c: 60: {
 [e :U _main ]
 [f ]
-"61
-[v _speed `ul ~T0 @X0 1 a ]
-[; ;main.c: 61: t_fp speed = convert_to_fp(130, 2500);
-[e = _speed ( _convert_to_fp (2 , -> -> 130 `i `us -> -> 2500 `i `us ]
-[; ;main.c: 62: speed = multiply_fp(speed, ratio_mph);
-"62
-[e = _speed ( _multiply_fp (2 , _speed _ratio_mph ]
-[; ;main.c: 82: while (1)
-"82
-[e :U 352 ]
-[; ;main.c: 83: {
-"83
-{
+"64
+[v _t `l ~T0 @X0 1 a ]
+[; ;main.c: 64: t_fp t = convert_to_fp(3, 4582);
+[e = _t ( _convert_to_fp (2 , -> -> 3 `i `s -> -> 4582 `i `s ]
+"65
+[v _u `l ~T0 @X0 1 a ]
+[; ;main.c: 65: t_fp u = reciprocal_fp(t);
+[e = _u ( _reciprocal_fp (1 _t ]
+[; ;main.c: 85: while (1)
 "85
+[e :U 352 ]
+[; ;main.c: 86: {
+"86
+{
+"88
 }
 [e :U 351 ]
-"82
+"85
 [e $U 352  ]
 [e :U 353 ]
-[; ;main.c: 85: }
-[; ;main.c: 86: }
-"86
+[; ;main.c: 88: }
+[; ;main.c: 89: }
+"89
 [e :UE 350 ]
 }

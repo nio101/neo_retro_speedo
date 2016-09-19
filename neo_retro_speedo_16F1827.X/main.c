@@ -58,9 +58,12 @@ const t_fp ratio_mph = 0x00009F14;  // equals to 0.6214 in FP16.16
  */
 void main(void)
 {
-    t_fp speed = convert_to_fp(130, 2500);
-    speed = multiply_fp(speed, ratio_mph);
-
+    //t_fp speed = convert_to_fp(-130, 2500); // test with negative numbers!
+    //t_fp speed2 = multiply_fp(speed, ratio_mph);  // test with negative numbers!
+    
+    t_fp t = convert_to_fp(3, 4582);    
+    t_fp u = reciprocal_fp(t);  // should be ~0.2891
+    
     // initialize the device
     //SYSTEM_Initialize();
 

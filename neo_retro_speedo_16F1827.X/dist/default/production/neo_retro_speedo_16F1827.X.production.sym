@@ -12,7 +12,7 @@ _LATB 10D 0 ABS 0
 _WPUA 20C 0 ABS 0
 _WPUB 20D 0 ABS 0
 _PLLR 4D6 0 ABS 0
-_main 64E 0 CODE 0
+_main 54E 0 CODE 0
 ___sp 0 0 STACK 2
 btemp 7E 0 ABS 0
 ltemp 7E 0 ABS 0
@@ -40,18 +40,20 @@ wtemp5 88 0 ABS 0
 wtemp6 7F 0 ABS 0
 __Hconfig 8009 0 CONFIG 0
 __Lconfig 8007 0 CONFIG 0
-multiply_fp@res 34 0 BANK0 1
-multiply_fp@n1_fra 38 0 BANK0 1
+multiply_fp@res 36 0 BANK0 1
+multiply_fp@n1_fra 3A 0 BANK0 1
 __Hbigram 0 0 ABS 0
 __Lbigram 0 0 ABS 0
+main@t 5B 0 BANK0 1
+main@u 57 0 BANK0 1
 __Hram 0 0 ABS 0
 __Lram 0 0 ABS 0
 __CFG_STVREN$ON 0 0 ABS 0
 convert_to_fp@res 25 0 BANK0 1
-__end_of_ratio_mph 804 0 STRCODE 0
+reciprocal_fp@n 42 0 BANK0 1
+__end_of_ratio_mph 80C 0 STRCODE 0
 __Hfunctab 0 0 CODE 0
 __Lfunctab 0 0 CODE 0
-main@speed 40 0 BANK0 1
 __Hcommon 0 0 ABS 0
 __Lcommon 0 0 ABS 0
 __Heeprom_data 0 0 EEDATA 3
@@ -84,33 +86,34 @@ __Hsfr8 0 0 ABS 0
 __Lsfr8 0 0 ABS 0
 __Hsfr9 0 0 ABS 0
 __Lsfr9 0 0 ABS 0
+?_reciprocal_fp 42 0 BANK0 1
 __size_of_convert_to_fp 0 0 ABS 0
-_LED_state 4B 0 BANK0 1
-_multiply_fp 70D 0 CODE 0
+_LED_state 66 0 BANK0 1
+_multiply_fp 700 0 CODE 0
 __Hcode 0 0 ABS 0
 __Lcode 0 0 ABS 0
 multiply_fp@n1 20 0 BANK0 1
 stackhi 216F 0 ABS 0
 __HcstackBANK0 0 0 ABS 0
 __LcstackBANK0 0 0 ABS 0
-_ratio_mph 800 0 STRCODE 0
 __pcstackBANK0 20 0 BANK0 1
-stacklo 202C 0 ABS 0
-___lmul 61F 0 CODE 0
+stacklo 2047 0 ABS 0
+___lmul 577 0 CODE 0
 __Hinit 2 0 CODE 0
 __Linit 2 0 CODE 0
 __end_of_multiply_fp 7F1 0 CODE 0
-__end_of_main 683 0 CODE 0
+__end_of_main 577 0 CODE 0
 __Htext 0 0 ABS 0
 __Ltext 0 0 ABS 0
-multiply_fp@n2_fra 3C 0 BANK0 1
-convert_to_fp@one 804 0 STRCODE 0
+multiply_fp@n2_fra 3E 0 BANK0 1
+convert_to_fp@one 80C 0 STRCODE 0
 ___lmul@multiplier 70 0 COMMON 1
 __HdataBANK0 0 0 ABS 0
 __LdataBANK0 0 0 ABS 0
-__pdataBANK0 4B 0 BANK0 1
+__pdataBANK0 66 0 BANK0 1
 end_of_initialization 7FD 0 CODE 0
-_b_count_pressed 46 0 BANK0 1
+_b_count_pressed 61 0 BANK0 1
+__end_of_fp_x0_b 808 0 STRCODE 0
 _APFCON0 11D 0 ABS 0
 ___lmul@multiplicand 74 0 COMMON 1
 _APFCON1 11E 0 ABS 0
@@ -156,10 +159,10 @@ __Hsfr28 0 0 ABS 0
 __Lsfr28 0 0 ABS 0
 __Hsfr19 0 0 ABS 0
 __Lsfr19 0 0 ABS 0
-_b_release_confirmed 4A 0 BANK0 1
+_b_release_confirmed 65 0 BANK0 1
 __Hsfr29 0 0 ABS 0
 __Lsfr29 0 0 ABS 0
-__end_ofconvert_to_fp@one 806 0 STRCODE 0
+__end_ofconvert_to_fp@one 80E 0 STRCODE 0
 __Hstrings 0 0 ABS 0
 __Lstrings 0 0 ABS 0
 convert_to_fp@int_part 70 0 COMMON 1
@@ -167,7 +170,7 @@ _OSCTUNE 98 0 ABS 0
 __Hbank0 0 0 ABS 0
 __Lbank0 0 0 ABS 0
 __Hbank1 0 0 ABS 0
-_b_confirmed_state 45 0 BANK0 1
+_b_confirmed_state 60 0 BANK0 1
 __Lbank1 0 0 ABS 0
 __Hbank2 0 0 ABS 0
 __Lbank2 0 0 ABS 0
@@ -176,7 +179,7 @@ __Lbank3 0 0 ABS 0
 ___latbits 1 0 ABS 0
 __Hbank4 0 0 ABS 0
 __Lbank4 0 0 ABS 0
-__end_of___lmul 64E 0 CODE 0
+__end_of___lmul 5A6 0 CODE 0
 _OSCSTAT 9A 0 ABS 0
 __Hbank5 0 0 BANK5 1
 __Lbank5 0 0 BANK5 1
@@ -188,18 +191,23 @@ __Hbank7 0 0 BANK7 1
 __Lbank7 0 0 BANK7 1
 __Hbank8 0 0 BANK8 1
 __Lbank8 0 0 BANK8 1
+reciprocal_fp@i 52 0 BANK0 1
 __Hbank9 0 0 BANK9 1
 __Lbank9 0 0 BANK9 1
 convert_to_fp@res_fract 20 0 BANK0 1
-__ptext1 70D 0 CODE 0
-__ptext2 61F 0 CODE 0
-__ptext3 683 0 CODE 0
+__ptext1 64F 0 CODE 0
+__ptext2 700 0 CODE 0
+__ptext3 577 0 CODE 0
 multiply_fp@n2 24 0 BANK0 1
+__ptext4 5A6 0 CODE 0
 __Hclrtext 0 0 ABS 0
 __Lclrtext 0 0 ABS 0
+_reciprocal_fp$584 4E 0 BANK0 1
 convert_to_fp@tmp_left 22 0 BANK0 1
+_fp_x0_a 800 0 STRCODE 0
+_fp_x0_b 804 0 STRCODE 0
 __end_of__initialization 7FD 0 CODE 0
-_LED_counter 44 0 BANK0 1
+_LED_counter 5F 0 BANK0 1
 ?_multiply_fp 20 0 BANK0 1
 __Hidloc 0 0 IDLOC 0
 __Lidloc 0 0 IDLOC 0
@@ -209,7 +217,7 @@ convert_to_fp@fract_part 72 0 COMMON 1
 __Hspace_0 8009 0 ABS 0
 __Lspace_0 0 0 ABS 0
 __CFG_IESO$ON 0 0 ABS 0
-_b_count_released 47 0 BANK0 1
+_b_count_released 62 0 BANK0 1
 __Hspace_1 7E 0 ABS 0
 __Lspace_1 0 0 ABS 0
 ?___lmul 70 0 COMMON 1
@@ -217,18 +225,21 @@ __Hspace_2 0 0 ABS 0
 __Lspace_2 0 0 ABS 0
 __Hcinit 800 0 CODE 0
 __Lcinit 7F1 0 CODE 0
+reciprocal_fp@x 53 0 BANK0 1
 __Hspace_3 0 0 ABS 0
 __Lspace_3 0 0 ABS 0
 __size_of_main 0 0 ABS 0
+_reciprocal_fp 64F 0 CODE 0
 __CFG_BORV$LO 0 0 ABS 0
 __HidataBANK0 0 0 ABS 0
 __LidataBANK0 0 0 ABS 0
-__pidataBANK0 61E 0 CODE 0
-_b_push_confirmed 49 0 BANK0 1
+__pidataBANK0 54D 0 CODE 0
+_b_push_confirmed 64 0 BANK0 1
+__end_of_fp_x0_a 804 0 STRCODE 0
 __HbssBANK0 0 0 ABS 0
 __LbssBANK0 0 0 ABS 0
 __Hbank10 0 0 BANK10 1
-__pbssBANK0 44 0 BANK0 1
+__pbssBANK0 5F 0 BANK0 1
 __Lbank10 0 0 BANK10 1
 __Hbank20 0 0 BANK20 1
 __Lbank20 0 0 BANK20 1
@@ -275,14 +286,16 @@ __Hbank19 0 0 BANK19 1
 __Lbank19 0 0 BANK19 1
 __Hbank29 0 0 BANK29 1
 __Lbank29 0 0 BANK29 1
+__end_of_reciprocal_fp 700 0 CODE 0
 __CFG_PWRTE$OFF 0 0 ABS 0
 __HbssCOMMON 0 0 ABS 0
 __LbssCOMMON 0 0 ABS 0
 ?_convert_to_fp 70 0 COMMON 1
 __pbssCOMMON 7C 0 COMMON 1
+__size_of_reciprocal_fp 0 0 ABS 0
 __Hend_init 4 0 CODE 0
 __Lend_init 2 0 CODE 0
-_b_has_once_been_released 48 0 BANK0 1
+_b_has_once_been_released 63 0 BANK0 1
 __Hreset_vec 2 0 CODE 0
 __Lreset_vec 0 0 CODE 0
 intlevel0 0 0 CODE 0
@@ -293,7 +306,7 @@ intlevel3 0 0 CODE 0
 __size_of___lmul 0 0 ABS 0
 intlevel4 0 0 CODE 0
 intlevel5 0 0 CODE 0
-_convert_to_fp 683 0 CODE 0
+_convert_to_fp 5A6 0 CODE 0
 __HcstackCOMMON 0 0 ABS 0
 __LcstackCOMMON 0 0 ABS 0
 __pcstackCOMMON 70 0 COMMON 1
@@ -301,9 +314,9 @@ __CFG_CPD$OFF 0 0 ABS 0
 start_initialization 7F1 0 CODE 0
 __Hmaintext 0 0 ABS 0
 __Lmaintext 0 0 ABS 0
-__pmaintext 64E 0 CODE 0
+__pmaintext 54E 0 CODE 0
 __CFG_MCLRE$ON 0 0 ABS 0
-__end_of_convert_to_fp 70D 0 CODE 0
+__end_of_convert_to_fp 64F 0 CODE 0
 _OPTION_REGbits 95 0 ABS 0
 __CFG_FOSC$INTOSC 0 0 ABS 0
 convert_to_fp@i_bit 24 0 BANK0 1
@@ -318,67 +331,76 @@ reset_vec 0 7 CODE 0 0
 cinit FE2 FFF CODE FE2 0
 config 1000E 10011 CONFIG 1000E 0
 cstackCOMMON 70 7D COMMON 70 1
-cstackBANK0 20 4B BANK0 20 1
-text1 E1A FE1 CODE E1A 0
-text3 D06 E19 CODE D06 0
-maintext C9C D05 CODE C9C 0
-text2 C3E C9B CODE C3E 0
-stringtext 1000 100B STRCODE 1000 0
-idataBANK0 C3C C3D CODE C3C 0
+cstackBANK0 20 66 BANK0 20 1
+text2 E00 FE1 CODE E00 0
+text1 C9E DFF CODE C9E 0
+text4 B4C C9D CODE B4C 0
+text3 AEE B4B CODE AEE 0
+maintext A9C AED CODE A9C 0
+stringtext 1000 101B STRCODE 1000 0
+idataBANK0 A9A A9B CODE A9A 0
 %locals
-dist/default/production\neo_retro_speedo_16F1827.X.production.obj
-C:\Users\nio10\AppData\Local\Temp\s3us.
-1746 7F1 0 CODE 0
-1749 7F1 0 CODE 0
-1793 7F1 0 CODE 0
-1794 7F3 0 CODE 0
-1799 7F4 0 CODE 0
-1800 7F5 0 CODE 0
-1804 7F6 0 CODE 0
-1805 7F7 0 CODE 0
-1806 7F8 0 CODE 0
-1807 7F9 0 CODE 0
-1808 7FA 0 CODE 0
-1809 7FB 0 CODE 0
-1810 7FC 0 CODE 0
-1816 7FD 0 CODE 0
-1818 7FD 0 CODE 0
-1819 7FE 0 CODE 0
+dist/default/production/neo_retro_speedo_16F1827.X.production.obj
+/tmp/xcXrRNvGk
+1771 7F1 0 CODE 0
+1774 7F1 0 CODE 0
+1818 7F1 0 CODE 0
+1819 7F3 0 CODE 0
+1824 7F4 0 CODE 0
+1825 7F5 0 CODE 0
+1829 7F6 0 CODE 0
+1830 7F7 0 CODE 0
+1831 7F8 0 CODE 0
+1832 7F9 0 CODE 0
+1833 7FA 0 CODE 0
+1834 7FB 0 CODE 0
+1835 7FC 0 CODE 0
+1841 7FD 0 CODE 0
+1843 7FD 0 CODE 0
+1844 7FE 0 CODE 0
 main.c
-59 64E 0 CODE 0
-61 64E 0 CODE 0
-62 662 0 CODE 0
-82 682 0 CODE 0
+59 54E 0 CODE 0
+64 54E 0 CODE 0
+65 562 0 CODE 0
+85 576 0 CODE 0
 fixed_point.c
-42 70D 0 CODE 0
-45 70D 0 CODE 0
-47 716 0 CODE 0
-49 71E 0 CODE 0
-50 767 0 CODE 0
-51 792 0 CODE 0
-52 7BD 0 CODE 0
-53 7E8 0 CODE 0
-D:\Program Files (x86)\Microchip\xc8\v1.38\sources\common\Umul32.c
-15 61F 0 CODE 0
-119 61F 0 CODE 0
-121 627 0 CODE 0
-122 629 0 CODE 0
-123 631 0 CODE 0
-124 638 0 CODE 0
-125 63F 0 CODE 0
-128 645 0 CODE 0
+57 64F 0 CODE 0
+68 64F 0 CODE 0
+73 693 0 CODE 0
+74 698 0 CODE 0
+73 6EF 0 CODE 0
+75 6F7 0 CODE 0
+45 700 0 CODE 0
+48 700 0 CODE 0
+49 70D 0 CODE 0
+50 719 0 CODE 0
+51 764 0 CODE 0
+52 790 0 CODE 0
+53 7BC 0 CODE 0
+54 7E8 0 CODE 0
+/opt/microchip/xc8/v1.38/sources/common/Umul32.c
+15 577 0 CODE 0
+119 577 0 CODE 0
+121 57F 0 CODE 0
+122 581 0 CODE 0
+123 589 0 CODE 0
+124 590 0 CODE 0
+125 597 0 CODE 0
+128 59D 0 CODE 0
 fixed_point.c
-13 683 0 CODE 0
-20 683 0 CODE 0
-22 68C 0 CODE 0
-23 692 0 CODE 0
-25 6A9 0 CODE 0
-26 6AD 0 CODE 0
-28 6AF 0 CODE 0
-30 6B4 0 CODE 0
-31 6B8 0 CODE 0
-33 6BF 0 CODE 0
-34 6D8 0 CODE 0
-28 6DE 0 CODE 0
-38 6E6 0 CODE 0
-39 704 0 CODE 0
+13 5A6 0 CODE 0
+20 5A6 0 CODE 0
+22 5AF 0 CODE 0
+23 5B8 0 CODE 0
+25 5CF 0 CODE 0
+26 5D3 0 CODE 0
+28 5D5 0 CODE 0
+30 5DA 0 CODE 0
+31 5DE 0 CODE 0
+33 5E5 0 CODE 0
+34 5FE 0 CODE 0
+28 604 0 CODE 0
+38 60C 0 CODE 0
+39 60E 0 CODE 0
+41 628 0 CODE 0
+42 646 0 CODE 0

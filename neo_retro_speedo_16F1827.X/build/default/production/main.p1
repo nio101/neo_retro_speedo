@@ -6,9 +6,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [c E2817 0 1 2 .. ]
 [n E2817 . nothing short_push long_push  ]
 [p mainexit ]
-"16 fixed_point.h
+"18 fixed_point.h
 [v _convert_to_fp `(ul ~T0 @X0 0 ef2`us`us ]
-"18
+"20
 [v _multiply_fp `(ul ~T0 @X0 0 ef2`ul`ul ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
@@ -2840,17 +2840,17 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;interact.h: 67: void button_init();
 [; ;interact.h: 68: void button_update_loop();
 [; ;interact.h: 69: unsigned char get_button_state();
-[; ;fixed_point.h: 14: typedef unsigned long long t_fp;
-[; ;fixed_point.h: 16: t_fp convert_to_fp(unsigned short int_part, unsigned short fract_part);
-[; ;fixed_point.h: 18: t_fp multiply_fp(t_fp n1, t_fp n2);
-[; ;fixed_point.h: 19: t_fp add(t_fp n1, t_fp n2);
-[; ;fixed_point.h: 20: t_fp substract(t_fp n1, t_fp n2);
-"54 main.c
+[; ;fixed_point.h: 16: typedef unsigned long long t_fp;
+[; ;fixed_point.h: 18: t_fp convert_to_fp(unsigned short int_part, unsigned short fract_part);
+[; ;fixed_point.h: 20: t_fp multiply_fp(t_fp n1, t_fp n2);
+[; ;fixed_point.h: 21: t_fp add(t_fp n1, t_fp n2);
+[; ;fixed_point.h: 22: t_fp substract(t_fp n1, t_fp n2);
+"53 main.c
 [v _ratio_mph `Cul ~T0 @X0 1 e ]
 [i _ratio_mph
--> -> -> 10181 `i `l `ul
+-> -> 40724 `ui `ul
 ]
-[; ;main.c: 54: const t_fp ratio_mph = 0x0027C5;
+[; ;main.c: 53: const t_fp ratio_mph = 0x00009F14;
 "59
 [v _main `(v ~T0 @X0 1 ef ]
 "60
@@ -2859,35 +2859,27 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;main.c: 60: {
 [e :U _main ]
 [f ]
-[v _ratio_mph `ul ~T0 @X0 1 a ]
-[; ;main.c: 61: t_fp ratio_mph = convert_to_fp(0, 6214);
 "61
-[e = _ratio_mph ( _convert_to_fp (2 , -> -> 0 `i `us -> -> 6214 `i `us ]
-"62
 [v _speed `ul ~T0 @X0 1 a ]
-[; ;main.c: 62: t_fp speed = convert_to_fp(130, 1500);
-[e = _speed ( _convert_to_fp (2 , -> -> 130 `i `us -> -> 1500 `i `us ]
-[; ;main.c: 63: speed = multiply_fp(speed, ratio_mph);
-"63
+[; ;main.c: 61: t_fp speed = convert_to_fp(130, 2500);
+[e = _speed ( _convert_to_fp (2 , -> -> 130 `i `us -> -> 2500 `i `us ]
+[; ;main.c: 62: speed = multiply_fp(speed, ratio_mph);
+"62
 [e = _speed ( _multiply_fp (2 , _speed _ratio_mph ]
-"65
-[v _tmp `uc ~T0 @X0 1 a ]
-[; ;main.c: 65: char tmp=0;
-[e = _tmp -> -> 0 `i `uc ]
-[; ;main.c: 84: while (1)
-"84
+[; ;main.c: 82: while (1)
+"82
 [e :U 352 ]
-[; ;main.c: 85: {
-"85
+[; ;main.c: 83: {
+"83
 {
-"87
+"85
 }
 [e :U 351 ]
-"84
+"82
 [e $U 352  ]
 [e :U 353 ]
-[; ;main.c: 87: }
-[; ;main.c: 88: }
-"88
+[; ;main.c: 85: }
+[; ;main.c: 86: }
+"86
 [e :UE 350 ]
 }

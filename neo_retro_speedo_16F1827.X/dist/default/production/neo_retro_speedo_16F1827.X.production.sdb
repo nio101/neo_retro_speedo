@@ -41,9 +41,9 @@ long_push 2
 [v _eecpymem eecpymem `(v  1 e 1 0 ]
 "39
 [v _memcpyee memcpyee `(v  1 e 1 0 ]
-"11 D:\uc_stuff\neo_retro_speedo\neo_retro_speedo_16F1827.X\fixed_point.c
+"13 D:\uc_stuff\neo_retro_speedo\neo_retro_speedo_16F1827.X\fixed_point.c
 [v _convert_to_fp convert_to_fp `(ul  1 e 4 0 ]
-"40
+"42
 [v _multiply_fp multiply_fp `(ul  1 e 4 0 ]
 "58 D:\uc_stuff\neo_retro_speedo\neo_retro_speedo_16F1827.X\interact.c
 [v _get_button_state get_button_state `(uc  1 e 1 0 ]
@@ -57,7 +57,7 @@ long_push 2
 [v _TRISA TRISA `VEuc  1 e 1 @140 ]
 "1181
 [v _TRISB TRISB `VEuc  1 e 1 @141 ]
-[s S77 . 1 `uc 1 PS0 1 0 :1:0 
+[s S41 . 1 `uc 1 PS0 1 0 :1:0 
 `uc 1 PS1 1 0 :1:1 
 `uc 1 PS2 1 0 :1:2 
 `uc 1 PSA 1 0 :1:3 
@@ -67,13 +67,13 @@ long_push 2
 `uc 1 nWPUEN 1 0 :1:7 
 ]
 "1440
-[s S86 . 1 `uc 1 PS 1 0 :3:0 
+[s S50 . 1 `uc 1 PS 1 0 :3:0 
 `uc 1 . 1 0 :1:3 
 `uc 1 T0SE 1 0 :1:4 
 `uc 1 T0CS 1 0 :1:5 
 ]
-[u S91 . 1 `S77 1 . 1 0 `S86 1 . 1 0 ]
-[v _OPTION_REGbits OPTION_REGbits `VES91  1 e 1 @149 ]
+[u S55 . 1 `S41 1 . 1 0 `S50 1 . 1 0 ]
+[v _OPTION_REGbits OPTION_REGbits `VES55  1 e 1 @149 ]
 "1607
 [v _OSCTUNE OSCTUNE `VEuc  1 e 1 @152 ]
 "1664
@@ -116,29 +116,27 @@ long_push 2
 [v _b_last_state b_last_state `VEui  1 e 2 0 ]
 "65
 [v _b_has_once_been_released b_has_once_been_released `VEuc  1 e 1 0 ]
-"59 D:\uc_stuff\neo_retro_speedo\neo_retro_speedo_16F1827.X\main.c
+"53 D:\uc_stuff\neo_retro_speedo\neo_retro_speedo_16F1827.X\main.c
+[v _ratio_mph ratio_mph `DCCul  1 e 4 0 ]
+"59
 [v _main main `(v  1 e 1 0 ]
 {
-"62
-[v main@speed speed `ul  1 a 4 37 ]
-"60
-[v main@ratio_mph ratio_mph `ul  1 a 4 33 ]
-"65
-[v main@tmp tmp `uc  1 a 1 32 ]
-"88
+"61
+[v main@speed speed `ul  1 a 4 32 ]
+"86
 } 0
-"40 D:\uc_stuff\neo_retro_speedo\neo_retro_speedo_16F1827.X\fixed_point.c
+"42 D:\uc_stuff\neo_retro_speedo\neo_retro_speedo_16F1827.X\fixed_point.c
 [v _multiply_fp multiply_fp `(ul  1 e 4 0 ]
 {
-"42
+"44
 [v multiply_fp@n2_fra n2_fra `ul  1 a 4 28 ]
 [v multiply_fp@n1_fra n1_fra `ul  1 a 4 24 ]
-"45
+"49
 [v multiply_fp@res res `ul  1 a 4 20 ]
-"40
+"42
 [v multiply_fp@n1 n1 `ul  1 p 4 0 ]
 [v multiply_fp@n2 n2 `ul  1 p 4 4 ]
-"50
+"54
 } 0
 "15 D:\Program Files (x86)\Microchip\xc8\v1.38\sources\common\Umul32.c
 [v ___lmul __lmul `(ul  1 e 4 0 ]
@@ -150,21 +148,21 @@ long_push 2
 [v ___lmul@multiplicand multiplicand `ul  1 p 4 4 ]
 "129
 } 0
-"11 D:\uc_stuff\neo_retro_speedo\neo_retro_speedo_16F1827.X\fixed_point.c
+"13 D:\uc_stuff\neo_retro_speedo\neo_retro_speedo_16F1827.X\fixed_point.c
 [v _convert_to_fp convert_to_fp `(ul  1 e 4 0 ]
 {
-"26
+"28
 [v convert_to_fp@i_bit i_bit `uc  1 a 1 4 ]
-"18
+"20
 [v convert_to_fp@res res `ul  1 a 4 5 ]
-"23
+"25
 [v convert_to_fp@tmp_left tmp_left `us  1 a 2 2 ]
-"24
+"26
 [v convert_to_fp@res_fract res_fract `us  1 a 2 0 ]
-"11
+"13
 [v convert_to_fp@int_part int_part `us  1 p 2 0 ]
 [v convert_to_fp@fract_part fract_part `us  1 p 2 2 ]
-"25
+"27
 [v convert_to_fp@one one `DCCus  1 s 2 one ]
-"38
+"40
 } 0

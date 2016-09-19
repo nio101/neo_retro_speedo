@@ -8,14 +8,15 @@
 
 #include "mcc_generated_files/mcc.h"
 
-// 24 bits: FP10.14
-// or 32 bits, 16.16 ?
-#define FIXED_POINT_TOTAL_SIZE  24
-#define FIXED_POINT_FRACT       14
-typedef unsigned short long t_fp;    // 24 bits
+// warning: unsigned values only!
+
+// 32 bits, 16.16
+#define FIXED_POINT_TOTAL_SIZE  16
+#define FIXED_POINT_FRACT       16
+typedef unsigned long long t_fp;    // 32 bits
 
 t_fp convert_to_fp(unsigned short int_part, unsigned short fract_part);
 
-t_fp multiply_fp(t_fp n1, t_fp n2);
-t_fp  add(t_fp n1, t_fp n2);
-t_fp  substract(t_fp n1, t_fp n2);
+t_fp multiply_fp(t_fp n1, t_fp n2); //!OVERFLOW POSSIBLE!
+t_fp add(t_fp n1, t_fp n2);         //!OVERFLOW POSSIBLE!
+t_fp substract(t_fp n1, t_fp n2);

@@ -2785,177 +2785,183 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;stdbool.h: 12: typedef unsigned char bool;
 [; ;mcc.h: 66: void SYSTEM_Initialize(void);
 [; ;mcc.h: 79: void OSCILLATOR_Initialize(void);
-[; ;fixed_point.h: 14: typedef unsigned long long t_fp;
-[; ;fixed_point.h: 16: t_fp convert_to_fp(unsigned short int_part, unsigned short fract_part);
-[; ;fixed_point.h: 18: t_fp multiply_fp(t_fp n1, t_fp n2);
-[; ;fixed_point.h: 19: t_fp add(t_fp n1, t_fp n2);
-[; ;fixed_point.h: 20: t_fp substract(t_fp n1, t_fp n2);
-"11 fixed_point.c
+[; ;fixed_point.h: 16: typedef unsigned long long t_fp;
+[; ;fixed_point.h: 18: t_fp convert_to_fp(unsigned short int_part, unsigned short fract_part);
+[; ;fixed_point.h: 20: t_fp multiply_fp(t_fp n1, t_fp n2);
+[; ;fixed_point.h: 21: t_fp add(t_fp n1, t_fp n2);
+[; ;fixed_point.h: 22: t_fp substract(t_fp n1, t_fp n2);
+"13 fixed_point.c
 [v _convert_to_fp `(ul ~T0 @X0 1 ef2`us`us ]
-"12
+"14
 {
-[; ;fixed_point.c: 11: t_fp convert_to_fp(unsigned short int_part, unsigned short fract_part)
-[; ;fixed_point.c: 12: {
+[; ;fixed_point.c: 13: t_fp convert_to_fp(unsigned short int_part, unsigned short fract_part)
+[; ;fixed_point.c: 14: {
 [e :U _convert_to_fp ]
-"11
+"13
 [v _int_part `us ~T0 @X0 1 r1 ]
 [v _fract_part `us ~T0 @X0 1 r2 ]
-"12
+"14
 [f ]
-"18
-[v _res `ul ~T0 @X0 1 a ]
-[; ;fixed_point.c: 18: t_fp res = 0;
-[e = _res -> -> -> 0 `i `l `ul ]
-[; ;fixed_point.c: 20: res = int_part;
 "20
+[v _res `ul ~T0 @X0 1 a ]
+[; ;fixed_point.c: 20: t_fp res = 0;
+[e = _res -> -> -> 0 `i `l `ul ]
+[; ;fixed_point.c: 22: res = int_part;
+"22
 [e = _res -> _int_part `ul ]
-[; ;fixed_point.c: 21: res = res << 14;
-"21
-[e = _res << _res -> 14 `i ]
+[; ;fixed_point.c: 23: res = res << 16;
 "23
-[v _tmp_left `us ~T0 @X0 1 a ]
-[; ;fixed_point.c: 23: unsigned short tmp_left = fract_part;
-[e = _tmp_left _fract_part ]
-"24
-[v _res_fract `us ~T0 @X0 1 a ]
-[; ;fixed_point.c: 24: unsigned short res_fract = 0;
-[e = _res_fract -> -> 0 `i `us ]
+[e = _res << _res -> 16 `i ]
 "25
+[v _tmp_left `us ~T0 @X0 1 a ]
+[; ;fixed_point.c: 25: unsigned short tmp_left = fract_part;
+[e = _tmp_left _fract_part ]
+"26
+[v _res_fract `us ~T0 @X0 1 a ]
+[; ;fixed_point.c: 26: unsigned short res_fract = 0;
+[e = _res_fract -> -> 0 `i `us ]
+"27
 [v F2823 `Cus ~T0 @X0 1 s one ]
 [i F2823
 -> -> 1 `i `us
 ]
-[; ;fixed_point.c: 25: const unsigned short one = 1;
-[; ;fixed_point.c: 26: for (unsigned char i_bit = 0; i_bit < 14; i_bit++)
-"26
+[; ;fixed_point.c: 27: const unsigned short one = 1;
+[; ;fixed_point.c: 28: for (unsigned char i_bit = 0; i_bit < 16; i_bit++)
+"28
 {
 [v _i_bit `uc ~T0 @X0 1 a ]
 [e = _i_bit -> -> 0 `i `uc ]
-[e $ < -> _i_bit `i -> 14 `i 351  ]
+[e $ < -> _i_bit `i -> 16 `i 351  ]
 [e $U 352  ]
-"27
-[e :U 351 ]
-[; ;fixed_point.c: 27: {
-{
-[; ;fixed_point.c: 28: tmp_left = tmp_left << 1;
-"28
-[e = _tmp_left -> << -> _tmp_left `ui -> 1 `i `us ]
-[; ;fixed_point.c: 29: if (tmp_left >= 10000)
 "29
-[e $ ! >= -> _tmp_left `ui -> -> 10000 `i `ui 354  ]
-[; ;fixed_point.c: 30: {
-"30
+[e :U 351 ]
+[; ;fixed_point.c: 29: {
 {
-[; ;fixed_point.c: 31: res_fract = res_fract | one<<(14-i_bit-1);
+[; ;fixed_point.c: 30: tmp_left = tmp_left << 1;
+"30
+[e = _tmp_left -> << -> _tmp_left `ui -> 1 `i `us ]
+[; ;fixed_point.c: 31: if (tmp_left >= 10000)
 "31
-[e = _res_fract -> | -> _res_fract `ui << -> F2823 `ui - - -> 14 `i -> _i_bit `i -> 1 `i `us ]
-[; ;fixed_point.c: 32: tmp_left = tmp_left - 10000;
+[e $ ! >= -> _tmp_left `ui -> -> 10000 `i `ui 354  ]
+[; ;fixed_point.c: 32: {
 "32
-[e = _tmp_left -> - -> _tmp_left `ui -> -> 10000 `i `ui `us ]
+{
+[; ;fixed_point.c: 33: res_fract = res_fract | one<<(16-i_bit-1);
 "33
+[e = _res_fract -> | -> _res_fract `ui << -> F2823 `ui - - -> 16 `i -> _i_bit `i -> 1 `i `us ]
+[; ;fixed_point.c: 34: tmp_left = tmp_left - 10000;
+"34
+[e = _tmp_left -> - -> _tmp_left `ui -> -> 10000 `i `ui `us ]
+"35
 }
 [e :U 354 ]
-"34
-}
-"26
-[e ++ _i_bit -> -> 1 `i `uc ]
-[e $ < -> _i_bit `i -> 14 `i 351  ]
-[e :U 352 ]
-"34
-}
-[; ;fixed_point.c: 33: }
-[; ;fixed_point.c: 34: }
-[; ;fixed_point.c: 36: res = res + res_fract;
 "36
+}
+"28
+[e ++ _i_bit -> -> 1 `i `uc ]
+[e $ < -> _i_bit `i -> 16 `i 351  ]
+[e :U 352 ]
+"36
+}
+[; ;fixed_point.c: 35: }
+[; ;fixed_point.c: 36: }
+[; ;fixed_point.c: 38: res = res + res_fract;
+"38
 [e = _res + _res -> _res_fract `ul ]
-[; ;fixed_point.c: 37: return res;
-"37
+[; ;fixed_point.c: 39: return res;
+"39
 [e ) _res ]
 [e $UE 350  ]
-[; ;fixed_point.c: 38: }
-"38
+[; ;fixed_point.c: 40: }
+"40
 [e :UE 350 ]
 }
-"40
+"42
 [v _multiply_fp `(ul ~T0 @X0 1 ef2`ul`ul ]
-"41
+"43
 {
-[; ;fixed_point.c: 40: t_fp multiply_fp(t_fp n1, t_fp n2)
-[; ;fixed_point.c: 41: {
+[; ;fixed_point.c: 42: t_fp multiply_fp(t_fp n1, t_fp n2)
+[; ;fixed_point.c: 43: {
 [e :U _multiply_fp ]
-"40
+"42
 [v _n1 `ul ~T0 @X0 1 r1 ]
 [v _n2 `ul ~T0 @X0 1 r2 ]
-"41
+"43
 [f ]
-"42
+"44
 [v _n1_fra `ul ~T0 @X0 1 a ]
 [v _n2_fra `ul ~T0 @X0 1 a ]
-[; ;fixed_point.c: 42: t_fp n1_fra, n2_fra;
-[; ;fixed_point.c: 43: n1_fra = (n1 << (24-14)) >> (24-14);
-"43
-[e = _n1_fra >> << _n1 - -> 24 `i -> 14 `i - -> 24 `i -> 14 `i ]
-[; ;fixed_point.c: 44: n2_fra = (n2 << (24-14)) >> (24-14);
-"44
-[e = _n2_fra >> << _n2 - -> 24 `i -> 14 `i - -> 24 `i -> 14 `i ]
+[; ;fixed_point.c: 44: t_fp n1_fra, n2_fra;
+[; ;fixed_point.c: 45: n1_fra = n1 << (16-16);
 "45
-[v _res `ul ~T0 @X0 1 a ]
-[; ;fixed_point.c: 45: unsigned long long res = ((unsigned long long) (n1 >> 14) * (unsigned long long) (n2 >> 14))<<14;
-[e = _res << * >> _n1 -> 14 `i >> _n2 -> 14 `i -> 14 `i ]
-[; ;fixed_point.c: 46: res+ = ((unsigned long long) (n1 >> 14) * (unsigned long long) n2_fra);
+[e = _n1_fra << _n1 - -> 16 `i -> 16 `i ]
+[; ;fixed_point.c: 46: n1_fra = n1_fra >> (16-16);
 "46
-[e =+ _res * >> _n1 -> 14 `i _n2_fra ]
-[; ;fixed_point.c: 47: res+ = ((unsigned long long) (n2 >> 14) * (unsigned long long) n1_fra);
+[e = _n1_fra >> _n1_fra - -> 16 `i -> 16 `i ]
+[; ;fixed_point.c: 47: n2_fra = n2 << (16-16);
 "47
-[e =+ _res * >> _n2 -> 14 `i _n1_fra ]
-[; ;fixed_point.c: 48: res+ = ((unsigned long long) n1_fra * (unsigned long long) n2_fra)>>14;
+[e = _n2_fra << _n2 - -> 16 `i -> 16 `i ]
+[; ;fixed_point.c: 48: n2_fra = n2_fra >> (16-16);
 "48
-[e =+ _res >> * _n1_fra _n2_fra -> 14 `i ]
-[; ;fixed_point.c: 49: return res;
+[e = _n2_fra >> _n2_fra - -> 16 `i -> 16 `i ]
 "49
+[v _res `ul ~T0 @X0 1 a ]
+[; ;fixed_point.c: 49: unsigned long long res = ((unsigned long long) (n1 >> 16) * (unsigned long long) (n2 >> 16))<<16;
+[e = _res << * >> _n1 -> 16 `i >> _n2 -> 16 `i -> 16 `i ]
+[; ;fixed_point.c: 50: res+ = ((unsigned long long) (n1 >> 16) * (unsigned long long) n2_fra);
+"50
+[e =+ _res * >> _n1 -> 16 `i _n2_fra ]
+[; ;fixed_point.c: 51: res+ = ((unsigned long long) (n2 >> 16) * (unsigned long long) n1_fra);
+"51
+[e =+ _res * >> _n2 -> 16 `i _n1_fra ]
+[; ;fixed_point.c: 52: res+ = ((unsigned long long) n1_fra * (unsigned long long) n2_fra)>>16;
+"52
+[e =+ _res >> * _n1_fra _n2_fra -> 16 `i ]
+[; ;fixed_point.c: 53: return res;
+"53
 [e ) _res ]
 [e $UE 355  ]
-[; ;fixed_point.c: 50: }
-"50
+[; ;fixed_point.c: 54: }
+"54
 [e :UE 355 ]
 }
-"52
+"56
 [v _add `(ul ~T0 @X0 1 ef2`ul`ul ]
-"53
+"57
 {
-[; ;fixed_point.c: 52: t_fp add(t_fp n1, t_fp n2)
-[; ;fixed_point.c: 53: {
+[; ;fixed_point.c: 56: t_fp add(t_fp n1, t_fp n2)
+[; ;fixed_point.c: 57: {
 [e :U _add ]
-"52
+"56
 [v _n1 `ul ~T0 @X0 1 r1 ]
 [v _n2 `ul ~T0 @X0 1 r2 ]
-"53
+"57
 [f ]
-[; ;fixed_point.c: 54: return (t_fp)(n1+n2);
-"54
+[; ;fixed_point.c: 58: return (t_fp)(n1+n2);
+"58
 [e ) + _n1 _n2 ]
 [e $UE 356  ]
-[; ;fixed_point.c: 55: }
-"55
+[; ;fixed_point.c: 59: }
+"59
 [e :UE 356 ]
 }
-"57
+"61
 [v _substract `(ul ~T0 @X0 1 ef2`ul`ul ]
-"58
+"62
 {
-[; ;fixed_point.c: 57: t_fp substract(t_fp n1, t_fp n2)
-[; ;fixed_point.c: 58: {
+[; ;fixed_point.c: 61: t_fp substract(t_fp n1, t_fp n2)
+[; ;fixed_point.c: 62: {
 [e :U _substract ]
-"57
+"61
 [v _n1 `ul ~T0 @X0 1 r1 ]
 [v _n2 `ul ~T0 @X0 1 r2 ]
-"58
+"62
 [f ]
-[; ;fixed_point.c: 59: return (t_fp)(n1-n2);
-"59
+[; ;fixed_point.c: 63: return (t_fp)(n1-n2);
+"63
 [e ) - _n1 _n2 ]
 [e $UE 357  ]
-[; ;fixed_point.c: 60: }
-"60
+[; ;fixed_point.c: 64: }
+"64
 [e :UE 357 ]
 }

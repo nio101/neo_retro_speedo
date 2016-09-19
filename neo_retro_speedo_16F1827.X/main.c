@@ -49,20 +49,18 @@
 #include "fixed_point.h"
 
 
-//ratio mph/kmh, equals to 0.6214 in FP16.16
-//const t_fp ratio_mph = 0x00009F14;
-const t_fp ratio_mph = 0x0027C5;    // equals to 0.6214 in FP10.14
+// mph/kmh ratio
+const t_fp ratio_mph = 0x00009F14;  // equals to 0.6214 in FP16.16
+
 
 /*
     Main application
  */
 void main(void)
 {
-    //t_fp ratio_mph = convert_to_fp(0, 6214);
-    t_fp speed = convert_to_fp(130, 1500);
+    t_fp speed = convert_to_fp(130, 2500);
     speed = multiply_fp(speed, ratio_mph);
-        
-    char tmp=0;
+
     // initialize the device
     //SYSTEM_Initialize();
 

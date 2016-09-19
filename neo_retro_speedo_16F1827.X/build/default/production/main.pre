@@ -3851,7 +3851,7 @@ void button_init();
 void button_update_loop();
 unsigned char get_button_state();
 
-# 14 "fixed_point.h"
+# 16 "fixed_point.h"
 typedef unsigned long long t_fp;
 
 t_fp convert_to_fp(unsigned short int_part, unsigned short fract_part);
@@ -3860,19 +3860,16 @@ t_fp multiply_fp(t_fp n1, t_fp n2);
 t_fp add(t_fp n1, t_fp n2);
 t_fp substract(t_fp n1, t_fp n2);
 
-# 54 "main.c"
-const t_fp ratio_mph = 0x0027C5;
+# 53 "main.c"
+const t_fp ratio_mph = 0x00009F14;
 
 # 59
 void main(void)
 {
-t_fp ratio_mph = convert_to_fp(0, 6214);
-t_fp speed = convert_to_fp(130, 1500);
+t_fp speed = convert_to_fp(130, 2500);
 speed = multiply_fp(speed, ratio_mph);
 
-char tmp=0;
-
-# 84
+# 82
 while (1)
 {
 

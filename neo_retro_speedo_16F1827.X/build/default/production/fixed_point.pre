@@ -3820,7 +3820,7 @@ void SYSTEM_Initialize(void);
 # 79
 void OSCILLATOR_Initialize(void);
 
-# 14 "fixed_point.h"
+# 16 "fixed_point.h"
 typedef unsigned long long t_fp;
 
 t_fp convert_to_fp(unsigned short int_part, unsigned short fract_part);
@@ -3829,25 +3829,25 @@ t_fp multiply_fp(t_fp n1, t_fp n2);
 t_fp add(t_fp n1, t_fp n2);
 t_fp substract(t_fp n1, t_fp n2);
 
-# 11 "fixed_point.c"
+# 13 "fixed_point.c"
 t_fp convert_to_fp(unsigned short int_part, unsigned short fract_part)
 {
 
-# 18
+# 20
 t_fp res = 0;
 
 res = int_part;
-res = res << 14;
+res = res << 16;
 
 unsigned short tmp_left = fract_part;
 unsigned short res_fract = 0;
 const unsigned short one = 1;
-for (unsigned char i_bit = 0; i_bit < 14; i_bit++)
+for (unsigned char i_bit = 0; i_bit < 16; i_bit++)
 {
 tmp_left = tmp_left << 1;
 if (tmp_left >= 10000)
 {
-res_fract = res_fract | one<<(14-i_bit-1);
+res_fract = res_fract | one<<(16-i_bit-1);
 tmp_left = tmp_left - 10000;
 }
 }
@@ -3859,12 +3859,14 @@ return res;
 t_fp multiply_fp(t_fp n1, t_fp n2)
 {
 t_fp n1_fra, n2_fra;
-n1_fra = (n1 << (24-14)) >> (24-14);
-n2_fra = (n2 << (24-14)) >> (24-14);
-unsigned long long res = ((unsigned long long) (n1 >> 14) * (unsigned long long) (n2 >> 14))<<14;
-res+ = ((unsigned long long) (n1 >> 14) * (unsigned long long) n2_fra);
-res+ = ((unsigned long long) (n2 >> 14) * (unsigned long long) n1_fra);
-res+ = ((unsigned long long) n1_fra * (unsigned long long) n2_fra)>>14;
+n1_fra = n1 << (16-16);
+n1_fra = n1_fra >> (16-16);
+n2_fra = n2 << (16-16);
+n2_fra = n2_fra >> (16-16);
+unsigned long long res = ((unsigned long long) (n1 >> 16) * (unsigned long long) (n2 >> 16))<<16;
+res+ = ((unsigned long long) (n1 >> 16) * (unsigned long long) n2_fra);
+res+ = ((unsigned long long) (n2 >> 16) * (unsigned long long) n1_fra);
+res+ = ((unsigned long long) n1_fra * (unsigned long long) n2_fra)>>16;
 return res;
 }
 

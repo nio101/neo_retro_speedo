@@ -239,7 +239,7 @@ bool GPS_read_speed(void) // read & parse/check one NMEA sentence
         }
     // this type of GPS always outputs 2 digits avec dot
     // so multiply the fractional part by 100
-    // to comply with the FP definition/convertion
+    // to comply with the FP definition/conversion
     read_speed_fra *= 100;
     // read_speed_int/fra now contain the read speed
     // if checksum is ok, overwrite speed later

@@ -9,6 +9,9 @@
 #include "fixed_point.h"
 
 
+const t_fp fp_x0_a = 0x0002D2D0;  // 2.8235
+const t_fp fp_x0_b = 0x0001E1E4;  // 1.8824
+
 t_fp  convert_to_fp(signed short int_part, signed short fract_part)
 {
     // ! int_part & fract_part should be <= 65535 !

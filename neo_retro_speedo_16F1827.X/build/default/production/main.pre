@@ -3844,14 +3844,87 @@ void (*TMR0_InterruptHandler)(void);
 # 298
 void TMR0_DefaultInterruptHandler(void);
 
-# 94 "mcc_generated_files/eusart.h"
+# 4 "D:\Program Files\Microchip\xc8\v1.38\include\__size_t.h"
+typedef unsigned size_t;
+
+# 7 "D:\Program Files\Microchip\xc8\v1.38\include\stdarg.h"
+typedef void * va_list[1];
+
+#pragma intrinsic(__va_start)
+extern void * __va_start(void);
+
+#pragma intrinsic(__va_arg)
+extern void * __va_arg(void *, ...);
+
+# 43 "D:\Program Files\Microchip\xc8\v1.38\include\stdio.h"
+struct __prbuf
+{
+char * ptr;
+void (* func)(char);
+};
+
+# 29 "D:\Program Files\Microchip\xc8\v1.38\include\errno.h"
+extern int errno;
+
+# 12 "D:\Program Files\Microchip\xc8\v1.38\include\conio.h"
+extern void init_uart(void);
+
+extern char getch(void);
+extern char getche(void);
+extern void putch(char);
+extern void ungetch(char);
+
+extern __bit kbhit(void);
+
+# 23
+extern char * cgets(char *);
+extern void cputs(const char *);
+
+# 88 "D:\Program Files\Microchip\xc8\v1.38\include\stdio.h"
+extern int cprintf(char *, ...);
+#pragma printf_check(cprintf)
+
+
+
+extern int _doprnt(struct __prbuf *, const register char *, register va_list);
+
+
+# 180
+#pragma printf_check(vprintf) const
+#pragma printf_check(vsprintf) const
+
+extern char * gets(char *);
+extern int puts(const char *);
+extern int scanf(const char *, ...) __attribute__((unsupported("scanf() is not supported by this compiler")));
+extern int sscanf(const char *, const char *, ...) __attribute__((unsupported("sscanf() is not supported by this compiler")));
+extern int vprintf(const char *, va_list) __attribute__((unsupported("vprintf() is not supported by this compiler")));
+extern int vsprintf(char *, const char *, va_list) __attribute__((unsupported("vsprintf() is not supported by this compiler")));
+extern int vscanf(const char *, va_list ap) __attribute__((unsupported("vscanf() is not supported by this compiler")));
+extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupported("vsscanf() is not supported by this compiler")));
+
+#pragma printf_check(printf) const
+#pragma printf_check(sprintf) const
+extern int sprintf(char *, const char *, ...);
+extern int printf(const char *, ...);
+
+# 77 "mcc_generated_files/eusart.h"
+extern volatile uint8_t eusartTxBufferRemaining;
+extern volatile uint8_t eusartRxCount;
+
+# 106
 void EUSART_Initialize(void);
 
-# 114
+# 155
 uint8_t EUSART_Read(void);
 
-# 134
+# 180
 void EUSART_Write(uint8_t txData);
+
+# 201
+void EUSART_Transmit_ISR(void);
+
+# 222
+void EUSART_Receive_ISR(void);
 
 # 69 "mcc_generated_files/mcc.h"
 void SYSTEM_Initialize(void);
@@ -3893,21 +3966,37 @@ unsigned char get_button_state();
 # 15 "fixed_point.h"
 typedef signed long long t_fp;
 
-const t_fp fp_x0_a = 0x0002D2D0;
-const t_fp fp_x0_b = 0x0001E1E4;
+t_fp convert_to_fp(signed short int_part, signed short fract_part);
+t_fp multiply_fp(t_fp n1, t_fp n2);
+t_fp reciprocal_fp(t_fp n);
+
+# 15
+typedef signed long long t_fp;
 
 t_fp convert_to_fp(signed short int_part, signed short fract_part);
 t_fp multiply_fp(t_fp n1, t_fp n2);
 t_fp reciprocal_fp(t_fp n);
+
+# 13 "GPS.h"
+extern t_fp speed;
+
+
+
+void GPS_Initialize(void);
+bool GPS_read_speed(void);
 
 # 54 "main.c"
 void my10msTimerISR(void);
 
 
 
-const t_fp ratio_mph = 0x00009F14;
+typedef enum _speed_unit_type { MPH = 0, KPH } speed_unit_type;
+speed_unit_type speed_units = MPH;
+t_fp speed;
 
-# 64
+const t_fp ratio_mph = 0x00009EF9;
+
+# 67
 void main(void)
 {
 
@@ -3920,19 +4009,31 @@ TMR0_SetInterruptHandler(my10msTimerISR);
 
 (INTCONbits.PEIE = 1);
 
+LED_set_state(manual_mode);
+do { LATA2 = 0; } while(0);
+for(unsigned char tmp=0;tmp<(10*1);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
+
+GPS_Initialize();
+
+speed = 0;
+
 while (1)
 {
-for(unsigned char tmp=0;tmp<(10*5);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
 
-LED_set_state(always_on);
-button_init();
-while (b_confirmed_state == nothing)
-{}
+if (GPS_read_speed())
+{
 
-if (b_confirmed_state == short_push)
-LED_set_state(fast_blinking);
-else if (b_confirmed_state == long_push)
-LED_set_state(slow_blinking);
+if (speed_units == MPH)
+speed = multiply_fp(speed, ratio_mph);
+
+do { LATA2 = 1; } while(0);
+_delay((unsigned long)((20)*(32000000/4000.0)));
+do { LATA2 = 0; } while(0);
+}
+
+
+
+
 }
 }
 

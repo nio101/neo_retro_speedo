@@ -45,18 +45,21 @@
 
 
 #include "mcc_generated_files/mcc.h"
+#include "main.h"
 #include "interact.h"
 #include "fixed_point.h"
+#include "GPS.h"
 
-
-#define __delay_sec(x) for(unsigned char tmp=0;tmp<(10*x);tmp++){__delay_ms(100);}
 
 void my10msTimerISR(void);  // custom function called every 10ms,
                             // used for LED blinking and push button debounce
 
-// mph/kmh ratio
-const t_fp ratio_mph = 0x00009F14;  // equals to 0.6214 in FP16.16
-
+// to store current speed value and units
+typedef enum _speed_unit_type { MPH = 0, KPH } speed_unit_type;
+speed_unit_type speed_units = MPH;  // MPH by default
+t_fp    speed;
+//t_fp ratio_mph = convert_to_fp(0, 6210);   // ratio mph/kmh
+const t_fp ratio_mph = 0x00009EF9;    // equals to 0.6210 in FP16.16
 
 /*
     Main application
@@ -73,19 +76,31 @@ void main(void)
     // Enable the Peripheral Interrupts
     INTERRUPT_PeripheralInterruptEnable();
 
+    LED_set_state(manual_mode);
+    STATUS_LED_SetLow();
+    __delay_sec(1);
+
+    GPS_Initialize();
+
+    speed = 0;
+
     while (1)
     {
-        __delay_sec(5);
-        // Test DA button now!
-        LED_set_state(always_on);
-        button_init();
-        while (b_confirmed_state == nothing)
-        {}
-
-        if (b_confirmed_state == short_push)
-            LED_set_state(fast_blinking);
-        else if (b_confirmed_state == long_push)
-            LED_set_state(slow_blinking);
+        // read/parse one NMEA VTG sentence & update speed
+        if (GPS_read_speed())
+        {
+            // speed has been updated with the NMEA kph value
+            if (speed_units == MPH) // convert to MPH if needed
+                speed = multiply_fp(speed, ratio_mph);
+            
+            STATUS_LED_SetHigh();
+            __delay_ms(20);
+            STATUS_LED_SetLow();
+        }
+        
+        // check if button has been pushed
+        // if long_press => calibration
+        // else, reinit button
     }
 }
 

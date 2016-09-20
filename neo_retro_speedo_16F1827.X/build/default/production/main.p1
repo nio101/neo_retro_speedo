@@ -1,11 +1,14 @@
 Version 3.2 HI-TECH Software Intermediate Code
 [v F2819 `(v ~T0 @X0 0 tf ]
 "25 interact.h
-[c E2833 0 1 2 3 4 .. ]
-[n E2833 . always_on always_off slow_blinking fast_blinking manual_mode  ]
+[c E2901 0 1 2 3 4 .. ]
+[n E2901 . always_on always_off slow_blinking fast_blinking manual_mode  ]
 "58
-[c E2845 0 1 2 .. ]
-[n E2845 . nothing short_push long_push  ]
+[c E2913 0 1 2 .. ]
+[n E2913 . nothing short_push long_push  ]
+"59 main.c
+[c E2949 0 1 .. ]
+[n E2949 _speed_unit_type MPH KPH  ]
 [p mainexit ]
 "69 mcc_generated_files/mcc.h
 [v _SYSTEM_Initialize `(v ~T0 @X0 0 ef ]
@@ -24,15 +27,21 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S26 . . . ]
 "360
 [v _INTCONbits `VS26 ~T0 @X0 0 e@11 ]
+"31 interact.h
+[v _LED_set_state `(v ~T0 @X0 0 ef1`E2901 ]
+"7044 D:\Program Files\Microchip\xc8\v1.38\include\pic16f1827.h
+[v _LATA2 `Vb ~T0 @X0 0 e@2146 ]
 [v F2766 `(v ~T0 @X0 1 tf1`ul ]
 "152 D:\Program Files\Microchip\xc8\v1.38\include\pic.h
 [v __delay `JF2766 ~T0 @X0 0 e ]
 [p i __delay ]
-"31 interact.h
-[v _LED_set_state `(v ~T0 @X0 0 ef1`E2833 ]
-"67
-[v _button_init `(v ~T0 @X0 0 ef ]
-"32
+"17 GPS.h
+[v _GPS_Initialize `(v ~T0 @X0 0 ef ]
+"18
+[v _GPS_read_speed `(uc ~T0 @X0 0 ef ]
+"18 fixed_point.h
+[v _multiply_fp `(l ~T0 @X0 0 ef2`l`l ]
+"32 interact.h
 [v _LED_update_loop `(v ~T0 @X0 0 ef ]
 "68
 [v _button_update_loop `(v ~T0 @X0 0 ef ]
@@ -2832,18 +2841,52 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _TMR0_InterruptHandler `*F2819 ~T0 @X0 1 e ]
 [; ;tmr0.h: 280: void (*TMR0_InterruptHandler)(void);
 [; ;tmr0.h: 298: void TMR0_DefaultInterruptHandler(void);
-[; ;eusart.h: 94: void EUSART_Initialize(void);
-[; ;eusart.h: 114: uint8_t EUSART_Read(void);
-[; ;eusart.h: 134: void EUSART_Write(uint8_t txData);
+[; ;__size_t.h: 4: typedef unsigned size_t;
+[; ;stdarg.h: 7: typedef void * va_list[1];
+[; ;stdarg.h: 10: extern void * __va_start(void);
+[; ;stdarg.h: 13: extern void * __va_arg(void *, ...);
+[; ;stdio.h: 43: struct __prbuf
+[; ;stdio.h: 44: {
+[; ;stdio.h: 45: char * ptr;
+[; ;stdio.h: 46: void (* func)(char);
+[; ;stdio.h: 47: };
+[; ;errno.h: 29: extern int errno;
+[; ;conio.h: 12: extern void init_uart(void);
+[; ;conio.h: 14: extern char getch(void);
+[; ;conio.h: 15: extern char getche(void);
+[; ;conio.h: 16: extern void putch(char);
+[; ;conio.h: 17: extern void ungetch(char);
+[; ;conio.h: 19: extern __bit kbhit(void);
+[; ;conio.h: 23: extern char * cgets(char *);
+[; ;conio.h: 24: extern void cputs(const char *);
+[; ;stdio.h: 88: extern int cprintf(char *, ...);
+[; ;stdio.h: 93: extern int _doprnt(struct __prbuf *, const register char *, register va_list);
+[; ;stdio.h: 183: extern char * gets(char *);
+[; ;stdio.h: 184: extern int puts(const char *);
+[; ;stdio.h: 185: extern int scanf(const char *, ...) __attribute__((unsupported("scanf() is not supported by this compiler")));
+[; ;stdio.h: 186: extern int sscanf(const char *, const char *, ...) __attribute__((unsupported("sscanf() is not supported by this compiler")));
+[; ;stdio.h: 187: extern int vprintf(const char *, va_list) __attribute__((unsupported("vprintf() is not supported by this compiler")));
+[; ;stdio.h: 188: extern int vsprintf(char *, const char *, va_list) __attribute__((unsupported("vsprintf() is not supported by this compiler")));
+[; ;stdio.h: 189: extern int vscanf(const char *, va_list ap) __attribute__((unsupported("vscanf() is not supported by this compiler")));
+[; ;stdio.h: 190: extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupported("vsscanf() is not supported by this compiler")));
+[; ;stdio.h: 194: extern int sprintf(char *, const char *, ...);
+[; ;stdio.h: 195: extern int printf(const char *, ...);
+[; ;eusart.h: 77: extern volatile uint8_t eusartTxBufferRemaining;
+[; ;eusart.h: 78: extern volatile uint8_t eusartRxCount;
+[; ;eusart.h: 106: void EUSART_Initialize(void);
+[; ;eusart.h: 155: uint8_t EUSART_Read(void);
+[; ;eusart.h: 180: void EUSART_Write(uint8_t txData);
+[; ;eusart.h: 201: void EUSART_Transmit_ISR(void);
+[; ;eusart.h: 222: void EUSART_Receive_ISR(void);
 [; ;mcc.h: 69: void SYSTEM_Initialize(void);
 [; ;mcc.h: 82: void OSCILLATOR_Initialize(void);
 [; ;interact.h: 21: typedef enum {
 [; ;interact.h: 22: always_on, always_off, slow_blinking, fast_blinking, manual_mode
 [; ;interact.h: 23: } LED_state_t;
 "25 interact.h
-[v _LED_state `E2833 ~T0 @X0 1 e ]
+[v _LED_state `E2901 ~T0 @X0 1 e ]
 [i _LED_state
-. `E2833 1
+. `E2901 1
 ]
 [; ;interact.h: 25: LED_state_t LED_state=always_off;
 "26
@@ -2858,7 +2901,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;interact.h: 56: nothing, short_push, long_push
 [; ;interact.h: 57: } confirmed_state_t;
 "58
-[v _b_confirmed_state `VE2845 ~T0 @X0 1 e ]
+[v _b_confirmed_state `VE2913 ~T0 @X0 1 e ]
 [; ;interact.h: 58: volatile confirmed_state_t b_confirmed_state;
 "60
 [v _b_count_pressed `Vuc ~T0 @X0 1 e ]
@@ -2882,129 +2925,150 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;interact.h: 68: void button_update_loop();
 [; ;interact.h: 69: unsigned char get_button_state();
 [; ;fixed_point.h: 15: typedef signed long long t_fp;
-"17 fixed_point.h
-[v _fp_x0_a `Cl ~T0 @X0 1 e ]
-[i _fp_x0_a
--> 185040 `l
-]
-[; ;fixed_point.h: 17: const t_fp fp_x0_a = 0x0002D2D0;
-"18
-[v _fp_x0_b `Cl ~T0 @X0 1 e ]
-[i _fp_x0_b
--> 123364 `l
-]
-[; ;fixed_point.h: 18: const t_fp fp_x0_b = 0x0001E1E4;
-[; ;fixed_point.h: 20: t_fp convert_to_fp(signed short int_part, signed short fract_part);
-[; ;fixed_point.h: 21: t_fp multiply_fp(t_fp n1, t_fp n2);
-[; ;fixed_point.h: 22: t_fp reciprocal_fp(t_fp n);
+[; ;fixed_point.h: 17: t_fp convert_to_fp(signed short int_part, signed short fract_part);
+[; ;fixed_point.h: 18: t_fp multiply_fp(t_fp n1, t_fp n2);
+[; ;fixed_point.h: 19: t_fp reciprocal_fp(t_fp n);
+[; ;fixed_point.h: 15: typedef signed long long t_fp;
+[; ;fixed_point.h: 17: t_fp convert_to_fp(signed short int_part, signed short fract_part);
+[; ;fixed_point.h: 18: t_fp multiply_fp(t_fp n1, t_fp n2);
+[; ;fixed_point.h: 19: t_fp reciprocal_fp(t_fp n);
+[; ;GPS.h: 13: extern t_fp speed;
+[; ;GPS.h: 17: void GPS_Initialize(void);
+[; ;GPS.h: 18: bool GPS_read_speed(void);
 [; ;main.c: 54: void my10msTimerISR(void);
-"58 main.c
+[; ;main.c: 58: typedef enum _speed_unit_type { MPH = 0, KPH } speed_unit_type;
+"59 main.c
+[v _speed_units `E2949 ~T0 @X0 1 e ]
+[i _speed_units
+. `E2949 0
+]
+[; ;main.c: 59: speed_unit_type speed_units = MPH;
+"60
+[v _speed `l ~T0 @X0 1 e ]
+[; ;main.c: 60: t_fp speed;
+"62
 [v _ratio_mph `Cl ~T0 @X0 1 e ]
 [i _ratio_mph
--> -> 40724 `ui `l
+-> -> 40697 `ui `l
 ]
-[; ;main.c: 58: const t_fp ratio_mph = 0x00009F14;
-"64
+[; ;main.c: 62: const t_fp ratio_mph = 0x00009EF9;
+"67
 [v _main `(v ~T0 @X0 1 ef ]
-"65
+"68
 {
-[; ;main.c: 64: void main(void)
-[; ;main.c: 65: {
+[; ;main.c: 67: void main(void)
+[; ;main.c: 68: {
 [e :U _main ]
 [f ]
-[; ;main.c: 67: SYSTEM_Initialize();
-"67
+[; ;main.c: 70: SYSTEM_Initialize();
+"70
 [e ( _SYSTEM_Initialize ..  ]
-[; ;main.c: 69: TMR0_SetInterruptHandler(my10msTimerISR);
-"69
-[e ( _TMR0_SetInterruptHandler (1 -> &U _my10msTimerISR `*v ]
-[; ;main.c: 72: (INTCONbits.GIE = 1);
+[; ;main.c: 72: TMR0_SetInterruptHandler(my10msTimerISR);
 "72
+[e ( _TMR0_SetInterruptHandler (1 -> &U _my10msTimerISR `*v ]
+[; ;main.c: 75: (INTCONbits.GIE = 1);
+"75
 [e = . . _INTCONbits 0 7 -> -> 1 `i `uc ]
-[; ;main.c: 74: (INTCONbits.PEIE = 1);
-"74
-[e = . . _INTCONbits 0 6 -> -> 1 `i `uc ]
-[; ;main.c: 76: while (1)
-"76
-[e :U 352 ]
-[; ;main.c: 77: {
+[; ;main.c: 77: (INTCONbits.PEIE = 1);
 "77
+[e = . . _INTCONbits 0 6 -> -> 1 `i `uc ]
+[; ;main.c: 79: LED_set_state(manual_mode);
+"79
+[e ( _LED_set_state (1 . `E2901 4 ]
+[; ;main.c: 80: do { LATA2 = 0; } while(0);
+"80
+[e :U 354 ]
 {
-[; ;main.c: 78: for(unsigned char tmp=0;tmp<(10*5);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
-"78
+[e = _LATA2 -> -> 0 `i `b ]
+}
+[e :U 353 ]
+[; ;main.c: 81: for(unsigned char tmp=0;tmp<(10*1);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
+"81
 {
 [v _tmp `uc ~T0 @X0 1 a ]
 [e = _tmp -> -> 0 `i `uc ]
-[e $ < -> _tmp `i * -> 10 `i -> 5 `i 354  ]
-[e $U 355  ]
-[e :U 354 ]
+[e $ < -> _tmp `i * -> 10 `i -> 1 `i 355  ]
+[e $U 356  ]
+[e :U 355 ]
 {
 [e ( __delay (1 -> * -> -> 100 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
 }
 [e ++ _tmp -> -> 1 `i `uc ]
-[e $ < -> _tmp `i * -> 10 `i -> 5 `i 354  ]
-[e :U 355 ]
+[e $ < -> _tmp `i * -> 10 `i -> 1 `i 355  ]
+[e :U 356 ]
 }
-[; ;main.c: 80: LED_set_state(always_on);
-"80
-[e ( _LED_set_state (1 . `E2833 0 ]
-[; ;main.c: 81: button_init();
-"81
-[e ( _button_init ..  ]
-[; ;main.c: 82: while (b_confirmed_state == nothing)
-"82
-[e $U 357  ]
-[e :U 358 ]
-[; ;main.c: 83: {}
+[; ;main.c: 83: GPS_Initialize();
 "83
-{
-}
-[e :U 357 ]
-"82
-[e $ == -> _b_confirmed_state `i -> . `E2845 0 `i 358  ]
-[e :U 359 ]
-[; ;main.c: 85: if (b_confirmed_state == short_push)
+[e ( _GPS_Initialize ..  ]
+[; ;main.c: 85: speed = 0;
 "85
-[e $ ! == -> _b_confirmed_state `i -> . `E2845 1 `i 360  ]
-[; ;main.c: 86: LED_set_state(fast_blinking);
-"86
-[e ( _LED_set_state (1 . `E2833 3 ]
-[e $U 361  ]
+[e = _speed -> -> 0 `i `l ]
+[; ;main.c: 87: while (1)
 "87
-[e :U 360 ]
-[; ;main.c: 87: else if (b_confirmed_state == long_push)
-[e $ ! == -> _b_confirmed_state `i -> . `E2845 2 `i 362  ]
-[; ;main.c: 88: LED_set_state(slow_blinking);
+[e :U 359 ]
+[; ;main.c: 88: {
 "88
-[e ( _LED_set_state (1 . `E2833 2 ]
-[e :U 362 ]
-"89
-[e :U 361 ]
-}
-[e :U 351 ]
-"76
-[e $U 352  ]
-[e :U 353 ]
-[; ;main.c: 89: }
-[; ;main.c: 90: }
-"90
-[e :UE 350 ]
-}
-"92
-[v _my10msTimerISR `(v ~T0 @X0 1 ef ]
-"93
 {
-[; ;main.c: 92: void my10msTimerISR(void)
-[; ;main.c: 93: {
+[; ;main.c: 90: if (GPS_read_speed())
+"90
+[e $ ! != -> ( _GPS_read_speed ..  `i -> -> -> 0 `i `uc `i 361  ]
+[; ;main.c: 91: {
+"91
+{
+[; ;main.c: 93: if (speed_units == MPH)
+"93
+[e $ ! == -> _speed_units `i -> . `E2949 0 `i 362  ]
+[; ;main.c: 94: speed = multiply_fp(speed, ratio_mph);
+"94
+[e = _speed ( _multiply_fp (2 , _speed _ratio_mph ]
+[e :U 362 ]
+[; ;main.c: 96: do { LATA2 = 1; } while(0);
+"96
+[e :U 365 ]
+{
+[e = _LATA2 -> -> 1 `i `b ]
+}
+[e :U 364 ]
+[; ;main.c: 97: _delay((unsigned long)((20)*(32000000/4000.0)));
+"97
+[e ( __delay (1 -> * -> -> 20 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+[; ;main.c: 98: do { LATA2 = 0; } while(0);
+"98
+[e :U 368 ]
+{
+[e = _LATA2 -> -> 0 `i `b ]
+}
+[e :U 367 ]
+"99
+}
+[e :U 361 ]
+"104
+}
+[e :U 358 ]
+"87
+[e $U 359  ]
+[e :U 360 ]
+[; ;main.c: 99: }
+[; ;main.c: 104: }
+[; ;main.c: 105: }
+"105
+[e :UE 351 ]
+}
+"107
+[v _my10msTimerISR `(v ~T0 @X0 1 ef ]
+"108
+{
+[; ;main.c: 107: void my10msTimerISR(void)
+[; ;main.c: 108: {
 [e :U _my10msTimerISR ]
 [f ]
-[; ;main.c: 94: LED_update_loop();
-"94
+[; ;main.c: 109: LED_update_loop();
+"109
 [e ( _LED_update_loop ..  ]
-[; ;main.c: 95: button_update_loop();
-"95
+[; ;main.c: 110: button_update_loop();
+"110
 [e ( _button_update_loop ..  ]
-[; ;main.c: 96: }
-"96
-[e :UE 363 ]
+[; ;main.c: 111: }
+"111
+[e :UE 369 ]
 }

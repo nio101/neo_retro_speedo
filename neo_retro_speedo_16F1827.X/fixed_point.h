@@ -6,6 +6,9 @@
  */
 
 
+#ifndef FP_H
+#define	FP_H
+
 #include "mcc_generated_files/mcc.h"
 
 // 32 bits signed integer used for unsigned FP16.16 math
@@ -20,3 +23,5 @@ t_fp reciprocal_fp(t_fp n);
 
 // note that addition and substraction are directly done
 // using +/- with t_fp
+
+#endif	/* FP_H */

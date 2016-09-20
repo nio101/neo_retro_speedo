@@ -5,9 +5,11 @@
  * Created on September 17, 2016, 6:04 PM
  */
 
+#ifndef INTERACT_H
+#define	INTERACT_H
 
 #include "mcc_generated_files/mcc.h"
-
+#include "main.h"
 
 // ----------------------------------------------------------------------------
 // blinking LED handling
@@ -22,8 +24,10 @@ typedef enum {
     always_on, always_off, slow_blinking, fast_blinking, manual_mode
 } LED_state_t;
 
-LED_state_t LED_state=always_off;
-volatile unsigned char LED_counter=0;
+volatile struct {
+    volatile LED_state_t state;
+    volatile uint8 counter;
+} m_LED;
 
 #define slow_blinking_period 85
 #define fast_blinking_period 20
@@ -52,18 +56,20 @@ void LED_update_loop();
 // 100ms min for a release event
 #define count_release   10
 
-typedef enum {
-    nothing, short_push, long_push
-} confirmed_state_t;
-volatile confirmed_state_t b_confirmed_state;
-
-volatile unsigned char b_count_pressed;
-volatile unsigned char b_count_released;
-volatile bool b_push_confirmed;
-volatile bool b_release_confirmed;
-volatile unsigned b_last_state;
-volatile bool b_has_once_been_released;
+volatile struct {
+    volatile enum {
+        nothing, short_push, long_push
+    } confirmed_state;
+    volatile uint8 count_pressed;
+    volatile uint8 count_released;
+    volatile bool push_confirmed;
+    volatile bool release_confirmed;
+    volatile uint8 last_state;
+    volatile bool has_once_been_released;
+} m_button;
 
 void button_init();
 void button_update_loop();
-unsigned char get_button_state();
+uint8 get_button_state();
+
+#endif	/* INTERACT_H */

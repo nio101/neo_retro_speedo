@@ -2,6 +2,7 @@
  build/default/production/main.p1:  \
  main.c  \
 mcc_generated_files/mcc.h  \
+CRC.h  \
 main.h  \
 GPS.h  \
 interact.h  \

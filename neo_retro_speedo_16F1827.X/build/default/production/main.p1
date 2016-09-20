@@ -1,22 +1,32 @@
 Version 3.2 HI-TECH Software Intermediate Code
 [v F2819 `(v ~T0 @X0 0 tf ]
-"25 interact.h
+"30 interact.h
 [c E2901 0 1 2 3 4 .. ]
 [n E2901 . always_on always_off slow_blinking fast_blinking manual_mode  ]
-"58
-[c E2913 0 1 2 .. ]
-[n E2913 . nothing short_push long_push  ]
-"59 main.c
-[c E2949 0 1 .. ]
-[n E2949 _speed_unit_type MPH KPH  ]
+"27
+[s S351 `VE2901 1 `Vuc 1 ]
+[n S351 . state counter ]
+"69
+[c E2916 0 1 2 .. ]
+[n E2916 . nothing short_push long_push  ]
+"59
+[s S352 `VE2916 1 `Vuc 1 `Vuc 1 `Vuc 1 `Vuc 1 `Vuc 1 `Vuc 1 ]
+[n S352 . confirmed_state count_pressed count_released push_confirmed release_confirmed last_state has_once_been_released ]
+"74 main.c
+[s S353 `uc 1 `us 1 `uc 1 `us -> 20 `i `us 1 `uc 1 `us 1 ]
+[n S353 conf_data use_mph max_pwm nb_steps ref_pwm low_speed_pwm impulse_duration crc ]
 [p mainexit ]
 "69 mcc_generated_files/mcc.h
 [v _SYSTEM_Initialize `(v ~T0 @X0 0 ef ]
+"35 interact.h
+[v _LED_set_state `(v ~T0 @X0 0 ef1`E2901 ]
+"7044 /opt/microchip/xc8/v1.38/include/pic16f1827.h
+[v _LATA2 `Vb ~T0 @X0 0 e@2146 ]
 "262 mcc_generated_files/tmr0.h
 [v _TMR0_SetInterruptHandler `(v ~T0 @X0 0 ef1`*v ]
-"54 main.c
+"55 main.c
 [v _my10msTimerISR `(v ~T0 @X0 0 ef ]
-"343 D:\Program Files\Microchip\xc8\v1.38\include\pic16f1827.h
+"343 /opt/microchip/xc8/v1.38/include/pic16f1827.h
 [s S27 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S27 . IOCIF INTF TMR0IF IOCIE INTE TMR0IE PEIE GIE ]
 "353
@@ -27,29 +37,25 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S26 . . . ]
 "360
 [v _INTCONbits `VS26 ~T0 @X0 0 e@11 ]
-"31 interact.h
-[v _LED_set_state `(v ~T0 @X0 0 ef1`E2901 ]
-"7044 D:\Program Files\Microchip\xc8\v1.38\include\pic16f1827.h
-[v _LATA2 `Vb ~T0 @X0 0 e@2146 ]
-[v F2766 `(v ~T0 @X0 1 tf1`ul ]
-"152 D:\Program Files\Microchip\xc8\v1.38\include\pic.h
-[v __delay `JF2766 ~T0 @X0 0 e ]
-[p i __delay ]
 "17 GPS.h
 [v _GPS_Initialize `(v ~T0 @X0 0 ef ]
 "18
 [v _GPS_read_speed `(uc ~T0 @X0 0 ef ]
-"18 fixed_point.h
+"21 fixed_point.h
 [v _multiply_fp `(l ~T0 @X0 0 ef2`l`l ]
-"32 interact.h
+[v F2766 `(v ~T0 @X0 1 tf1`ul ]
+"152 /opt/microchip/xc8/v1.38/include/pic.h
+[v __delay `JF2766 ~T0 @X0 0 e ]
+[p i __delay ]
+"36 interact.h
 [v _LED_update_loop `(v ~T0 @X0 0 ef ]
-"68
+"72
 [v _button_update_loop `(v ~T0 @X0 0 ef ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
 [; ;pic16f1827.h: 49: extern volatile unsigned char INDF0 @ 0x000;
-"51 D:\Program Files\Microchip\xc8\v1.38\include\pic16f1827.h
+"51 /opt/microchip/xc8/v1.38/include/pic16f1827.h
 [; ;pic16f1827.h: 51: asm("INDF0 equ 00h");
 [; <" INDF0 equ 00h ;# ">
 [; ;pic16f1827.h: 54: typedef union {
@@ -2880,195 +2886,176 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;eusart.h: 222: void EUSART_Receive_ISR(void);
 [; ;mcc.h: 69: void SYSTEM_Initialize(void);
 [; ;mcc.h: 82: void OSCILLATOR_Initialize(void);
-[; ;interact.h: 21: typedef enum {
-[; ;interact.h: 22: always_on, always_off, slow_blinking, fast_blinking, manual_mode
-[; ;interact.h: 23: } LED_state_t;
-"25 interact.h
-[v _LED_state `E2901 ~T0 @X0 1 e ]
-[i _LED_state
-. `E2901 1
-]
-[; ;interact.h: 25: LED_state_t LED_state=always_off;
-"26
-[v _LED_counter `Vuc ~T0 @X0 1 e ]
-[i _LED_counter
--> -> 0 `i `uc
-]
-[; ;interact.h: 26: volatile unsigned char LED_counter=0;
-[; ;interact.h: 31: void LED_set_state(LED_state_t new_state);
-[; ;interact.h: 32: void LED_update_loop();
-[; ;interact.h: 55: typedef enum {
-[; ;interact.h: 56: nothing, short_push, long_push
-[; ;interact.h: 57: } confirmed_state_t;
-"58
-[v _b_confirmed_state `VE2913 ~T0 @X0 1 e ]
-[; ;interact.h: 58: volatile confirmed_state_t b_confirmed_state;
-"60
-[v _b_count_pressed `Vuc ~T0 @X0 1 e ]
-[; ;interact.h: 60: volatile unsigned char b_count_pressed;
-"61
-[v _b_count_released `Vuc ~T0 @X0 1 e ]
-[; ;interact.h: 61: volatile unsigned char b_count_released;
-"62
-[v _b_push_confirmed `Vuc ~T0 @X0 1 e ]
-[; ;interact.h: 62: volatile bool b_push_confirmed;
-"63
-[v _b_release_confirmed `Vuc ~T0 @X0 1 e ]
-[; ;interact.h: 63: volatile bool b_release_confirmed;
-"64
-[v _b_last_state `Vui ~T0 @X0 1 e ]
-[; ;interact.h: 64: volatile unsigned b_last_state;
-"65
-[v _b_has_once_been_released `Vuc ~T0 @X0 1 e ]
-[; ;interact.h: 65: volatile bool b_has_once_been_released;
-[; ;interact.h: 67: void button_init();
-[; ;interact.h: 68: void button_update_loop();
-[; ;interact.h: 69: unsigned char get_button_state();
-[; ;fixed_point.h: 15: typedef signed long long t_fp;
-[; ;fixed_point.h: 17: t_fp convert_to_fp(signed short int_part, signed short fract_part);
-[; ;fixed_point.h: 18: t_fp multiply_fp(t_fp n1, t_fp n2);
-[; ;fixed_point.h: 19: t_fp reciprocal_fp(t_fp n);
-[; ;fixed_point.h: 15: typedef signed long long t_fp;
-[; ;fixed_point.h: 17: t_fp convert_to_fp(signed short int_part, signed short fract_part);
-[; ;fixed_point.h: 18: t_fp multiply_fp(t_fp n1, t_fp n2);
-[; ;fixed_point.h: 19: t_fp reciprocal_fp(t_fp n);
+[; ;interact.h: 23: typedef enum {
+[; ;interact.h: 24: always_on, always_off, slow_blinking, fast_blinking, manual_mode
+[; ;interact.h: 25: } LED_state_t;
+"30 interact.h
+[v _m_LED `VS351 ~T0 @X0 1 e ]
+[; ;interact.h: 27: volatile struct {
+[; ;interact.h: 28: volatile LED_state_t state;
+[; ;interact.h: 29: volatile unsigned char counter;
+[; ;interact.h: 30: } m_LED;
+[; ;interact.h: 35: void LED_set_state(LED_state_t new_state);
+[; ;interact.h: 36: void LED_update_loop();
+"69
+[v _m_button `VS352 ~T0 @X0 1 e ]
+[; ;interact.h: 59: volatile struct {
+[; ;interact.h: 60: volatile enum {
+[; ;interact.h: 61: nothing, short_push, long_push
+[; ;interact.h: 62: } confirmed_state;
+[; ;interact.h: 63: volatile unsigned char count_pressed;
+[; ;interact.h: 64: volatile unsigned char count_released;
+[; ;interact.h: 65: volatile bool push_confirmed;
+[; ;interact.h: 66: volatile bool release_confirmed;
+[; ;interact.h: 67: volatile unsigned char last_state;
+[; ;interact.h: 68: volatile bool has_once_been_released;
+[; ;interact.h: 69: } m_button;
+[; ;interact.h: 71: void button_init();
+[; ;interact.h: 72: void button_update_loop();
+[; ;interact.h: 73: unsigned char get_button_state();
+[; ;fixed_point.h: 18: typedef signed long long t_fp;
+[; ;fixed_point.h: 20: t_fp convert_to_fp(signed short int_part, signed short fract_part);
+[; ;fixed_point.h: 21: t_fp multiply_fp(t_fp n1, t_fp n2);
+[; ;fixed_point.h: 22: t_fp reciprocal_fp(t_fp n);
 [; ;GPS.h: 13: extern t_fp speed;
 [; ;GPS.h: 17: void GPS_Initialize(void);
 [; ;GPS.h: 18: bool GPS_read_speed(void);
-[; ;main.c: 54: void my10msTimerISR(void);
-[; ;main.c: 58: typedef enum _speed_unit_type { MPH = 0, KPH } speed_unit_type;
-"59 main.c
-[v _speed_units `E2949 ~T0 @X0 1 e ]
-[i _speed_units
-. `E2949 0
-]
-[; ;main.c: 59: speed_unit_type speed_units = MPH;
-"60
+[; ;CRC.h: 13: unsigned short crc_update(unsigned short old_crc, unsigned char data);
+[; ;main.c: 55: void my10msTimerISR(void);
+"61 main.c
 [v _speed `l ~T0 @X0 1 e ]
-[; ;main.c: 60: t_fp speed;
-"62
+[; ;main.c: 61: t_fp speed;
+"63
 [v _ratio_mph `Cl ~T0 @X0 1 e ]
 [i _ratio_mph
 -> -> 40697 `ui `l
 ]
-[; ;main.c: 62: const t_fp ratio_mph = 0x00009EF9;
-"67
+[; ;main.c: 63: const t_fp ratio_mph = 0x00009EF9;
+"83
+[v _conf `S353 ~T0 @X0 1 e ]
+[; ;main.c: 74: struct conf_data
+[; ;main.c: 75: {
+[; ;main.c: 76: unsigned char use_mph;
+[; ;main.c: 77: unsigned short max_pwm;
+[; ;main.c: 78: unsigned char nb_steps;
+[; ;main.c: 79: unsigned short ref_pwm[20];
+[; ;main.c: 80: unsigned short low_speed_pwm;
+[; ;main.c: 81: unsigned char impulse_duration;
+[; ;main.c: 82: unsigned short crc;
+[; ;main.c: 83: } conf;
+"86
+[; ;main.c: 86: asm("\tpsect eeprom_data,class=EEDATA,delta=2,space=3,noexec"); asm("\tdb\t" "0x11" "," "0x22" "," "0x33" "," "0x44" "," "0x55" "," "0x66" "," "0x77" "," "0x88");
+[; <" 	psect eeprom_data,class=EEDATA,delta=2,space=3,noexec ;# ">
+[; <" 	db	0x11,0x22,0x33,0x44,0x55,0x66,0x77,0x88 ;# ">
+"87
+[; ;main.c: 87: asm("\tpsect eeprom_data,class=EEDATA,delta=2,space=3,noexec"); asm("\tdb\t" "0x49" "," "0xC8" "," "0x00" "," "0x00" "," "0x00" "," "0x00" "," "0x00" "," "0x00");
+[; <" 	psect eeprom_data,class=EEDATA,delta=2,space=3,noexec ;# ">
+[; <" 	db	0x49,0xC8,0x00,0x00,0x00,0x00,0x00,0x00 ;# ">
+"92
 [v _main `(v ~T0 @X0 1 ef ]
-"68
+"93
 {
-[; ;main.c: 67: void main(void)
-[; ;main.c: 68: {
+[; ;main.c: 92: void main(void)
+[; ;main.c: 93: {
 [e :U _main ]
 [f ]
-[; ;main.c: 70: SYSTEM_Initialize();
-"70
+[; ;main.c: 94: conf.max_pwm = 0x00;
+"94
+[e = . _conf 1 -> -> 0 `i `us ]
+[; ;main.c: 106: SYSTEM_Initialize();
+"106
 [e ( _SYSTEM_Initialize ..  ]
-[; ;main.c: 72: TMR0_SetInterruptHandler(my10msTimerISR);
-"72
-[e ( _TMR0_SetInterruptHandler (1 -> &U _my10msTimerISR `*v ]
-[; ;main.c: 75: (INTCONbits.GIE = 1);
-"75
-[e = . . _INTCONbits 0 7 -> -> 1 `i `uc ]
-[; ;main.c: 77: (INTCONbits.PEIE = 1);
-"77
-[e = . . _INTCONbits 0 6 -> -> 1 `i `uc ]
-[; ;main.c: 79: LED_set_state(manual_mode);
-"79
+[; ;main.c: 108: LED_set_state(manual_mode);
+"108
 [e ( _LED_set_state (1 . `E2901 4 ]
-[; ;main.c: 80: do { LATA2 = 0; } while(0);
-"80
-[e :U 354 ]
+[; ;main.c: 109: do { LATA2 = 0; } while(0);
+"109
+[e :U 357 ]
 {
 [e = _LATA2 -> -> 0 `i `b ]
 }
-[e :U 353 ]
-[; ;main.c: 81: for(unsigned char tmp=0;tmp<(10*1);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
-"81
-{
-[v _tmp `uc ~T0 @X0 1 a ]
-[e = _tmp -> -> 0 `i `uc ]
-[e $ < -> _tmp `i * -> 10 `i -> 1 `i 355  ]
-[e $U 356  ]
-[e :U 355 ]
-{
-[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
-}
-[e ++ _tmp -> -> 1 `i `uc ]
-[e $ < -> _tmp `i * -> 10 `i -> 1 `i 355  ]
 [e :U 356 ]
-}
-[; ;main.c: 83: GPS_Initialize();
-"83
+[; ;main.c: 111: TMR0_SetInterruptHandler(my10msTimerISR);
+"111
+[e ( _TMR0_SetInterruptHandler (1 -> &U _my10msTimerISR `*v ]
+[; ;main.c: 113: (INTCONbits.GIE = 1);
+"113
+[e = . . _INTCONbits 0 7 -> -> 1 `i `uc ]
+[; ;main.c: 115: (INTCONbits.PEIE = 1);
+"115
+[e = . . _INTCONbits 0 6 -> -> 1 `i `uc ]
+[; ;main.c: 117: GPS_Initialize();
+"117
 [e ( _GPS_Initialize ..  ]
-[; ;main.c: 85: speed = 0;
-"85
+[; ;main.c: 119: speed = 0;
+"119
 [e = _speed -> -> 0 `i `l ]
-[; ;main.c: 87: while (1)
-"87
+[; ;main.c: 121: while (1)
+"121
 [e :U 359 ]
-[; ;main.c: 88: {
-"88
+[; ;main.c: 122: {
+"122
 {
-[; ;main.c: 90: if (GPS_read_speed())
-"90
+[; ;main.c: 124: if (GPS_read_speed())
+"124
 [e $ ! != -> ( _GPS_read_speed ..  `i -> -> -> 0 `i `uc `i 361  ]
-[; ;main.c: 91: {
-"91
+[; ;main.c: 125: {
+"125
 {
-[; ;main.c: 93: if (speed_units == MPH)
-"93
-[e $ ! == -> _speed_units `i -> . `E2949 0 `i 362  ]
-[; ;main.c: 94: speed = multiply_fp(speed, ratio_mph);
-"94
+[; ;main.c: 127: if (conf.use_mph > 0)
+"127
+[e $ ! > -> . _conf 0 `i -> 0 `i 362  ]
+[; ;main.c: 128: speed = multiply_fp(speed, ratio_mph);
+"128
 [e = _speed ( _multiply_fp (2 , _speed _ratio_mph ]
 [e :U 362 ]
-[; ;main.c: 96: do { LATA2 = 1; } while(0);
-"96
+[; ;main.c: 130: do { LATA2 = 1; } while(0);
+"130
 [e :U 365 ]
 {
 [e = _LATA2 -> -> 1 `i `b ]
 }
 [e :U 364 ]
-[; ;main.c: 97: _delay((unsigned long)((20)*(32000000/4000.0)));
-"97
+[; ;main.c: 131: _delay((unsigned long)((20)*(32000000/4000.0)));
+"131
 [e ( __delay (1 -> * -> -> 20 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
-[; ;main.c: 98: do { LATA2 = 0; } while(0);
-"98
+[; ;main.c: 132: do { LATA2 = 0; } while(0);
+"132
 [e :U 368 ]
 {
 [e = _LATA2 -> -> 0 `i `b ]
 }
 [e :U 367 ]
-"99
+"133
 }
 [e :U 361 ]
-"104
+"138
 }
 [e :U 358 ]
-"87
+"121
 [e $U 359  ]
 [e :U 360 ]
-[; ;main.c: 99: }
-[; ;main.c: 104: }
-[; ;main.c: 105: }
-"105
-[e :UE 351 ]
+[; ;main.c: 133: }
+[; ;main.c: 138: }
+[; ;main.c: 139: }
+"139
+[e :UE 354 ]
 }
-"107
+"141
 [v _my10msTimerISR `(v ~T0 @X0 1 ef ]
-"108
+"142
 {
-[; ;main.c: 107: void my10msTimerISR(void)
-[; ;main.c: 108: {
+[; ;main.c: 141: void my10msTimerISR(void)
+[; ;main.c: 142: {
 [e :U _my10msTimerISR ]
 [f ]
-[; ;main.c: 109: LED_update_loop();
-"109
+[; ;main.c: 143: LED_update_loop();
+"143
 [e ( _LED_update_loop ..  ]
-[; ;main.c: 110: button_update_loop();
-"110
+[; ;main.c: 144: button_update_loop();
+"144
 [e ( _button_update_loop ..  ]
-[; ;main.c: 111: }
-"111
+[; ;main.c: 145: }
+"145
 [e :UE 369 ]
 }

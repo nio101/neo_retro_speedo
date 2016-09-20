@@ -1,3 +1,11 @@
+#if __EEPROM_SIZE > 0   
+__EEPROM_DATA   (a,b,c,d,e,f,g,h);   
+#endif   
+ 
+#if __EEPROM_SIZE == 0   
+#warning "__EEPROM_SIZE == 0.  Can't load EEPROM from hex file"   
+#endif   
+    
     t_fp speed = convert_to_fp(-130, 2500); // test with negative numbers!
     t_fp speed2 = multiply_fp(speed, ratio_mph);  // test with negative numbers!
     
@@ -10,8 +18,8 @@
 
    // pour le PWM: prendre FOSC==32 MHz, PWMFreq==31.25 kHz
     // => PR2=0xFF && TMR2 pre-scaler=1:1
-    // et du coup on a une rÈsolution PWM de 10bits
-    // + datasheet p196 pour procÈdure init propre du PWM
+    // et du coup on a une r√©solution PWM de 10bits
+    // + datasheet p196 pour proc√©dure init propre du PWM
     
     // pour l'UART: 9600 baud, 8data bits, no parity
     // 1 stop bit, receive polarity: idle1
@@ -24,11 +32,11 @@
     // NMEA: $VTG,,,,,*[checksum]<CR><LF>
     // CR:0x0D LF:0x0A
     // max length: 79 chars between '$' and "<CR><LF>"
-    // Utiliser $ pour dÈtecter le dÈbut de trame, commencer rÈception
-    // si $ => retour dÈbut de trame/rÈinit rÈception
-    // si <LF> => fin rÈception donc analyse commande, checksum,
-    // et lecture paramËtres
-    // Si buffer dÈborde => ignore buffer & stop rÈception.
+    // Utiliser $ pour d√©tecter le d√©but de trame, commencer r√©ception
+    // si $ => retour d√©but de trame/r√©init r√©ception
+    // si <LF> => fin r√©ception donc analyse commande, checksum,
+    // et lecture param√®tres
+    // Si buffer d√©borde => ignore buffer & stop r√©ception.
     
     // printf de configuration du GPS:
     
@@ -42,13 +50,13 @@
     // $PMTK220,100*2F<CR><LF>
     // => position fix done 10 times per second (instead of 1 per second)
 
-    // 1Ëre Ètape: laisser faire l'UART initialize avec les printf
-    // et mettre le bus pirate en copie de ce que reÁoit le pic
+    // 1√®re √©tape: laisser faire l'UART initialize avec les printf
+    // et mettre le bus pirate en copie de ce que re√ßoit le pic
     // => tester reset, gain de fix & perte de fix
     
-    // 2Ëme Ètape: lire les trames NMEA, Èventuellement updater la vitesse
-    // et la passer ‡ zero si pas de trame rÈcente (pour Èviter de rester
-    // scotchÈ en cas de perte de fix)
+    // 2√®me √©tape: lire les trames NMEA, √©ventuellement updater la vitesse
+    // et la passer √† zero si pas de trame r√©cente (pour √©viter de rester
+    // scotch√© en cas de perte de fix)
     /*while(1)
     {
         // Test DA LED output! :)
@@ -79,8 +87,8 @@
     }*/    
 
 /*
-    // TODO: ne pas bufferiser & parser la chaine complËte, mais
-    // dÈtecter les changements de champs au travers d'Ètats dÈdiÈs
+    // TODO: ne pas bufferiser & parser la chaine compl√®te, mais
+    // d√©tecter les changements de champs au travers d'√©tats d√©di√©s
     // + calculer checksum au fil de l'eau
     // sinon pas assez de RAM pour faire la calibration... :s
     

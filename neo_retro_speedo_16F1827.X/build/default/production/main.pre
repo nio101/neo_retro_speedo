@@ -3926,6 +3926,24 @@ void EUSART_Transmit_ISR(void);
 # 222
 void EUSART_Receive_ISR(void);
 
+# 98 "mcc_generated_files/memory.h"
+uint16_t FLASH_ReadWord(uint16_t flashAddr);
+
+# 127
+void FLASH_WriteWord(uint16_t flashAddr, uint16_t *ramBuf, uint16_t word);
+
+# 163
+int8_t FLASH_WriteBlock(uint16_t writeAddr, uint16_t *flashWordArray);
+
+# 188
+void FLASH_EraseBlock(uint16_t startAddr);
+
+# 219
+void DATAEE_WriteByte(uint8_t bAdd, uint8_t bData);
+
+# 245
+uint8_t DATAEE_ReadByte(uint8_t bAdd);
+
 # 95 "mcc_generated_files/epwm1.h"
 void EPWM1_Initialize(void);
 
@@ -3953,11 +3971,21 @@ void TMR2_LoadPeriodRegister(uint8_t periodVal);
 # 324
 bool TMR2_HasOverflowOccured(void);
 
-# 71 "mcc_generated_files/mcc.h"
+# 72 "mcc_generated_files/mcc.h"
 void SYSTEM_Initialize(void);
 
-# 84
+# 85
 void OSCILLATOR_Initialize(void);
+
+# 16 "main.h"
+bool load_calibration_from_EEPROM();
+void write_calibration_to_EEPROM();
+void perform_calibration();
+
+# 16
+bool load_calibration_from_EEPROM();
+void write_calibration_to_EEPROM();
+void perform_calibration();
 
 # 23 "interact.h"
 typedef enum {
@@ -3999,6 +4027,11 @@ t_fp convert_to_fp(signed short int_part, signed short fract_part);
 t_fp multiply_fp(t_fp n1, t_fp n2);
 t_fp reciprocal_fp(t_fp n);
 
+# 16 "main.h"
+bool load_calibration_from_EEPROM();
+void write_calibration_to_EEPROM();
+void perform_calibration();
+
 # 13 "GPS.h"
 extern t_fp speed;
 
@@ -4027,31 +4060,91 @@ unsigned char nb_steps;
 unsigned short ref_pwm[20];
 unsigned short low_speed_pwm;
 unsigned char impulse_duration;
-unsigned short crc;
-} conf;
+} m_conf;
+
+unsigned short m_crc;
 
 
 asm("\tpsect eeprom_data,class=EEDATA,delta=2,space=3,noexec"); asm("\tdb\t" "0x11" "," "0x22" "," "0x33" "," "0x44" "," "0x55" "," "0x66" "," "0x77" "," "0x88");
 asm("\tpsect eeprom_data,class=EEDATA,delta=2,space=3,noexec"); asm("\tdb\t" "0x49" "," "0xC8" "," "0x00" "," "0x00" "," "0x00" "," "0x00" "," "0x00" "," "0x00");
 
 
+bool load_calibration_from_EEPROM()
+{
+
+unsigned char addr = 0x00;
+unsigned short crc = 0x00;
+char i,*p;
+p=(char *)&m_conf;
+for(i=0; i<sizeof(m_conf); i++)
+{
+*p = DATAEE_ReadByte(addr++);
+crc = crc_update(crc, *p++);
+}
+p=(char *)&m_crc;
+for(i=0; i<sizeof(m_crc); i++)
+*p++ = DATAEE_ReadByte(addr++);
+return (crc == m_crc);
+}
+
+void write_calibration_to_EEPROM()
+{
+
+unsigned char addr = 0x00;
+m_crc = 0x00;
+char i,*p;
+p=(char *)&m_conf;
+for(i=0; i<sizeof(m_conf); i++) {
+DATAEE_WriteByte(addr++, *p);
+m_crc = crc_update(m_crc, *p++);
+}
+p=(char *)&m_crc;
+for(i=0; i<sizeof(m_crc); i++)
+DATAEE_WriteByte(addr++, *p++);
+}
+
+void perform_calibration()
+{
+m_conf.use_mph = 0x01;
+m_conf.max_pwm = 0x00;
+
+# 138
+}
 
 
 void main(void)
 {
-conf.max_pwm = 0x00;
 
-# 106
 SYSTEM_Initialize();
 
 LED_set_state(manual_mode);
-do { LATA2 = 0; } while(0);
+do { LATA2 = 1; } while(0);
+
 
 TMR0_SetInterruptHandler(my10msTimerISR);
 
 (INTCONbits.GIE = 1);
 
 (INTCONbits.PEIE = 1);
+
+for(unsigned char tmp=0;tmp<(10*3);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
+
+
+if (load_calibration_from_EEPROM())
+{
+LED_set_state(slow_blinking);
+for(unsigned char tmp=0;tmp<(10*5);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
+}
+else
+{
+LED_set_state(fast_blinking);
+for(unsigned char tmp=0;tmp<(10*5);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
+perform_calibration();
+write_calibration_to_EEPROM();
+}
+LED_set_state(always_off);
+while(1)
+{}
 
 uint16_t motor_load = 0;
 EPWM1_LoadDutyValue(1023-motor_load);
@@ -4060,7 +4153,7 @@ for(unsigned char tmp=0;tmp<(10*5);tmp++){_delay((unsigned long)((100)*(32000000
 
 bool up = 1;
 
-# 142
+# 200
 EPWM1_LoadDutyValue(0);
 _delay((unsigned long)((10)*(32000000/4000.0)));
 EPWM1_LoadDutyValue(1023-148);
@@ -4099,7 +4192,7 @@ while (1)
 if (GPS_read_speed())
 {
 
-if (conf.use_mph > 0)
+if (m_conf.use_mph > 0)
 speed = multiply_fp(speed, ratio_mph);
 
 do { LATA2 = 1; } while(0);

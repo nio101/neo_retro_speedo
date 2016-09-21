@@ -12,3 +12,7 @@
 #define uint16 unsigned short
 #define uint24 unsigned short long
 #define uint32 unsigned long
+
+bool load_calibration_from_EEPROM();
+void write_calibration_to_EEPROM();
+void perform_calibration();

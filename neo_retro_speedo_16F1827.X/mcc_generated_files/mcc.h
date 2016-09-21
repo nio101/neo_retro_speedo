@@ -52,6 +52,7 @@
 #include "interrupt_manager.h"
 #include "tmr0.h"
 #include "eusart.h"
+#include "memory.h"
 #include "epwm1.h"
 #include "tmr2.h"
 

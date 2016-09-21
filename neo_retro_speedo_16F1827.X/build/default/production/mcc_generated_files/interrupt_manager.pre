@@ -3926,6 +3926,24 @@ void EUSART_Transmit_ISR(void);
 # 222
 void EUSART_Receive_ISR(void);
 
+# 98 "mcc_generated_files/memory.h"
+uint16_t FLASH_ReadWord(uint16_t flashAddr);
+
+# 127
+void FLASH_WriteWord(uint16_t flashAddr, uint16_t *ramBuf, uint16_t word);
+
+# 163
+int8_t FLASH_WriteBlock(uint16_t writeAddr, uint16_t *flashWordArray);
+
+# 188
+void FLASH_EraseBlock(uint16_t startAddr);
+
+# 219
+void DATAEE_WriteByte(uint8_t bAdd, uint8_t bData);
+
+# 245
+uint8_t DATAEE_ReadByte(uint8_t bAdd);
+
 # 95 "mcc_generated_files/epwm1.h"
 void EPWM1_Initialize(void);
 
@@ -3953,10 +3971,10 @@ void TMR2_LoadPeriodRegister(uint8_t periodVal);
 # 324
 bool TMR2_HasOverflowOccured(void);
 
-# 71 "mcc_generated_files/mcc.h"
+# 72 "mcc_generated_files/mcc.h"
 void SYSTEM_Initialize(void);
 
-# 84
+# 85
 void OSCILLATOR_Initialize(void);
 
 # 51 "mcc_generated_files/interrupt_manager.c"

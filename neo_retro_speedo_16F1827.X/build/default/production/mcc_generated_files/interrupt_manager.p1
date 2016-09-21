@@ -2866,6 +2866,12 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;eusart.h: 180: void EUSART_Write(uint8_t txData);
 [; ;eusart.h: 201: void EUSART_Transmit_ISR(void);
 [; ;eusart.h: 222: void EUSART_Receive_ISR(void);
+[; ;memory.h: 98: uint16_t FLASH_ReadWord(uint16_t flashAddr);
+[; ;memory.h: 127: void FLASH_WriteWord(uint16_t flashAddr, uint16_t *ramBuf, uint16_t word);
+[; ;memory.h: 163: int8_t FLASH_WriteBlock(uint16_t writeAddr, uint16_t *flashWordArray);
+[; ;memory.h: 188: void FLASH_EraseBlock(uint16_t startAddr);
+[; ;memory.h: 219: void DATAEE_WriteByte(uint8_t bAdd, uint8_t bData);
+[; ;memory.h: 245: uint8_t DATAEE_ReadByte(uint8_t bAdd);
 [; ;epwm1.h: 95: void EPWM1_Initialize(void);
 [; ;epwm1.h: 121: void EPWM1_LoadDutyValue(uint16_t dutyValue);
 [; ;tmr2.h: 102: void TMR2_Initialize(void);
@@ -2875,8 +2881,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;tmr2.h: 237: void TMR2_WriteTimer(uint8_t timerVal);
 [; ;tmr2.h: 289: void TMR2_LoadPeriodRegister(uint8_t periodVal);
 [; ;tmr2.h: 324: bool TMR2_HasOverflowOccured(void);
-[; ;mcc.h: 71: void SYSTEM_Initialize(void);
-[; ;mcc.h: 84: void OSCILLATOR_Initialize(void);
+[; ;mcc.h: 72: void SYSTEM_Initialize(void);
+[; ;mcc.h: 85: void OSCILLATOR_Initialize(void);
 [v F3 `(v ~T0 @X0 1 tf ]
 "51 mcc_generated_files/interrupt_manager.c
 [v _INTERRUPT_InterruptManager `IF3 ~T0 @X0 1 e ]

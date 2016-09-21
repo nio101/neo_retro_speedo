@@ -1,16 +1,16 @@
 Version 3.2 HI-TECH Software Intermediate Code
 [v F2819 `(v ~T0 @X0 0 tf ]
 "30 interact.h
-[c E2919 0 1 2 3 4 .. ]
-[n E2919 . always_on always_off slow_blinking fast_blinking manual_mode  ]
+[c E2938 0 1 2 3 4 .. ]
+[n E2938 . always_on always_off slow_blinking fast_blinking manual_mode  ]
 "27
-[s S351 `VE2919 1 `Vuc 1 ]
+[s S351 `VE2938 1 `Vuc 1 ]
 [n S351 . state counter ]
 "69
-[c E2934 0 1 2 .. ]
-[n E2934 . nothing short_push long_push  ]
+[c E2953 0 1 2 .. ]
+[n E2953 . nothing short_push long_push  ]
 "59
-[s S352 `VE2934 1 `Vuc 1 `Vuc 1 `Vuc 1 `Vuc 1 `Vuc 1 `Vuc 1 ]
+[s S352 `VE2953 1 `Vuc 1 `Vuc 1 `Vuc 1 `Vuc 1 `Vuc 1 `Vuc 1 ]
 [n S352 . confirmed_state count_pressed count_released push_confirmed release_confirmed last_state has_once_been_released ]
 "7044 D:\Program Files\Microchip\xc8\v1.38\include\pic16f1827.h
 [v _LATA2 `Vb ~T0 @X0 0 e@2146 ]
@@ -2855,6 +2855,12 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;eusart.h: 180: void EUSART_Write(uint8_t txData);
 [; ;eusart.h: 201: void EUSART_Transmit_ISR(void);
 [; ;eusart.h: 222: void EUSART_Receive_ISR(void);
+[; ;memory.h: 98: uint16_t FLASH_ReadWord(uint16_t flashAddr);
+[; ;memory.h: 127: void FLASH_WriteWord(uint16_t flashAddr, uint16_t *ramBuf, uint16_t word);
+[; ;memory.h: 163: int8_t FLASH_WriteBlock(uint16_t writeAddr, uint16_t *flashWordArray);
+[; ;memory.h: 188: void FLASH_EraseBlock(uint16_t startAddr);
+[; ;memory.h: 219: void DATAEE_WriteByte(uint8_t bAdd, uint8_t bData);
+[; ;memory.h: 245: uint8_t DATAEE_ReadByte(uint8_t bAdd);
 [; ;epwm1.h: 95: void EPWM1_Initialize(void);
 [; ;epwm1.h: 121: void EPWM1_LoadDutyValue(uint16_t dutyValue);
 [; ;tmr2.h: 102: void TMR2_Initialize(void);
@@ -2864,8 +2870,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;tmr2.h: 237: void TMR2_WriteTimer(uint8_t timerVal);
 [; ;tmr2.h: 289: void TMR2_LoadPeriodRegister(uint8_t periodVal);
 [; ;tmr2.h: 324: bool TMR2_HasOverflowOccured(void);
-[; ;mcc.h: 71: void SYSTEM_Initialize(void);
-[; ;mcc.h: 84: void OSCILLATOR_Initialize(void);
+[; ;mcc.h: 72: void SYSTEM_Initialize(void);
+[; ;mcc.h: 85: void OSCILLATOR_Initialize(void);
+[; ;main.h: 16: bool load_calibration_from_EEPROM();
+[; ;main.h: 17: void write_calibration_to_EEPROM();
+[; ;main.h: 18: void perform_calibration();
 [; ;interact.h: 23: typedef enum {
 [; ;interact.h: 24: always_on, always_off, slow_blinking, fast_blinking, manual_mode
 [; ;interact.h: 25: } LED_state_t;
@@ -2894,14 +2903,14 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;interact.h: 72: void button_update_loop();
 [; ;interact.h: 73: unsigned char get_button_state();
 "14 interact.c
-[v _LED_set_state `(v ~T0 @X0 1 ef1`E2919 ]
+[v _LED_set_state `(v ~T0 @X0 1 ef1`E2938 ]
 "15
 {
 [; ;interact.c: 14: void LED_set_state(LED_state_t new_state)
 [; ;interact.c: 15: {
 [e :U _LED_set_state ]
 "14
-[v _new_state `E2919 ~T0 @X0 1 r1 ]
+[v _new_state `E2938 ~T0 @X0 1 r1 ]
 "15
 [f ]
 [; ;interact.c: 16: m_LED.state = new_state;
@@ -2912,7 +2921,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = . _m_LED 1 -> -> 0 `i `uc ]
 [; ;interact.c: 18: if (new_state == always_off)
 "18
-[e $ ! == -> _new_state `i -> . `E2919 1 `i 354  ]
+[e $ ! == -> _new_state `i -> . `E2938 1 `i 354  ]
 [; ;interact.c: 19: do { LATA2 = 0; } while(0);
 "19
 [e :U 357 ]
@@ -2924,7 +2933,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 "20
 [e :U 354 ]
 [; ;interact.c: 20: else if (new_state == always_on)
-[e $ ! == -> _new_state `i -> . `E2919 0 `i 359  ]
+[e $ ! == -> _new_state `i -> . `E2938 0 `i 359  ]
 [; ;interact.c: 21: do { LATA2 = 1; } while(0);
 "21
 [e :U 362 ]
@@ -2936,7 +2945,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 "22
 [e :U 359 ]
 [; ;interact.c: 22: else if ((new_state == slow_blinking)||(new_state == fast_blinking))
-[e $ ! || == -> _new_state `i -> . `E2919 2 `i == -> _new_state `i -> . `E2919 3 `i 364  ]
+[e $ ! || == -> _new_state `i -> . `E2938 2 `i == -> _new_state `i -> . `E2938 3 `i 364  ]
 [; ;interact.c: 23: do { LATA2 = 1; } while(0);
 "23
 [e :U 367 ]
@@ -2961,7 +2970,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [f ]
 [; ;interact.c: 28: if (m_LED.state == manual_mode)
 "28
-[e $ ! == -> . _m_LED 0 `i -> . `E2919 4 `i 369  ]
+[e $ ! == -> . _m_LED 0 `i -> . `E2938 4 `i 369  ]
 [; ;interact.c: 29: return;
 "29
 [e $UE 368  ]
@@ -2969,7 +2978,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 "30
 [e :U 369 ]
 [; ;interact.c: 30: else if (m_LED.state == slow_blinking)
-[e $ ! == -> . _m_LED 0 `i -> . `E2919 2 `i 371  ]
+[e $ ! == -> . _m_LED 0 `i -> . `E2938 2 `i 371  ]
 [; ;interact.c: 31: {
 "31
 {
@@ -3003,7 +3012,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 "39
 [e :U 371 ]
 [; ;interact.c: 39: else if (m_LED.state == fast_blinking)
-[e $ ! == -> . _m_LED 0 `i -> . `E2919 3 `i 377  ]
+[e $ ! == -> . _m_LED 0 `i -> . `E2938 3 `i 377  ]
 [; ;interact.c: 40: {
 "40
 {
@@ -3089,7 +3098,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = . _m_button 2 -> -> 0 `i `uc ]
 [; ;interact.c: 68: m_button.confirmed_state = nothing;
 "68
-[e = . _m_button 0 . `E2934 0 ]
+[e = . _m_button 0 . `E2953 0 ]
 [; ;interact.c: 69: m_button.push_confirmed = 0;
 "69
 [e = . _m_button 3 -> -> 0 `i `uc ]
@@ -3203,7 +3212,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $ ! >= -> . _m_button 1 `i -> 100 `i 396  ]
 [; ;interact.c: 104: m_button.confirmed_state = long_push;
 "104
-[e = . _m_button 0 . `E2934 2 ]
+[e = . _m_button 0 . `E2953 2 ]
 [e :U 396 ]
 "105
 }
@@ -3227,14 +3236,14 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $ ! >= -> . _m_button 1 `i -> 75 `i 400  ]
 [; ;interact.c: 111: m_button.confirmed_state = long_push;
 "111
-[e = . _m_button 0 . `E2934 2 ]
+[e = . _m_button 0 . `E2953 2 ]
 [e $U 401  ]
 "112
 [e :U 400 ]
 [; ;interact.c: 112: else
 [; ;interact.c: 113: m_button.confirmed_state = short_push;
 "113
-[e = . _m_button 0 . `E2934 1 ]
+[e = . _m_button 0 . `E2953 1 ]
 [e :U 401 ]
 [e :U 399 ]
 "114

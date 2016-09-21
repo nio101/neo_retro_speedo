@@ -79,19 +79,53 @@ struct conf_data
     uint16  ref_pwm[20];
     uint16  low_speed_pwm;
     uint8   impulse_duration;
-    uint16  crc;
-} conf;
+} m_conf;
+
+uint16  m_crc;
 
 // EEPROM init - written once by programmer, overwritten by calibration routine
 __EEPROM_DATA(0x11,0x22,0x33,0x44,0x55,0x66,0x77,0x88);
 __EEPROM_DATA(0x49,0xC8,0x00,0x00,0x00,0x00,0x00,0x00);
 
-/* calibration routine */
-
-/* main */
-void main(void)
+/* calibration routines */
+bool load_calibration_from_EEPROM()
 {
-    conf.max_pwm = 0x00;
+    // let's try to read the m_conf struct from EEPROM
+    uint8 addr = 0x00;
+    uint16 crc = 0x00;
+    char i,*p; 
+    p=(char *)&m_conf;
+    for(i=0; i<sizeof(m_conf); i++)
+    {
+        *p = DATAEE_ReadByte(addr++);
+        crc = crc_update(crc, *p++);
+    }
+    p=(char *)&m_crc;
+    for(i=0; i<sizeof(m_crc); i++)
+        *p++ = DATAEE_ReadByte(addr++);
+    return (crc == m_crc);
+}
+
+void write_calibration_to_EEPROM()
+{
+    // let's dump the m_conf struct to EEPROM
+    uint8 addr = 0x00;
+    m_crc = 0x00;
+    char i,*p; 
+    p=(char *)&m_conf;  // char pointer on conf struct
+    for(i=0; i<sizeof(m_conf); i++) {   // about 49 bytes...
+        DATAEE_WriteByte(addr++, *p);
+        m_crc = crc_update(m_crc, *p++);
+    }
+    p=(char *)&m_crc;
+    for(i=0; i<sizeof(m_crc); i++)
+        DATAEE_WriteByte(addr++, *p++);
+}
+
+void perform_calibration()
+{
+    m_conf.use_mph = 0x01;
+    m_conf.max_pwm = 0x00;
     /*unsigned short crc = 0x11;
     crc = crc_update(crc, 0x22);
     crc = crc_update(crc, 0x33);
@@ -100,13 +134,18 @@ void main(void)
     crc = crc_update(crc, 0x66);
     crc = crc_update(crc, 0x77);
     crc = crc_update(crc, 0x88);*/
-    // crc == 0x49C8
-    
+    // crc == 0x49C8    
+}
+
+/* main */
+void main(void)
+{
     // initialize the device
     SYSTEM_Initialize();
 
     LED_set_state(manual_mode); // do that before activating interrupts
-    STATUS_LED_SetLow();        // or random LED behaviour occurs!
+    STATUS_LED_SetHigh();        // or random LED behaviour occurs!
+    
     
     TMR0_SetInterruptHandler(my10msTimerISR);
     // Enable the Global Interrupts
@@ -114,6 +153,25 @@ void main(void)
     // Enable the Peripheral Interrupts
     INTERRUPT_PeripheralInterruptEnable();
 
+    __delay_sec(3);
+    
+    // Try to load configuration/calibration from EEPROM
+    if (load_calibration_from_EEPROM())
+    {
+        LED_set_state(slow_blinking);
+        __delay_sec(5);
+    }
+    else
+    {
+        LED_set_state(fast_blinking);
+        __delay_sec(5);
+        perform_calibration();
+        write_calibration_to_EEPROM();
+    }
+    LED_set_state(always_off);
+    while(1)
+    {}
+    
     uint16_t motor_load = 0;
     EPWM1_LoadDutyValue(1023-motor_load);
     TMR2_StartTimer();
@@ -177,7 +235,7 @@ void main(void)
         if (GPS_read_speed())
         {
             // speed has been updated with the NMEA kph value
-            if (conf.use_mph > 0) // convert to MPH if needed
+            if (m_conf.use_mph > 0) // convert to MPH if needed
                 speed = multiply_fp(speed, ratio_mph);
             
             STATUS_LED_SetHigh();

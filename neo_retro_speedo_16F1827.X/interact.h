@@ -29,9 +29,10 @@ volatile struct {
     volatile uint8 counter;
 } m_LED;
 
-#define slow_blinking_period 85
-#define fast_blinking_period 20
+#define slow_blinking_period 60
+#define fast_blinking_period 15
 
+void double_fast_blink();
 void LED_set_state(LED_state_t new_state);
 void LED_update_loop();
 

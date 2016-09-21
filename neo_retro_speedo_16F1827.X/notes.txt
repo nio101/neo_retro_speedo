@@ -1,3 +1,18 @@
+start => LED slowly blinking if calibration required,
+else should be blinking @10Hz (very very fast)
+(== each speed update)
+
+whatever case, long press to enter calibration mode
+
+calibration mode => LED STEADY,
+
+1) MPH/KPH
+1 short push for mph (slow pulse)
+2 short pushes for kph (fast pulse)
+
+2) 
+
+
 #if __EEPROM_SIZE > 0   
 __EEPROM_DATA   (a,b,c,d,e,f,g,h);   
 #endif   

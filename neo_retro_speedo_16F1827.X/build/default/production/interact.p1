@@ -6,15 +6,21 @@ Version 3.2 HI-TECH Software Intermediate Code
 "27
 [s S351 `VE2938 1 `Vuc 1 ]
 [n S351 . state counter ]
-"69
-[c E2953 0 1 2 .. ]
-[n E2953 . nothing short_push long_push  ]
-"59
-[s S352 `VE2953 1 `Vuc 1 `Vuc 1 `Vuc 1 `Vuc 1 `Vuc 1 `Vuc 1 ]
+"70
+[c E2954 0 1 2 .. ]
+[n E2954 . nothing short_push long_push  ]
+"60
+[s S352 `VE2954 1 `Vuc 1 `Vuc 1 `Vuc 1 `Vuc 1 `Vuc 1 `Vuc 1 ]
 [n S352 . confirmed_state count_pressed count_released push_confirmed release_confirmed last_state has_once_been_released ]
+"36
+[v _LED_set_state `(v ~T0 @X0 0 ef1`E2938 ]
 "7044 D:\Program Files\Microchip\xc8\v1.38\include\pic16f1827.h
 [v _LATA2 `Vb ~T0 @X0 0 e@2146 ]
-"481
+[v F2766 `(v ~T0 @X0 1 tf1`ul ]
+"152 D:\Program Files\Microchip\xc8\v1.38\include\pic.h
+[v __delay `JF2766 ~T0 @X0 0 e ]
+[p i __delay ]
+"481 D:\Program Files\Microchip\xc8\v1.38\include\pic16f1827.h
 [s S32 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S32 . RB0 RB1 RB2 RB3 RB4 RB5 RB6 RB7 ]
 "480
@@ -2884,379 +2890,445 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;interact.h: 28: volatile LED_state_t state;
 [; ;interact.h: 29: volatile unsigned char counter;
 [; ;interact.h: 30: } m_LED;
-[; ;interact.h: 35: void LED_set_state(LED_state_t new_state);
-[; ;interact.h: 36: void LED_update_loop();
-"69
+[; ;interact.h: 35: void double_fast_blink();
+[; ;interact.h: 36: void LED_set_state(LED_state_t new_state);
+[; ;interact.h: 37: void LED_update_loop();
+"70
 [v _m_button `VS352 ~T0 @X0 1 e ]
-[; ;interact.h: 59: volatile struct {
-[; ;interact.h: 60: volatile enum {
-[; ;interact.h: 61: nothing, short_push, long_push
-[; ;interact.h: 62: } confirmed_state;
-[; ;interact.h: 63: volatile unsigned char count_pressed;
-[; ;interact.h: 64: volatile unsigned char count_released;
-[; ;interact.h: 65: volatile bool push_confirmed;
-[; ;interact.h: 66: volatile bool release_confirmed;
-[; ;interact.h: 67: volatile unsigned char last_state;
-[; ;interact.h: 68: volatile bool has_once_been_released;
-[; ;interact.h: 69: } m_button;
-[; ;interact.h: 71: void button_init();
-[; ;interact.h: 72: void button_update_loop();
-[; ;interact.h: 73: unsigned char get_button_state();
+[; ;interact.h: 60: volatile struct {
+[; ;interact.h: 61: volatile enum {
+[; ;interact.h: 62: nothing, short_push, long_push
+[; ;interact.h: 63: } confirmed_state;
+[; ;interact.h: 64: volatile unsigned char count_pressed;
+[; ;interact.h: 65: volatile unsigned char count_released;
+[; ;interact.h: 66: volatile bool push_confirmed;
+[; ;interact.h: 67: volatile bool release_confirmed;
+[; ;interact.h: 68: volatile unsigned char last_state;
+[; ;interact.h: 69: volatile bool has_once_been_released;
+[; ;interact.h: 70: } m_button;
+[; ;interact.h: 72: void button_init();
+[; ;interact.h: 73: void button_update_loop();
+[; ;interact.h: 74: unsigned char get_button_state();
 "14 interact.c
-[v _LED_set_state `(v ~T0 @X0 1 ef1`E2938 ]
+[v _double_fast_blink `(v ~T0 @X0 1 ef ]
 "15
 {
-[; ;interact.c: 14: void LED_set_state(LED_state_t new_state)
+[; ;interact.c: 14: void double_fast_blink()
 [; ;interact.c: 15: {
-[e :U _LED_set_state ]
-"14
-[v _new_state `E2938 ~T0 @X0 1 r1 ]
-"15
+[e :U _double_fast_blink ]
 [f ]
-[; ;interact.c: 16: m_LED.state = new_state;
+[; ;interact.c: 16: LED_set_state(manual_mode);
 "16
-[e = . _m_LED 0 _new_state ]
-[; ;interact.c: 17: m_LED.counter = 0;
+[e ( _LED_set_state (1 . `E2938 4 ]
+[; ;interact.c: 17: do { LATA2 = 0; } while(0);
 "17
-[e = . _m_LED 1 -> -> 0 `i `uc ]
-[; ;interact.c: 18: if (new_state == always_off)
-"18
-[e $ ! == -> _new_state `i -> . `E2938 1 `i 354  ]
-[; ;interact.c: 19: do { LATA2 = 0; } while(0);
-"19
-[e :U 357 ]
+[e :U 356 ]
 {
 [e = _LATA2 -> -> 0 `i `b ]
 }
-[e :U 356 ]
-[e $U 358  ]
+[e :U 355 ]
+[; ;interact.c: 18: _delay((unsigned long)((250)*(32000000/4000.0)));
+"18
+[e ( __delay (1 -> * -> -> 250 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+[; ;interact.c: 19: do { LATA2 = 1; } while(0);
+"19
+[e :U 359 ]
+{
+[e = _LATA2 -> -> 1 `i `b ]
+}
+[e :U 358 ]
+[; ;interact.c: 20: _delay((unsigned long)((50)*(32000000/4000.0)));
 "20
-[e :U 354 ]
-[; ;interact.c: 20: else if (new_state == always_on)
-[e $ ! == -> _new_state `i -> . `E2938 0 `i 359  ]
-[; ;interact.c: 21: do { LATA2 = 1; } while(0);
+[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+[; ;interact.c: 21: do { LATA2 = 0; } while(0);
 "21
 [e :U 362 ]
 {
-[e = _LATA2 -> -> 1 `i `b ]
+[e = _LATA2 -> -> 0 `i `b ]
 }
 [e :U 361 ]
-[e $U 363  ]
+[; ;interact.c: 22: _delay((unsigned long)((50)*(32000000/4000.0)));
 "22
-[e :U 359 ]
-[; ;interact.c: 22: else if ((new_state == slow_blinking)||(new_state == fast_blinking))
-[e $ ! || == -> _new_state `i -> . `E2938 2 `i == -> _new_state `i -> . `E2938 3 `i 364  ]
+[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
 [; ;interact.c: 23: do { LATA2 = 1; } while(0);
 "23
-[e :U 367 ]
+[e :U 365 ]
 {
 [e = _LATA2 -> -> 1 `i `b ]
 }
-[e :U 366 ]
 [e :U 364 ]
+[; ;interact.c: 24: _delay((unsigned long)((50)*(32000000/4000.0)));
 "24
-[e :U 363 ]
-[e :U 358 ]
-[; ;interact.c: 24: }
+[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+[; ;interact.c: 25: do { LATA2 = 0; } while(0);
+"25
+[e :U 368 ]
+{
+[e = _LATA2 -> -> 0 `i `b ]
+}
+[e :U 367 ]
+[; ;interact.c: 26: _delay((unsigned long)((250)*(32000000/4000.0)));
+"26
+[e ( __delay (1 -> * -> -> 250 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+[; ;interact.c: 27: }
+"27
 [e :UE 353 ]
 }
-"26
-[v _LED_update_loop `(v ~T0 @X0 1 ef ]
-"27
-{
-[; ;interact.c: 26: void LED_update_loop()
-[; ;interact.c: 27: {
-[e :U _LED_update_loop ]
-[f ]
-[; ;interact.c: 28: if (m_LED.state == manual_mode)
-"28
-[e $ ! == -> . _m_LED 0 `i -> . `E2938 4 `i 369  ]
-[; ;interact.c: 29: return;
 "29
-[e $UE 368  ]
-[e $U 370  ]
+[v _LED_set_state `(v ~T0 @X0 1 ef1`E2938 ]
 "30
-[e :U 369 ]
-[; ;interact.c: 30: else if (m_LED.state == slow_blinking)
-[e $ ! == -> . _m_LED 0 `i -> . `E2938 2 `i 371  ]
-[; ;interact.c: 31: {
+{
+[; ;interact.c: 29: void LED_set_state(LED_state_t new_state)
+[; ;interact.c: 30: {
+[e :U _LED_set_state ]
+"29
+[v _new_state `E2938 ~T0 @X0 1 r1 ]
+"30
+[f ]
+[; ;interact.c: 31: m_LED.state = new_state;
 "31
-{
-[; ;interact.c: 32: m_LED.counter++;
+[e = . _m_LED 0 _new_state ]
+[; ;interact.c: 32: m_LED.counter = 0;
 "32
-[e ++ . _m_LED 1 -> -> 1 `i `uc ]
-[; ;interact.c: 33: if (m_LED.counter >= 85)
-"33
-[e $ ! >= -> . _m_LED 1 `i -> 85 `i 372  ]
-[; ;interact.c: 34: {
-"34
-{
-[; ;interact.c: 35: m_LED.counter = 0;
-"35
 [e = . _m_LED 1 -> -> 0 `i `uc ]
-[; ;interact.c: 36: do { LATA2 = ~LATA2; } while(0);
-"36
-[e :U 375 ]
+[; ;interact.c: 33: if (new_state == always_off)
+"33
+[e $ ! == -> _new_state `i -> . `E2938 1 `i 370  ]
+[; ;interact.c: 34: do { LATA2 = 0; } while(0);
+"34
+[e :U 373 ]
 {
-[e = _LATA2 -> ~ -> _LATA2 `ui `b ]
-}
-[e :U 374 ]
-"37
+[e = _LATA2 -> -> 0 `i `b ]
 }
 [e :U 372 ]
-"38
+[e $U 374  ]
+"35
+[e :U 370 ]
+[; ;interact.c: 35: else if (new_state == always_on)
+[e $ ! == -> _new_state `i -> . `E2938 0 `i 375  ]
+[; ;interact.c: 36: do { LATA2 = 1; } while(0);
+"36
+[e :U 378 ]
+{
+[e = _LATA2 -> -> 1 `i `b ]
 }
-[; ;interact.c: 37: }
-[; ;interact.c: 38: }
-[e $U 376  ]
+[e :U 377 ]
+[e $U 379  ]
+"37
+[e :U 375 ]
+[; ;interact.c: 37: else if ((new_state == slow_blinking)||(new_state == fast_blinking))
+[e $ ! || == -> _new_state `i -> . `E2938 2 `i == -> _new_state `i -> . `E2938 3 `i 380  ]
+[; ;interact.c: 38: do { LATA2 = 1; } while(0);
+"38
+[e :U 383 ]
+{
+[e = _LATA2 -> -> 1 `i `b ]
+}
+[e :U 382 ]
+[e :U 380 ]
 "39
-[e :U 371 ]
-[; ;interact.c: 39: else if (m_LED.state == fast_blinking)
-[e $ ! == -> . _m_LED 0 `i -> . `E2938 3 `i 377  ]
-[; ;interact.c: 40: {
-"40
-{
-[; ;interact.c: 41: m_LED.counter++;
+[e :U 379 ]
+[e :U 374 ]
+[; ;interact.c: 39: }
+[e :UE 369 ]
+}
 "41
-[e ++ . _m_LED 1 -> -> 1 `i `uc ]
-[; ;interact.c: 42: if (m_LED.counter >= 20)
+[v _LED_update_loop `(v ~T0 @X0 1 ef ]
 "42
-[e $ ! >= -> . _m_LED 1 `i -> 20 `i 378  ]
-[; ;interact.c: 43: {
-"43
 {
-[; ;interact.c: 44: m_LED.counter = 0;
+[; ;interact.c: 41: void LED_update_loop()
+[; ;interact.c: 42: {
+[e :U _LED_update_loop ]
+[f ]
+[; ;interact.c: 43: if (m_LED.state == manual_mode)
+"43
+[e $ ! == -> . _m_LED 0 `i -> . `E2938 4 `i 385  ]
+[; ;interact.c: 44: return;
 "44
-[e = . _m_LED 1 -> -> 0 `i `uc ]
-[; ;interact.c: 45: do { LATA2 = ~LATA2; } while(0);
+[e $UE 384  ]
+[e $U 386  ]
 "45
-[e :U 381 ]
+[e :U 385 ]
+[; ;interact.c: 45: else if (m_LED.state == slow_blinking)
+[e $ ! == -> . _m_LED 0 `i -> . `E2938 2 `i 387  ]
+[; ;interact.c: 46: {
+"46
+{
+[; ;interact.c: 47: m_LED.counter++;
+"47
+[e ++ . _m_LED 1 -> -> 1 `i `uc ]
+[; ;interact.c: 48: if (m_LED.counter >= 60)
+"48
+[e $ ! >= -> . _m_LED 1 `i -> 60 `i 388  ]
+[; ;interact.c: 49: {
+"49
+{
+[; ;interact.c: 50: m_LED.counter = 0;
+"50
+[e = . _m_LED 1 -> -> 0 `i `uc ]
+[; ;interact.c: 51: do { LATA2 = ~LATA2; } while(0);
+"51
+[e :U 391 ]
 {
 [e = _LATA2 -> ~ -> _LATA2 `ui `b ]
 }
-[e :U 380 ]
-"46
+[e :U 390 ]
+"52
 }
-[e :U 378 ]
-"47
+[e :U 388 ]
+"53
 }
-[e :U 377 ]
-"48
-[e :U 376 ]
-[e :U 370 ]
-[; ;interact.c: 46: }
-[; ;interact.c: 47: }
-[; ;interact.c: 48: }
-[e :UE 368 ]
-}
+[; ;interact.c: 52: }
+[; ;interact.c: 53: }
+[e $U 392  ]
 "54
-[v _get_button_state `(uc ~T0 @X0 1 ef ]
+[e :U 387 ]
+[; ;interact.c: 54: else if (m_LED.state == fast_blinking)
+[e $ ! == -> . _m_LED 0 `i -> . `E2938 3 `i 393  ]
+[; ;interact.c: 55: {
 "55
 {
-[; ;interact.c: 54: unsigned char get_button_state()
-[; ;interact.c: 55: {
+[; ;interact.c: 56: m_LED.counter++;
+"56
+[e ++ . _m_LED 1 -> -> 1 `i `uc ]
+[; ;interact.c: 57: if (m_LED.counter >= 15)
+"57
+[e $ ! >= -> . _m_LED 1 `i -> 15 `i 394  ]
+[; ;interact.c: 58: {
+"58
+{
+[; ;interact.c: 59: m_LED.counter = 0;
+"59
+[e = . _m_LED 1 -> -> 0 `i `uc ]
+[; ;interact.c: 60: do { LATA2 = ~LATA2; } while(0);
+"60
+[e :U 397 ]
+{
+[e = _LATA2 -> ~ -> _LATA2 `ui `b ]
+}
+[e :U 396 ]
+"61
+}
+[e :U 394 ]
+"62
+}
+[e :U 393 ]
+"63
+[e :U 392 ]
+[e :U 386 ]
+[; ;interact.c: 61: }
+[; ;interact.c: 62: }
+[; ;interact.c: 63: }
+[e :UE 384 ]
+}
+"69
+[v _get_button_state `(uc ~T0 @X0 1 ef ]
+"70
+{
+[; ;interact.c: 69: unsigned char get_button_state()
+[; ;interact.c: 70: {
 [e :U _get_button_state ]
 [f ]
-"57
+"72
 [v _state `uc ~T0 @X0 1 a ]
-[; ;interact.c: 57: unsigned char state = PORTBbits.RB0;
+[; ;interact.c: 72: unsigned char state = PORTBbits.RB0;
 [e = _state . . _PORTBbits 0 0 ]
-[; ;interact.c: 58: if (state == 1)
-"58
-[e $ ! == -> _state `i -> 1 `i 383  ]
-[; ;interact.c: 59: return 0;
-"59
+[; ;interact.c: 73: if (state == 1)
+"73
+[e $ ! == -> _state `i -> 1 `i 399  ]
+[; ;interact.c: 74: return 0;
+"74
 [e ) -> -> 0 `i `uc ]
-[e $UE 382  ]
-[e $U 384  ]
-"60
-[e :U 383 ]
-[; ;interact.c: 60: else return 1;
+[e $UE 398  ]
+[e $U 400  ]
+"75
+[e :U 399 ]
+[; ;interact.c: 75: else return 1;
 [e ) -> -> 1 `i `uc ]
-[e $UE 382  ]
-[e :U 384 ]
-[; ;interact.c: 61: }
-"61
-[e :UE 382 ]
+[e $UE 398  ]
+[e :U 400 ]
+[; ;interact.c: 76: }
+"76
+[e :UE 398 ]
 }
-"63
+"78
 [v _button_init `(v ~T0 @X0 1 ef ]
-"64
+"79
 {
-[; ;interact.c: 63: void button_init()
-[; ;interact.c: 64: {
+[; ;interact.c: 78: void button_init()
+[; ;interact.c: 79: {
 [e :U _button_init ]
 [f ]
-[; ;interact.c: 65: m_button.last_state = get_button_state();
-"65
+[; ;interact.c: 80: m_button.last_state = get_button_state();
+"80
 [e = . _m_button 5 ( _get_button_state ..  ]
-[; ;interact.c: 66: m_button.count_pressed = 0;
-"66
+[; ;interact.c: 81: m_button.count_pressed = 0;
+"81
 [e = . _m_button 1 -> -> 0 `i `uc ]
-[; ;interact.c: 67: m_button.count_released = 0;
-"67
+[; ;interact.c: 82: m_button.count_released = 0;
+"82
 [e = . _m_button 2 -> -> 0 `i `uc ]
-[; ;interact.c: 68: m_button.confirmed_state = nothing;
-"68
-[e = . _m_button 0 . `E2953 0 ]
-[; ;interact.c: 69: m_button.push_confirmed = 0;
-"69
+[; ;interact.c: 83: m_button.confirmed_state = nothing;
+"83
+[e = . _m_button 0 . `E2954 0 ]
+[; ;interact.c: 84: m_button.push_confirmed = 0;
+"84
 [e = . _m_button 3 -> -> 0 `i `uc ]
-[; ;interact.c: 70: m_button.release_confirmed = 0;
-"70
+[; ;interact.c: 85: m_button.release_confirmed = 0;
+"85
 [e = . _m_button 4 -> -> 0 `i `uc ]
-[; ;interact.c: 71: m_button.has_once_been_released = 0;
-"71
+[; ;interact.c: 86: m_button.has_once_been_released = 0;
+"86
 [e = . _m_button 6 -> -> 0 `i `uc ]
-[; ;interact.c: 72: }
-"72
-[e :UE 385 ]
+[; ;interact.c: 87: }
+"87
+[e :UE 401 ]
 }
-"74
+"89
 [v _button_update_loop `(v ~T0 @X0 1 ef ]
-"75
+"90
 {
-[; ;interact.c: 74: void button_update_loop()
-[; ;interact.c: 75: {
+[; ;interact.c: 89: void button_update_loop()
+[; ;interact.c: 90: {
 [e :U _button_update_loop ]
 [f ]
-"76
-[v _current_state `uc ~T0 @X0 1 a ]
-[; ;interact.c: 76: unsigned char current_state = get_button_state();
-[e = _current_state ( _get_button_state ..  ]
-[; ;interact.c: 77: if (!m_button.push_confirmed)
-"77
-[e $ ! ! != -> . _m_button 3 `i -> -> -> 0 `i `Vuc `i 387  ]
-[; ;interact.c: 78: {
-"78
-{
-[; ;interact.c: 80: if (current_state != m_button.last_state)
-"80
-[e $ ! != -> _current_state `i -> . _m_button 5 `i 388  ]
-[; ;interact.c: 81: {
-"81
-{
-[; ;interact.c: 82: m_button.count_pressed = 0;
-"82
-[e = . _m_button 1 -> -> 0 `i `uc ]
-[; ;interact.c: 83: m_button.last_state = current_state;
-"83
-[e = . _m_button 5 _current_state ]
-"84
-}
-[; ;interact.c: 84: }
-[e $U 389  ]
-"85
-[e :U 388 ]
-[; ;interact.c: 85: else if (m_button.last_state == 1)
-[e $ ! == -> . _m_button 5 `i -> 1 `i 390  ]
-[; ;interact.c: 86: {
-"86
-{
-[; ;interact.c: 87: m_button.count_pressed++;
-"87
-[e ++ . _m_button 1 -> -> 1 `i `uc ]
-[; ;interact.c: 88: if (m_button.count_pressed > 5)
-"88
-[e $ ! > -> . _m_button 1 `i -> 5 `i 391  ]
-[; ;interact.c: 89: m_button.push_confirmed = 1;
-"89
-[e = . _m_button 3 -> -> 1 `i `uc ]
-[e :U 391 ]
-"90
-}
-[e :U 390 ]
 "91
-[e :U 389 ]
-}
-[; ;interact.c: 90: }
-[; ;interact.c: 91: }
-[e $U 392  ]
+[v _current_state `uc ~T0 @X0 1 a ]
+[; ;interact.c: 91: unsigned char current_state = get_button_state();
+[e = _current_state ( _get_button_state ..  ]
+[; ;interact.c: 92: if (!m_button.push_confirmed)
 "92
-[e :U 387 ]
-[; ;interact.c: 92: else
+[e $ ! ! != -> . _m_button 3 `i -> -> -> 0 `i `Vuc `i 403  ]
 [; ;interact.c: 93: {
 "93
 {
-[; ;interact.c: 94: if (current_state != m_button.last_state)
-"94
-[e $ ! != -> _current_state `i -> . _m_button 5 `i 393  ]
-[; ;interact.c: 95: {
+[; ;interact.c: 95: if (current_state != m_button.last_state)
 "95
-{
-[; ;interact.c: 96: m_button.count_released = 0;
+[e $ ! != -> _current_state `i -> . _m_button 5 `i 404  ]
+[; ;interact.c: 96: {
 "96
-[e = . _m_button 2 -> -> 0 `i `uc ]
-[; ;interact.c: 97: m_button.last_state = current_state;
+{
+[; ;interact.c: 97: m_button.count_pressed = 0;
 "97
-[e = . _m_button 5 _current_state ]
-[; ;interact.c: 98: m_button.has_once_been_released = 1;
+[e = . _m_button 1 -> -> 0 `i `uc ]
+[; ;interact.c: 98: m_button.last_state = current_state;
 "98
-[e = . _m_button 6 -> -> 1 `i `uc ]
+[e = . _m_button 5 _current_state ]
 "99
 }
 [; ;interact.c: 99: }
-[e $U 394  ]
+[e $U 405  ]
 "100
-[e :U 393 ]
-[; ;interact.c: 100: else if ((m_button.last_state == 1)&&(!m_button.has_once_been_released))
-[e $ ! && == -> . _m_button 5 `i -> 1 `i ! != -> . _m_button 6 `i -> -> -> 0 `i `Vuc `i 395  ]
+[e :U 404 ]
+[; ;interact.c: 100: else if (m_button.last_state == 1)
+[e $ ! == -> . _m_button 5 `i -> 1 `i 406  ]
 [; ;interact.c: 101: {
 "101
 {
 [; ;interact.c: 102: m_button.count_pressed++;
 "102
 [e ++ . _m_button 1 -> -> 1 `i `uc ]
-[; ;interact.c: 103: if (m_button.count_pressed >= 100)
+[; ;interact.c: 103: if (m_button.count_pressed > 5)
 "103
-[e $ ! >= -> . _m_button 1 `i -> 100 `i 396  ]
-[; ;interact.c: 104: m_button.confirmed_state = long_push;
+[e $ ! > -> . _m_button 1 `i -> 5 `i 407  ]
+[; ;interact.c: 104: m_button.push_confirmed = 1;
 "104
-[e = . _m_button 0 . `E2953 2 ]
-[e :U 396 ]
+[e = . _m_button 3 -> -> 1 `i `uc ]
+[e :U 407 ]
 "105
 }
-[; ;interact.c: 105: }
-[e $U 397  ]
+[e :U 406 ]
 "106
-[e :U 395 ]
-[; ;interact.c: 106: else if (m_button.last_state == 0)
-[e $ ! == -> . _m_button 5 `i -> 0 `i 398  ]
-[; ;interact.c: 107: {
+[e :U 405 ]
+}
+[; ;interact.c: 105: }
+[; ;interact.c: 106: }
+[e $U 408  ]
 "107
-{
-[; ;interact.c: 108: m_button.count_released++;
+[e :U 403 ]
+[; ;interact.c: 107: else
+[; ;interact.c: 108: {
 "108
-[e ++ . _m_button 2 -> -> 1 `i `uc ]
-[; ;interact.c: 109: if (m_button.count_released > 10)
+{
+[; ;interact.c: 109: if (current_state != m_button.last_state)
 "109
-[e $ ! > -> . _m_button 2 `i -> 10 `i 399  ]
-[; ;interact.c: 110: if (m_button.count_pressed >= 75)
+[e $ ! != -> _current_state `i -> . _m_button 5 `i 409  ]
+[; ;interact.c: 110: {
 "110
-[e $ ! >= -> . _m_button 1 `i -> 75 `i 400  ]
-[; ;interact.c: 111: m_button.confirmed_state = long_push;
+{
+[; ;interact.c: 111: m_button.count_released = 0;
 "111
-[e = . _m_button 0 . `E2953 2 ]
-[e $U 401  ]
+[e = . _m_button 2 -> -> 0 `i `uc ]
+[; ;interact.c: 112: m_button.last_state = current_state;
 "112
-[e :U 400 ]
-[; ;interact.c: 112: else
-[; ;interact.c: 113: m_button.confirmed_state = short_push;
+[e = . _m_button 5 _current_state ]
+[; ;interact.c: 113: m_button.has_once_been_released = 1;
 "113
-[e = . _m_button 0 . `E2953 1 ]
-[e :U 401 ]
-[e :U 399 ]
+[e = . _m_button 6 -> -> 1 `i `uc ]
 "114
 }
-[e :U 398 ]
-"115
-[e :U 397 ]
-[e :U 394 ]
-}
-[e :U 392 ]
 [; ;interact.c: 114: }
-[; ;interact.c: 115: }
-[; ;interact.c: 116: }
+[e $U 410  ]
+"115
+[e :U 409 ]
+[; ;interact.c: 115: else if ((m_button.last_state == 1)&&(!m_button.has_once_been_released))
+[e $ ! && == -> . _m_button 5 `i -> 1 `i ! != -> . _m_button 6 `i -> -> -> 0 `i `Vuc `i 411  ]
+[; ;interact.c: 116: {
 "116
-[e :UE 386 ]
+{
+[; ;interact.c: 117: m_button.count_pressed++;
+"117
+[e ++ . _m_button 1 -> -> 1 `i `uc ]
+[; ;interact.c: 118: if (m_button.count_pressed >= 100)
+"118
+[e $ ! >= -> . _m_button 1 `i -> 100 `i 412  ]
+[; ;interact.c: 119: m_button.confirmed_state = long_push;
+"119
+[e = . _m_button 0 . `E2954 2 ]
+[e :U 412 ]
+"120
+}
+[; ;interact.c: 120: }
+[e $U 413  ]
+"121
+[e :U 411 ]
+[; ;interact.c: 121: else if (m_button.last_state == 0)
+[e $ ! == -> . _m_button 5 `i -> 0 `i 414  ]
+[; ;interact.c: 122: {
+"122
+{
+[; ;interact.c: 123: m_button.count_released++;
+"123
+[e ++ . _m_button 2 -> -> 1 `i `uc ]
+[; ;interact.c: 124: if (m_button.count_released > 10)
+"124
+[e $ ! > -> . _m_button 2 `i -> 10 `i 415  ]
+[; ;interact.c: 125: if (m_button.count_pressed >= 75)
+"125
+[e $ ! >= -> . _m_button 1 `i -> 75 `i 416  ]
+[; ;interact.c: 126: m_button.confirmed_state = long_push;
+"126
+[e = . _m_button 0 . `E2954 2 ]
+[e $U 417  ]
+"127
+[e :U 416 ]
+[; ;interact.c: 127: else
+[; ;interact.c: 128: m_button.confirmed_state = short_push;
+"128
+[e = . _m_button 0 . `E2954 1 ]
+[e :U 417 ]
+[e :U 415 ]
+"129
+}
+[e :U 414 ]
+"130
+[e :U 413 ]
+[e :U 410 ]
+}
+[e :U 408 ]
+[; ;interact.c: 129: }
+[; ;interact.c: 130: }
+[; ;interact.c: 131: }
+"131
+[e :UE 402 ]
 }

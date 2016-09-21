@@ -4000,10 +4000,11 @@ volatile unsigned char counter;
 
 
 
+void double_fast_blink();
 void LED_set_state(LED_state_t new_state);
 void LED_update_loop();
 
-# 59
+# 60
 volatile struct {
 volatile enum {
 nothing, short_push, long_push
@@ -4021,11 +4022,12 @@ void button_update_loop();
 unsigned char get_button_state();
 
 # 18 "fixed_point.h"
-typedef signed long long t_fp;
+typedef signed long t_fp;
 
 t_fp convert_to_fp(signed short int_part, signed short fract_part);
 t_fp multiply_fp(t_fp n1, t_fp n2);
 t_fp reciprocal_fp(t_fp n);
+signed short integer_part(t_fp n);
 
 # 16 "main.h"
 bool load_calibration_from_EEPROM();
@@ -4050,11 +4052,12 @@ void my10msTimerISR(void);
 t_fp speed;
 
 const t_fp ratio_mph = 0x00009EF9;
+uint16_t motor = 0;
 
-# 74
+# 75
 struct conf_data
 {
-unsigned char use_mph;
+bool use_mph;
 unsigned short max_pwm;
 unsigned char nb_steps;
 unsigned short ref_pwm[20];
@@ -4064,11 +4067,7 @@ unsigned char impulse_duration;
 
 unsigned short m_crc;
 
-
-asm("\tpsect eeprom_data,class=EEDATA,delta=2,space=3,noexec"); asm("\tdb\t" "0x11" "," "0x22" "," "0x33" "," "0x44" "," "0x55" "," "0x66" "," "0x77" "," "0x88");
-asm("\tpsect eeprom_data,class=EEDATA,delta=2,space=3,noexec"); asm("\tdb\t" "0x49" "," "0xC8" "," "0x00" "," "0x00" "," "0x00" "," "0x00" "," "0x00" "," "0x00");
-
-
+# 92
 bool load_calibration_from_EEPROM()
 {
 
@@ -4105,10 +4104,104 @@ DATAEE_WriteByte(addr++, *p++);
 
 void perform_calibration()
 {
-m_conf.use_mph = 0x01;
-m_conf.max_pwm = 0x00;
+double_fast_blink();
+button_init();
 
-# 138
+
+LED_set_state(always_on);
+m_conf.use_mph = 0;
+while (m_button.confirmed_state != long_push)
+{
+if (m_button.confirmed_state == short_push)
+{
+m_conf.use_mph = !m_conf.use_mph;
+if (m_conf.use_mph)
+LED_set_state(slow_blinking);
+else
+LED_set_state(fast_blinking);
+button_init();
+}
+}
+double_fast_blink();
+button_init();
+
+
+motor = 200;
+
+EPWM1_LoadDutyValue(0);
+_delay((unsigned long)((30)*(32000000/4000.0)));
+
+
+while (1)
+{
+if (get_button_state() && (motor >= 300))
+break;
+motor++;
+if (motor == 1023)
+motor = 300;
+EPWM1_LoadDutyValue(1023-motor);
+_delay((unsigned long)((30)*(32000000/4000.0)));
+}
+m_conf.max_pwm = motor;
+double_fast_blink();
+for(unsigned char __delay_tmp=0;__delay_tmp<(10*1);__delay_tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
+
+
+
+bool done = 0;
+while (!done)
+{
+unsigned char i = 0;
+motor = m_conf.max_pwm;
+while (motor > 100)
+{
+if (get_button_state())
+{
+m_conf.ref_pwm[i++] = motor;
+double_fast_blink();
+for(unsigned char __delay_tmp=0;__delay_tmp<(10*1);__delay_tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
+}
+motor--;
+EPWM1_LoadDutyValue(1023-motor);
+_delay((unsigned long)((150)*(32000000/4000.0)));
+}
+m_conf.nb_steps = i;
+EPWM1_LoadDutyValue(1023-0);
+double_fast_blink();
+for(unsigned char __delay_tmp=0;__delay_tmp<(10*1);__delay_tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
+
+bool replay = 1;
+button_init();
+while (replay)
+{
+for (i=0; i<m_conf.nb_steps; i++)
+{
+EPWM1_LoadDutyValue(1023-m_conf.ref_pwm[i]);
+for(unsigned char __delay_tmp=0;__delay_tmp<(10*3);__delay_tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
+if (m_button.confirmed_state != nothing)
+{
+replay = 0;
+break;
+}
+}
+
+if (m_button.confirmed_state == long_push)
+done = 1;
+}
+}
+double_fast_blink();
+for(unsigned char __delay_tmp=0;__delay_tmp<(10*1);__delay_tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
+button_init();
+
+
+m_conf.low_speed_pwm = m_conf.ref_pwm[m_conf.nb_steps-1] - 10;
+
+m_conf.impulse_duration = 10;
+
+
+LED_set_state(manual_mode);
+do { LATA2 = 0; } while(0);
+EPWM1_LoadDutyValue(1023-0);
 }
 
 
@@ -4118,74 +4211,41 @@ void main(void)
 SYSTEM_Initialize();
 
 LED_set_state(manual_mode);
-do { LATA2 = 1; } while(0);
+do { LATA2 = 0; } while(0);
 
+motor = 0;
+EPWM1_LoadDutyValue(1023-motor);
 
+TMR2_StartTimer();
 TMR0_SetInterruptHandler(my10msTimerISR);
 
 (INTCONbits.GIE = 1);
 
 (INTCONbits.PEIE = 1);
 
-for(unsigned char tmp=0;tmp<(10*3);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
 
-
-if (load_calibration_from_EEPROM())
+if (!load_calibration_from_EEPROM())
 {
+
 LED_set_state(slow_blinking);
-for(unsigned char tmp=0;tmp<(10*5);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
-}
-else
+button_init();
+while (m_button.confirmed_state != long_push)
 {
-LED_set_state(fast_blinking);
-for(unsigned char tmp=0;tmp<(10*5);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
+if (m_button.confirmed_state == short_push)
+button_init();
+}
 perform_calibration();
 write_calibration_to_EEPROM();
 }
-LED_set_state(always_off);
-while(1)
-{}
-
-uint16_t motor_load = 0;
-EPWM1_LoadDutyValue(1023-motor_load);
-TMR2_StartTimer();
-for(unsigned char tmp=0;tmp<(10*5);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
-
-bool up = 1;
-
-# 200
-EPWM1_LoadDutyValue(0);
-_delay((unsigned long)((10)*(32000000/4000.0)));
-EPWM1_LoadDutyValue(1023-148);
-for(unsigned char tmp=0;tmp<(10*5);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
-while (1)
-{
-if (up == 1)
-motor_load += 1;
-else
-motor_load -= 1;
-if (motor_load > 300)
-up = 0;
-else if (motor_load == 0)
-{
-up = 1;
-EPWM1_LoadDutyValue(1023);
-for(unsigned char tmp=0;tmp<(10*5);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
-
-EPWM1_LoadDutyValue(0);
-_delay((unsigned long)((10)*(32000000/4000.0)));
-}
-if (motor_load < 148)
-EPWM1_LoadDutyValue(1023-135);
-else
-EPWM1_LoadDutyValue(1023-motor_load);
-_delay((unsigned long)((50)*(32000000/4000.0)));
-}
 
 GPS_Initialize();
-
 speed = 0;
 
+button_init();
+unsigned short new_motor, speed_int;
+t_fp a, b, tmp, fp_motor;
+unsigned char i;
+bool done;
 while (1)
 {
 
@@ -4195,14 +4255,93 @@ if (GPS_read_speed())
 if (m_conf.use_mph > 0)
 speed = multiply_fp(speed, ratio_mph);
 
+
+
 do { LATA2 = 1; } while(0);
 _delay((unsigned long)((20)*(32000000/4000.0)));
 do { LATA2 = 0; } while(0);
+
+
+speed_int = integer_part(speed);
+i = 1;
+done = 0;
+while ((i<m_conf.nb_steps)&&(!done))
+{
+if (speed_int >= 10*(m_conf.nb_steps-i))
+{
+if (speed_int == 10*(m_conf.nb_steps-i))
+new_motor = m_conf.ref_pwm[i];
+else
+{
+a = convert_to_fp((m_conf.ref_pwm[i-1]-m_conf.ref_pwm[i]),0);
+tmp = convert_to_fp(0,1000);
+
+a = multiply_fp(a, tmp);
+b = convert_to_fp(10*(m_conf.nb_steps-i), 0);
+b = multiply_fp(a, b);
+tmp = convert_to_fp(m_conf.ref_pwm[i], 0);
+b = tmp - b;
+
+fp_motor = multiply_fp(a, speed) + b;
+new_motor = integer_part(fp_motor);
+}
+done = 1;
+}
+else if (i == (m_conf.nb_steps-1))
+{
+new_motor = m_conf.low_speed_pwm;
+done = 1;
+}
+}
+
+
+
 }
 
 
 
 
+if (m_button.confirmed_state == long_push)
+{
+motor = 0;
+EPWM1_LoadDutyValue(1023-motor);
+
+perform_calibration();
+write_calibration_to_EEPROM();
+}
+else if (m_button.confirmed_state == short_push)
+button_init();
+}
+
+bool up = 1;
+
+# 357
+EPWM1_LoadDutyValue(0);
+_delay((unsigned long)((10)*(32000000/4000.0)));
+EPWM1_LoadDutyValue(1023-148);
+for(unsigned char __delay_tmp=0;__delay_tmp<(10*5);__delay_tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
+while (1)
+{
+if (up == 1)
+motor += 1;
+else
+motor -= 1;
+if (motor > 300)
+up = 0;
+else if (motor == 0)
+{
+up = 1;
+EPWM1_LoadDutyValue(1023);
+for(unsigned char __delay_tmp=0;__delay_tmp<(10*5);__delay_tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
+
+EPWM1_LoadDutyValue(0);
+_delay((unsigned long)((10)*(32000000/4000.0)));
+}
+if (motor < 148)
+EPWM1_LoadDutyValue(1023-135);
+else
+EPWM1_LoadDutyValue(1023-motor);
+_delay((unsigned long)((50)*(32000000/4000.0)));
 }
 }
 

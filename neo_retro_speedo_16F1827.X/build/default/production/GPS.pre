@@ -3983,11 +3983,12 @@ void write_calibration_to_EEPROM();
 void perform_calibration();
 
 # 18 "fixed_point.h"
-typedef signed long long t_fp;
+typedef signed long t_fp;
 
 t_fp convert_to_fp(signed short int_part, signed short fract_part);
 t_fp multiply_fp(t_fp n1, t_fp n2);
 t_fp reciprocal_fp(t_fp n);
+signed short integer_part(t_fp n);
 
 # 13 "GPS.h"
 extern t_fp speed;
@@ -4000,7 +4001,7 @@ bool GPS_read_speed(void);
 # 12 "GPS.c"
 void GPS_Initialize(void)
 {
-for(unsigned char tmp=0;tmp<(10*1);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
+for(unsigned char __delay_tmp=0;__delay_tmp<(10*1);__delay_tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
 
 printf("$PMTK314,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0*29\r\n");
 _delay((unsigned long)((100)*(32000000/4000.0)));

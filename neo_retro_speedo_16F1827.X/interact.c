@@ -11,6 +11,21 @@
 // blinking LED handling
 // ----------------------------------------------------------------------------
 
+void double_fast_blink()
+{
+    LED_set_state(manual_mode); // do that before activating interrupts
+    STATUS_LED_SetLow();
+    __delay_ms(250);
+    STATUS_LED_SetHigh();
+    __delay_ms(50);
+    STATUS_LED_SetLow();
+    __delay_ms(50);
+    STATUS_LED_SetHigh();
+    __delay_ms(50);
+    STATUS_LED_SetLow();
+    __delay_ms(250);
+}
+
 void LED_set_state(LED_state_t new_state)
 {
     m_LED.state = new_state;

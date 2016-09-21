@@ -6,7 +6,7 @@
  */
 
 
-#define __delay_sec(x) for(unsigned char tmp=0;tmp<(10*x);tmp++){__delay_ms(100);}
+#define __delay_sec(x) for(unsigned char __delay_tmp=0;__delay_tmp<(10*x);__delay_tmp++){__delay_ms(100);}
 
 #define uint8  unsigned char
 #define uint16 unsigned short

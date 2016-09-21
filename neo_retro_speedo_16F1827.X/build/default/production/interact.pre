@@ -3995,10 +3995,11 @@ volatile unsigned char counter;
 
 
 
+void double_fast_blink();
 void LED_set_state(LED_state_t new_state);
 void LED_update_loop();
 
-# 59
+# 60
 volatile struct {
 volatile enum {
 nothing, short_push, long_push
@@ -4016,6 +4017,21 @@ void button_update_loop();
 unsigned char get_button_state();
 
 # 14 "interact.c"
+void double_fast_blink()
+{
+LED_set_state(manual_mode);
+do { LATA2 = 0; } while(0);
+_delay((unsigned long)((250)*(32000000/4000.0)));
+do { LATA2 = 1; } while(0);
+_delay((unsigned long)((50)*(32000000/4000.0)));
+do { LATA2 = 0; } while(0);
+_delay((unsigned long)((50)*(32000000/4000.0)));
+do { LATA2 = 1; } while(0);
+_delay((unsigned long)((50)*(32000000/4000.0)));
+do { LATA2 = 0; } while(0);
+_delay((unsigned long)((250)*(32000000/4000.0)));
+}
+
 void LED_set_state(LED_state_t new_state)
 {
 m_LED.state = new_state;
@@ -4035,7 +4051,7 @@ return;
 else if (m_LED.state == slow_blinking)
 {
 m_LED.counter++;
-if (m_LED.counter >= 85)
+if (m_LED.counter >= 60)
 {
 m_LED.counter = 0;
 do { LATA2 = ~LATA2; } while(0);
@@ -4044,7 +4060,7 @@ do { LATA2 = ~LATA2; } while(0);
 else if (m_LED.state == fast_blinking)
 {
 m_LED.counter++;
-if (m_LED.counter >= 20)
+if (m_LED.counter >= 15)
 {
 m_LED.counter = 0;
 do { LATA2 = ~LATA2; } while(0);
@@ -4052,7 +4068,7 @@ do { LATA2 = ~LATA2; } while(0);
 }
 }
 
-# 54
+# 69
 unsigned char get_button_state()
 {
 

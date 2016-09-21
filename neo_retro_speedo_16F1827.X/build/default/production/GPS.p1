@@ -2867,10 +2867,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;main.h: 16: bool load_calibration_from_EEPROM();
 [; ;main.h: 17: void write_calibration_to_EEPROM();
 [; ;main.h: 18: void perform_calibration();
-[; ;fixed_point.h: 18: typedef signed long long t_fp;
+[; ;fixed_point.h: 18: typedef signed long t_fp;
 [; ;fixed_point.h: 20: t_fp convert_to_fp(signed short int_part, signed short fract_part);
 [; ;fixed_point.h: 21: t_fp multiply_fp(t_fp n1, t_fp n2);
 [; ;fixed_point.h: 22: t_fp reciprocal_fp(t_fp n);
+[; ;fixed_point.h: 23: signed short integer_part(t_fp n);
 [; ;GPS.h: 13: extern t_fp speed;
 [; ;GPS.h: 17: void GPS_Initialize(void);
 [; ;GPS.h: 18: bool GPS_read_speed(void);
@@ -2882,19 +2883,19 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;GPS.c: 13: {
 [e :U _GPS_Initialize ]
 [f ]
-[; ;GPS.c: 14: for(unsigned char tmp=0;tmp<(10*1);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
+[; ;GPS.c: 14: for(unsigned char __delay_tmp=0;__delay_tmp<(10*1);__delay_tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
 "14
 {
-[v _tmp `uc ~T0 @X0 1 a ]
-[e = _tmp -> -> 0 `i `uc ]
-[e $ < -> _tmp `i * -> 10 `i -> 1 `i 352  ]
+[v ___delay_tmp `uc ~T0 @X0 1 a ]
+[e = ___delay_tmp -> -> 0 `i `uc ]
+[e $ < -> ___delay_tmp `i * -> 10 `i -> 1 `i 352  ]
 [e $U 353  ]
 [e :U 352 ]
 {
 [e ( __delay (1 -> * -> -> 100 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
 }
-[e ++ _tmp -> -> 1 `i `uc ]
-[e $ < -> _tmp `i * -> 10 `i -> 1 `i 352  ]
+[e ++ ___delay_tmp -> -> 1 `i `uc ]
+[e $ < -> ___delay_tmp `i * -> 10 `i -> 1 `i 352  ]
 [e :U 353 ]
 }
 [; ;GPS.c: 16: printf("$PMTK314,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0*29\r\n");

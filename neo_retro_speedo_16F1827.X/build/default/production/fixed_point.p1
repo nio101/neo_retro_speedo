@@ -2850,284 +2850,342 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;tmr2.h: 324: bool TMR2_HasOverflowOccured(void);
 [; ;mcc.h: 72: void SYSTEM_Initialize(void);
 [; ;mcc.h: 85: void OSCILLATOR_Initialize(void);
-[; ;fixed_point.h: 18: typedef signed long long t_fp;
+[; ;fixed_point.h: 18: typedef signed long t_fp;
 [; ;fixed_point.h: 20: t_fp convert_to_fp(signed short int_part, signed short fract_part);
 [; ;fixed_point.h: 21: t_fp multiply_fp(t_fp n1, t_fp n2);
 [; ;fixed_point.h: 22: t_fp reciprocal_fp(t_fp n);
-"12 fixed_point.c
+[; ;fixed_point.h: 23: signed short integer_part(t_fp n);
+"10 fixed_point.c
 [v _fp_x0_a `Cl ~T0 @X0 1 e ]
 [i _fp_x0_a
 -> 185040 `l
 ]
-[; ;fixed_point.c: 12: const t_fp fp_x0_a = 0x0002D2D0;
-"13
+[; ;fixed_point.c: 10: const t_fp fp_x0_a = 0x0002D2D0;
+"11
 [v _fp_x0_b `Cl ~T0 @X0 1 e ]
 [i _fp_x0_b
 -> 123364 `l
 ]
-[; ;fixed_point.c: 13: const t_fp fp_x0_b = 0x0001E1E4;
-"15
+[; ;fixed_point.c: 11: const t_fp fp_x0_b = 0x0001E1E4;
+"13
 [v _convert_to_fp `(l ~T0 @X0 1 ef2`s`s ]
-"16
+"14
 {
-[; ;fixed_point.c: 15: t_fp convert_to_fp(signed short int_part, signed short fract_part)
-[; ;fixed_point.c: 16: {
+[; ;fixed_point.c: 13: t_fp convert_to_fp(signed short int_part, signed short fract_part)
+[; ;fixed_point.c: 14: {
 [e :U _convert_to_fp ]
-"15
+"13
 [v _int_part `s ~T0 @X0 1 r1 ]
 [v _fract_part `s ~T0 @X0 1 r2 ]
-"16
+"14
 [f ]
-"21
+"19
 [v _res `l ~T0 @X0 1 a ]
-[; ;fixed_point.c: 21: t_fp res = 0;
+[; ;fixed_point.c: 19: t_fp res = 0;
 [e = _res -> -> 0 `i `l ]
-[; ;fixed_point.c: 23: res = int_part;
-"23
+[; ;fixed_point.c: 21: res = int_part;
+"21
 [e = _res -> _int_part `l ]
-[; ;fixed_point.c: 24: res = res << 16;
-"24
+[; ;fixed_point.c: 22: res = res << 16;
+"22
 [e = _res << _res -> 16 `i ]
-"26
+"24
 [v _tmp_left `us ~T0 @X0 1 a ]
-[; ;fixed_point.c: 26: unsigned short tmp_left = fract_part;
+[; ;fixed_point.c: 24: unsigned short tmp_left = fract_part;
 [e = _tmp_left -> _fract_part `us ]
-"27
+"25
 [v _res_fract `us ~T0 @X0 1 a ]
-[; ;fixed_point.c: 27: unsigned short res_fract = 0;
+[; ;fixed_point.c: 25: unsigned short res_fract = 0;
 [e = _res_fract -> -> 0 `i `us ]
-"28
-[v F2951 `Cus ~T0 @X0 1 s one ]
-[i F2951
+"26
+[v F2953 `Cus ~T0 @X0 1 s one ]
+[i F2953
 -> -> 1 `i `us
 ]
-[; ;fixed_point.c: 28: const unsigned short one = 1;
-[; ;fixed_point.c: 29: for (unsigned char i_bit = 0; i_bit < 16; i_bit++)
-"29
+[; ;fixed_point.c: 26: const unsigned short one = 1;
+[; ;fixed_point.c: 27: for (unsigned char i_bit = 0; i_bit < 16; i_bit++)
+"27
 {
 [v _i_bit `uc ~T0 @X0 1 a ]
 [e = _i_bit -> -> 0 `i `uc ]
 [e $ < -> _i_bit `i -> 16 `i 352  ]
 [e $U 353  ]
-"30
+"28
 [e :U 352 ]
-[; ;fixed_point.c: 30: {
+[; ;fixed_point.c: 28: {
 {
-[; ;fixed_point.c: 31: tmp_left = tmp_left << 1;
-"31
+[; ;fixed_point.c: 29: tmp_left = tmp_left << 1;
+"29
 [e = _tmp_left -> << -> _tmp_left `ui -> 1 `i `us ]
-[; ;fixed_point.c: 32: if (tmp_left >= 10000)
-"32
+[; ;fixed_point.c: 30: if (tmp_left >= 10000)
+"30
 [e $ ! >= -> _tmp_left `ui -> -> 10000 `i `ui 355  ]
-[; ;fixed_point.c: 33: {
-"33
+[; ;fixed_point.c: 31: {
+"31
 {
-[; ;fixed_point.c: 34: res_fract = res_fract | one<<(16-i_bit-1);
-"34
-[e = _res_fract -> | -> _res_fract `ui << -> F2951 `ui - - -> 16 `i -> _i_bit `i -> 1 `i `us ]
-[; ;fixed_point.c: 35: tmp_left = tmp_left - 10000;
-"35
+[; ;fixed_point.c: 32: res_fract = res_fract | one<<(16-i_bit-1);
+"32
+[e = _res_fract -> | -> _res_fract `ui << -> F2953 `ui - - -> 16 `i -> _i_bit `i -> 1 `i `us ]
+[; ;fixed_point.c: 33: tmp_left = tmp_left - 10000;
+"33
 [e = _tmp_left -> - -> _tmp_left `ui -> -> 10000 `i `ui `us ]
-"36
+"34
 }
 [e :U 355 ]
-"37
+"35
 }
-"29
+"27
 [e ++ _i_bit -> -> 1 `i `uc ]
 [e $ < -> _i_bit `i -> 16 `i 352  ]
 [e :U 353 ]
-"37
+"35
 }
-[; ;fixed_point.c: 36: }
-[; ;fixed_point.c: 37: }
-[; ;fixed_point.c: 39: if (res < 0)
-"39
+[; ;fixed_point.c: 34: }
+[; ;fixed_point.c: 35: }
+[; ;fixed_point.c: 37: if (res < 0)
+"37
 [e $ ! < _res -> -> 0 `i `l 356  ]
-[; ;fixed_point.c: 40: res = res - res_fract;
-"40
+[; ;fixed_point.c: 38: res = res - res_fract;
+"38
 [e = _res - _res -> _res_fract `l ]
 [e $U 357  ]
-"41
+"39
 [e :U 356 ]
-[; ;fixed_point.c: 41: else
-[; ;fixed_point.c: 42: res = res + res_fract;
-"42
+[; ;fixed_point.c: 39: else
+[; ;fixed_point.c: 40: res = res + res_fract;
+"40
 [e = _res + _res -> _res_fract `l ]
 [e :U 357 ]
-[; ;fixed_point.c: 43: return res;
-"43
+[; ;fixed_point.c: 41: return res;
+"41
 [e ) _res ]
 [e $UE 351  ]
-[; ;fixed_point.c: 44: }
-"44
+[; ;fixed_point.c: 42: }
+"42
 [e :UE 351 ]
 }
-"46
+"44
 [v _multiply_fp `(l ~T0 @X0 1 ef2`l`l ]
-"47
+"45
 {
-[; ;fixed_point.c: 46: t_fp multiply_fp(t_fp n1, t_fp n2)
-[; ;fixed_point.c: 47: {
+[; ;fixed_point.c: 44: t_fp multiply_fp(t_fp n1, t_fp n2)
+[; ;fixed_point.c: 45: {
 [e :U _multiply_fp ]
-"46
+"44
 [v _n1 `l ~T0 @X0 1 r1 ]
 [v _n2 `l ~T0 @X0 1 r2 ]
-"47
+"45
 [f ]
-"50
+"48
 [v _res `l ~T0 @X0 1 a ]
-[; ;fixed_point.c: 50: signed long long res = ((signed long long) (n1 >> 16) * (signed long long) (n2 >> 16))<<16;
+[; ;fixed_point.c: 48: signed long long res = ((signed long long) (n1 >> 16) * (signed long long) (n2 >> 16))<<16;
 [e = _res << * >> _n1 -> 16 `i >> _n2 -> 16 `i -> 16 `i ]
-[; ;fixed_point.c: 51: res+= ((signed long long) (n1 >> 16) * (signed long long) (n2 & 0x0000FFFF));
-"51
+[; ;fixed_point.c: 49: res+= ((signed long long) (n1 >> 16) * (signed long long) (n2 & 0x0000FFFF));
+"49
 [e =+ _res * >> _n1 -> 16 `i & _n2 -> -> 65535 `ui `l ]
-[; ;fixed_point.c: 52: res+= ((signed long long) (n2 >> 16) * (signed long long) (n1 & 0x0000FFFF));
-"52
+[; ;fixed_point.c: 50: res+= ((signed long long) (n2 >> 16) * (signed long long) (n1 & 0x0000FFFF));
+"50
 [e =+ _res * >> _n2 -> 16 `i & _n1 -> -> 65535 `ui `l ]
-[; ;fixed_point.c: 53: res+= (((signed long long) (n1 & 0x0000FFFF) * (signed long long) (n2 & 0x0000FFFF))>>16)& 0x0000FFFF;
-"53
+[; ;fixed_point.c: 51: res+= (((signed long long) (n1 & 0x0000FFFF) * (signed long long) (n2 & 0x0000FFFF))>>16)& 0x0000FFFF;
+"51
 [e =+ _res & >> * & _n1 -> -> 65535 `ui `l & _n2 -> -> 65535 `ui `l -> 16 `i -> -> 65535 `ui `l ]
-[; ;fixed_point.c: 54: return res;
-"54
+[; ;fixed_point.c: 52: return res;
+"52
 [e ) _res ]
 [e $UE 358  ]
-[; ;fixed_point.c: 55: }
-"55
+[; ;fixed_point.c: 53: }
+"53
 [e :UE 358 ]
 }
-"57
+"55
 [v _reciprocal_fp `(l ~T0 @X0 1 ef1`l ]
-"58
+"56
 {
-[; ;fixed_point.c: 57: t_fp reciprocal_fp(t_fp n)
-[; ;fixed_point.c: 58: {
+[; ;fixed_point.c: 55: t_fp reciprocal_fp(t_fp n)
+[; ;fixed_point.c: 56: {
 [e :U _reciprocal_fp ]
-"57
+"55
 [v _n `l ~T0 @X0 1 r1 ]
-"58
+"56
 [f ]
-"60
+"58
 [v _shift `c ~T0 @X0 1 a ]
-[; ;fixed_point.c: 60: signed char shift = 0;
+[; ;fixed_point.c: 58: signed char shift = 0;
 [e = _shift -> -> 0 `i `c ]
-"61
+"59
 [v _neg `uc ~T0 @X0 1 a ]
-[; ;fixed_point.c: 61: bool neg = (n < 0);
+[; ;fixed_point.c: 59: bool neg = (n < 0);
 [e = _neg -> -> < _n -> -> 0 `i `l `i `uc ]
-[; ;fixed_point.c: 62: if (neg)
-"62
+[; ;fixed_point.c: 60: if (neg)
+"60
 [e $ ! != -> _neg `i -> -> -> 0 `i `uc `i 360  ]
-[; ;fixed_point.c: 63: n = -n;
-"63
+[; ;fixed_point.c: 61: n = -n;
+"61
 [e = _n -U _n ]
 [e :U 360 ]
-[; ;fixed_point.c: 64: if (n < 0x00008000)
-"64
+[; ;fixed_point.c: 62: if (n < 0x00008000)
+"62
 [e $ ! < _n -> -> 32768 `ui `l 361  ]
-[; ;fixed_point.c: 65: while (n < 0x00008000)
-"65
+[; ;fixed_point.c: 63: while (n < 0x00008000)
+"63
 [e $U 362  ]
 [e :U 363 ]
-[; ;fixed_point.c: 66: {
-"66
+[; ;fixed_point.c: 64: {
+"64
 {
-[; ;fixed_point.c: 67: n = n << 1;
-"67
+[; ;fixed_point.c: 65: n = n << 1;
+"65
 [e = _n << _n -> 1 `i ]
-[; ;fixed_point.c: 68: shift ++;
-"68
+[; ;fixed_point.c: 66: shift ++;
+"66
 [e ++ _shift -> -> 1 `i `c ]
-"69
+"67
 }
 [e :U 362 ]
-"65
+"63
 [e $ < _n -> -> 32768 `ui `l 363  ]
 [e :U 364 ]
-[; ;fixed_point.c: 69: }
-"69
+[; ;fixed_point.c: 67: }
+"67
 [e $U 365  ]
-"70
+"68
 [e :U 361 ]
-[; ;fixed_point.c: 70: else if (n > 0x00010000)
+[; ;fixed_point.c: 68: else if (n > 0x00010000)
 [e $ ! > _n -> 65536 `l 366  ]
-[; ;fixed_point.c: 71: while (n > 0x00010000)
-"71
+[; ;fixed_point.c: 69: while (n > 0x00010000)
+"69
 [e $U 367  ]
 [e :U 368 ]
-[; ;fixed_point.c: 72: {
-"72
+[; ;fixed_point.c: 70: {
+"70
 {
-[; ;fixed_point.c: 73: n = n >> 1;
-"73
+[; ;fixed_point.c: 71: n = n >> 1;
+"71
 [e = _n >> _n -> 1 `i ]
-[; ;fixed_point.c: 74: shift --;
-"74
+[; ;fixed_point.c: 72: shift --;
+"72
 [e -- _shift -> -> 1 `i `c ]
-"75
+"73
 }
 [e :U 367 ]
-"71
+"69
 [e $ > _n -> 65536 `l 368  ]
 [e :U 369 ]
-"75
+"73
 [e :U 366 ]
-"76
+"74
 [e :U 365 ]
 [v _x `l ~T0 @X0 1 a ]
-[; ;fixed_point.c: 75: }
-[; ;fixed_point.c: 76: t_fp x = fp_x0_a - multiply_fp(fp_x0_b, n);
+[; ;fixed_point.c: 73: }
+[; ;fixed_point.c: 74: t_fp x = fp_x0_a - multiply_fp(fp_x0_b, n);
 [e = _x - _fp_x0_a ( _multiply_fp (2 , _fp_x0_b _n ]
-[; ;fixed_point.c: 78: for (unsigned char i=0; i<3; i++)
-"78
+[; ;fixed_point.c: 76: for (unsigned char i=0; i<3; i++)
+"76
 {
 [v _i `uc ~T0 @X0 1 a ]
 [e = _i -> -> 0 `i `uc ]
 [e $ < -> _i `i -> 3 `i 370  ]
 [e $U 371  ]
-"79
+"77
 [e :U 370 ]
-[; ;fixed_point.c: 79: x = multiply_fp(x, (0x00020000 - multiply_fp(x, n)));
+[; ;fixed_point.c: 77: x = multiply_fp(x, (0x00020000 - multiply_fp(x, n)));
 [e = _x ( _multiply_fp (2 , _x - -> 131072 `l ( _multiply_fp (2 , _x _n ]
-"78
+"76
 [e ++ _i -> -> 1 `i `uc ]
 [e $ < -> _i `i -> 3 `i 370  ]
 [e :U 371 ]
-"79
+"77
 }
-[; ;fixed_point.c: 82: if (shift < 0)
-"82
+[; ;fixed_point.c: 80: if (shift < 0)
+"80
 [e $ ! < -> _shift `i -> 0 `i 373  ]
-[; ;fixed_point.c: 83: x = x >> (-shift);
-"83
+[; ;fixed_point.c: 81: x = x >> (-shift);
+"81
 [e = _x >> _x -U -> _shift `i ]
 [e $U 374  ]
-"84
+"82
 [e :U 373 ]
-[; ;fixed_point.c: 84: else if (shift > 0)
+[; ;fixed_point.c: 82: else if (shift > 0)
 [e $ ! > -> _shift `i -> 0 `i 375  ]
-[; ;fixed_point.c: 85: x = x << (shift);
-"85
+[; ;fixed_point.c: 83: x = x << (shift);
+"83
 [e = _x << _x _shift ]
 [e :U 375 ]
-"86
+"84
 [e :U 374 ]
-[; ;fixed_point.c: 86: if (neg)
+[; ;fixed_point.c: 84: if (neg)
 [e $ ! != -> _neg `i -> -> -> 0 `i `uc `i 376  ]
-[; ;fixed_point.c: 87: return -x;
-"87
+[; ;fixed_point.c: 85: return -x;
+"85
 [e ) -U _x ]
 [e $UE 359  ]
 [e $U 377  ]
-"88
+"86
 [e :U 376 ]
-[; ;fixed_point.c: 88: else
-[; ;fixed_point.c: 89: return x;
-"89
+[; ;fixed_point.c: 86: else
+[; ;fixed_point.c: 87: return x;
+"87
 [e ) _x ]
 [e $UE 359  ]
 [e :U 377 ]
-[; ;fixed_point.c: 90: }
-"90
+[; ;fixed_point.c: 88: }
+"88
 [e :UE 359 ]
+}
+"90
+[v _integer_part `(s ~T0 @X0 1 ef1`l ]
+"91
+{
+[; ;fixed_point.c: 90: signed short integer_part(t_fp n)
+[; ;fixed_point.c: 91: {
+[e :U _integer_part ]
+"90
+[v _n `l ~T0 @X0 1 r1 ]
+"91
+[f ]
+"92
+[v _neg `uc ~T0 @X0 1 a ]
+[; ;fixed_point.c: 92: bool neg = (n<0);
+[e = _neg -> -> < _n -> -> 0 `i `l `i `uc ]
+[; ;fixed_point.c: 93: if (neg)
+"93
+[e $ ! != -> _neg `i -> -> -> 0 `i `uc `i 379  ]
+[; ;fixed_point.c: 94: n = -n;
+"94
+[e = _n -U _n ]
+[e :U 379 ]
+"95
+[v _int_part `us ~T0 @X0 1 a ]
+[; ;fixed_point.c: 95: unsigned short int_part = n >> 16;
+[e = _int_part -> >> _n -> 16 `i `us ]
+"96
+[v _and_a_half `l ~T0 @X0 1 a ]
+[; ;fixed_point.c: 96: t_fp and_a_half = convert_to_fp(int_part, 5000);
+[e = _and_a_half ( _convert_to_fp (2 , -> _int_part `s -> -> 5000 `i `s ]
+[; ;fixed_point.c: 97: if (n > and_a_half)
+"97
+[e $ ! > _n _and_a_half 380  ]
+[; ;fixed_point.c: 98: int_part++;
+"98
+[e ++ _int_part -> -> 1 `i `us ]
+[e :U 380 ]
+[; ;fixed_point.c: 99: if (neg)
+"99
+[e $ ! != -> _neg `i -> -> -> 0 `i `uc `i 381  ]
+[; ;fixed_point.c: 100: return -int_part;
+"100
+[e ) -> -U -> _int_part `ui `s ]
+[e $UE 378  ]
+[e $U 382  ]
+"101
+[e :U 381 ]
+[; ;fixed_point.c: 101: else
+[; ;fixed_point.c: 102: return int_part;
+"102
+[e ) -> _int_part `s ]
+[e $UE 378  ]
+[e :U 382 ]
+[; ;fixed_point.c: 103: }
+"103
+[e :UE 378 ]
 }

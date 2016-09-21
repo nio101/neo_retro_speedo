@@ -5,9 +5,7 @@
  * Created on September 17, 2016, 6:04 PM
  */
 
-
 #include "fixed_point.h"
-
 
 const t_fp fp_x0_a = 0x0002D2D0;  // 2.8235
 const t_fp fp_x0_b = 0x0001E1E4;  // 1.8824
@@ -87,4 +85,19 @@ t_fp reciprocal_fp(t_fp n)  // using Newton Raphson algorithm
         return -x;
     else
         return x;
+}
+
+signed short integer_part(t_fp n)
+{
+    bool neg = (n<0);
+    if (neg)
+        n = -n;
+    unsigned short int_part = n >> 16;
+    t_fp and_a_half = convert_to_fp(int_part, 5000);
+    if (n > and_a_half)
+        int_part++;
+    if (neg)
+        return -int_part;
+    else
+        return int_part;
 }

@@ -3978,13 +3978,14 @@ void SYSTEM_Initialize(void);
 void OSCILLATOR_Initialize(void);
 
 # 18 "fixed_point.h"
-typedef signed long long t_fp;
+typedef signed long t_fp;
 
 t_fp convert_to_fp(signed short int_part, signed short fract_part);
 t_fp multiply_fp(t_fp n1, t_fp n2);
 t_fp reciprocal_fp(t_fp n);
+signed short integer_part(t_fp n);
 
-# 12 "fixed_point.c"
+# 10 "fixed_point.c"
 const t_fp fp_x0_a = 0x0002D2D0;
 const t_fp fp_x0_b = 0x0001E1E4;
 
@@ -4063,4 +4064,19 @@ if (neg)
 return -x;
 else
 return x;
+}
+
+signed short integer_part(t_fp n)
+{
+bool neg = (n<0);
+if (neg)
+n = -n;
+unsigned short int_part = n >> 16;
+t_fp and_a_half = convert_to_fp(int_part, 5000);
+if (n > and_a_half)
+int_part++;
+if (neg)
+return -int_part;
+else
+return int_part;
 }

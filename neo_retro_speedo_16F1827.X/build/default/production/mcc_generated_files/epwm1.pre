@@ -1,5 +1,5 @@
 
-# 1 "interact.c"
+# 1 "mcc_generated_files/epwm1.c"
 
 # 26 "D:\Program Files\Microchip\xc8\v1.38\include\htc.h"
 extern const char __xc8_OPTIM_SPEED;
@@ -3718,9 +3718,6 @@ extern unsigned char __resetbits;
 extern __bit __powerdown;
 extern __bit __timeout;
 
-# 153 "mcc_generated_files/pin_manager.h"
-void PIN_MANAGER_Initialize (void);
-
 # 13 "D:\Program Files\Microchip\xc8\v1.38\include\stdint.h"
 typedef signed char int8_t;
 
@@ -3811,285 +3808,46 @@ typedef int16_t intptr_t;
 
 typedef uint16_t uintptr_t;
 
-# 12 "D:\Program Files\Microchip\xc8\v1.38\include\stdbool.h"
-typedef unsigned char bool;
-
-# 110 "mcc_generated_files/interrupt_manager.h"
-void interrupt INTERRUPT_InterruptManager(void);
-
-# 103 "mcc_generated_files/tmr0.h"
-void TMR0_Initialize(void);
-
-# 136
-uint8_t TMR0_ReadTimer(void);
-
-# 175
-void TMR0_WriteTimer(uint8_t timerVal);
-
-# 211
-void TMR0_Reload(void);
-
-# 226
-void TMR0_ISR(void);
-
-# 244
-void TMR0_CallBack(void);
-
-# 262
-void TMR0_SetInterruptHandler(void *InterruptHandler);
-
-# 280
-void (*TMR0_InterruptHandler)(void);
-
-# 298
-void TMR0_DefaultInterruptHandler(void);
-
-# 4 "D:\Program Files\Microchip\xc8\v1.38\include\__size_t.h"
-typedef unsigned size_t;
-
-# 7 "D:\Program Files\Microchip\xc8\v1.38\include\stdarg.h"
-typedef void * va_list[1];
-
-#pragma intrinsic(__va_start)
-extern void * __va_start(void);
-
-#pragma intrinsic(__va_arg)
-extern void * __va_arg(void *, ...);
-
-# 43 "D:\Program Files\Microchip\xc8\v1.38\include\stdio.h"
-struct __prbuf
-{
-char * ptr;
-void (* func)(char);
-};
-
-# 29 "D:\Program Files\Microchip\xc8\v1.38\include\errno.h"
-extern int errno;
-
-# 12 "D:\Program Files\Microchip\xc8\v1.38\include\conio.h"
-extern void init_uart(void);
-
-extern char getch(void);
-extern char getche(void);
-extern void putch(char);
-extern void ungetch(char);
-
-extern __bit kbhit(void);
-
-# 23
-extern char * cgets(char *);
-extern void cputs(const char *);
-
-# 88 "D:\Program Files\Microchip\xc8\v1.38\include\stdio.h"
-extern int cprintf(char *, ...);
-#pragma printf_check(cprintf)
-
-
-
-extern int _doprnt(struct __prbuf *, const register char *, register va_list);
-
-
-# 180
-#pragma printf_check(vprintf) const
-#pragma printf_check(vsprintf) const
-
-extern char * gets(char *);
-extern int puts(const char *);
-extern int scanf(const char *, ...) __attribute__((unsupported("scanf() is not supported by this compiler")));
-extern int sscanf(const char *, const char *, ...) __attribute__((unsupported("sscanf() is not supported by this compiler")));
-extern int vprintf(const char *, va_list) __attribute__((unsupported("vprintf() is not supported by this compiler")));
-extern int vsprintf(char *, const char *, va_list) __attribute__((unsupported("vsprintf() is not supported by this compiler")));
-extern int vscanf(const char *, va_list ap) __attribute__((unsupported("vscanf() is not supported by this compiler")));
-extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupported("vsscanf() is not supported by this compiler")));
-
-#pragma printf_check(printf) const
-#pragma printf_check(sprintf) const
-extern int sprintf(char *, const char *, ...);
-extern int printf(const char *, ...);
-
-# 77 "mcc_generated_files/eusart.h"
-extern volatile uint8_t eusartTxBufferRemaining;
-extern volatile uint8_t eusartRxCount;
-
-# 106
-void EUSART_Initialize(void);
-
-# 155
-uint8_t EUSART_Read(void);
-
-# 180
-void EUSART_Write(uint8_t txData);
-
-# 201
-void EUSART_Transmit_ISR(void);
-
-# 222
-void EUSART_Receive_ISR(void);
-
 # 95 "mcc_generated_files/epwm1.h"
 void EPWM1_Initialize(void);
 
 # 121
 void EPWM1_LoadDutyValue(uint16_t dutyValue);
 
-# 102 "mcc_generated_files/tmr2.h"
-void TMR2_Initialize(void);
-
-# 131
-void TMR2_StartTimer(void);
-
-# 163
-void TMR2_StopTimer(void);
-
-# 198
-uint8_t TMR2_ReadTimer(void);
-
-# 237
-void TMR2_WriteTimer(uint8_t timerVal);
-
-# 289
-void TMR2_LoadPeriodRegister(uint8_t periodVal);
-
-# 324
-bool TMR2_HasOverflowOccured(void);
-
-# 71 "mcc_generated_files/mcc.h"
-void SYSTEM_Initialize(void);
-
-# 84
-void OSCILLATOR_Initialize(void);
-
-# 23 "interact.h"
-typedef enum {
-always_on, always_off, slow_blinking, fast_blinking, manual_mode
-} LED_state_t;
-
-volatile struct {
-volatile LED_state_t state;
-volatile unsigned char counter;
-} m_LED;
-
-
-
-
-void LED_set_state(LED_state_t new_state);
-void LED_update_loop();
-
-# 59
-volatile struct {
-volatile enum {
-nothing, short_push, long_push
-} confirmed_state;
-volatile unsigned char count_pressed;
-volatile unsigned char count_released;
-volatile bool push_confirmed;
-volatile bool release_confirmed;
-volatile unsigned char last_state;
-volatile bool has_once_been_released;
-} m_button;
-
-void button_init();
-void button_update_loop();
-unsigned char get_button_state();
-
-# 14 "interact.c"
-void LED_set_state(LED_state_t new_state)
-{
-m_LED.state = new_state;
-m_LED.counter = 0;
-if (new_state == always_off)
-do { LATA2 = 0; } while(0);
-else if (new_state == always_on)
-do { LATA2 = 1; } while(0);
-else if ((new_state == slow_blinking)||(new_state == fast_blinking))
-do { LATA2 = 1; } while(0);
-}
-
-void LED_update_loop()
-{
-if (m_LED.state == manual_mode)
-return;
-else if (m_LED.state == slow_blinking)
-{
-m_LED.counter++;
-if (m_LED.counter >= 85)
-{
-m_LED.counter = 0;
-do { LATA2 = ~LATA2; } while(0);
-}
-}
-else if (m_LED.state == fast_blinking)
-{
-m_LED.counter++;
-if (m_LED.counter >= 20)
-{
-m_LED.counter = 0;
-do { LATA2 = ~LATA2; } while(0);
-}
-}
-}
-
-# 54
-unsigned char get_button_state()
+# 63 "mcc_generated_files/epwm1.c"
+void EPWM1_Initialize (void)
 {
 
-unsigned char state = PORTBbits.RB0;
-if (state == 1)
-return 0;
-else return 1;
+
+
+CCP1CON = 0x3C;
+
+
+ECCP1AS = 0x00;
+
+
+PWM1CON = 0x80;
+
+
+PSTR1CON = 0x01;
+
+
+CCPR1L = 0x7F;
+
+
+CCPR1H = 0x00;
+
+
+
+CCPTMRS0bits.C1TSEL = 0x0;
 }
 
-void button_init()
-{
-m_button.last_state = get_button_state();
-m_button.count_pressed = 0;
-m_button.count_released = 0;
-m_button.confirmed_state = nothing;
-m_button.push_confirmed = 0;
-m_button.release_confirmed = 0;
-m_button.has_once_been_released = 0;
-}
-
-void button_update_loop()
-{
-unsigned char current_state = get_button_state();
-if (!m_button.push_confirmed)
+void EPWM1_LoadDutyValue(uint16_t dutyValue)
 {
 
-if (current_state != m_button.last_state)
-{
-m_button.count_pressed = 0;
-m_button.last_state = current_state;
+CCPR1L = ((dutyValue & 0x03FC)>>2);
+
+
+CCP1CON = (CCP1CON & 0xCF) | ((dutyValue & 0x0003)<<4);
 }
-else if (m_button.last_state == 1)
-{
-m_button.count_pressed++;
-if (m_button.count_pressed > 5)
-m_button.push_confirmed = 1;
-}
-}
-else
-{
-if (current_state != m_button.last_state)
-{
-m_button.count_released = 0;
-m_button.last_state = current_state;
-m_button.has_once_been_released = 1;
-}
-else if ((m_button.last_state == 1)&&(!m_button.has_once_been_released))
-{
-m_button.count_pressed++;
-if (m_button.count_pressed >= 100)
-m_button.confirmed_state = long_push;
-}
-else if (m_button.last_state == 0)
-{
-m_button.count_released++;
-if (m_button.count_released > 10)
-if (m_button.count_pressed >= 75)
-m_button.confirmed_state = long_push;
-else
-m_button.confirmed_state = short_push;
-}
-}
-}
+

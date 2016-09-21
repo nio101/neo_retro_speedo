@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project>
-  <executable name="dist/default/production/neo_retro_speedo_16F1827.X.production.hex">
+  <executable name="dist/default/production\neo_retro_speedo_16F1827.X.production.hex">
     <memory name="program">
       <units>words</units>
       <length>4096</length>
-      <used>1862</used>
-      <free>2234</free>
+      <used>2133</used>
+      <free>1963</free>
     </memory>
     <memory name="data">
       <units>bytes</units>
       <length>384</length>
-      <used>139</used>
-      <free>245</free>
+      <used>146</used>
+      <free>238</free>
     </memory>
   </executable>
 </project>

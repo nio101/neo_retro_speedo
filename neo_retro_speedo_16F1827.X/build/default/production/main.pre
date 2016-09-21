@@ -1,17 +1,17 @@
 
 # 1 "main.c"
 
-# 26 "/opt/microchip/xc8/v1.38/include/htc.h"
+# 26 "D:\Program Files\Microchip\xc8\v1.38\include\htc.h"
 extern const char __xc8_OPTIM_SPEED;
 
 extern double __fpnormalize(double);
 
 
-# 13 "/opt/microchip/xc8/v1.38/include/xc8debug.h"
+# 13 "D:\Program Files\Microchip\xc8\v1.38\include\xc8debug.h"
 #pragma intrinsic(__builtin_software_breakpoint)
 extern void __builtin_software_breakpoint(void);
 
-# 49 "/opt/microchip/xc8/v1.38/include/pic16f1827.h"
+# 49 "D:\Program Files\Microchip\xc8\v1.38\include\pic16f1827.h"
 extern volatile unsigned char INDF0 @ 0x000;
 
 asm("INDF0 equ 00h");
@@ -3695,21 +3695,21 @@ extern volatile __bit nTO @ (((unsigned) &STATUS)*8) + 4;
 extern volatile __bit nWPUEN @ (((unsigned) &OPTION_REG)*8) + 7;
 
 
-# 27 "/opt/microchip/xc8/v1.38/include/pic.h"
+# 27 "D:\Program Files\Microchip\xc8\v1.38\include\pic.h"
 #pragma intrinsic(__nop)
 extern void __nop(void);
 
 # 77
 extern unsigned int flash_read(unsigned short addr);
 
-# 114 "/opt/microchip/xc8/v1.38/include/eeprom_routines.h"
+# 114 "D:\Program Files\Microchip\xc8\v1.38\include\eeprom_routines.h"
 extern void eeprom_write(unsigned char addr, unsigned char value);
 extern unsigned char eeprom_read(unsigned char addr);
 extern void eecpymem(volatile unsigned char *to, __eeprom unsigned char *from, unsigned char size);
 extern void memcpyee(__eeprom unsigned char *to, const unsigned char *from, unsigned char size);
 
 
-# 151 "/opt/microchip/xc8/v1.38/include/pic.h"
+# 151 "D:\Program Files\Microchip\xc8\v1.38\include\pic.h"
 #pragma intrinsic(_delay)
 extern __nonreentrant void _delay(unsigned long);
 
@@ -3718,10 +3718,10 @@ extern unsigned char __resetbits;
 extern __bit __powerdown;
 extern __bit __timeout;
 
-# 137 "mcc_generated_files/pin_manager.h"
+# 153 "mcc_generated_files/pin_manager.h"
 void PIN_MANAGER_Initialize (void);
 
-# 13 "/opt/microchip/xc8/v1.38/include/stdint.h"
+# 13 "D:\Program Files\Microchip\xc8\v1.38\include\stdint.h"
 typedef signed char int8_t;
 
 # 20
@@ -3811,7 +3811,7 @@ typedef int16_t intptr_t;
 
 typedef uint16_t uintptr_t;
 
-# 12 "/opt/microchip/xc8/v1.38/include/stdbool.h"
+# 12 "D:\Program Files\Microchip\xc8\v1.38\include\stdbool.h"
 typedef unsigned char bool;
 
 # 110 "mcc_generated_files/interrupt_manager.h"
@@ -3844,10 +3844,10 @@ void (*TMR0_InterruptHandler)(void);
 # 298
 void TMR0_DefaultInterruptHandler(void);
 
-# 4 "/opt/microchip/xc8/v1.38/include/__size_t.h"
+# 4 "D:\Program Files\Microchip\xc8\v1.38\include\__size_t.h"
 typedef unsigned size_t;
 
-# 7 "/opt/microchip/xc8/v1.38/include/stdarg.h"
+# 7 "D:\Program Files\Microchip\xc8\v1.38\include\stdarg.h"
 typedef void * va_list[1];
 
 #pragma intrinsic(__va_start)
@@ -3856,17 +3856,17 @@ extern void * __va_start(void);
 #pragma intrinsic(__va_arg)
 extern void * __va_arg(void *, ...);
 
-# 43 "/opt/microchip/xc8/v1.38/include/stdio.h"
+# 43 "D:\Program Files\Microchip\xc8\v1.38\include\stdio.h"
 struct __prbuf
 {
 char * ptr;
 void (* func)(char);
 };
 
-# 29 "/opt/microchip/xc8/v1.38/include/errno.h"
+# 29 "D:\Program Files\Microchip\xc8\v1.38\include\errno.h"
 extern int errno;
 
-# 12 "/opt/microchip/xc8/v1.38/include/conio.h"
+# 12 "D:\Program Files\Microchip\xc8\v1.38\include\conio.h"
 extern void init_uart(void);
 
 extern char getch(void);
@@ -3880,7 +3880,7 @@ extern __bit kbhit(void);
 extern char * cgets(char *);
 extern void cputs(const char *);
 
-# 88 "/opt/microchip/xc8/v1.38/include/stdio.h"
+# 88 "D:\Program Files\Microchip\xc8\v1.38\include\stdio.h"
 extern int cprintf(char *, ...);
 #pragma printf_check(cprintf)
 
@@ -3926,10 +3926,37 @@ void EUSART_Transmit_ISR(void);
 # 222
 void EUSART_Receive_ISR(void);
 
-# 69 "mcc_generated_files/mcc.h"
+# 95 "mcc_generated_files/epwm1.h"
+void EPWM1_Initialize(void);
+
+# 121
+void EPWM1_LoadDutyValue(uint16_t dutyValue);
+
+# 102 "mcc_generated_files/tmr2.h"
+void TMR2_Initialize(void);
+
+# 131
+void TMR2_StartTimer(void);
+
+# 163
+void TMR2_StopTimer(void);
+
+# 198
+uint8_t TMR2_ReadTimer(void);
+
+# 237
+void TMR2_WriteTimer(uint8_t timerVal);
+
+# 289
+void TMR2_LoadPeriodRegister(uint8_t periodVal);
+
+# 324
+bool TMR2_HasOverflowOccured(void);
+
+# 71 "mcc_generated_files/mcc.h"
 void SYSTEM_Initialize(void);
 
-# 82
+# 84
 void OSCILLATOR_Initialize(void);
 
 # 23 "interact.h"
@@ -4025,6 +4052,42 @@ TMR0_SetInterruptHandler(my10msTimerISR);
 (INTCONbits.GIE = 1);
 
 (INTCONbits.PEIE = 1);
+
+uint16_t motor_load = 0;
+EPWM1_LoadDutyValue(1023-motor_load);
+TMR2_StartTimer();
+for(unsigned char tmp=0;tmp<(10*5);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
+
+bool up = 1;
+
+# 142
+EPWM1_LoadDutyValue(0);
+_delay((unsigned long)((10)*(32000000/4000.0)));
+EPWM1_LoadDutyValue(1023-148);
+for(unsigned char tmp=0;tmp<(10*5);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
+while (1)
+{
+if (up == 1)
+motor_load += 1;
+else
+motor_load -= 1;
+if (motor_load > 300)
+up = 0;
+else if (motor_load == 0)
+{
+up = 1;
+EPWM1_LoadDutyValue(1023);
+for(unsigned char tmp=0;tmp<(10*5);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
+
+EPWM1_LoadDutyValue(0);
+_delay((unsigned long)((10)*(32000000/4000.0)));
+}
+if (motor_load < 148)
+EPWM1_LoadDutyValue(1023-135);
+else
+EPWM1_LoadDutyValue(1023-motor_load);
+_delay((unsigned long)((50)*(32000000/4000.0)));
+}
 
 GPS_Initialize();
 

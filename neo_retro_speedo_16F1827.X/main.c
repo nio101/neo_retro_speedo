@@ -113,6 +113,59 @@ void main(void)
     INTERRUPT_GlobalInterruptEnable();
     // Enable the Peripheral Interrupts
     INTERRUPT_PeripheralInterruptEnable();
+
+    uint16_t motor_load = 0;
+    EPWM1_LoadDutyValue(1023-motor_load);
+    TMR2_StartTimer();
+    __delay_sec(5);
+    
+    bool up = true;
+    
+    // test loop, slowly from 0 to --- and back to 0
+    
+    /*while (1)
+    {
+        __delay_ms(200);
+        if (up == true)
+            motor_load += 1;
+        else
+            motor_load -= 1;
+        if (motor_load > 900)   //730
+            up = false;
+        else if (motor_load == 0)
+            up = true;
+        EPWM1_LoadDutyValue(1023-motor_load);
+    }*/
+    
+    // simulate use with impulse+threshold under 10MPH value
+    
+    EPWM1_LoadDutyValue(0);  // impulse to start
+    __delay_ms(10);
+    EPWM1_LoadDutyValue(1023-148);   // 10MPH
+    __delay_sec(5);
+    while (1)
+    {
+        if (up == true)
+            motor_load += 1;
+        else
+            motor_load -= 1;
+        if (motor_load > 300)
+            up = false;
+        else if (motor_load == 0)
+        {
+            up = true;
+            EPWM1_LoadDutyValue(1023);
+            __delay_sec(5);
+            // impulsion pour décoller!
+            EPWM1_LoadDutyValue(0);
+            __delay_ms(10);
+        }
+        if (motor_load < 148)   // threshold en dessous de 10MPH
+            EPWM1_LoadDutyValue(1023-135);//148-%
+        else
+            EPWM1_LoadDutyValue(1023-motor_load);
+        __delay_ms(50);
+    }
     
     GPS_Initialize();
 

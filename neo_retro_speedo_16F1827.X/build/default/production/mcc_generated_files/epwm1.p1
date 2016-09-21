@@ -1,19 +1,27 @@
 Version 3.2 HI-TECH Software Intermediate Code
-[v F2819 `(v ~T0 @X0 0 tf ]
-[v F2766 `(v ~T0 @X0 1 tf1`ul ]
-"152 D:\Program Files\Microchip\xc8\v1.38\include\pic.h
-[v __delay `JF2766 ~T0 @X0 0 e ]
-[p i __delay ]
-"195 D:\Program Files\Microchip\xc8\v1.38\include\stdio.h
-[v _printf `(i ~T0 @X0 0 ev`*Cuc ]
-"78 mcc_generated_files/eusart.h
-[v _eusartRxCount `Vuc ~T0 @X0 0 e ]
-"155
-[v _EUSART_Read `(uc ~T0 @X0 0 ef ]
-"13 GPS.h
-[v _speed `l ~T0 @X0 0 e ]
-"20 fixed_point.h
-[v _convert_to_fp `(l ~T0 @X0 0 ef2`s`s ]
+"4532 D:\Program Files\Microchip\xc8\v1.38\include\pic16f1827.h
+[v _CCP1CON `Vuc ~T0 @X0 0 e@659 ]
+"4687
+[v _ECCP1AS `Vuc ~T0 @X0 0 e@661 ]
+"4613
+[v _PWM1CON `Vuc ~T0 @X0 0 e@660 ]
+"4843
+[v _PSTR1CON `Vuc ~T0 @X0 0 e@662 ]
+"4494
+[v _CCPR1L `Vuc ~T0 @X0 0 e@657 ]
+"4513
+[v _CCPR1H `Vuc ~T0 @X0 0 e@658 ]
+"5376
+[s S275 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S275 . C1TSEL0 C1TSEL1 C2TSEL0 C2TSEL1 C3TSEL0 C3TSEL1 C4TSEL0 C4TSEL1 ]
+"5386
+[s S276 :2 `uc 1 :2 `uc 1 :2 `uc 1 :2 `uc 1 ]
+[n S276 . C1TSEL C2TSEL C3TSEL C4TSEL ]
+"5375
+[u S274 `S275 1 `S276 1 ]
+[n S274 . . . ]
+"5393
+[v _CCPTMRS0bits `VS274 ~T0 @X0 0 e@670 ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
@@ -2768,7 +2776,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic.h: 186: extern unsigned char __resetbits;
 [; ;pic.h: 187: extern __bit __powerdown;
 [; ;pic.h: 188: extern __bit __timeout;
-[; ;pin_manager.h: 153: void PIN_MANAGER_Initialize (void);
 [; ;stdint.h: 13: typedef signed char int8_t;
 [; ;stdint.h: 20: typedef signed int int16_t;
 [; ;stdint.h: 28: typedef signed short long int int24_t;
@@ -2797,842 +2804,59 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;stdint.h: 205: typedef uint32_t uintmax_t;
 [; ;stdint.h: 210: typedef int16_t intptr_t;
 [; ;stdint.h: 215: typedef uint16_t uintptr_t;
-[; ;stdbool.h: 12: typedef unsigned char bool;
-[; ;interrupt_manager.h: 110: void interrupt INTERRUPT_InterruptManager(void);
-[; ;tmr0.h: 103: void TMR0_Initialize(void);
-[; ;tmr0.h: 136: uint8_t TMR0_ReadTimer(void);
-[; ;tmr0.h: 175: void TMR0_WriteTimer(uint8_t timerVal);
-[; ;tmr0.h: 211: void TMR0_Reload(void);
-[; ;tmr0.h: 226: void TMR0_ISR(void);
-[; ;tmr0.h: 244: void TMR0_CallBack(void);
-[; ;tmr0.h: 262: void TMR0_SetInterruptHandler(void *InterruptHandler);
-"280 mcc_generated_files/tmr0.h
-[v _TMR0_InterruptHandler `*F2819 ~T0 @X0 1 e ]
-[; ;tmr0.h: 280: void (*TMR0_InterruptHandler)(void);
-[; ;tmr0.h: 298: void TMR0_DefaultInterruptHandler(void);
-[; ;__size_t.h: 4: typedef unsigned size_t;
-[; ;stdarg.h: 7: typedef void * va_list[1];
-[; ;stdarg.h: 10: extern void * __va_start(void);
-[; ;stdarg.h: 13: extern void * __va_arg(void *, ...);
-[; ;stdio.h: 43: struct __prbuf
-[; ;stdio.h: 44: {
-[; ;stdio.h: 45: char * ptr;
-[; ;stdio.h: 46: void (* func)(char);
-[; ;stdio.h: 47: };
-[; ;errno.h: 29: extern int errno;
-[; ;conio.h: 12: extern void init_uart(void);
-[; ;conio.h: 14: extern char getch(void);
-[; ;conio.h: 15: extern char getche(void);
-[; ;conio.h: 16: extern void putch(char);
-[; ;conio.h: 17: extern void ungetch(char);
-[; ;conio.h: 19: extern __bit kbhit(void);
-[; ;conio.h: 23: extern char * cgets(char *);
-[; ;conio.h: 24: extern void cputs(const char *);
-[; ;stdio.h: 88: extern int cprintf(char *, ...);
-[; ;stdio.h: 93: extern int _doprnt(struct __prbuf *, const register char *, register va_list);
-[; ;stdio.h: 183: extern char * gets(char *);
-[; ;stdio.h: 184: extern int puts(const char *);
-[; ;stdio.h: 185: extern int scanf(const char *, ...) __attribute__((unsupported("scanf() is not supported by this compiler")));
-[; ;stdio.h: 186: extern int sscanf(const char *, const char *, ...) __attribute__((unsupported("sscanf() is not supported by this compiler")));
-[; ;stdio.h: 187: extern int vprintf(const char *, va_list) __attribute__((unsupported("vprintf() is not supported by this compiler")));
-[; ;stdio.h: 188: extern int vsprintf(char *, const char *, va_list) __attribute__((unsupported("vsprintf() is not supported by this compiler")));
-[; ;stdio.h: 189: extern int vscanf(const char *, va_list ap) __attribute__((unsupported("vscanf() is not supported by this compiler")));
-[; ;stdio.h: 190: extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupported("vsscanf() is not supported by this compiler")));
-[; ;stdio.h: 194: extern int sprintf(char *, const char *, ...);
-[; ;stdio.h: 195: extern int printf(const char *, ...);
-[; ;eusart.h: 77: extern volatile uint8_t eusartTxBufferRemaining;
-[; ;eusart.h: 78: extern volatile uint8_t eusartRxCount;
-[; ;eusart.h: 106: void EUSART_Initialize(void);
-[; ;eusart.h: 155: uint8_t EUSART_Read(void);
-[; ;eusart.h: 180: void EUSART_Write(uint8_t txData);
-[; ;eusart.h: 201: void EUSART_Transmit_ISR(void);
-[; ;eusart.h: 222: void EUSART_Receive_ISR(void);
 [; ;epwm1.h: 95: void EPWM1_Initialize(void);
 [; ;epwm1.h: 121: void EPWM1_LoadDutyValue(uint16_t dutyValue);
-[; ;tmr2.h: 102: void TMR2_Initialize(void);
-[; ;tmr2.h: 131: void TMR2_StartTimer(void);
-[; ;tmr2.h: 163: void TMR2_StopTimer(void);
-[; ;tmr2.h: 198: uint8_t TMR2_ReadTimer(void);
-[; ;tmr2.h: 237: void TMR2_WriteTimer(uint8_t timerVal);
-[; ;tmr2.h: 289: void TMR2_LoadPeriodRegister(uint8_t periodVal);
-[; ;tmr2.h: 324: bool TMR2_HasOverflowOccured(void);
-[; ;mcc.h: 71: void SYSTEM_Initialize(void);
-[; ;mcc.h: 84: void OSCILLATOR_Initialize(void);
-[; ;fixed_point.h: 18: typedef signed long long t_fp;
-[; ;fixed_point.h: 20: t_fp convert_to_fp(signed short int_part, signed short fract_part);
-[; ;fixed_point.h: 21: t_fp multiply_fp(t_fp n1, t_fp n2);
-[; ;fixed_point.h: 22: t_fp reciprocal_fp(t_fp n);
-[; ;GPS.h: 13: extern t_fp speed;
-[; ;GPS.h: 17: void GPS_Initialize(void);
-[; ;GPS.h: 18: bool GPS_read_speed(void);
-"12 GPS.c
-[v _GPS_Initialize `(v ~T0 @X0 1 ef ]
-"13
+"63 mcc_generated_files/epwm1.c
+[v _EPWM1_Initialize `(v ~T0 @X0 1 ef ]
+"64
 {
-[; ;GPS.c: 12: void GPS_Initialize(void)
-[; ;GPS.c: 13: {
-[e :U _GPS_Initialize ]
+[; ;epwm1.c: 63: void EPWM1_Initialize (void)
+[; ;epwm1.c: 64: {
+[e :U _EPWM1_Initialize ]
 [f ]
-[; ;GPS.c: 14: for(unsigned char tmp=0;tmp<(10*1);tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
-"14
-{
-[v _tmp `uc ~T0 @X0 1 a ]
-[e = _tmp -> -> 0 `i `uc ]
-[e $ < -> _tmp `i * -> 10 `i -> 1 `i 352  ]
-[e $U 353  ]
-[e :U 352 ]
-{
-[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+[; ;epwm1.c: 68: CCP1CON = 0x3C;
+"68
+[e = _CCP1CON -> -> 60 `i `uc ]
+[; ;epwm1.c: 71: ECCP1AS = 0x00;
+"71
+[e = _ECCP1AS -> -> 0 `i `uc ]
+[; ;epwm1.c: 74: PWM1CON = 0x80;
+"74
+[e = _PWM1CON -> -> 128 `i `uc ]
+[; ;epwm1.c: 77: PSTR1CON = 0x01;
+"77
+[e = _PSTR1CON -> -> 1 `i `uc ]
+[; ;epwm1.c: 80: CCPR1L = 0x7F;
+"80
+[e = _CCPR1L -> -> 127 `i `uc ]
+[; ;epwm1.c: 83: CCPR1H = 0x00;
+"83
+[e = _CCPR1H -> -> 0 `i `uc ]
+[; ;epwm1.c: 87: CCPTMRS0bits.C1TSEL = 0x0;
+"87
+[e = . . _CCPTMRS0bits 1 0 -> -> 0 `i `uc ]
+[; ;epwm1.c: 88: }
+"88
+[e :UE 350 ]
 }
-[e ++ _tmp -> -> 1 `i `uc ]
-[e $ < -> _tmp `i * -> 10 `i -> 1 `i 352  ]
-[e :U 353 ]
-}
-[; ;GPS.c: 16: printf("$PMTK314,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0*29\r\n");
-"16
-[e ( _printf :s 1C ]
-[; ;GPS.c: 17: _delay((unsigned long)((100)*(32000000/4000.0)));
-"17
-[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
-[; ;GPS.c: 19: printf("$PMTK220,100*2F\r\n");
-"19
-[e ( _printf :s 2C ]
-[; ;GPS.c: 20: _delay((unsigned long)((100)*(32000000/4000.0)));
-"20
-[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
-[; ;GPS.c: 21: }
-"21
+"90
+[v _EPWM1_LoadDutyValue `(v ~T0 @X0 1 ef1`ui ]
+"91
+{
+[; ;epwm1.c: 90: void EPWM1_LoadDutyValue(uint16_t dutyValue)
+[; ;epwm1.c: 91: {
+[e :U _EPWM1_LoadDutyValue ]
+"90
+[v _dutyValue `ui ~T0 @X0 1 r1 ]
+"91
+[f ]
+[; ;epwm1.c: 93: CCPR1L = ((dutyValue & 0x03FC)>>2);
+"93
+[e = _CCPR1L -> >> & _dutyValue -> -> 1020 `i `ui -> 2 `i `uc ]
+[; ;epwm1.c: 96: CCP1CON = (CCP1CON & 0xCF) | ((dutyValue & 0x0003)<<4);
+"96
+[e = _CCP1CON -> | -> & -> _CCP1CON `i -> 207 `i `ui << & _dutyValue -> -> 3 `i `ui -> 4 `i `uc ]
+[; ;epwm1.c: 97: }
+"97
 [e :UE 351 ]
 }
-"23
-[v _GPS_read_speed `(uc ~T0 @X0 1 ef ]
-"24
-{
-[; ;GPS.c: 23: bool GPS_read_speed(void)
-[; ;GPS.c: 24: {
-[e :U _GPS_read_speed ]
-[f ]
-"27
-[v _buffer `uc ~T0 @X0 -> 6 `i a ]
-"28
-[v _i_buff `uc ~T0 @X0 1 a ]
-[; ;GPS.c: 27: unsigned char buffer[6];
-[; ;GPS.c: 28: unsigned char i_buff = 0;
-[e = _i_buff -> -> 0 `i `uc ]
-"29
-[v _checksum `uc ~T0 @X0 1 a ]
-[; ;GPS.c: 29: unsigned char checksum = 0x00;
-[e = _checksum -> -> 0 `i `uc ]
-"31
-[v _m_char `uc ~T0 @X0 1 a ]
-[; ;GPS.c: 31: unsigned char m_char = 0x00;
-[e = _m_char -> -> 0 `i `uc ]
-[; ;GPS.c: 32: while (m_char != '$')
-"32
-[e $U 356  ]
-[e :U 357 ]
-[; ;GPS.c: 33: if(eusartRxCount!=0)
-"33
-[e $ ! != -> _eusartRxCount `i -> 0 `i 359  ]
-[; ;GPS.c: 34: m_char=EUSART_Read();
-"34
-[e = _m_char ( _EUSART_Read ..  ]
-[e :U 359 ]
-"38
-[e :U 356 ]
-"32
-[e $ != -> _m_char `ui -> 36 `ui 357  ]
-[e :U 358 ]
-[; ;GPS.c: 38: while (1)
-"38
-[e :U 361 ]
-[; ;GPS.c: 39: if (eusartRxCount!=0)
-"39
-[e $ ! != -> _eusartRxCount `i -> 0 `i 363  ]
-[; ;GPS.c: 40: {
-"40
-{
-[; ;GPS.c: 41: m_char=EUSART_Read();
-"41
-[e = _m_char ( _EUSART_Read ..  ]
-[; ;GPS.c: 42: checksum ^= m_char;
-"42
-[e =^ _checksum _m_char ]
-[; ;GPS.c: 43: if (m_char == ',')
-"43
-[e $ ! == -> _m_char `ui -> 44 `ui 364  ]
-[; ;GPS.c: 44: break;
-"44
-[e $U 362  ]
-[e $U 365  ]
-"45
-[e :U 364 ]
-[; ;GPS.c: 45: else
-[; ;GPS.c: 46: {
-"46
-{
-[; ;GPS.c: 47: buffer[i_buff++] = m_char;
-"47
-[e = *U + &U _buffer * -> ++ _i_buff -> -> 1 `i `uc `ux -> -> # *U &U _buffer `ui `ux _m_char ]
-[; ;GPS.c: 48: if (i_buff >= 6)
-"48
-[e $ ! >= -> _i_buff `i -> 6 `i 366  ]
-[; ;GPS.c: 49: return 0;
-"49
-[e ) -> -> 0 `i `uc ]
-[e $UE 355  ]
-[e :U 366 ]
-"50
-}
-[e :U 365 ]
-"51
-}
-[e :U 363 ]
-"53
-[e :U 360 ]
-"38
-[e $U 361  ]
-[e :U 362 ]
-[; ;GPS.c: 50: }
-[; ;GPS.c: 51: }
-[; ;GPS.c: 53: if ((buffer[0] != 'G')||(buffer[1] != 'P')||(buffer[2] != 'V')||(buffer[3] != 'T')||(buffer[4] != 'G'))
-"53
-[e $ ! || || || || != -> *U + &U _buffer * -> -> -> 0 `i `ui `ux -> -> # *U &U _buffer `ui `ux `ui -> 71 `ui != -> *U + &U _buffer * -> -> -> 1 `i `ui `ux -> -> # *U &U _buffer `ui `ux `ui -> 80 `ui != -> *U + &U _buffer * -> -> -> 2 `i `ui `ux -> -> # *U &U _buffer `ui `ux `ui -> 86 `ui != -> *U + &U _buffer * -> -> -> 3 `i `ui `ux -> -> # *U &U _buffer `ui `ux `ui -> 84 `ui != -> *U + &U _buffer * -> -> -> 4 `i `ui `ux -> -> # *U &U _buffer `ui `ux `ui -> 71 `ui 367  ]
-[; ;GPS.c: 54: return 0;
-"54
-[e ) -> -> 0 `i `uc ]
-[e $UE 355  ]
-[e :U 367 ]
-[; ;GPS.c: 55: i_buff = 0;
-"55
-[e = _i_buff -> -> 0 `i `uc ]
-[; ;GPS.c: 58: while (1)
-"58
-[e :U 369 ]
-[; ;GPS.c: 59: if (eusartRxCount!=0)
-"59
-[e $ ! != -> _eusartRxCount `i -> 0 `i 371  ]
-[; ;GPS.c: 60: {
-"60
-{
-[; ;GPS.c: 61: m_char=EUSART_Read();
-"61
-[e = _m_char ( _EUSART_Read ..  ]
-[; ;GPS.c: 62: checksum ^= m_char;
-"62
-[e =^ _checksum _m_char ]
-[; ;GPS.c: 63: if (m_char == ',')
-"63
-[e $ ! == -> _m_char `ui -> 44 `ui 372  ]
-[; ;GPS.c: 64: break;
-"64
-[e $U 370  ]
-[e :U 372 ]
-"65
-}
-[e :U 371 ]
-"67
-[e :U 368 ]
-"58
-[e $U 369  ]
-[e :U 370 ]
-[; ;GPS.c: 65: }
-[; ;GPS.c: 67: while (1)
-"67
-[e :U 374 ]
-[; ;GPS.c: 68: if (eusartRxCount!=0)
-"68
-[e $ ! != -> _eusartRxCount `i -> 0 `i 376  ]
-[; ;GPS.c: 69: {
-"69
-{
-[; ;GPS.c: 70: m_char=EUSART_Read();
-"70
-[e = _m_char ( _EUSART_Read ..  ]
-[; ;GPS.c: 71: checksum ^= m_char;
-"71
-[e =^ _checksum _m_char ]
-[; ;GPS.c: 72: if (m_char == ',')
-"72
-[e $ ! == -> _m_char `ui -> 44 `ui 377  ]
-[; ;GPS.c: 73: break;
-"73
-[e $U 375  ]
-[e $U 378  ]
-"74
-[e :U 377 ]
-[; ;GPS.c: 74: else
-[; ;GPS.c: 75: {
-"75
-{
-[; ;GPS.c: 76: buffer[i_buff++] = m_char;
-"76
-[e = *U + &U _buffer * -> ++ _i_buff -> -> 1 `i `uc `ux -> -> # *U &U _buffer `ui `ux _m_char ]
-[; ;GPS.c: 77: if (i_buff >= 6)
-"77
-[e $ ! >= -> _i_buff `i -> 6 `i 379  ]
-[; ;GPS.c: 78: return 0;
-"78
-[e ) -> -> 0 `i `uc ]
-[e $UE 355  ]
-[e :U 379 ]
-"79
-}
-[e :U 378 ]
-"80
-}
-[e :U 376 ]
-"81
-[e :U 373 ]
-"67
-[e $U 374  ]
-[e :U 375 ]
-[; ;GPS.c: 79: }
-[; ;GPS.c: 80: }
-[; ;GPS.c: 81: if ((buffer[0] != 'T')||(i_buff != 1))
-"81
-[e $ ! || != -> *U + &U _buffer * -> -> -> 0 `i `ui `ux -> -> # *U &U _buffer `ui `ux `ui -> 84 `ui != -> _i_buff `i -> 1 `i 380  ]
-[; ;GPS.c: 82: return 0;
-"82
-[e ) -> -> 0 `i `uc ]
-[e $UE 355  ]
-[e :U 380 ]
-[; ;GPS.c: 83: i_buff = 0;
-"83
-[e = _i_buff -> -> 0 `i `uc ]
-[; ;GPS.c: 86: while (1)
-"86
-[e :U 382 ]
-[; ;GPS.c: 87: if (eusartRxCount!=0)
-"87
-[e $ ! != -> _eusartRxCount `i -> 0 `i 384  ]
-[; ;GPS.c: 88: {
-"88
-{
-[; ;GPS.c: 89: m_char=EUSART_Read();
-"89
-[e = _m_char ( _EUSART_Read ..  ]
-[; ;GPS.c: 90: checksum ^= m_char;
-"90
-[e =^ _checksum _m_char ]
-[; ;GPS.c: 91: if (m_char == ',')
-"91
-[e $ ! == -> _m_char `ui -> 44 `ui 385  ]
-[; ;GPS.c: 92: break;
-"92
-[e $U 383  ]
-[e :U 385 ]
-"93
-}
-[e :U 384 ]
-"95
-[e :U 381 ]
-"86
-[e $U 382  ]
-[e :U 383 ]
-[; ;GPS.c: 93: }
-[; ;GPS.c: 95: while (1)
-"95
-[e :U 387 ]
-[; ;GPS.c: 96: if (eusartRxCount!=0)
-"96
-[e $ ! != -> _eusartRxCount `i -> 0 `i 389  ]
-[; ;GPS.c: 97: {
-"97
-{
-[; ;GPS.c: 98: m_char=EUSART_Read();
-"98
-[e = _m_char ( _EUSART_Read ..  ]
-[; ;GPS.c: 99: checksum ^= m_char;
-"99
-[e =^ _checksum _m_char ]
-[; ;GPS.c: 100: if (m_char == ',')
-"100
-[e $ ! == -> _m_char `ui -> 44 `ui 390  ]
-[; ;GPS.c: 101: break;
-"101
-[e $U 388  ]
-[e $U 391  ]
-"102
-[e :U 390 ]
-[; ;GPS.c: 102: else
-[; ;GPS.c: 103: {
-"103
-{
-[; ;GPS.c: 104: buffer[i_buff++] = m_char;
-"104
-[e = *U + &U _buffer * -> ++ _i_buff -> -> 1 `i `uc `ux -> -> # *U &U _buffer `ui `ux _m_char ]
-[; ;GPS.c: 105: if (i_buff >= 6)
-"105
-[e $ ! >= -> _i_buff `i -> 6 `i 392  ]
-[; ;GPS.c: 106: return 0;
-"106
-[e ) -> -> 0 `i `uc ]
-[e $UE 355  ]
-[e :U 392 ]
-"107
-}
-[e :U 391 ]
-"108
-}
-[e :U 389 ]
-"109
-[e :U 386 ]
-"95
-[e $U 387  ]
-[e :U 388 ]
-[; ;GPS.c: 107: }
-[; ;GPS.c: 108: }
-[; ;GPS.c: 109: if ((buffer[0] != 'M')||(i_buff != 1))
-"109
-[e $ ! || != -> *U + &U _buffer * -> -> -> 0 `i `ui `ux -> -> # *U &U _buffer `ui `ux `ui -> 77 `ui != -> _i_buff `i -> 1 `i 393  ]
-[; ;GPS.c: 110: return 0;
-"110
-[e ) -> -> 0 `i `uc ]
-[e $UE 355  ]
-[e :U 393 ]
-[; ;GPS.c: 111: i_buff = 0;
-"111
-[e = _i_buff -> -> 0 `i `uc ]
-[; ;GPS.c: 114: while (1)
-"114
-[e :U 395 ]
-[; ;GPS.c: 115: if (eusartRxCount!=0)
-"115
-[e $ ! != -> _eusartRxCount `i -> 0 `i 397  ]
-[; ;GPS.c: 116: {
-"116
-{
-[; ;GPS.c: 117: m_char=EUSART_Read();
-"117
-[e = _m_char ( _EUSART_Read ..  ]
-[; ;GPS.c: 118: checksum ^= m_char;
-"118
-[e =^ _checksum _m_char ]
-[; ;GPS.c: 119: if (m_char == ',')
-"119
-[e $ ! == -> _m_char `ui -> 44 `ui 398  ]
-[; ;GPS.c: 120: break;
-"120
-[e $U 396  ]
-[e :U 398 ]
-"121
-}
-[e :U 397 ]
-"123
-[e :U 394 ]
-"114
-[e $U 395  ]
-[e :U 396 ]
-[; ;GPS.c: 121: }
-[; ;GPS.c: 123: while (1)
-"123
-[e :U 400 ]
-[; ;GPS.c: 124: if (eusartRxCount!=0)
-"124
-[e $ ! != -> _eusartRxCount `i -> 0 `i 402  ]
-[; ;GPS.c: 125: {
-"125
-{
-[; ;GPS.c: 126: m_char=EUSART_Read();
-"126
-[e = _m_char ( _EUSART_Read ..  ]
-[; ;GPS.c: 127: checksum ^= m_char;
-"127
-[e =^ _checksum _m_char ]
-[; ;GPS.c: 128: if (m_char == ',')
-"128
-[e $ ! == -> _m_char `ui -> 44 `ui 403  ]
-[; ;GPS.c: 129: break;
-"129
-[e $U 401  ]
-[e $U 404  ]
-"130
-[e :U 403 ]
-[; ;GPS.c: 130: else
-[; ;GPS.c: 131: {
-"131
-{
-[; ;GPS.c: 132: buffer[i_buff++] = m_char;
-"132
-[e = *U + &U _buffer * -> ++ _i_buff -> -> 1 `i `uc `ux -> -> # *U &U _buffer `ui `ux _m_char ]
-[; ;GPS.c: 133: if (i_buff >= 6)
-"133
-[e $ ! >= -> _i_buff `i -> 6 `i 405  ]
-[; ;GPS.c: 134: return 0;
-"134
-[e ) -> -> 0 `i `uc ]
-[e $UE 355  ]
-[e :U 405 ]
-"135
-}
-[e :U 404 ]
-"136
-}
-[e :U 402 ]
-"137
-[e :U 399 ]
-"123
-[e $U 400  ]
-[e :U 401 ]
-[; ;GPS.c: 135: }
-[; ;GPS.c: 136: }
-[; ;GPS.c: 137: if ((buffer[0] != 'N')||(i_buff != 1))
-"137
-[e $ ! || != -> *U + &U _buffer * -> -> -> 0 `i `ui `ux -> -> # *U &U _buffer `ui `ux `ui -> 78 `ui != -> _i_buff `i -> 1 `i 406  ]
-[; ;GPS.c: 138: return 0;
-"138
-[e ) -> -> 0 `i `uc ]
-[e $UE 355  ]
-[e :U 406 ]
-[; ;GPS.c: 139: i_buff = 0;
-"139
-[e = _i_buff -> -> 0 `i `uc ]
-[; ;GPS.c: 142: while (1)
-"142
-[e :U 408 ]
-[; ;GPS.c: 143: if (eusartRxCount!=0)
-"143
-[e $ ! != -> _eusartRxCount `i -> 0 `i 410  ]
-[; ;GPS.c: 144: {
-"144
-{
-[; ;GPS.c: 145: m_char=EUSART_Read();
-"145
-[e = _m_char ( _EUSART_Read ..  ]
-[; ;GPS.c: 146: checksum ^= m_char;
-"146
-[e =^ _checksum _m_char ]
-[; ;GPS.c: 147: if (m_char == ',')
-"147
-[e $ ! == -> _m_char `ui -> 44 `ui 411  ]
-[; ;GPS.c: 148: break;
-"148
-[e $U 409  ]
-[e $U 412  ]
-"149
-[e :U 411 ]
-[; ;GPS.c: 149: else
-[; ;GPS.c: 150: {
-"150
-{
-[; ;GPS.c: 151: buffer[i_buff++] = m_char;
-"151
-[e = *U + &U _buffer * -> ++ _i_buff -> -> 1 `i `uc `ux -> -> # *U &U _buffer `ui `ux _m_char ]
-[; ;GPS.c: 152: if (i_buff >= 6)
-"152
-[e $ ! >= -> _i_buff `i -> 6 `i 413  ]
-[; ;GPS.c: 153: return 0;
-"153
-[e ) -> -> 0 `i `uc ]
-[e $UE 355  ]
-[e :U 413 ]
-"154
-}
-[e :U 412 ]
-"155
-}
-[e :U 410 ]
-"158
-[e :U 407 ]
-"142
-[e $U 408  ]
-[e :U 409 ]
-"158
-[v _i_buff2 `uc ~T0 @X0 1 a ]
-[; ;GPS.c: 154: }
-[; ;GPS.c: 155: }
-[; ;GPS.c: 158: unsigned char i_buff2 = 0;
-[e = _i_buff2 -> -> 0 `i `uc ]
-"159
-[v _read_speed_int `us ~T0 @X0 1 a ]
-[; ;GPS.c: 159: unsigned short read_speed_int=0;
-[e = _read_speed_int -> -> 0 `i `us ]
-"160
-[v _read_speed_fra `us ~T0 @X0 1 a ]
-[; ;GPS.c: 160: unsigned short read_speed_fra=0;
-[e = _read_speed_fra -> -> 0 `i `us ]
-"161
-[v _before_dot `uc ~T0 @X0 1 a ]
-[; ;GPS.c: 161: bool before_dot = 1;
-[e = _before_dot -> -> 1 `i `uc ]
-[; ;GPS.c: 162: while (i_buff2 < i_buff)
-"162
-[e $U 414  ]
-[e :U 415 ]
-[; ;GPS.c: 163: if (buffer[i_buff2]=='.')
-"163
-[e $ ! == -> *U + &U _buffer * -> _i_buff2 `ux -> -> # *U &U _buffer `ui `ux `ui -> 46 `ui 417  ]
-[; ;GPS.c: 164: {
-"164
-{
-[; ;GPS.c: 165: before_dot = 0;
-"165
-[e = _before_dot -> -> 0 `i `uc ]
-[; ;GPS.c: 166: i_buff2++;
-"166
-[e ++ _i_buff2 -> -> 1 `i `uc ]
-"167
-}
-[; ;GPS.c: 167: }
-[e $U 418  ]
-"168
-[e :U 417 ]
-[; ;GPS.c: 168: else
-[; ;GPS.c: 169: {
-"169
-{
-[; ;GPS.c: 170: if ((buffer[i_buff2]<0x30)||(buffer[i_buff2]>0x39))
-"170
-[e $ ! || < -> *U + &U _buffer * -> _i_buff2 `ux -> -> # *U &U _buffer `ui `ux `i -> 48 `i > -> *U + &U _buffer * -> _i_buff2 `ux -> -> # *U &U _buffer `ui `ux `i -> 57 `i 419  ]
-[; ;GPS.c: 171: return 0;
-"171
-[e ) -> -> 0 `i `uc ]
-[e $UE 355  ]
-[e $U 420  ]
-"172
-[e :U 419 ]
-[; ;GPS.c: 172: else
-[; ;GPS.c: 173: {
-"173
-{
-[; ;GPS.c: 174: if (before_dot)
-"174
-[e $ ! != -> _before_dot `i -> -> -> 0 `i `uc `i 421  ]
-[; ;GPS.c: 175: read_speed_int = read_speed_int*10 + (buffer[i_buff2]-0x30);
-"175
-[e = _read_speed_int -> + * -> _read_speed_int `ui -> -> 10 `i `ui -> - -> *U + &U _buffer * -> _i_buff2 `ux -> -> # *U &U _buffer `ui `ux `i -> 48 `i `ui `us ]
-[e $U 422  ]
-"176
-[e :U 421 ]
-[; ;GPS.c: 176: else
-[; ;GPS.c: 177: read_speed_fra = read_speed_fra*10 + (buffer[i_buff2]-0x30);
-"177
-[e = _read_speed_fra -> + * -> _read_speed_fra `ui -> -> 10 `i `ui -> - -> *U + &U _buffer * -> _i_buff2 `ux -> -> # *U &U _buffer `ui `ux `i -> 48 `i `ui `us ]
-[e :U 422 ]
-[; ;GPS.c: 178: i_buff2++;
-"178
-[e ++ _i_buff2 -> -> 1 `i `uc ]
-"179
-}
-[e :U 420 ]
-"180
-}
-[e :U 418 ]
-[e :U 414 ]
-"162
-[e $ < -> _i_buff2 `i -> _i_buff `i 415  ]
-[e :U 416 ]
-[; ;GPS.c: 179: }
-[; ;GPS.c: 180: }
-[; ;GPS.c: 184: read_speed_fra *= 100;
-"184
-[e =* _read_speed_fra -> -> 100 `i `us ]
-[; ;GPS.c: 187: i_buff = 0;
-"187
-[e = _i_buff -> -> 0 `i `uc ]
-[; ;GPS.c: 190: while (1)
-"190
-[e :U 424 ]
-[; ;GPS.c: 191: if (eusartRxCount!=0)
-"191
-[e $ ! != -> _eusartRxCount `i -> 0 `i 426  ]
-[; ;GPS.c: 192: {
-"192
-{
-[; ;GPS.c: 193: m_char=EUSART_Read();
-"193
-[e = _m_char ( _EUSART_Read ..  ]
-[; ;GPS.c: 194: checksum ^= m_char;
-"194
-[e =^ _checksum _m_char ]
-[; ;GPS.c: 195: if (m_char == ',')
-"195
-[e $ ! == -> _m_char `ui -> 44 `ui 427  ]
-[; ;GPS.c: 196: break;
-"196
-[e $U 425  ]
-[e $U 428  ]
-"197
-[e :U 427 ]
-[; ;GPS.c: 197: else
-[; ;GPS.c: 198: {
-"198
-{
-[; ;GPS.c: 199: buffer[i_buff++] = m_char;
-"199
-[e = *U + &U _buffer * -> ++ _i_buff -> -> 1 `i `uc `ux -> -> # *U &U _buffer `ui `ux _m_char ]
-[; ;GPS.c: 200: if (i_buff >= 6)
-"200
-[e $ ! >= -> _i_buff `i -> 6 `i 429  ]
-[; ;GPS.c: 201: return 0;
-"201
-[e ) -> -> 0 `i `uc ]
-[e $UE 355  ]
-[e :U 429 ]
-"202
-}
-[e :U 428 ]
-"203
-}
-[e :U 426 ]
-"204
-[e :U 423 ]
-"190
-[e $U 424  ]
-[e :U 425 ]
-[; ;GPS.c: 202: }
-[; ;GPS.c: 203: }
-[; ;GPS.c: 204: if ((buffer[0] != 'K')||(i_buff != 1))
-"204
-[e $ ! || != -> *U + &U _buffer * -> -> -> 0 `i `ui `ux -> -> # *U &U _buffer `ui `ux `ui -> 75 `ui != -> _i_buff `i -> 1 `i 430  ]
-[; ;GPS.c: 205: return 0;
-"205
-[e ) -> -> 0 `i `uc ]
-[e $UE 355  ]
-[e :U 430 ]
-[; ;GPS.c: 206: i_buff = 0;
-"206
-[e = _i_buff -> -> 0 `i `uc ]
-"209
-[v _no_more_checksum `uc ~T0 @X0 1 a ]
-[; ;GPS.c: 209: bool no_more_checksum = 0;
-[e = _no_more_checksum -> -> 0 `i `uc ]
-[; ;GPS.c: 210: while (1)
-"210
-[e :U 432 ]
-[; ;GPS.c: 211: if (eusartRxCount!=0)
-"211
-[e $ ! != -> _eusartRxCount `i -> 0 `i 434  ]
-[; ;GPS.c: 212: {
-"212
-{
-[; ;GPS.c: 213: m_char=EUSART_Read();
-"213
-[e = _m_char ( _EUSART_Read ..  ]
-[; ;GPS.c: 214: if (m_char == '*')
-"214
-[e $ ! == -> _m_char `ui -> 42 `ui 435  ]
-[; ;GPS.c: 215: no_more_checksum = 1;
-"215
-[e = _no_more_checksum -> -> 1 `i `uc ]
-[e :U 435 ]
-[; ;GPS.c: 216: if (!no_more_checksum)
-"216
-[e $ ! ! != -> _no_more_checksum `i -> -> -> 0 `i `uc `i 436  ]
-[; ;GPS.c: 217: checksum ^= m_char;
-"217
-[e =^ _checksum _m_char ]
-[e :U 436 ]
-[; ;GPS.c: 218: if (m_char == 0x0D)
-"218
-[e $ ! == -> _m_char `i -> 13 `i 437  ]
-[; ;GPS.c: 219: break;
-"219
-[e $U 433  ]
-[e $U 438  ]
-"220
-[e :U 437 ]
-[; ;GPS.c: 220: else
-[; ;GPS.c: 221: {
-"221
-{
-[; ;GPS.c: 222: buffer[i_buff++] = m_char;
-"222
-[e = *U + &U _buffer * -> ++ _i_buff -> -> 1 `i `uc `ux -> -> # *U &U _buffer `ui `ux _m_char ]
-[; ;GPS.c: 223: if (i_buff >= 6)
-"223
-[e $ ! >= -> _i_buff `i -> 6 `i 439  ]
-[; ;GPS.c: 224: return 0;
-"224
-[e ) -> -> 0 `i `uc ]
-[e $UE 355  ]
-[e :U 439 ]
-"225
-}
-[e :U 438 ]
-"226
-}
-[e :U 434 ]
-"227
-[e :U 431 ]
-"210
-[e $U 432  ]
-[e :U 433 ]
-[; ;GPS.c: 225: }
-[; ;GPS.c: 226: }
-[; ;GPS.c: 227: if ((buffer[1] != '*')||(i_buff != 4))
-"227
-[e $ ! || != -> *U + &U _buffer * -> -> -> 1 `i `ui `ux -> -> # *U &U _buffer `ui `ux `ui -> 42 `ui != -> _i_buff `i -> 4 `i 440  ]
-[; ;GPS.c: 228: return 0;
-"228
-[e ) -> -> 0 `i `uc ]
-[e $UE 355  ]
-[e :U 440 ]
-"231
-[v _checksum2 `uc ~T0 @X0 1 a ]
-[; ;GPS.c: 231: unsigned char checksum2 = 0;
-[e = _checksum2 -> -> 0 `i `uc ]
-[; ;GPS.c: 232: if (buffer[2] > 0x39)
-"232
-[e $ ! > -> *U + &U _buffer * -> -> -> 2 `i `ui `ux -> -> # *U &U _buffer `ui `ux `i -> 57 `i 441  ]
-[; ;GPS.c: 233: checksum2 = buffer[2] - 0x37;
-"233
-[e = _checksum2 -> - -> *U + &U _buffer * -> -> -> 2 `i `ui `ux -> -> # *U &U _buffer `ui `ux `i -> 55 `i `uc ]
-[e $U 442  ]
-"234
-[e :U 441 ]
-[; ;GPS.c: 234: else
-[; ;GPS.c: 235: checksum2 = buffer[2] - 0x30;
-"235
-[e = _checksum2 -> - -> *U + &U _buffer * -> -> -> 2 `i `ui `ux -> -> # *U &U _buffer `ui `ux `i -> 48 `i `uc ]
-[e :U 442 ]
-[; ;GPS.c: 236: checksum2 = checksum2 << 4;
-"236
-[e = _checksum2 -> << -> _checksum2 `i -> 4 `i `uc ]
-[; ;GPS.c: 237: if (buffer[3] > 0x39)
-"237
-[e $ ! > -> *U + &U _buffer * -> -> -> 3 `i `ui `ux -> -> # *U &U _buffer `ui `ux `i -> 57 `i 443  ]
-[; ;GPS.c: 238: checksum2 += buffer[3] - 0x37;
-"238
-[e =+ _checksum2 -> - -> *U + &U _buffer * -> -> -> 3 `i `ui `ux -> -> # *U &U _buffer `ui `ux `i -> 55 `i `uc ]
-[e $U 444  ]
-"239
-[e :U 443 ]
-[; ;GPS.c: 239: else
-[; ;GPS.c: 240: checksum2 += buffer[3] - 0x30;
-"240
-[e =+ _checksum2 -> - -> *U + &U _buffer * -> -> -> 3 `i `ui `ux -> -> # *U &U _buffer `ui `ux `i -> 48 `i `uc ]
-[e :U 444 ]
-[; ;GPS.c: 241: if (checksum == checksum2)
-"241
-[e $ ! == -> _checksum `i -> _checksum2 `i 445  ]
-[; ;GPS.c: 242: {
-"242
-{
-[; ;GPS.c: 243: speed = convert_to_fp(read_speed_int, read_speed_fra);
-"243
-[e = _speed ( _convert_to_fp (2 , -> _read_speed_int `s -> _read_speed_fra `s ]
-[; ;GPS.c: 244: return 1;
-"244
-[e ) -> -> 1 `i `uc ]
-[e $UE 355  ]
-"245
-}
-[; ;GPS.c: 245: }
-[e $U 446  ]
-"246
-[e :U 445 ]
-[; ;GPS.c: 246: else
-[; ;GPS.c: 247: return 0;
-"247
-[e ) -> -> 0 `i `uc ]
-[e $UE 355  ]
-[e :U 446 ]
-[; ;GPS.c: 248: }
-"248
-[e :UE 355 ]
-}
-[p f _printf 8388608 ]
-[a 2C 36 80 77 84 75 50 50 48 44 49 48 48 42 50 70 13 10 0 ]
-[a 1C 36 80 77 84 75 51 49 52 44 48 44 48 44 49 44 48 44 48 44 48 44 48 44 48 44 48 44 48 44 48 44 48 44 48 44 48 44 48 44 48 44 48 44 48 44 48 42 50 57 13 10 0 ]

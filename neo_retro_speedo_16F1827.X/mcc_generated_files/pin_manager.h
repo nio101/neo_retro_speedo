@@ -123,6 +123,22 @@
 #define BUTTON_ResetPullup()   do { WPUB0 = 0; } while(0)
 
 
+// get/set BUTTON aliases
+#define BUTTON_TRIS               TRISB0
+#define BUTTON_LAT                LATB0
+#define BUTTON_PORT               RB0
+#define BUTTON_WPU                WPUB0
+#define BUTTON_SetHigh()    do { LATB0 = 1; } while(0)
+#define BUTTON_SetLow()   do { LATB0 = 0; } while(0)
+#define BUTTON_Toggle()   do { LATB0 = ~LATB0; } while(0)
+#define BUTTON_GetValue()         PORTBbits.RB0
+#define BUTTON_SetDigitalInput()    do { TRISB0 = 1; } while(0)
+#define BUTTON_SetDigitalOutput()   do { TRISB0 = 0; } while(0)
+
+#define BUTTON_SetPullup()    do { WPUB0 = 1; } while(0)
+#define BUTTON_ResetPullup()   do { WPUB0 = 0; } while(0)
+
+
 
 /**
  * @Param

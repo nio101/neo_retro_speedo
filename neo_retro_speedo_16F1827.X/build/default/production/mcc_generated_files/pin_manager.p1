@@ -1,5 +1,5 @@
 Version 3.2 HI-TECH Software Intermediate Code
-"2046 /opt/microchip/xc8/v1.38/include/pic16f1827.h
+"2046 D:\Program Files\Microchip\xc8\v1.38\include\pic16f1827.h
 [v _LATB `Vuc ~T0 @X0 0 e@269 ]
 "1990
 [v _LATA `Vuc ~T0 @X0 0 e@268 ]
@@ -34,7 +34,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
 [; ;pic16f1827.h: 49: extern volatile unsigned char INDF0 @ 0x000;
-"51 /opt/microchip/xc8/v1.38/include/pic16f1827.h
+"51 D:\Program Files\Microchip\xc8\v1.38\include\pic16f1827.h
 [; ;pic16f1827.h: 51: asm("INDF0 equ 00h");
 [; <" INDF0 equ 00h ;# ">
 [; ;pic16f1827.h: 54: typedef union {
@@ -2784,7 +2784,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic.h: 186: extern unsigned char __resetbits;
 [; ;pic.h: 187: extern __bit __powerdown;
 [; ;pic.h: 188: extern __bit __timeout;
-[; ;pin_manager.h: 137: void PIN_MANAGER_Initialize (void);
+[; ;pin_manager.h: 153: void PIN_MANAGER_Initialize (void);
 "49 mcc_generated_files/pin_manager.c
 [v _PIN_MANAGER_Initialize `(v ~T0 @X0 1 ef ]
 "50
@@ -2802,18 +2802,18 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pin_manager.c: 53: ANSELA = 0x1F;
 "53
 [e = _ANSELA -> -> 31 `i `uc ]
-[; ;pin_manager.c: 54: ANSELB = 0xF8;
+[; ;pin_manager.c: 54: ANSELB = 0xF0;
 "54
-[e = _ANSELB -> -> 248 `i `uc ]
+[e = _ANSELB -> -> 240 `i `uc ]
 [; ;pin_manager.c: 55: WPUA = 0x20;
 "55
 [e = _WPUA -> -> 32 `i `uc ]
 [; ;pin_manager.c: 56: WPUB = 0xFF;
 "56
 [e = _WPUB -> -> 255 `i `uc ]
-[; ;pin_manager.c: 57: TRISB = 0xFF;
+[; ;pin_manager.c: 57: TRISB = 0xF7;
 "57
-[e = _TRISB -> -> 255 `i `uc ]
+[e = _TRISB -> -> 247 `i `uc ]
 [; ;pin_manager.c: 58: TRISA = 0xFB;
 "58
 [e = _TRISA -> -> 251 `i `uc ]

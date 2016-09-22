@@ -1,5 +1,5 @@
 /* 
- * File:   fixed_point.c
+ * File:   GPS.c
  * Author: nio101
  *
  * Created on September 20, 2016, 6:04 AM
@@ -8,6 +8,7 @@
 
 #include "GPS.h"
 
+extern t_fp    speed;
 
 void GPS_Initialize(void)
 {

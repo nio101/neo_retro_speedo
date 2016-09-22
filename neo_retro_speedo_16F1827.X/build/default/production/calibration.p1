@@ -1,27 +1,42 @@
 Version 3.2 HI-TECH Software Intermediate Code
-"4532 /opt/microchip/xc8/v1.38/include/pic16f1827.h
-[v _CCP1CON `Vuc ~T0 @X0 0 e@659 ]
-"4687
-[v _ECCP1AS `Vuc ~T0 @X0 0 e@661 ]
-"4613
-[v _PWM1CON `Vuc ~T0 @X0 0 e@660 ]
-"4843
-[v _PSTR1CON `Vuc ~T0 @X0 0 e@662 ]
-"4494
-[v _CCPR1L `Vuc ~T0 @X0 0 e@657 ]
-"4513
-[v _CCPR1H `Vuc ~T0 @X0 0 e@658 ]
-"5376
-[s S275 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S275 . C1TSEL0 C1TSEL1 C2TSEL0 C2TSEL1 C3TSEL0 C3TSEL1 C4TSEL0 C4TSEL1 ]
-"5386
-[s S276 :2 `uc 1 :2 `uc 1 :2 `uc 1 :2 `uc 1 ]
-[n S276 . C1TSEL C2TSEL C3TSEL C4TSEL ]
-"5375
-[u S274 `S275 1 `S276 1 ]
-[n S274 . . . ]
-"5393
-[v _CCPTMRS0bits `VS274 ~T0 @X0 0 e@670 ]
+[v F2819 `(v ~T0 @X0 0 tf ]
+"14 calibration.h
+[s S351 `uc 1 `us 1 `uc 1 `us -> 20 `i `us 1 `uc 1 ]
+[n S351 conf_data use_mph max_pwm nb_steps ref_pwm low_speed_pwm impulse_duration ]
+"30 interact.h
+[c E2952 0 1 2 3 4 .. ]
+[n E2952 . always_on always_off slow_blinking fast_blinking manual_mode  ]
+"27
+[s S352 `VE2952 1 `Vuc 1 ]
+[n S352 . state counter ]
+"70
+[c E2968 0 1 2 .. ]
+[n E2968 . nothing short_push long_push  ]
+"60
+[s S353 `VE2968 1 `Vuc 1 `Vuc 1 `Vuc 1 `Vuc 1 `Vuc 1 `Vuc 1 ]
+[n S353 . confirmed_state count_pressed count_released push_confirmed release_confirmed last_state has_once_been_released ]
+"245 mcc_generated_files/memory.h
+[v _DATAEE_ReadByte `(uc ~T0 @X0 0 ef1`uc ]
+"13 CRC.h
+[v _crc_update `(us ~T0 @X0 0 ef2`us`uc ]
+"219 mcc_generated_files/memory.h
+[v _DATAEE_WriteByte `(v ~T0 @X0 0 ef2`uc`uc ]
+"35 interact.h
+[v _double_fast_blink `(v ~T0 @X0 0 ef ]
+"72
+[v _button_init `(v ~T0 @X0 0 ef ]
+"36
+[v _LED_set_state `(v ~T0 @X0 0 ef1`E2952 ]
+"121 mcc_generated_files/epwm1.h
+[v _EPWM1_LoadDutyValue `(v ~T0 @X0 0 ef1`ui ]
+[v F2766 `(v ~T0 @X0 1 tf1`ul ]
+"152 /opt/microchip/xc8/v1.38/include/pic.h
+[v __delay `JF2766 ~T0 @X0 0 e ]
+[p i __delay ]
+"74 interact.h
+[v _get_button_state `(uc ~T0 @X0 0 ef ]
+"7044 /opt/microchip/xc8/v1.38/include/pic16f1827.h
+[v _LATA2 `Vb ~T0 @X0 0 e@2146 ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
@@ -2776,6 +2791,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic.h: 186: extern unsigned char __resetbits;
 [; ;pic.h: 187: extern __bit __powerdown;
 [; ;pic.h: 188: extern __bit __timeout;
+[; ;pin_manager.h: 153: void PIN_MANAGER_Initialize (void);
 [; ;stdint.h: 13: typedef signed char int8_t;
 [; ;stdint.h: 20: typedef signed int int16_t;
 [; ;stdint.h: 28: typedef signed short long int int24_t;
@@ -2804,59 +2820,626 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;stdint.h: 205: typedef uint32_t uintmax_t;
 [; ;stdint.h: 210: typedef int16_t intptr_t;
 [; ;stdint.h: 215: typedef uint16_t uintptr_t;
+[; ;stdbool.h: 12: typedef unsigned char bool;
+[; ;interrupt_manager.h: 110: void interrupt INTERRUPT_InterruptManager(void);
+[; ;tmr0.h: 103: void TMR0_Initialize(void);
+[; ;tmr0.h: 136: uint8_t TMR0_ReadTimer(void);
+[; ;tmr0.h: 175: void TMR0_WriteTimer(uint8_t timerVal);
+[; ;tmr0.h: 211: void TMR0_Reload(void);
+[; ;tmr0.h: 226: void TMR0_ISR(void);
+[; ;tmr0.h: 244: void TMR0_CallBack(void);
+[; ;tmr0.h: 262: void TMR0_SetInterruptHandler(void *InterruptHandler);
+"280 mcc_generated_files/tmr0.h
+[v _TMR0_InterruptHandler `*F2819 ~T0 @X0 1 e ]
+[; ;tmr0.h: 280: void (*TMR0_InterruptHandler)(void);
+[; ;tmr0.h: 298: void TMR0_DefaultInterruptHandler(void);
+[; ;__size_t.h: 4: typedef unsigned size_t;
+[; ;stdarg.h: 7: typedef void * va_list[1];
+[; ;stdarg.h: 10: extern void * __va_start(void);
+[; ;stdarg.h: 13: extern void * __va_arg(void *, ...);
+[; ;stdio.h: 43: struct __prbuf
+[; ;stdio.h: 44: {
+[; ;stdio.h: 45: char * ptr;
+[; ;stdio.h: 46: void (* func)(char);
+[; ;stdio.h: 47: };
+[; ;errno.h: 29: extern int errno;
+[; ;conio.h: 12: extern void init_uart(void);
+[; ;conio.h: 14: extern char getch(void);
+[; ;conio.h: 15: extern char getche(void);
+[; ;conio.h: 16: extern void putch(char);
+[; ;conio.h: 17: extern void ungetch(char);
+[; ;conio.h: 19: extern __bit kbhit(void);
+[; ;conio.h: 23: extern char * cgets(char *);
+[; ;conio.h: 24: extern void cputs(const char *);
+[; ;stdio.h: 88: extern int cprintf(char *, ...);
+[; ;stdio.h: 93: extern int _doprnt(struct __prbuf *, const register char *, register va_list);
+[; ;stdio.h: 183: extern char * gets(char *);
+[; ;stdio.h: 184: extern int puts(const char *);
+[; ;stdio.h: 185: extern int scanf(const char *, ...) __attribute__((unsupported("scanf() is not supported by this compiler")));
+[; ;stdio.h: 186: extern int sscanf(const char *, const char *, ...) __attribute__((unsupported("sscanf() is not supported by this compiler")));
+[; ;stdio.h: 187: extern int vprintf(const char *, va_list) __attribute__((unsupported("vprintf() is not supported by this compiler")));
+[; ;stdio.h: 188: extern int vsprintf(char *, const char *, va_list) __attribute__((unsupported("vsprintf() is not supported by this compiler")));
+[; ;stdio.h: 189: extern int vscanf(const char *, va_list ap) __attribute__((unsupported("vscanf() is not supported by this compiler")));
+[; ;stdio.h: 190: extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupported("vsscanf() is not supported by this compiler")));
+[; ;stdio.h: 194: extern int sprintf(char *, const char *, ...);
+[; ;stdio.h: 195: extern int printf(const char *, ...);
+[; ;eusart.h: 77: extern volatile uint8_t eusartTxBufferRemaining;
+[; ;eusart.h: 78: extern volatile uint8_t eusartRxCount;
+[; ;eusart.h: 106: void EUSART_Initialize(void);
+[; ;eusart.h: 155: uint8_t EUSART_Read(void);
+[; ;eusart.h: 180: void EUSART_Write(uint8_t txData);
+[; ;eusart.h: 201: void EUSART_Transmit_ISR(void);
+[; ;eusart.h: 222: void EUSART_Receive_ISR(void);
+[; ;memory.h: 98: uint16_t FLASH_ReadWord(uint16_t flashAddr);
+[; ;memory.h: 127: void FLASH_WriteWord(uint16_t flashAddr, uint16_t *ramBuf, uint16_t word);
+[; ;memory.h: 163: int8_t FLASH_WriteBlock(uint16_t writeAddr, uint16_t *flashWordArray);
+[; ;memory.h: 188: void FLASH_EraseBlock(uint16_t startAddr);
+[; ;memory.h: 219: void DATAEE_WriteByte(uint8_t bAdd, uint8_t bData);
+[; ;memory.h: 245: uint8_t DATAEE_ReadByte(uint8_t bAdd);
 [; ;epwm1.h: 95: void EPWM1_Initialize(void);
 [; ;epwm1.h: 121: void EPWM1_LoadDutyValue(uint16_t dutyValue);
-"63 mcc_generated_files/epwm1.c
-[v _EPWM1_Initialize `(v ~T0 @X0 1 ef ]
-"64
+[; ;tmr2.h: 102: void TMR2_Initialize(void);
+[; ;tmr2.h: 131: void TMR2_StartTimer(void);
+[; ;tmr2.h: 163: void TMR2_StopTimer(void);
+[; ;tmr2.h: 198: uint8_t TMR2_ReadTimer(void);
+[; ;tmr2.h: 237: void TMR2_WriteTimer(uint8_t timerVal);
+[; ;tmr2.h: 289: void TMR2_LoadPeriodRegister(uint8_t periodVal);
+[; ;tmr2.h: 324: bool TMR2_HasOverflowOccured(void);
+[; ;mcc.h: 72: void SYSTEM_Initialize(void);
+[; ;mcc.h: 85: void OSCILLATOR_Initialize(void);
+[; ;main.h: 16: void my10msTimerISR(void);
+"22 calibration.h
+[v _m_conf `S351 ~T0 @X0 1 e ]
+[; ;calibration.h: 14: struct conf_data
+[; ;calibration.h: 15: {
+[; ;calibration.h: 16: bool use_mph;
+[; ;calibration.h: 17: unsigned short max_pwm;
+[; ;calibration.h: 18: unsigned char nb_steps;
+[; ;calibration.h: 19: unsigned short ref_pwm[20];
+[; ;calibration.h: 20: unsigned short low_speed_pwm;
+[; ;calibration.h: 21: unsigned char impulse_duration;
+[; ;calibration.h: 22: } m_conf;
+[; ;calibration.h: 24: bool load_calibration_from_EEPROM();
+[; ;calibration.h: 25: void write_calibration_to_EEPROM();
+[; ;calibration.h: 26: void perform_calibration();
+[; ;CRC.h: 13: unsigned short crc_update(unsigned short old_crc, unsigned char data);
+[; ;main.h: 16: void my10msTimerISR(void);
+[; ;interact.h: 23: typedef enum {
+[; ;interact.h: 24: always_on, always_off, slow_blinking, fast_blinking, manual_mode
+[; ;interact.h: 25: } LED_state_t;
+"30 interact.h
+[v _m_LED `VS352 ~T0 @X0 1 e ]
+[; ;interact.h: 27: volatile struct {
+[; ;interact.h: 28: volatile LED_state_t state;
+[; ;interact.h: 29: volatile unsigned char counter;
+[; ;interact.h: 30: } m_LED;
+[; ;interact.h: 35: void double_fast_blink();
+[; ;interact.h: 36: void LED_set_state(LED_state_t new_state);
+[; ;interact.h: 37: void LED_update_loop();
+"70
+[v _m_button `VS353 ~T0 @X0 1 e ]
+[; ;interact.h: 60: volatile struct {
+[; ;interact.h: 61: volatile enum {
+[; ;interact.h: 62: nothing, short_push, long_push
+[; ;interact.h: 63: } confirmed_state;
+[; ;interact.h: 64: volatile unsigned char count_pressed;
+[; ;interact.h: 65: volatile unsigned char count_released;
+[; ;interact.h: 66: volatile bool push_confirmed;
+[; ;interact.h: 67: volatile bool release_confirmed;
+[; ;interact.h: 68: volatile unsigned char last_state;
+[; ;interact.h: 69: volatile bool has_once_been_released;
+[; ;interact.h: 70: } m_button;
+[; ;interact.h: 72: void button_init();
+[; ;interact.h: 73: void button_update_loop();
+[; ;interact.h: 74: unsigned char get_button_state();
+"21 calibration.c
+[v _m_crc `us ~T0 @X0 1 e ]
+[; ;calibration.c: 21: unsigned short m_crc;
+"24
+[v _load_calibration_from_EEPROM `(uc ~T0 @X0 1 ef ]
+"25
 {
-[; ;epwm1.c: 63: void EPWM1_Initialize (void)
-[; ;epwm1.c: 64: {
-[e :U _EPWM1_Initialize ]
+[; ;calibration.c: 24: bool load_calibration_from_EEPROM()
+[; ;calibration.c: 25: {
+[e :U _load_calibration_from_EEPROM ]
 [f ]
-[; ;epwm1.c: 68: CCP1CON = 0x3C;
-"68
-[e = _CCP1CON -> -> 60 `i `uc ]
-[; ;epwm1.c: 71: ECCP1AS = 0x00;
-"71
-[e = _ECCP1AS -> -> 0 `i `uc ]
-[; ;epwm1.c: 74: PWM1CON = 0x80;
-"74
-[e = _PWM1CON -> -> 128 `i `uc ]
-[; ;epwm1.c: 77: PSTR1CON = 0x01;
-"77
-[e = _PSTR1CON -> -> 1 `i `uc ]
-[; ;epwm1.c: 80: CCPR1L = 0x7F;
-"80
-[e = _CCPR1L -> -> 127 `i `uc ]
-[; ;epwm1.c: 83: CCPR1H = 0x00;
-"83
-[e = _CCPR1H -> -> 0 `i `uc ]
-[; ;epwm1.c: 87: CCPTMRS0bits.C1TSEL = 0x0;
-"87
-[e = . . _CCPTMRS0bits 1 0 -> -> 0 `i `uc ]
-[; ;epwm1.c: 88: }
-"88
-[e :UE 350 ]
+"27
+[v _addr `uc ~T0 @X0 1 a ]
+[; ;calibration.c: 27: unsigned char addr = 0x00;
+[e = _addr -> -> 0 `i `uc ]
+"28
+[v _crc `us ~T0 @X0 1 a ]
+[; ;calibration.c: 28: unsigned short crc = 0x00;
+[e = _crc -> -> 0 `i `us ]
+"29
+[v _i `uc ~T0 @X0 1 a ]
+[v _p `*uc ~T0 @X0 1 a ]
+[; ;calibration.c: 29: char i,*p;
+[; ;calibration.c: 30: p=(char *)&m_conf;
+"30
+[e = _p -> &U _m_conf `*uc ]
+[; ;calibration.c: 31: for(i=0; i<sizeof(m_conf); i++)
+"31
+{
+[e = _i -> -> 0 `i `uc ]
+[e $ < -> _i `ui -> # _m_conf `ui 355  ]
+[e $U 356  ]
+"32
+[e :U 355 ]
+[; ;calibration.c: 32: {
+{
+[; ;calibration.c: 33: *p = DATAEE_ReadByte(addr++);
+"33
+[e = *U _p ( _DATAEE_ReadByte (1 ++ _addr -> -> 1 `i `uc ]
+[; ;calibration.c: 34: crc = crc_update(crc, *p++);
+"34
+[e = _crc ( _crc_update (2 , _crc *U ++ _p * -> -> 1 `i `x -> -> # *U _p `i `x ]
+"35
 }
-"90
-[v _EPWM1_LoadDutyValue `(v ~T0 @X0 1 ef1`ui ]
-"91
+"31
+[e ++ _i -> -> 1 `i `uc ]
+[e $ < -> _i `ui -> # _m_conf `ui 355  ]
+[e :U 356 ]
+"35
+}
+[; ;calibration.c: 35: }
+[; ;calibration.c: 36: p=(char *)&m_crc;
+"36
+[e = _p -> &U _m_crc `*uc ]
+[; ;calibration.c: 37: for(i=0; i<sizeof(m_crc); i++)
+"37
 {
-[; ;epwm1.c: 90: void EPWM1_LoadDutyValue(uint16_t dutyValue)
-[; ;epwm1.c: 91: {
-[e :U _EPWM1_LoadDutyValue ]
-"90
-[v _dutyValue `ui ~T0 @X0 1 r1 ]
-"91
+[e = _i -> -> 0 `i `uc ]
+[e $ < -> _i `ui -> # _m_crc `ui 358  ]
+[e $U 359  ]
+"38
+[e :U 358 ]
+[; ;calibration.c: 38: *p++ = DATAEE_ReadByte(addr++);
+[e = *U ++ _p * -> -> 1 `i `x -> -> # *U _p `i `x ( _DATAEE_ReadByte (1 ++ _addr -> -> 1 `i `uc ]
+"37
+[e ++ _i -> -> 1 `i `uc ]
+[e $ < -> _i `ui -> # _m_crc `ui 358  ]
+[e :U 359 ]
+"38
+}
+[; ;calibration.c: 39: return (crc == m_crc);
+"39
+[e ) -> -> == -> _crc `ui -> _m_crc `ui `i `uc ]
+[e $UE 354  ]
+[; ;calibration.c: 40: }
+"40
+[e :UE 354 ]
+}
+"42
+[v _write_calibration_to_EEPROM `(v ~T0 @X0 1 ef ]
+"43
+{
+[; ;calibration.c: 42: void write_calibration_to_EEPROM()
+[; ;calibration.c: 43: {
+[e :U _write_calibration_to_EEPROM ]
 [f ]
-[; ;epwm1.c: 93: CCPR1L = ((dutyValue & 0x03FC)>>2);
+"45
+[v _addr `uc ~T0 @X0 1 a ]
+[; ;calibration.c: 45: unsigned char addr = 0x00;
+[e = _addr -> -> 0 `i `uc ]
+[; ;calibration.c: 46: m_crc = 0x00;
+"46
+[e = _m_crc -> -> 0 `i `us ]
+"47
+[v _i `uc ~T0 @X0 1 a ]
+[v _p `*uc ~T0 @X0 1 a ]
+[; ;calibration.c: 47: char i,*p;
+[; ;calibration.c: 48: p=(char *)&m_conf;
+"48
+[e = _p -> &U _m_conf `*uc ]
+[; ;calibration.c: 49: for(i=0; i<sizeof(m_conf); i++) {
+"49
+{
+[e = _i -> -> 0 `i `uc ]
+[e $ < -> _i `ui -> # _m_conf `ui 362  ]
+[e $U 363  ]
+[e :U 362 ]
+{
+[; ;calibration.c: 50: DATAEE_WriteByte(addr++, *p);
+"50
+[e ( _DATAEE_WriteByte (2 , ++ _addr -> -> 1 `i `uc *U _p ]
+[; ;calibration.c: 51: m_crc = crc_update(m_crc, *p++);
+"51
+[e = _m_crc ( _crc_update (2 , _m_crc *U ++ _p * -> -> 1 `i `x -> -> # *U _p `i `x ]
+"52
+}
+"49
+[e ++ _i -> -> 1 `i `uc ]
+[e $ < -> _i `ui -> # _m_conf `ui 362  ]
+[e :U 363 ]
+"52
+}
+[; ;calibration.c: 52: }
+[; ;calibration.c: 53: p=(char *)&m_crc;
+"53
+[e = _p -> &U _m_crc `*uc ]
+[; ;calibration.c: 54: for(i=0; i<sizeof(m_crc); i++)
+"54
+{
+[e = _i -> -> 0 `i `uc ]
+[e $ < -> _i `ui -> # _m_crc `ui 365  ]
+[e $U 366  ]
+"55
+[e :U 365 ]
+[; ;calibration.c: 55: DATAEE_WriteByte(addr++, *p++);
+[e ( _DATAEE_WriteByte (2 , ++ _addr -> -> 1 `i `uc *U ++ _p * -> -> 1 `i `x -> -> # *U _p `i `x ]
+"54
+[e ++ _i -> -> 1 `i `uc ]
+[e $ < -> _i `ui -> # _m_crc `ui 365  ]
+[e :U 366 ]
+"55
+}
+[; ;calibration.c: 56: }
+"56
+[e :UE 361 ]
+}
+"58
+[v _perform_calibration `(v ~T0 @X0 1 ef ]
+"59
+{
+[; ;calibration.c: 58: void perform_calibration()
+[; ;calibration.c: 59: {
+[e :U _perform_calibration ]
+[f ]
+[; ;calibration.c: 60: double_fast_blink();
+"60
+[e ( _double_fast_blink ..  ]
+[; ;calibration.c: 61: button_init();
+"61
+[e ( _button_init ..  ]
+[; ;calibration.c: 64: LED_set_state(always_on);
+"64
+[e ( _LED_set_state (1 . `E2952 0 ]
+[; ;calibration.c: 65: m_conf.use_mph = 0;
+"65
+[e = . _m_conf 0 -> -> 0 `i `uc ]
+[; ;calibration.c: 66: while (m_button.confirmed_state != long_push)
+"66
+[e $U 369  ]
+[e :U 370 ]
+[; ;calibration.c: 67: {
+"67
+{
+[; ;calibration.c: 68: if (m_button.confirmed_state == short_push)
+"68
+[e $ ! == -> . _m_button 0 `i -> . `E2968 1 `i 372  ]
+[; ;calibration.c: 69: {
+"69
+{
+[; ;calibration.c: 70: m_conf.use_mph = !m_conf.use_mph;
+"70
+[e = . _m_conf 0 -> -> ! != -> . _m_conf 0 `i -> -> -> 0 `i `uc `i `i `uc ]
+[; ;calibration.c: 71: if (m_conf.use_mph)
+"71
+[e $ ! != -> . _m_conf 0 `i -> -> -> 0 `i `uc `i 373  ]
+[; ;calibration.c: 72: LED_set_state(slow_blinking);
+"72
+[e ( _LED_set_state (1 . `E2952 2 ]
+[e $U 374  ]
+"73
+[e :U 373 ]
+[; ;calibration.c: 73: else
+[; ;calibration.c: 74: LED_set_state(fast_blinking);
+"74
+[e ( _LED_set_state (1 . `E2952 3 ]
+[e :U 374 ]
+[; ;calibration.c: 75: button_init();
+"75
+[e ( _button_init ..  ]
+"76
+}
+[e :U 372 ]
+"77
+}
+[e :U 369 ]
+"66
+[e $ != -> . _m_button 0 `i -> . `E2968 2 `i 370  ]
+[e :U 371 ]
+[; ;calibration.c: 76: }
+[; ;calibration.c: 77: }
+[; ;calibration.c: 78: double_fast_blink();
+"78
+[e ( _double_fast_blink ..  ]
+[; ;calibration.c: 79: button_init();
+"79
+[e ( _button_init ..  ]
+"82
+[v _m_motor `us ~T0 @X0 1 a ]
+[; ;calibration.c: 82: unsigned short m_motor = 200;
+[e = _m_motor -> -> 200 `i `us ]
+[; ;calibration.c: 84: EPWM1_LoadDutyValue(0);
+"84
+[e ( _EPWM1_LoadDutyValue (1 -> -> 0 `i `ui ]
+[; ;calibration.c: 85: _delay((unsigned long)((30)*(32000000/4000.0)));
+"85
+[e ( __delay (1 -> * -> -> 30 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+[; ;calibration.c: 88: while (1)
+"88
+[e :U 376 ]
+[; ;calibration.c: 89: {
+"89
+{
+[; ;calibration.c: 90: if (get_button_state() && (m_motor >= 300))
+"90
+[e $ ! && != -> ( _get_button_state ..  `i -> -> -> 0 `i `uc `i >= -> _m_motor `ui -> -> 300 `i `ui 378  ]
+[; ;calibration.c: 91: break;
+"91
+[e $U 377  ]
+[e :U 378 ]
+[; ;calibration.c: 92: m_motor++;
+"92
+[e ++ _m_motor -> -> 1 `i `us ]
+[; ;calibration.c: 93: if (m_motor == 1023)
 "93
-[e = _CCPR1L -> >> & _dutyValue -> -> 1020 `i `ui -> 2 `i `uc ]
-[; ;epwm1.c: 96: CCP1CON = (CCP1CON & 0xCF) | ((dutyValue & 0x0003)<<4);
+[e $ ! == -> _m_motor `ui -> -> 1023 `i `ui 379  ]
+[; ;calibration.c: 94: m_motor = 300;
+"94
+[e = _m_motor -> -> 300 `i `us ]
+[e :U 379 ]
+[; ;calibration.c: 95: EPWM1_LoadDutyValue(1023-m_motor);
+"95
+[e ( _EPWM1_LoadDutyValue (1 - -> -> 1023 `i `ui -> _m_motor `ui ]
+[; ;calibration.c: 96: _delay((unsigned long)((30)*(32000000/4000.0)));
 "96
-[e = _CCP1CON -> | -> & -> _CCP1CON `i -> 207 `i `ui << & _dutyValue -> -> 3 `i `ui -> 4 `i `uc ]
-[; ;epwm1.c: 97: }
+[e ( __delay (1 -> * -> -> 30 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
 "97
-[e :UE 351 ]
+}
+[e :U 375 ]
+"88
+[e $U 376  ]
+[e :U 377 ]
+[; ;calibration.c: 97: }
+[; ;calibration.c: 98: m_conf.max_pwm = m_motor;
+"98
+[e = . _m_conf 1 _m_motor ]
+[; ;calibration.c: 99: double_fast_blink();
+"99
+[e ( _double_fast_blink ..  ]
+[; ;calibration.c: 100: for(unsigned char __delay_tmp=0;__delay_tmp<(10*1);__delay_tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
+"100
+{
+[v ___delay_tmp `uc ~T0 @X0 1 a ]
+[e = ___delay_tmp -> -> 0 `i `uc ]
+[e $ < -> ___delay_tmp `i * -> 10 `i -> 1 `i 380  ]
+[e $U 381  ]
+[e :U 380 ]
+{
+[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+}
+[e ++ ___delay_tmp -> -> 1 `i `uc ]
+[e $ < -> ___delay_tmp `i * -> 10 `i -> 1 `i 380  ]
+[e :U 381 ]
+}
+"104
+[v _done `uc ~T0 @X0 1 a ]
+[; ;calibration.c: 104: bool done = 0;
+[e = _done -> -> 0 `i `uc ]
+[; ;calibration.c: 105: while (!done)
+"105
+[e $U 383  ]
+[e :U 384 ]
+[; ;calibration.c: 106: {
+"106
+{
+"107
+[v _i `uc ~T0 @X0 1 a ]
+[; ;calibration.c: 107: unsigned char i = 0;
+[e = _i -> -> 0 `i `uc ]
+[; ;calibration.c: 108: m_motor = m_conf.max_pwm;
+"108
+[e = _m_motor . _m_conf 1 ]
+[; ;calibration.c: 109: while (m_motor > 100)
+"109
+[e $U 386  ]
+[e :U 387 ]
+[; ;calibration.c: 110: {
+"110
+{
+[; ;calibration.c: 111: if (get_button_state())
+"111
+[e $ ! != -> ( _get_button_state ..  `i -> -> -> 0 `i `uc `i 389  ]
+[; ;calibration.c: 112: {
+"112
+{
+[; ;calibration.c: 113: m_conf.ref_pwm[i++] = m_motor;
+"113
+[e = *U + &U . _m_conf 3 * -> ++ _i -> -> 1 `i `uc `ux -> -> # *U &U . _m_conf 3 `ui `ux _m_motor ]
+[; ;calibration.c: 114: double_fast_blink();
+"114
+[e ( _double_fast_blink ..  ]
+[; ;calibration.c: 115: for(unsigned char __delay_tmp=0;__delay_tmp<(10*1);__delay_tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
+"115
+{
+[v ___delay_tmp `uc ~T0 @X0 1 a ]
+[e = ___delay_tmp -> -> 0 `i `uc ]
+[e $ < -> ___delay_tmp `i * -> 10 `i -> 1 `i 390  ]
+[e $U 391  ]
+[e :U 390 ]
+{
+[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+}
+[e ++ ___delay_tmp -> -> 1 `i `uc ]
+[e $ < -> ___delay_tmp `i * -> 10 `i -> 1 `i 390  ]
+[e :U 391 ]
+}
+"116
+}
+[e :U 389 ]
+[; ;calibration.c: 116: }
+[; ;calibration.c: 117: m_motor--;
+"117
+[e -- _m_motor -> -> 1 `i `us ]
+[; ;calibration.c: 118: EPWM1_LoadDutyValue(1023-m_motor);
+"118
+[e ( _EPWM1_LoadDutyValue (1 - -> -> 1023 `i `ui -> _m_motor `ui ]
+[; ;calibration.c: 119: _delay((unsigned long)((150)*(32000000/4000.0)));
+"119
+[e ( __delay (1 -> * -> -> 150 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+"120
+}
+[e :U 386 ]
+"109
+[e $ > -> _m_motor `ui -> -> 100 `i `ui 387  ]
+[e :U 388 ]
+[; ;calibration.c: 120: }
+[; ;calibration.c: 121: m_conf.nb_steps = i;
+"121
+[e = . _m_conf 2 _i ]
+[; ;calibration.c: 122: EPWM1_LoadDutyValue(1023-0);
+"122
+[e ( _EPWM1_LoadDutyValue (1 -> - -> 1023 `i -> 0 `i `ui ]
+[; ;calibration.c: 123: double_fast_blink();
+"123
+[e ( _double_fast_blink ..  ]
+[; ;calibration.c: 124: for(unsigned char __delay_tmp=0;__delay_tmp<(10*1);__delay_tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
+"124
+{
+[v ___delay_tmp `uc ~T0 @X0 1 a ]
+[e = ___delay_tmp -> -> 0 `i `uc ]
+[e $ < -> ___delay_tmp `i * -> 10 `i -> 1 `i 393  ]
+[e $U 394  ]
+[e :U 393 ]
+{
+[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+}
+[e ++ ___delay_tmp -> -> 1 `i `uc ]
+[e $ < -> ___delay_tmp `i * -> 10 `i -> 1 `i 393  ]
+[e :U 394 ]
+}
+"126
+[v _replay `uc ~T0 @X0 1 a ]
+[; ;calibration.c: 126: bool replay = 1;
+[e = _replay -> -> 1 `i `uc ]
+[; ;calibration.c: 127: button_init();
+"127
+[e ( _button_init ..  ]
+[; ;calibration.c: 128: while (replay)
+"128
+[e $U 396  ]
+[e :U 397 ]
+[; ;calibration.c: 129: {
+"129
+{
+[; ;calibration.c: 130: for (i=0; i<m_conf.nb_steps; i++)
+"130
+{
+[e = _i -> -> 0 `i `uc ]
+[e $U 402  ]
+"131
+[e :U 399 ]
+[; ;calibration.c: 131: {
+{
+[; ;calibration.c: 132: EPWM1_LoadDutyValue(1023-m_conf.ref_pwm[i]);
+"132
+[e ( _EPWM1_LoadDutyValue (1 - -> -> 1023 `i `ui -> *U + &U . _m_conf 3 * -> _i `ux -> -> # *U &U . _m_conf 3 `ui `ux `ui ]
+[; ;calibration.c: 133: for(unsigned char __delay_tmp=0;__delay_tmp<(10*3);__delay_tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
+"133
+{
+[v ___delay_tmp `uc ~T0 @X0 1 a ]
+[e = ___delay_tmp -> -> 0 `i `uc ]
+[e $ < -> ___delay_tmp `i * -> 10 `i -> 3 `i 403  ]
+[e $U 404  ]
+[e :U 403 ]
+{
+[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+}
+[e ++ ___delay_tmp -> -> 1 `i `uc ]
+[e $ < -> ___delay_tmp `i * -> 10 `i -> 3 `i 403  ]
+[e :U 404 ]
+}
+[; ;calibration.c: 134: if (m_button.confirmed_state != nothing)
+"134
+[e $ ! != -> . _m_button 0 `i -> . `E2968 0 `i 406  ]
+[; ;calibration.c: 135: {
+"135
+{
+[; ;calibration.c: 136: replay = 0;
+"136
+[e = _replay -> -> 0 `i `uc ]
+[; ;calibration.c: 137: break;
+"137
+[e $U 400  ]
+"138
+}
+[e :U 406 ]
+"139
+}
+"130
+[e ++ _i -> -> 1 `i `uc ]
+[e :U 402 ]
+[e $ < -> _i `i -> . _m_conf 2 `i 399  ]
+[e :U 400 ]
+"139
+}
+[; ;calibration.c: 138: }
+[; ;calibration.c: 139: }
+[; ;calibration.c: 141: if (m_button.confirmed_state == long_push)
+"141
+[e $ ! == -> . _m_button 0 `i -> . `E2968 2 `i 407  ]
+[; ;calibration.c: 142: done = 1;
+"142
+[e = _done -> -> 1 `i `uc ]
+[e :U 407 ]
+"143
+}
+[e :U 396 ]
+"128
+[e $ != -> _replay `i -> -> -> 0 `i `uc `i 397  ]
+[e :U 398 ]
+"144
+}
+[e :U 383 ]
+"105
+[e $ ! != -> _done `i -> -> -> 0 `i `uc `i 384  ]
+[e :U 385 ]
+[; ;calibration.c: 143: }
+[; ;calibration.c: 144: }
+[; ;calibration.c: 145: double_fast_blink();
+"145
+[e ( _double_fast_blink ..  ]
+[; ;calibration.c: 146: for(unsigned char __delay_tmp=0;__delay_tmp<(10*1);__delay_tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
+"146
+{
+[v ___delay_tmp `uc ~T0 @X0 1 a ]
+[e = ___delay_tmp -> -> 0 `i `uc ]
+[e $ < -> ___delay_tmp `i * -> 10 `i -> 1 `i 408  ]
+[e $U 409  ]
+[e :U 408 ]
+{
+[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+}
+[e ++ ___delay_tmp -> -> 1 `i `uc ]
+[e $ < -> ___delay_tmp `i * -> 10 `i -> 1 `i 408  ]
+[e :U 409 ]
+}
+[; ;calibration.c: 147: button_init();
+"147
+[e ( _button_init ..  ]
+[; ;calibration.c: 150: m_conf.low_speed_pwm = m_conf.ref_pwm[m_conf.nb_steps-1] - 10;
+"150
+[e = . _m_conf 4 -> - -> *U + &U . _m_conf 3 * -> -> - -> . _m_conf 2 `i -> 1 `i `ui `ux -> -> # *U &U . _m_conf 3 `ui `ux `ui -> -> 10 `i `ui `us ]
+[; ;calibration.c: 151: m_conf.impulse_duration = 10;
+"151
+[e = . _m_conf 5 -> -> 10 `i `uc ]
+[; ;calibration.c: 156: LED_set_state(manual_mode);
+"156
+[e ( _LED_set_state (1 . `E2952 4 ]
+[; ;calibration.c: 157: do { LATA2 = 0; } while(0);
+"157
+[e :U 413 ]
+{
+[e = _LATA2 -> -> 0 `i `b ]
+}
+[e :U 412 ]
+[; ;calibration.c: 158: EPWM1_LoadDutyValue(1023-0);
+"158
+[e ( _EPWM1_LoadDutyValue (1 -> - -> 1023 `i -> 0 `i `ui ]
+[; ;calibration.c: 159: }
+"159
+[e :UE 368 ]
 }

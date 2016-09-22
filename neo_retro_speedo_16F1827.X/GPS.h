@@ -1,5 +1,5 @@
 /* 
- * File:   fixed_point.h
+ * File:   GPS.h
  * Author: nio101
  *
  * Created on September 20, 2016, 6:49 AM
@@ -9,8 +9,6 @@
 #include "mcc_generated_files/mcc.h"
 #include "main.h"
 #include "fixed_point.h"
-
-extern t_fp    speed;
 
 #define NMEA_BUFFER_SIZE 6
 

@@ -13,6 +13,6 @@
 #define uint24 unsigned short long
 #define uint32 unsigned long
 
-bool load_calibration_from_EEPROM();
-void write_calibration_to_EEPROM();
-void perform_calibration();
+void my10msTimerISR(void);  // custom function called every 10ms,
+                            // used for LED blinking and push button debounce
+

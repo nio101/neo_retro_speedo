@@ -1,26 +1,26 @@
 Version 3.2 HI-TECH Software Intermediate Code
 [v F2819 `(v ~T0 @X0 0 tf ]
 "30 interact.h
-[c E2938 0 1 2 3 4 .. ]
-[n E2938 . always_on always_off slow_blinking fast_blinking manual_mode  ]
+[c E2937 0 1 2 3 4 .. ]
+[n E2937 . always_on always_off slow_blinking fast_blinking manual_mode  ]
 "27
-[s S351 `VE2938 1 `Vuc 1 ]
+[s S351 `VE2937 1 `Vuc 1 ]
 [n S351 . state counter ]
 "70
-[c E2954 0 1 2 .. ]
-[n E2954 . nothing short_push long_push  ]
+[c E2953 0 1 2 .. ]
+[n E2953 . nothing short_push long_push  ]
 "60
-[s S352 `VE2954 1 `Vuc 1 `Vuc 1 `Vuc 1 `Vuc 1 `Vuc 1 `Vuc 1 ]
+[s S352 `VE2953 1 `Vuc 1 `Vuc 1 `Vuc 1 `Vuc 1 `Vuc 1 `Vuc 1 ]
 [n S352 . confirmed_state count_pressed count_released push_confirmed release_confirmed last_state has_once_been_released ]
 "36
-[v _LED_set_state `(v ~T0 @X0 0 ef1`E2938 ]
-"7044 D:\Program Files\Microchip\xc8\v1.38\include\pic16f1827.h
+[v _LED_set_state `(v ~T0 @X0 0 ef1`E2937 ]
+"7044 /opt/microchip/xc8/v1.38/include/pic16f1827.h
 [v _LATA2 `Vb ~T0 @X0 0 e@2146 ]
 [v F2766 `(v ~T0 @X0 1 tf1`ul ]
-"152 D:\Program Files\Microchip\xc8\v1.38\include\pic.h
+"152 /opt/microchip/xc8/v1.38/include/pic.h
 [v __delay `JF2766 ~T0 @X0 0 e ]
 [p i __delay ]
-"481 D:\Program Files\Microchip\xc8\v1.38\include\pic16f1827.h
+"481 /opt/microchip/xc8/v1.38/include/pic16f1827.h
 [s S32 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S32 . RB0 RB1 RB2 RB3 RB4 RB5 RB6 RB7 ]
 "480
@@ -32,7 +32,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
 [; ;pic16f1827.h: 49: extern volatile unsigned char INDF0 @ 0x000;
-"51 D:\Program Files\Microchip\xc8\v1.38\include\pic16f1827.h
+"51 /opt/microchip/xc8/v1.38/include/pic16f1827.h
 [; ;pic16f1827.h: 51: asm("INDF0 equ 00h");
 [; <" INDF0 equ 00h ;# ">
 [; ;pic16f1827.h: 54: typedef union {
@@ -2878,9 +2878,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;tmr2.h: 324: bool TMR2_HasOverflowOccured(void);
 [; ;mcc.h: 72: void SYSTEM_Initialize(void);
 [; ;mcc.h: 85: void OSCILLATOR_Initialize(void);
-[; ;main.h: 16: bool load_calibration_from_EEPROM();
-[; ;main.h: 17: void write_calibration_to_EEPROM();
-[; ;main.h: 18: void perform_calibration();
+[; ;main.h: 16: void my10msTimerISR(void);
 [; ;interact.h: 23: typedef enum {
 [; ;interact.h: 24: always_on, always_off, slow_blinking, fast_blinking, manual_mode
 [; ;interact.h: 25: } LED_state_t;
@@ -2919,7 +2917,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [f ]
 [; ;interact.c: 16: LED_set_state(manual_mode);
 "16
-[e ( _LED_set_state (1 . `E2938 4 ]
+[e ( _LED_set_state (1 . `E2937 4 ]
 [; ;interact.c: 17: do { LATA2 = 0; } while(0);
 "17
 [e :U 356 ]
@@ -2975,14 +2973,14 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :UE 353 ]
 }
 "29
-[v _LED_set_state `(v ~T0 @X0 1 ef1`E2938 ]
+[v _LED_set_state `(v ~T0 @X0 1 ef1`E2937 ]
 "30
 {
 [; ;interact.c: 29: void LED_set_state(LED_state_t new_state)
 [; ;interact.c: 30: {
 [e :U _LED_set_state ]
 "29
-[v _new_state `E2938 ~T0 @X0 1 r1 ]
+[v _new_state `E2937 ~T0 @X0 1 r1 ]
 "30
 [f ]
 [; ;interact.c: 31: m_LED.state = new_state;
@@ -2993,7 +2991,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = . _m_LED 1 -> -> 0 `i `uc ]
 [; ;interact.c: 33: if (new_state == always_off)
 "33
-[e $ ! == -> _new_state `i -> . `E2938 1 `i 370  ]
+[e $ ! == -> _new_state `i -> . `E2937 1 `i 370  ]
 [; ;interact.c: 34: do { LATA2 = 0; } while(0);
 "34
 [e :U 373 ]
@@ -3005,7 +3003,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 "35
 [e :U 370 ]
 [; ;interact.c: 35: else if (new_state == always_on)
-[e $ ! == -> _new_state `i -> . `E2938 0 `i 375  ]
+[e $ ! == -> _new_state `i -> . `E2937 0 `i 375  ]
 [; ;interact.c: 36: do { LATA2 = 1; } while(0);
 "36
 [e :U 378 ]
@@ -3017,7 +3015,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 "37
 [e :U 375 ]
 [; ;interact.c: 37: else if ((new_state == slow_blinking)||(new_state == fast_blinking))
-[e $ ! || == -> _new_state `i -> . `E2938 2 `i == -> _new_state `i -> . `E2938 3 `i 380  ]
+[e $ ! || == -> _new_state `i -> . `E2937 2 `i == -> _new_state `i -> . `E2937 3 `i 380  ]
 [; ;interact.c: 38: do { LATA2 = 1; } while(0);
 "38
 [e :U 383 ]
@@ -3042,7 +3040,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [f ]
 [; ;interact.c: 43: if (m_LED.state == manual_mode)
 "43
-[e $ ! == -> . _m_LED 0 `i -> . `E2938 4 `i 385  ]
+[e $ ! == -> . _m_LED 0 `i -> . `E2937 4 `i 385  ]
 [; ;interact.c: 44: return;
 "44
 [e $UE 384  ]
@@ -3050,7 +3048,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 "45
 [e :U 385 ]
 [; ;interact.c: 45: else if (m_LED.state == slow_blinking)
-[e $ ! == -> . _m_LED 0 `i -> . `E2938 2 `i 387  ]
+[e $ ! == -> . _m_LED 0 `i -> . `E2937 2 `i 387  ]
 [; ;interact.c: 46: {
 "46
 {
@@ -3084,7 +3082,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 "54
 [e :U 387 ]
 [; ;interact.c: 54: else if (m_LED.state == fast_blinking)
-[e $ ! == -> . _m_LED 0 `i -> . `E2938 3 `i 393  ]
+[e $ ! == -> . _m_LED 0 `i -> . `E2937 3 `i 393  ]
 [; ;interact.c: 55: {
 "55
 {
@@ -3170,7 +3168,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = . _m_button 2 -> -> 0 `i `uc ]
 [; ;interact.c: 83: m_button.confirmed_state = nothing;
 "83
-[e = . _m_button 0 . `E2954 0 ]
+[e = . _m_button 0 . `E2953 0 ]
 [; ;interact.c: 84: m_button.push_confirmed = 0;
 "84
 [e = . _m_button 3 -> -> 0 `i `uc ]
@@ -3284,7 +3282,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $ ! >= -> . _m_button 1 `i -> 100 `i 412  ]
 [; ;interact.c: 119: m_button.confirmed_state = long_push;
 "119
-[e = . _m_button 0 . `E2954 2 ]
+[e = . _m_button 0 . `E2953 2 ]
 [e :U 412 ]
 "120
 }
@@ -3308,14 +3306,14 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $ ! >= -> . _m_button 1 `i -> 75 `i 416  ]
 [; ;interact.c: 126: m_button.confirmed_state = long_push;
 "126
-[e = . _m_button 0 . `E2954 2 ]
+[e = . _m_button 0 . `E2953 2 ]
 [e $U 417  ]
 "127
 [e :U 416 ]
 [; ;interact.c: 127: else
 [; ;interact.c: 128: m_button.confirmed_state = short_push;
 "128
-[e = . _m_button 0 . `E2954 1 ]
+[e = . _m_button 0 . `E2953 1 ]
 [e :U 417 ]
 [e :U 415 ]
 "129

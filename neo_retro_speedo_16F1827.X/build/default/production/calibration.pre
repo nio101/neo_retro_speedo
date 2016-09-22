@@ -1,5 +1,5 @@
 
-# 1 "mcc_generated_files/epwm1.c"
+# 1 "calibration.c"
 
 # 26 "/opt/microchip/xc8/v1.38/include/htc.h"
 extern const char __xc8_OPTIM_SPEED;
@@ -3718,6 +3718,9 @@ extern unsigned char __resetbits;
 extern __bit __powerdown;
 extern __bit __timeout;
 
+# 153 "mcc_generated_files/pin_manager.h"
+void PIN_MANAGER_Initialize (void);
+
 # 13 "/opt/microchip/xc8/v1.38/include/stdint.h"
 typedef signed char int8_t;
 
@@ -3808,46 +3811,367 @@ typedef int16_t intptr_t;
 
 typedef uint16_t uintptr_t;
 
+# 12 "/opt/microchip/xc8/v1.38/include/stdbool.h"
+typedef unsigned char bool;
+
+# 110 "mcc_generated_files/interrupt_manager.h"
+void interrupt INTERRUPT_InterruptManager(void);
+
+# 103 "mcc_generated_files/tmr0.h"
+void TMR0_Initialize(void);
+
+# 136
+uint8_t TMR0_ReadTimer(void);
+
+# 175
+void TMR0_WriteTimer(uint8_t timerVal);
+
+# 211
+void TMR0_Reload(void);
+
+# 226
+void TMR0_ISR(void);
+
+# 244
+void TMR0_CallBack(void);
+
+# 262
+void TMR0_SetInterruptHandler(void *InterruptHandler);
+
+# 280
+void (*TMR0_InterruptHandler)(void);
+
+# 298
+void TMR0_DefaultInterruptHandler(void);
+
+# 4 "/opt/microchip/xc8/v1.38/include/__size_t.h"
+typedef unsigned size_t;
+
+# 7 "/opt/microchip/xc8/v1.38/include/stdarg.h"
+typedef void * va_list[1];
+
+#pragma intrinsic(__va_start)
+extern void * __va_start(void);
+
+#pragma intrinsic(__va_arg)
+extern void * __va_arg(void *, ...);
+
+# 43 "/opt/microchip/xc8/v1.38/include/stdio.h"
+struct __prbuf
+{
+char * ptr;
+void (* func)(char);
+};
+
+# 29 "/opt/microchip/xc8/v1.38/include/errno.h"
+extern int errno;
+
+# 12 "/opt/microchip/xc8/v1.38/include/conio.h"
+extern void init_uart(void);
+
+extern char getch(void);
+extern char getche(void);
+extern void putch(char);
+extern void ungetch(char);
+
+extern __bit kbhit(void);
+
+# 23
+extern char * cgets(char *);
+extern void cputs(const char *);
+
+# 88 "/opt/microchip/xc8/v1.38/include/stdio.h"
+extern int cprintf(char *, ...);
+#pragma printf_check(cprintf)
+
+
+
+extern int _doprnt(struct __prbuf *, const register char *, register va_list);
+
+
+# 180
+#pragma printf_check(vprintf) const
+#pragma printf_check(vsprintf) const
+
+extern char * gets(char *);
+extern int puts(const char *);
+extern int scanf(const char *, ...) __attribute__((unsupported("scanf() is not supported by this compiler")));
+extern int sscanf(const char *, const char *, ...) __attribute__((unsupported("sscanf() is not supported by this compiler")));
+extern int vprintf(const char *, va_list) __attribute__((unsupported("vprintf() is not supported by this compiler")));
+extern int vsprintf(char *, const char *, va_list) __attribute__((unsupported("vsprintf() is not supported by this compiler")));
+extern int vscanf(const char *, va_list ap) __attribute__((unsupported("vscanf() is not supported by this compiler")));
+extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupported("vsscanf() is not supported by this compiler")));
+
+#pragma printf_check(printf) const
+#pragma printf_check(sprintf) const
+extern int sprintf(char *, const char *, ...);
+extern int printf(const char *, ...);
+
+# 77 "mcc_generated_files/eusart.h"
+extern volatile uint8_t eusartTxBufferRemaining;
+extern volatile uint8_t eusartRxCount;
+
+# 106
+void EUSART_Initialize(void);
+
+# 155
+uint8_t EUSART_Read(void);
+
+# 180
+void EUSART_Write(uint8_t txData);
+
+# 201
+void EUSART_Transmit_ISR(void);
+
+# 222
+void EUSART_Receive_ISR(void);
+
+# 98 "mcc_generated_files/memory.h"
+uint16_t FLASH_ReadWord(uint16_t flashAddr);
+
+# 127
+void FLASH_WriteWord(uint16_t flashAddr, uint16_t *ramBuf, uint16_t word);
+
+# 163
+int8_t FLASH_WriteBlock(uint16_t writeAddr, uint16_t *flashWordArray);
+
+# 188
+void FLASH_EraseBlock(uint16_t startAddr);
+
+# 219
+void DATAEE_WriteByte(uint8_t bAdd, uint8_t bData);
+
+# 245
+uint8_t DATAEE_ReadByte(uint8_t bAdd);
+
 # 95 "mcc_generated_files/epwm1.h"
 void EPWM1_Initialize(void);
 
 # 121
 void EPWM1_LoadDutyValue(uint16_t dutyValue);
 
-# 63 "mcc_generated_files/epwm1.c"
-void EPWM1_Initialize (void)
+# 102 "mcc_generated_files/tmr2.h"
+void TMR2_Initialize(void);
+
+# 131
+void TMR2_StartTimer(void);
+
+# 163
+void TMR2_StopTimer(void);
+
+# 198
+uint8_t TMR2_ReadTimer(void);
+
+# 237
+void TMR2_WriteTimer(uint8_t timerVal);
+
+# 289
+void TMR2_LoadPeriodRegister(uint8_t periodVal);
+
+# 324
+bool TMR2_HasOverflowOccured(void);
+
+# 72 "mcc_generated_files/mcc.h"
+void SYSTEM_Initialize(void);
+
+# 85
+void OSCILLATOR_Initialize(void);
+
+# 16 "main.h"
+void my10msTimerISR(void);
+
+# 14 "calibration.h"
+struct conf_data
+{
+bool use_mph;
+unsigned short max_pwm;
+unsigned char nb_steps;
+unsigned short ref_pwm[20];
+unsigned short low_speed_pwm;
+unsigned char impulse_duration;
+} m_conf;
+
+bool load_calibration_from_EEPROM();
+void write_calibration_to_EEPROM();
+void perform_calibration();
+
+# 13 "CRC.h"
+unsigned short crc_update(unsigned short old_crc, unsigned char data);
+
+# 16 "main.h"
+void my10msTimerISR(void);
+
+# 23 "interact.h"
+typedef enum {
+always_on, always_off, slow_blinking, fast_blinking, manual_mode
+} LED_state_t;
+
+volatile struct {
+volatile LED_state_t state;
+volatile unsigned char counter;
+} m_LED;
+
+
+
+
+void double_fast_blink();
+void LED_set_state(LED_state_t new_state);
+void LED_update_loop();
+
+# 60
+volatile struct {
+volatile enum {
+nothing, short_push, long_push
+} confirmed_state;
+volatile unsigned char count_pressed;
+volatile unsigned char count_released;
+volatile bool push_confirmed;
+volatile bool release_confirmed;
+volatile unsigned char last_state;
+volatile bool has_once_been_released;
+} m_button;
+
+void button_init();
+void button_update_loop();
+unsigned char get_button_state();
+
+# 21 "calibration.c"
+unsigned short m_crc;
+
+
+bool load_calibration_from_EEPROM()
 {
 
-
-
-CCP1CON = 0x3C;
-
-
-ECCP1AS = 0x00;
-
-
-PWM1CON = 0x80;
-
-
-PSTR1CON = 0x01;
-
-
-CCPR1L = 0x7F;
-
-
-CCPR1H = 0x00;
-
-
-
-CCPTMRS0bits.C1TSEL = 0x0;
+unsigned char addr = 0x00;
+unsigned short crc = 0x00;
+char i,*p;
+p=(char *)&m_conf;
+for(i=0; i<sizeof(m_conf); i++)
+{
+*p = DATAEE_ReadByte(addr++);
+crc = crc_update(crc, *p++);
+}
+p=(char *)&m_crc;
+for(i=0; i<sizeof(m_crc); i++)
+*p++ = DATAEE_ReadByte(addr++);
+return (crc == m_crc);
 }
 
-void EPWM1_LoadDutyValue(uint16_t dutyValue)
+void write_calibration_to_EEPROM()
 {
 
-CCPR1L = ((dutyValue & 0x03FC)>>2);
-
-
-CCP1CON = (CCP1CON & 0xCF) | ((dutyValue & 0x0003)<<4);
+unsigned char addr = 0x00;
+m_crc = 0x00;
+char i,*p;
+p=(char *)&m_conf;
+for(i=0; i<sizeof(m_conf); i++) {
+DATAEE_WriteByte(addr++, *p);
+m_crc = crc_update(m_crc, *p++);
+}
+p=(char *)&m_crc;
+for(i=0; i<sizeof(m_crc); i++)
+DATAEE_WriteByte(addr++, *p++);
 }
 
+void perform_calibration()
+{
+double_fast_blink();
+button_init();
+
+
+LED_set_state(always_on);
+m_conf.use_mph = 0;
+while (m_button.confirmed_state != long_push)
+{
+if (m_button.confirmed_state == short_push)
+{
+m_conf.use_mph = !m_conf.use_mph;
+if (m_conf.use_mph)
+LED_set_state(slow_blinking);
+else
+LED_set_state(fast_blinking);
+button_init();
+}
+}
+double_fast_blink();
+button_init();
+
+
+unsigned short m_motor = 200;
+
+EPWM1_LoadDutyValue(0);
+_delay((unsigned long)((30)*(32000000/4000.0)));
+
+
+while (1)
+{
+if (get_button_state() && (m_motor >= 300))
+break;
+m_motor++;
+if (m_motor == 1023)
+m_motor = 300;
+EPWM1_LoadDutyValue(1023-m_motor);
+_delay((unsigned long)((30)*(32000000/4000.0)));
+}
+m_conf.max_pwm = m_motor;
+double_fast_blink();
+for(unsigned char __delay_tmp=0;__delay_tmp<(10*1);__delay_tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
+
+
+
+bool done = 0;
+while (!done)
+{
+unsigned char i = 0;
+m_motor = m_conf.max_pwm;
+while (m_motor > 100)
+{
+if (get_button_state())
+{
+m_conf.ref_pwm[i++] = m_motor;
+double_fast_blink();
+for(unsigned char __delay_tmp=0;__delay_tmp<(10*1);__delay_tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
+}
+m_motor--;
+EPWM1_LoadDutyValue(1023-m_motor);
+_delay((unsigned long)((150)*(32000000/4000.0)));
+}
+m_conf.nb_steps = i;
+EPWM1_LoadDutyValue(1023-0);
+double_fast_blink();
+for(unsigned char __delay_tmp=0;__delay_tmp<(10*1);__delay_tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
+
+bool replay = 1;
+button_init();
+while (replay)
+{
+for (i=0; i<m_conf.nb_steps; i++)
+{
+EPWM1_LoadDutyValue(1023-m_conf.ref_pwm[i]);
+for(unsigned char __delay_tmp=0;__delay_tmp<(10*3);__delay_tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
+if (m_button.confirmed_state != nothing)
+{
+replay = 0;
+break;
+}
+}
+
+if (m_button.confirmed_state == long_push)
+done = 1;
+}
+}
+double_fast_blink();
+for(unsigned char __delay_tmp=0;__delay_tmp<(10*1);__delay_tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
+button_init();
+
+
+m_conf.low_speed_pwm = m_conf.ref_pwm[m_conf.nb_steps-1] - 10;
+m_conf.impulse_duration = 10;
+
+
+
+
+LED_set_state(manual_mode);
+do { LATA2 = 0; } while(0);
+EPWM1_LoadDutyValue(1023-0);
+}

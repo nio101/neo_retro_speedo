@@ -12,41 +12,25 @@ Version 3.2 HI-TECH Software Intermediate Code
 "60
 [s S352 `VE2954 1 `Vuc 1 `Vuc 1 `Vuc 1 `Vuc 1 `Vuc 1 `Vuc 1 ]
 [n S352 . confirmed_state count_pressed count_released push_confirmed release_confirmed last_state has_once_been_released ]
-"75 main.c
+"14 calibration.h
 [s S353 `uc 1 `us 1 `uc 1 `us -> 20 `i `us 1 `uc 1 ]
 [n S353 conf_data use_mph max_pwm nb_steps ref_pwm low_speed_pwm impulse_duration ]
-"245 mcc_generated_files/memory.h
-[v _DATAEE_ReadByte `(uc ~T0 @X0 0 ef1`uc ]
-"13 CRC.h
-[v _crc_update `(us ~T0 @X0 0 ef2`us`uc ]
-"219 mcc_generated_files/memory.h
-[v _DATAEE_WriteByte `(v ~T0 @X0 0 ef2`uc`uc ]
-"35 interact.h
-[v _double_fast_blink `(v ~T0 @X0 0 ef ]
-"72
-[v _button_init `(v ~T0 @X0 0 ef ]
-"36
-[v _LED_set_state `(v ~T0 @X0 0 ef1`E2938 ]
-"121 mcc_generated_files/epwm1.h
-[v _EPWM1_LoadDutyValue `(v ~T0 @X0 0 ef1`ui ]
-[v F2766 `(v ~T0 @X0 1 tf1`ul ]
-"152 D:\Program Files\Microchip\xc8\v1.38\include\pic.h
-[v __delay `JF2766 ~T0 @X0 0 e ]
-[p i __delay ]
-"74 interact.h
-[v _get_button_state `(uc ~T0 @X0 0 ef ]
-"7044 D:\Program Files\Microchip\xc8\v1.38\include\pic16f1827.h
-[v _LATA2 `Vb ~T0 @X0 0 e@2146 ]
 [p mainexit ]
 "72 mcc_generated_files/mcc.h
 [v _SYSTEM_Initialize `(v ~T0 @X0 0 ef ]
+"36 interact.h
+[v _LED_set_state `(v ~T0 @X0 0 ef1`E2938 ]
+"7044 /opt/microchip/xc8/v1.38/include/pic16f1827.h
+[v _LATA2 `Vb ~T0 @X0 0 e@2146 ]
+"121 mcc_generated_files/epwm1.h
+[v _EPWM1_LoadDutyValue `(v ~T0 @X0 0 ef1`ui ]
 "131 mcc_generated_files/tmr2.h
 [v _TMR2_StartTimer `(v ~T0 @X0 0 ef ]
 "262 mcc_generated_files/tmr0.h
 [v _TMR0_SetInterruptHandler `(v ~T0 @X0 0 ef1`*v ]
-"55 main.c
+"16 main.h
 [v _my10msTimerISR `(v ~T0 @X0 0 ef ]
-"343 D:\Program Files\Microchip\xc8\v1.38\include\pic16f1827.h
+"343 /opt/microchip/xc8/v1.38/include/pic16f1827.h
 [s S27 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S27 . IOCIF INTF TMR0IF IOCIE INTE TMR0IE PEIE GIE ]
 "353
@@ -57,15 +41,27 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S26 . . . ]
 "360
 [v _INTCONbits `VS26 ~T0 @X0 0 e@11 ]
-"17 GPS.h
+"24 calibration.h
+[v _load_calibration_from_EEPROM `(uc ~T0 @X0 0 ef ]
+"72 interact.h
+[v _button_init `(v ~T0 @X0 0 ef ]
+"26 calibration.h
+[v _perform_calibration `(v ~T0 @X0 0 ef ]
+"25
+[v _write_calibration_to_EEPROM `(v ~T0 @X0 0 ef ]
+"15 GPS.h
 [v _GPS_Initialize `(v ~T0 @X0 0 ef ]
-"18
+"16
 [v _GPS_read_speed `(uc ~T0 @X0 0 ef ]
-"21 fixed_point.h
+"24 fixed_point.h
 [v _multiply_fp `(l ~T0 @X0 0 ef2`l`l ]
-"23
+[v F2766 `(v ~T0 @X0 1 tf1`ul ]
+"152 /opt/microchip/xc8/v1.38/include/pic.h
+[v __delay `JF2766 ~T0 @X0 0 e ]
+[p i __delay ]
+"26 fixed_point.h
 [v _integer_part `(s ~T0 @X0 0 ef1`l ]
-"20
+"23
 [v _convert_to_fp `(l ~T0 @X0 0 ef2`s`s ]
 "37 interact.h
 [v _LED_update_loop `(v ~T0 @X0 0 ef ]
@@ -75,7 +71,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
 [; ;pic16f1827.h: 49: extern volatile unsigned char INDF0 @ 0x000;
-"51 D:\Program Files\Microchip\xc8\v1.38\include\pic16f1827.h
+"51 /opt/microchip/xc8/v1.38/include/pic16f1827.h
 [; ;pic16f1827.h: 51: asm("INDF0 equ 00h");
 [; <" INDF0 equ 00h ;# ">
 [; ;pic16f1827.h: 54: typedef union {
@@ -2921,12 +2917,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;tmr2.h: 324: bool TMR2_HasOverflowOccured(void);
 [; ;mcc.h: 72: void SYSTEM_Initialize(void);
 [; ;mcc.h: 85: void OSCILLATOR_Initialize(void);
-[; ;main.h: 16: bool load_calibration_from_EEPROM();
-[; ;main.h: 17: void write_calibration_to_EEPROM();
-[; ;main.h: 18: void perform_calibration();
-[; ;main.h: 16: bool load_calibration_from_EEPROM();
-[; ;main.h: 17: void write_calibration_to_EEPROM();
-[; ;main.h: 18: void perform_calibration();
+[; ;main.h: 16: void my10msTimerISR(void);
+[; ;main.h: 16: void my10msTimerISR(void);
 [; ;interact.h: 23: typedef enum {
 [; ;interact.h: 24: always_on, always_off, slow_blinking, fast_blinking, manual_mode
 [; ;interact.h: 25: } LED_state_t;
@@ -2956,974 +2948,394 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;interact.h: 73: void button_update_loop();
 [; ;interact.h: 74: unsigned char get_button_state();
 [; ;fixed_point.h: 18: typedef signed long t_fp;
-[; ;fixed_point.h: 20: t_fp convert_to_fp(signed short int_part, signed short fract_part);
-[; ;fixed_point.h: 21: t_fp multiply_fp(t_fp n1, t_fp n2);
-[; ;fixed_point.h: 22: t_fp reciprocal_fp(t_fp n);
-[; ;fixed_point.h: 23: signed short integer_part(t_fp n);
-[; ;main.h: 16: bool load_calibration_from_EEPROM();
-[; ;main.h: 17: void write_calibration_to_EEPROM();
-[; ;main.h: 18: void perform_calibration();
-[; ;GPS.h: 13: extern t_fp speed;
-[; ;GPS.h: 17: void GPS_Initialize(void);
-[; ;GPS.h: 18: bool GPS_read_speed(void);
+"20 fixed_point.h
+[v _fp_x0_a `Cl ~T0 @X0 1 e ]
+[i _fp_x0_a
+-> 185040 `l
+]
+[; ;fixed_point.h: 20: const t_fp fp_x0_a = 0x0002D2D0;
+"21
+[v _fp_x0_b `Cl ~T0 @X0 1 e ]
+[i _fp_x0_b
+-> 123364 `l
+]
+[; ;fixed_point.h: 21: const t_fp fp_x0_b = 0x0001E1E4;
+[; ;fixed_point.h: 23: t_fp convert_to_fp(signed short int_part, signed short fract_part);
+[; ;fixed_point.h: 24: t_fp multiply_fp(t_fp n1, t_fp n2);
+[; ;fixed_point.h: 25: t_fp reciprocal_fp(t_fp n);
+[; ;fixed_point.h: 26: signed short integer_part(t_fp n);
+[; ;main.h: 16: void my10msTimerISR(void);
+[; ;GPS.h: 15: void GPS_Initialize(void);
+[; ;GPS.h: 16: bool GPS_read_speed(void);
 [; ;CRC.h: 13: unsigned short crc_update(unsigned short old_crc, unsigned char data);
-[; ;main.c: 55: void my10msTimerISR(void);
-"61 main.c
+[; ;main.h: 16: void my10msTimerISR(void);
+"22 calibration.h
+[v _m_conf `S353 ~T0 @X0 1 e ]
+[; ;calibration.h: 14: struct conf_data
+[; ;calibration.h: 15: {
+[; ;calibration.h: 16: bool use_mph;
+[; ;calibration.h: 17: unsigned short max_pwm;
+[; ;calibration.h: 18: unsigned char nb_steps;
+[; ;calibration.h: 19: unsigned short ref_pwm[20];
+[; ;calibration.h: 20: unsigned short low_speed_pwm;
+[; ;calibration.h: 21: unsigned char impulse_duration;
+[; ;calibration.h: 22: } m_conf;
+[; ;calibration.h: 24: bool load_calibration_from_EEPROM();
+[; ;calibration.h: 25: void write_calibration_to_EEPROM();
+[; ;calibration.h: 26: void perform_calibration();
+"55 main.c
 [v _speed `l ~T0 @X0 1 e ]
-[; ;main.c: 61: t_fp speed;
-"63
+[; ;main.c: 55: t_fp speed;
+"57
 [v _ratio_mph `Cl ~T0 @X0 1 e ]
 [i _ratio_mph
 -> -> 40697 `ui `l
 ]
-[; ;main.c: 63: const t_fp ratio_mph = 0x00009EF9;
-"64
+[; ;main.c: 57: const t_fp ratio_mph = 0x00009EF9;
+"59
 [v _motor `ui ~T0 @X0 1 e ]
 [i _motor
 -> -> 0 `i `ui
 ]
-[; ;main.c: 64: uint16_t motor = 0;
-"83
-[v _m_conf `S353 ~T0 @X0 1 e ]
-[; ;main.c: 75: struct conf_data
-[; ;main.c: 76: {
-[; ;main.c: 77: bool use_mph;
-[; ;main.c: 78: unsigned short max_pwm;
-[; ;main.c: 79: unsigned char nb_steps;
-[; ;main.c: 80: unsigned short ref_pwm[20];
-[; ;main.c: 81: unsigned short low_speed_pwm;
-[; ;main.c: 82: unsigned char impulse_duration;
-[; ;main.c: 83: } m_conf;
-"85
-[v _m_crc `us ~T0 @X0 1 e ]
-[; ;main.c: 85: unsigned short m_crc;
-"92
-[v _load_calibration_from_EEPROM `(uc ~T0 @X0 1 ef ]
-"93
-{
-[; ;main.c: 92: bool load_calibration_from_EEPROM()
-[; ;main.c: 93: {
-[e :U _load_calibration_from_EEPROM ]
-[f ]
-"95
-[v _addr `uc ~T0 @X0 1 a ]
-[; ;main.c: 95: unsigned char addr = 0x00;
-[e = _addr -> -> 0 `i `uc ]
-"96
-[v _crc `us ~T0 @X0 1 a ]
-[; ;main.c: 96: unsigned short crc = 0x00;
-[e = _crc -> -> 0 `i `us ]
-"97
-[v _i `uc ~T0 @X0 1 a ]
-[v _p `*uc ~T0 @X0 1 a ]
-[; ;main.c: 97: char i,*p;
-[; ;main.c: 98: p=(char *)&m_conf;
-"98
-[e = _p -> &U _m_conf `*uc ]
-[; ;main.c: 99: for(i=0; i<sizeof(m_conf); i++)
-"99
-{
-[e = _i -> -> 0 `i `uc ]
-[e $ < -> _i `ui -> # _m_conf `ui 355  ]
-[e $U 356  ]
-"100
-[e :U 355 ]
-[; ;main.c: 100: {
-{
-[; ;main.c: 101: *p = DATAEE_ReadByte(addr++);
-"101
-[e = *U _p ( _DATAEE_ReadByte (1 ++ _addr -> -> 1 `i `uc ]
-[; ;main.c: 102: crc = crc_update(crc, *p++);
-"102
-[e = _crc ( _crc_update (2 , _crc *U ++ _p * -> -> 1 `i `x -> -> # *U _p `i `x ]
-"103
-}
-"99
-[e ++ _i -> -> 1 `i `uc ]
-[e $ < -> _i `ui -> # _m_conf `ui 355  ]
-[e :U 356 ]
-"103
-}
-[; ;main.c: 103: }
-[; ;main.c: 104: p=(char *)&m_crc;
-"104
-[e = _p -> &U _m_crc `*uc ]
-[; ;main.c: 105: for(i=0; i<sizeof(m_crc); i++)
-"105
-{
-[e = _i -> -> 0 `i `uc ]
-[e $ < -> _i `ui -> # _m_crc `ui 358  ]
-[e $U 359  ]
-"106
-[e :U 358 ]
-[; ;main.c: 106: *p++ = DATAEE_ReadByte(addr++);
-[e = *U ++ _p * -> -> 1 `i `x -> -> # *U _p `i `x ( _DATAEE_ReadByte (1 ++ _addr -> -> 1 `i `uc ]
-"105
-[e ++ _i -> -> 1 `i `uc ]
-[e $ < -> _i `ui -> # _m_crc `ui 358  ]
-[e :U 359 ]
-"106
-}
-[; ;main.c: 107: return (crc == m_crc);
-"107
-[e ) -> -> == -> _crc `ui -> _m_crc `ui `i `uc ]
-[e $UE 354  ]
-[; ;main.c: 108: }
-"108
-[e :UE 354 ]
-}
-"110
-[v _write_calibration_to_EEPROM `(v ~T0 @X0 1 ef ]
-"111
-{
-[; ;main.c: 110: void write_calibration_to_EEPROM()
-[; ;main.c: 111: {
-[e :U _write_calibration_to_EEPROM ]
-[f ]
-"113
-[v _addr `uc ~T0 @X0 1 a ]
-[; ;main.c: 113: unsigned char addr = 0x00;
-[e = _addr -> -> 0 `i `uc ]
-[; ;main.c: 114: m_crc = 0x00;
-"114
-[e = _m_crc -> -> 0 `i `us ]
-"115
-[v _i `uc ~T0 @X0 1 a ]
-[v _p `*uc ~T0 @X0 1 a ]
-[; ;main.c: 115: char i,*p;
-[; ;main.c: 116: p=(char *)&m_conf;
-"116
-[e = _p -> &U _m_conf `*uc ]
-[; ;main.c: 117: for(i=0; i<sizeof(m_conf); i++) {
-"117
-{
-[e = _i -> -> 0 `i `uc ]
-[e $ < -> _i `ui -> # _m_conf `ui 362  ]
-[e $U 363  ]
-[e :U 362 ]
-{
-[; ;main.c: 118: DATAEE_WriteByte(addr++, *p);
-"118
-[e ( _DATAEE_WriteByte (2 , ++ _addr -> -> 1 `i `uc *U _p ]
-[; ;main.c: 119: m_crc = crc_update(m_crc, *p++);
-"119
-[e = _m_crc ( _crc_update (2 , _m_crc *U ++ _p * -> -> 1 `i `x -> -> # *U _p `i `x ]
-"120
-}
-"117
-[e ++ _i -> -> 1 `i `uc ]
-[e $ < -> _i `ui -> # _m_conf `ui 362  ]
-[e :U 363 ]
-"120
-}
-[; ;main.c: 120: }
-[; ;main.c: 121: p=(char *)&m_crc;
-"121
-[e = _p -> &U _m_crc `*uc ]
-[; ;main.c: 122: for(i=0; i<sizeof(m_crc); i++)
-"122
-{
-[e = _i -> -> 0 `i `uc ]
-[e $ < -> _i `ui -> # _m_crc `ui 365  ]
-[e $U 366  ]
-"123
-[e :U 365 ]
-[; ;main.c: 123: DATAEE_WriteByte(addr++, *p++);
-[e ( _DATAEE_WriteByte (2 , ++ _addr -> -> 1 `i `uc *U ++ _p * -> -> 1 `i `x -> -> # *U _p `i `x ]
-"122
-[e ++ _i -> -> 1 `i `uc ]
-[e $ < -> _i `ui -> # _m_crc `ui 365  ]
-[e :U 366 ]
-"123
-}
-[; ;main.c: 124: }
-"124
-[e :UE 361 ]
-}
-"126
-[v _perform_calibration `(v ~T0 @X0 1 ef ]
-"127
-{
-[; ;main.c: 126: void perform_calibration()
-[; ;main.c: 127: {
-[e :U _perform_calibration ]
-[f ]
-[; ;main.c: 128: double_fast_blink();
-"128
-[e ( _double_fast_blink ..  ]
-[; ;main.c: 129: button_init();
-"129
-[e ( _button_init ..  ]
-[; ;main.c: 132: LED_set_state(always_on);
-"132
-[e ( _LED_set_state (1 . `E2938 0 ]
-[; ;main.c: 133: m_conf.use_mph = 0;
-"133
-[e = . _m_conf 0 -> -> 0 `i `uc ]
-[; ;main.c: 134: while (m_button.confirmed_state != long_push)
-"134
-[e $U 369  ]
-[e :U 370 ]
-[; ;main.c: 135: {
-"135
-{
-[; ;main.c: 136: if (m_button.confirmed_state == short_push)
-"136
-[e $ ! == -> . _m_button 0 `i -> . `E2954 1 `i 372  ]
-[; ;main.c: 137: {
-"137
-{
-[; ;main.c: 138: m_conf.use_mph = !m_conf.use_mph;
-"138
-[e = . _m_conf 0 -> -> ! != -> . _m_conf 0 `i -> -> -> 0 `i `uc `i `i `uc ]
-[; ;main.c: 139: if (m_conf.use_mph)
-"139
-[e $ ! != -> . _m_conf 0 `i -> -> -> 0 `i `uc `i 373  ]
-[; ;main.c: 140: LED_set_state(slow_blinking);
-"140
-[e ( _LED_set_state (1 . `E2938 2 ]
-[e $U 374  ]
-"141
-[e :U 373 ]
-[; ;main.c: 141: else
-[; ;main.c: 142: LED_set_state(fast_blinking);
-"142
-[e ( _LED_set_state (1 . `E2938 3 ]
-[e :U 374 ]
-[; ;main.c: 143: button_init();
-"143
-[e ( _button_init ..  ]
-"144
-}
-[e :U 372 ]
-"145
-}
-[e :U 369 ]
-"134
-[e $ != -> . _m_button 0 `i -> . `E2954 2 `i 370  ]
-[e :U 371 ]
-[; ;main.c: 144: }
-[; ;main.c: 145: }
-[; ;main.c: 146: double_fast_blink();
-"146
-[e ( _double_fast_blink ..  ]
-[; ;main.c: 147: button_init();
-"147
-[e ( _button_init ..  ]
-[; ;main.c: 150: motor = 200;
-"150
-[e = _motor -> -> 200 `i `ui ]
-[; ;main.c: 152: EPWM1_LoadDutyValue(0);
-"152
-[e ( _EPWM1_LoadDutyValue (1 -> -> 0 `i `ui ]
-[; ;main.c: 153: _delay((unsigned long)((30)*(32000000/4000.0)));
-"153
-[e ( __delay (1 -> * -> -> 30 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
-[; ;main.c: 156: while (1)
-"156
-[e :U 376 ]
-[; ;main.c: 157: {
-"157
-{
-[; ;main.c: 158: if (get_button_state() && (motor >= 300))
-"158
-[e $ ! && != -> ( _get_button_state ..  `i -> -> -> 0 `i `uc `i >= _motor -> -> 300 `i `ui 378  ]
-[; ;main.c: 159: break;
-"159
-[e $U 377  ]
-[e :U 378 ]
-[; ;main.c: 160: motor++;
-"160
-[e ++ _motor -> -> 1 `i `ui ]
-[; ;main.c: 161: if (motor == 1023)
-"161
-[e $ ! == _motor -> -> 1023 `i `ui 379  ]
-[; ;main.c: 162: motor = 300;
-"162
-[e = _motor -> -> 300 `i `ui ]
-[e :U 379 ]
-[; ;main.c: 163: EPWM1_LoadDutyValue(1023-motor);
-"163
-[e ( _EPWM1_LoadDutyValue (1 - -> -> 1023 `i `ui _motor ]
-[; ;main.c: 164: _delay((unsigned long)((30)*(32000000/4000.0)));
-"164
-[e ( __delay (1 -> * -> -> 30 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
-"165
-}
-[e :U 375 ]
-"156
-[e $U 376  ]
-[e :U 377 ]
-[; ;main.c: 165: }
-[; ;main.c: 166: m_conf.max_pwm = motor;
-"166
-[e = . _m_conf 1 -> _motor `us ]
-[; ;main.c: 167: double_fast_blink();
-"167
-[e ( _double_fast_blink ..  ]
-[; ;main.c: 168: for(unsigned char __delay_tmp=0;__delay_tmp<(10*1);__delay_tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
-"168
-{
-[v ___delay_tmp `uc ~T0 @X0 1 a ]
-[e = ___delay_tmp -> -> 0 `i `uc ]
-[e $ < -> ___delay_tmp `i * -> 10 `i -> 1 `i 380  ]
-[e $U 381  ]
-[e :U 380 ]
-{
-[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
-}
-[e ++ ___delay_tmp -> -> 1 `i `uc ]
-[e $ < -> ___delay_tmp `i * -> 10 `i -> 1 `i 380  ]
-[e :U 381 ]
-}
-"172
-[v _done `uc ~T0 @X0 1 a ]
-[; ;main.c: 172: bool done = 0;
-[e = _done -> -> 0 `i `uc ]
-[; ;main.c: 173: while (!done)
-"173
-[e $U 383  ]
-[e :U 384 ]
-[; ;main.c: 174: {
-"174
-{
-"175
-[v _i `uc ~T0 @X0 1 a ]
-[; ;main.c: 175: unsigned char i = 0;
-[e = _i -> -> 0 `i `uc ]
-[; ;main.c: 176: motor = m_conf.max_pwm;
-"176
-[e = _motor -> . _m_conf 1 `ui ]
-[; ;main.c: 177: while (motor > 100)
-"177
-[e $U 386  ]
-[e :U 387 ]
-[; ;main.c: 178: {
-"178
-{
-[; ;main.c: 179: if (get_button_state())
-"179
-[e $ ! != -> ( _get_button_state ..  `i -> -> -> 0 `i `uc `i 389  ]
-[; ;main.c: 180: {
-"180
-{
-[; ;main.c: 181: m_conf.ref_pwm[i++] = motor;
-"181
-[e = *U + &U . _m_conf 3 * -> ++ _i -> -> 1 `i `uc `ux -> -> # *U &U . _m_conf 3 `ui `ux -> _motor `us ]
-[; ;main.c: 182: double_fast_blink();
-"182
-[e ( _double_fast_blink ..  ]
-[; ;main.c: 183: for(unsigned char __delay_tmp=0;__delay_tmp<(10*1);__delay_tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
-"183
-{
-[v ___delay_tmp `uc ~T0 @X0 1 a ]
-[e = ___delay_tmp -> -> 0 `i `uc ]
-[e $ < -> ___delay_tmp `i * -> 10 `i -> 1 `i 390  ]
-[e $U 391  ]
-[e :U 390 ]
-{
-[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
-}
-[e ++ ___delay_tmp -> -> 1 `i `uc ]
-[e $ < -> ___delay_tmp `i * -> 10 `i -> 1 `i 390  ]
-[e :U 391 ]
-}
-"184
-}
-[e :U 389 ]
-[; ;main.c: 184: }
-[; ;main.c: 185: motor--;
-"185
-[e -- _motor -> -> 1 `i `ui ]
-[; ;main.c: 186: EPWM1_LoadDutyValue(1023-motor);
-"186
-[e ( _EPWM1_LoadDutyValue (1 - -> -> 1023 `i `ui _motor ]
-[; ;main.c: 187: _delay((unsigned long)((150)*(32000000/4000.0)));
-"187
-[e ( __delay (1 -> * -> -> 150 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
-"188
-}
-[e :U 386 ]
-"177
-[e $ > _motor -> -> 100 `i `ui 387  ]
-[e :U 388 ]
-[; ;main.c: 188: }
-[; ;main.c: 189: m_conf.nb_steps = i;
-"189
-[e = . _m_conf 2 _i ]
-[; ;main.c: 190: EPWM1_LoadDutyValue(1023-0);
-"190
-[e ( _EPWM1_LoadDutyValue (1 -> - -> 1023 `i -> 0 `i `ui ]
-[; ;main.c: 191: double_fast_blink();
-"191
-[e ( _double_fast_blink ..  ]
-[; ;main.c: 192: for(unsigned char __delay_tmp=0;__delay_tmp<(10*1);__delay_tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
-"192
-{
-[v ___delay_tmp `uc ~T0 @X0 1 a ]
-[e = ___delay_tmp -> -> 0 `i `uc ]
-[e $ < -> ___delay_tmp `i * -> 10 `i -> 1 `i 393  ]
-[e $U 394  ]
-[e :U 393 ]
-{
-[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
-}
-[e ++ ___delay_tmp -> -> 1 `i `uc ]
-[e $ < -> ___delay_tmp `i * -> 10 `i -> 1 `i 393  ]
-[e :U 394 ]
-}
-"194
-[v _replay `uc ~T0 @X0 1 a ]
-[; ;main.c: 194: bool replay = 1;
-[e = _replay -> -> 1 `i `uc ]
-[; ;main.c: 195: button_init();
-"195
-[e ( _button_init ..  ]
-[; ;main.c: 196: while (replay)
-"196
-[e $U 396  ]
-[e :U 397 ]
-[; ;main.c: 197: {
-"197
-{
-[; ;main.c: 198: for (i=0; i<m_conf.nb_steps; i++)
-"198
-{
-[e = _i -> -> 0 `i `uc ]
-[e $U 402  ]
-"199
-[e :U 399 ]
-[; ;main.c: 199: {
-{
-[; ;main.c: 200: EPWM1_LoadDutyValue(1023-m_conf.ref_pwm[i]);
-"200
-[e ( _EPWM1_LoadDutyValue (1 - -> -> 1023 `i `ui -> *U + &U . _m_conf 3 * -> _i `ux -> -> # *U &U . _m_conf 3 `ui `ux `ui ]
-[; ;main.c: 201: for(unsigned char __delay_tmp=0;__delay_tmp<(10*3);__delay_tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
-"201
-{
-[v ___delay_tmp `uc ~T0 @X0 1 a ]
-[e = ___delay_tmp -> -> 0 `i `uc ]
-[e $ < -> ___delay_tmp `i * -> 10 `i -> 3 `i 403  ]
-[e $U 404  ]
-[e :U 403 ]
-{
-[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
-}
-[e ++ ___delay_tmp -> -> 1 `i `uc ]
-[e $ < -> ___delay_tmp `i * -> 10 `i -> 3 `i 403  ]
-[e :U 404 ]
-}
-[; ;main.c: 202: if (m_button.confirmed_state != nothing)
-"202
-[e $ ! != -> . _m_button 0 `i -> . `E2954 0 `i 406  ]
-[; ;main.c: 203: {
-"203
-{
-[; ;main.c: 204: replay = 0;
-"204
-[e = _replay -> -> 0 `i `uc ]
-[; ;main.c: 205: break;
-"205
-[e $U 400  ]
-"206
-}
-[e :U 406 ]
-"207
-}
-"198
-[e ++ _i -> -> 1 `i `uc ]
-[e :U 402 ]
-[e $ < -> _i `i -> . _m_conf 2 `i 399  ]
-[e :U 400 ]
-"207
-}
-[; ;main.c: 206: }
-[; ;main.c: 207: }
-[; ;main.c: 209: if (m_button.confirmed_state == long_push)
-"209
-[e $ ! == -> . _m_button 0 `i -> . `E2954 2 `i 407  ]
-[; ;main.c: 210: done = 1;
-"210
-[e = _done -> -> 1 `i `uc ]
-[e :U 407 ]
-"211
-}
-[e :U 396 ]
-"196
-[e $ != -> _replay `i -> -> -> 0 `i `uc `i 397  ]
-[e :U 398 ]
-"212
-}
-[e :U 383 ]
-"173
-[e $ ! != -> _done `i -> -> -> 0 `i `uc `i 384  ]
-[e :U 385 ]
-[; ;main.c: 211: }
-[; ;main.c: 212: }
-[; ;main.c: 213: double_fast_blink();
-"213
-[e ( _double_fast_blink ..  ]
-[; ;main.c: 214: for(unsigned char __delay_tmp=0;__delay_tmp<(10*1);__delay_tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
-"214
-{
-[v ___delay_tmp `uc ~T0 @X0 1 a ]
-[e = ___delay_tmp -> -> 0 `i `uc ]
-[e $ < -> ___delay_tmp `i * -> 10 `i -> 1 `i 408  ]
-[e $U 409  ]
-[e :U 408 ]
-{
-[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
-}
-[e ++ ___delay_tmp -> -> 1 `i `uc ]
-[e $ < -> ___delay_tmp `i * -> 10 `i -> 1 `i 408  ]
-[e :U 409 ]
-}
-[; ;main.c: 215: button_init();
-"215
-[e ( _button_init ..  ]
-[; ;main.c: 218: m_conf.low_speed_pwm = m_conf.ref_pwm[m_conf.nb_steps-1] - 10;
-"218
-[e = . _m_conf 4 -> - -> *U + &U . _m_conf 3 * -> -> - -> . _m_conf 2 `i -> 1 `i `ui `ux -> -> # *U &U . _m_conf 3 `ui `ux `ui -> -> 10 `i `ui `us ]
-[; ;main.c: 220: m_conf.impulse_duration = 10;
-"220
-[e = . _m_conf 5 -> -> 10 `i `uc ]
-[; ;main.c: 223: LED_set_state(manual_mode);
-"223
-[e ( _LED_set_state (1 . `E2938 4 ]
-[; ;main.c: 224: do { LATA2 = 0; } while(0);
-"224
-[e :U 413 ]
-{
-[e = _LATA2 -> -> 0 `i `b ]
-}
-[e :U 412 ]
-[; ;main.c: 225: EPWM1_LoadDutyValue(1023-0);
-"225
-[e ( _EPWM1_LoadDutyValue (1 -> - -> 1023 `i -> 0 `i `ui ]
-[; ;main.c: 226: }
-"226
-[e :UE 368 ]
-}
-"229
+[; ;main.c: 59: uint16_t motor = 0;
+"66
 [v _main `(v ~T0 @X0 1 ef ]
-"230
+"67
 {
-[; ;main.c: 229: void main(void)
-[; ;main.c: 230: {
+[; ;main.c: 66: void main(void)
+[; ;main.c: 67: {
 [e :U _main ]
 [f ]
-[; ;main.c: 232: SYSTEM_Initialize();
-"232
+[; ;main.c: 69: SYSTEM_Initialize();
+"69
 [e ( _SYSTEM_Initialize ..  ]
-[; ;main.c: 234: LED_set_state(manual_mode);
-"234
+[; ;main.c: 71: LED_set_state(manual_mode);
+"71
 [e ( _LED_set_state (1 . `E2938 4 ]
-[; ;main.c: 235: do { LATA2 = 0; } while(0);
-"235
-[e :U 417 ]
+[; ;main.c: 72: do { LATA2 = 0; } while(0);
+"72
+[e :U 357 ]
 {
 [e = _LATA2 -> -> 0 `i `b ]
 }
-[e :U 416 ]
-[; ;main.c: 237: motor = 0;
-"237
+[e :U 356 ]
+[; ;main.c: 74: motor = 0;
+"74
 [e = _motor -> -> 0 `i `ui ]
-[; ;main.c: 238: EPWM1_LoadDutyValue(1023-motor);
-"238
+[; ;main.c: 75: EPWM1_LoadDutyValue(1023-motor);
+"75
 [e ( _EPWM1_LoadDutyValue (1 - -> -> 1023 `i `ui _motor ]
-[; ;main.c: 240: TMR2_StartTimer();
-"240
+[; ;main.c: 77: TMR2_StartTimer();
+"77
 [e ( _TMR2_StartTimer ..  ]
-[; ;main.c: 241: TMR0_SetInterruptHandler(my10msTimerISR);
-"241
+[; ;main.c: 78: TMR0_SetInterruptHandler(my10msTimerISR);
+"78
 [e ( _TMR0_SetInterruptHandler (1 -> &U _my10msTimerISR `*v ]
-[; ;main.c: 243: (INTCONbits.GIE = 1);
-"243
+[; ;main.c: 80: (INTCONbits.GIE = 1);
+"80
 [e = . . _INTCONbits 0 7 -> -> 1 `i `uc ]
-[; ;main.c: 245: (INTCONbits.PEIE = 1);
-"245
+[; ;main.c: 82: (INTCONbits.PEIE = 1);
+"82
 [e = . . _INTCONbits 0 6 -> -> 1 `i `uc ]
-[; ;main.c: 248: if (!load_calibration_from_EEPROM())
-"248
-[e $ ! ! != -> ( _load_calibration_from_EEPROM ..  `i -> -> -> 0 `i `uc `i 418  ]
-[; ;main.c: 249: {
-"249
+[; ;main.c: 85: if (!load_calibration_from_EEPROM())
+"85
+[e $ ! ! != -> ( _load_calibration_from_EEPROM ..  `i -> -> -> 0 `i `uc `i 358  ]
+[; ;main.c: 86: {
+"86
 {
-[; ;main.c: 251: LED_set_state(slow_blinking);
-"251
+[; ;main.c: 88: LED_set_state(slow_blinking);
+"88
 [e ( _LED_set_state (1 . `E2938 2 ]
-[; ;main.c: 252: button_init();
-"252
+[; ;main.c: 89: button_init();
+"89
 [e ( _button_init ..  ]
-[; ;main.c: 253: while (m_button.confirmed_state != long_push)
-"253
-[e $U 419  ]
-[e :U 420 ]
-[; ;main.c: 254: {
-"254
+[; ;main.c: 90: while (m_button.confirmed_state != long_push)
+"90
+[e $U 359  ]
+[e :U 360 ]
+[; ;main.c: 91: {
+"91
 {
-[; ;main.c: 255: if (m_button.confirmed_state == short_push)
-"255
-[e $ ! == -> . _m_button 0 `i -> . `E2954 1 `i 422  ]
-[; ;main.c: 256: button_init();
-"256
+[; ;main.c: 92: if (m_button.confirmed_state == short_push)
+"92
+[e $ ! == -> . _m_button 0 `i -> . `E2954 1 `i 362  ]
+[; ;main.c: 93: button_init();
+"93
 [e ( _button_init ..  ]
-[e :U 422 ]
-"257
+[e :U 362 ]
+"94
 }
-[e :U 419 ]
-"253
-[e $ != -> . _m_button 0 `i -> . `E2954 2 `i 420  ]
-[e :U 421 ]
-[; ;main.c: 257: }
-[; ;main.c: 258: perform_calibration();
-"258
+[e :U 359 ]
+"90
+[e $ != -> . _m_button 0 `i -> . `E2954 2 `i 360  ]
+[e :U 361 ]
+[; ;main.c: 94: }
+[; ;main.c: 95: perform_calibration();
+"95
 [e ( _perform_calibration ..  ]
-[; ;main.c: 259: write_calibration_to_EEPROM();
-"259
+[; ;main.c: 96: write_calibration_to_EEPROM();
+"96
 [e ( _write_calibration_to_EEPROM ..  ]
-"260
+"97
 }
-[e :U 418 ]
-[; ;main.c: 260: }
-[; ;main.c: 262: GPS_Initialize();
-"262
+[e :U 358 ]
+[; ;main.c: 97: }
+[; ;main.c: 99: GPS_Initialize();
+"99
 [e ( _GPS_Initialize ..  ]
-[; ;main.c: 263: speed = 0;
-"263
+[; ;main.c: 100: speed = 0;
+"100
 [e = _speed -> -> 0 `i `l ]
-[; ;main.c: 265: button_init();
-"265
+[; ;main.c: 102: button_init();
+"102
 [e ( _button_init ..  ]
-"266
+"103
 [v _new_motor `us ~T0 @X0 1 a ]
 [v _speed_int `us ~T0 @X0 1 a ]
-"267
+"104
 [v _a `l ~T0 @X0 1 a ]
 [v _b `l ~T0 @X0 1 a ]
 [v _tmp `l ~T0 @X0 1 a ]
 [v _fp_motor `l ~T0 @X0 1 a ]
-"268
+"105
 [v _i `uc ~T0 @X0 1 a ]
-"269
+"106
 [v _done `uc ~T0 @X0 1 a ]
-[; ;main.c: 266: unsigned short new_motor, speed_int;
-[; ;main.c: 267: t_fp a, b, tmp, fp_motor;
-[; ;main.c: 268: unsigned char i;
-[; ;main.c: 269: bool done;
-[; ;main.c: 270: while (1)
-"270
-[e :U 424 ]
-[; ;main.c: 271: {
-"271
+[; ;main.c: 103: unsigned short new_motor, speed_int;
+[; ;main.c: 104: t_fp a, b, tmp, fp_motor;
+[; ;main.c: 105: unsigned char i;
+[; ;main.c: 106: bool done;
+[; ;main.c: 107: while (1)
+"107
+[e :U 364 ]
+[; ;main.c: 108: {
+"108
 {
-[; ;main.c: 273: if (GPS_read_speed())
-"273
-[e $ ! != -> ( _GPS_read_speed ..  `i -> -> -> 0 `i `uc `i 426  ]
-[; ;main.c: 274: {
-"274
+[; ;main.c: 110: if (GPS_read_speed())
+"110
+[e $ ! != -> ( _GPS_read_speed ..  `i -> -> -> 0 `i `uc `i 366  ]
+[; ;main.c: 111: {
+"111
 {
-[; ;main.c: 276: if (m_conf.use_mph > 0)
-"276
-[e $ ! > -> . _m_conf 0 `i -> 0 `i 427  ]
-[; ;main.c: 277: speed = multiply_fp(speed, ratio_mph);
-"277
+[; ;main.c: 113: if (m_conf.use_mph > 0)
+"113
+[e $ ! > -> . _m_conf 0 `i -> 0 `i 367  ]
+[; ;main.c: 114: speed = multiply_fp(speed, ratio_mph);
+"114
 [e = _speed ( _multiply_fp (2 , _speed _ratio_mph ]
-[e :U 427 ]
-[; ;main.c: 281: do { LATA2 = 1; } while(0);
-"281
-[e :U 430 ]
+[e :U 367 ]
+[; ;main.c: 118: do { LATA2 = 1; } while(0);
+"118
+[e :U 370 ]
 {
 [e = _LATA2 -> -> 1 `i `b ]
 }
-[e :U 429 ]
-[; ;main.c: 282: _delay((unsigned long)((20)*(32000000/4000.0)));
-"282
+[e :U 369 ]
+[; ;main.c: 119: _delay((unsigned long)((20)*(32000000/4000.0)));
+"119
 [e ( __delay (1 -> * -> -> 20 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
-[; ;main.c: 283: do { LATA2 = 0; } while(0);
-"283
-[e :U 433 ]
+[; ;main.c: 120: do { LATA2 = 0; } while(0);
+"120
+[e :U 373 ]
 {
 [e = _LATA2 -> -> 0 `i `b ]
 }
-[e :U 432 ]
-[; ;main.c: 286: speed_int = integer_part(speed);
-"286
+[e :U 372 ]
+[; ;main.c: 123: speed_int = integer_part(speed);
+"123
 [e = _speed_int -> ( _integer_part (1 _speed `us ]
-[; ;main.c: 287: i = 1;
-"287
+[; ;main.c: 124: i = 1;
+"124
 [e = _i -> -> 1 `i `uc ]
-[; ;main.c: 288: done = 0;
-"288
+[; ;main.c: 125: done = 0;
+"125
 [e = _done -> -> 0 `i `uc ]
-[; ;main.c: 289: while ((i<m_conf.nb_steps)&&(!done))
-"289
-[e $U 434  ]
-[e :U 435 ]
-[; ;main.c: 290: {
-"290
+[; ;main.c: 126: while ((i<m_conf.nb_steps)&&(!done))
+"126
+[e $U 374  ]
+[e :U 375 ]
+[; ;main.c: 127: {
+"127
 {
-[; ;main.c: 291: if (speed_int >= 10*(m_conf.nb_steps-i))
-"291
-[e $ ! >= -> _speed_int `ui -> * -> 10 `i - -> . _m_conf 2 `i -> _i `i `ui 437  ]
-[; ;main.c: 292: {
-"292
+[; ;main.c: 128: if (speed_int >= 10*(m_conf.nb_steps-i))
+"128
+[e $ ! >= -> _speed_int `ui -> * -> 10 `i - -> . _m_conf 2 `i -> _i `i `ui 377  ]
+[; ;main.c: 129: {
+"129
 {
-[; ;main.c: 293: if (speed_int == 10*(m_conf.nb_steps-i))
-"293
-[e $ ! == -> _speed_int `ui -> * -> 10 `i - -> . _m_conf 2 `i -> _i `i `ui 438  ]
-[; ;main.c: 294: new_motor = m_conf.ref_pwm[i];
-"294
+[; ;main.c: 130: if (speed_int == 10*(m_conf.nb_steps-i))
+"130
+[e $ ! == -> _speed_int `ui -> * -> 10 `i - -> . _m_conf 2 `i -> _i `i `ui 378  ]
+[; ;main.c: 131: new_motor = m_conf.ref_pwm[i];
+"131
 [e = _new_motor *U + &U . _m_conf 3 * -> _i `ux -> -> # *U &U . _m_conf 3 `ui `ux ]
-[e $U 439  ]
-"295
-[e :U 438 ]
-[; ;main.c: 295: else
-[; ;main.c: 296: {
-"296
+[e $U 379  ]
+"132
+[e :U 378 ]
+[; ;main.c: 132: else
+[; ;main.c: 133: {
+"133
 {
-[; ;main.c: 297: a = convert_to_fp((m_conf.ref_pwm[i-1]-m_conf.ref_pwm[i]),0);
-"297
+[; ;main.c: 134: a = convert_to_fp((m_conf.ref_pwm[i-1]-m_conf.ref_pwm[i]),0);
+"134
 [e = _a ( _convert_to_fp (2 , -> - -> *U + &U . _m_conf 3 * -> -> - -> _i `i -> 1 `i `ui `ux -> -> # *U &U . _m_conf 3 `ui `ux `ui -> *U + &U . _m_conf 3 * -> _i `ux -> -> # *U &U . _m_conf 3 `ui `ux `ui `s -> -> 0 `i `s ]
-[; ;main.c: 298: tmp = convert_to_fp(0,1000);
-"298
+[; ;main.c: 135: tmp = convert_to_fp(0,1000);
+"135
 [e = _tmp ( _convert_to_fp (2 , -> -> 0 `i `s -> -> 1000 `i `s ]
-[; ;main.c: 300: a = multiply_fp(a, tmp);
-"300
+[; ;main.c: 137: a = multiply_fp(a, tmp);
+"137
 [e = _a ( _multiply_fp (2 , _a _tmp ]
-[; ;main.c: 301: b = convert_to_fp(10*(m_conf.nb_steps-i), 0);
-"301
+[; ;main.c: 138: b = convert_to_fp(10*(m_conf.nb_steps-i), 0);
+"138
 [e = _b ( _convert_to_fp (2 , -> * -> 10 `i - -> . _m_conf 2 `i -> _i `i `s -> -> 0 `i `s ]
-[; ;main.c: 302: b = multiply_fp(a, b);
-"302
+[; ;main.c: 139: b = multiply_fp(a, b);
+"139
 [e = _b ( _multiply_fp (2 , _a _b ]
-[; ;main.c: 303: tmp = convert_to_fp(m_conf.ref_pwm[i], 0);
-"303
+[; ;main.c: 140: tmp = convert_to_fp(m_conf.ref_pwm[i], 0);
+"140
 [e = _tmp ( _convert_to_fp (2 , -> *U + &U . _m_conf 3 * -> _i `ux -> -> # *U &U . _m_conf 3 `ui `ux `s -> -> 0 `i `s ]
-[; ;main.c: 304: b = tmp - b;
-"304
+[; ;main.c: 141: b = tmp - b;
+"141
 [e = _b - _tmp _b ]
-[; ;main.c: 306: fp_motor = multiply_fp(a, speed) + b;
-"306
+[; ;main.c: 143: fp_motor = multiply_fp(a, speed) + b;
+"143
 [e = _fp_motor + ( _multiply_fp (2 , _a _speed _b ]
-[; ;main.c: 307: new_motor = integer_part(fp_motor);
-"307
+[; ;main.c: 144: new_motor = integer_part(fp_motor);
+"144
 [e = _new_motor -> ( _integer_part (1 _fp_motor `us ]
-"308
+"145
 }
-[e :U 439 ]
-[; ;main.c: 308: }
-[; ;main.c: 309: done = 1;
-"309
+[e :U 379 ]
+[; ;main.c: 145: }
+[; ;main.c: 146: done = 1;
+"146
 [e = _done -> -> 1 `i `uc ]
-"310
+"147
 }
-[; ;main.c: 310: }
-[e $U 440  ]
-"311
-[e :U 437 ]
-[; ;main.c: 311: else if (i == (m_conf.nb_steps-1))
-[e $ ! == -> _i `i - -> . _m_conf 2 `i -> 1 `i 441  ]
-[; ;main.c: 312: {
-"312
+[; ;main.c: 147: }
+[e $U 380  ]
+"148
+[e :U 377 ]
+[; ;main.c: 148: else if (i == (m_conf.nb_steps-1))
+[e $ ! == -> _i `i - -> . _m_conf 2 `i -> 1 `i 381  ]
+[; ;main.c: 149: {
+"149
 {
-[; ;main.c: 313: new_motor = m_conf.low_speed_pwm;
-"313
+[; ;main.c: 150: new_motor = m_conf.low_speed_pwm;
+"150
 [e = _new_motor . _m_conf 4 ]
-[; ;main.c: 314: done = 1;
-"314
+[; ;main.c: 151: done = 1;
+"151
 [e = _done -> -> 1 `i `uc ]
-"315
+"152
 }
-[e :U 441 ]
-"316
-[e :U 440 ]
+[e :U 381 ]
+"153
+[e :U 380 ]
 }
-[e :U 434 ]
-"289
-[e $ && < -> _i `i -> . _m_conf 2 `i ! != -> _done `i -> -> -> 0 `i `uc `i 435  ]
-[e :U 436 ]
-"320
-}
-[e :U 426 ]
-[; ;main.c: 315: }
-[; ;main.c: 316: }
-[; ;main.c: 320: }
-[; ;main.c: 325: if (m_button.confirmed_state == long_push)
-"325
-[e $ ! == -> . _m_button 0 `i -> . `E2954 2 `i 442  ]
-[; ;main.c: 326: {
-"326
+[e :U 374 ]
+"126
+[e $ && < -> _i `i -> . _m_conf 2 `i ! != -> _done `i -> -> -> 0 `i `uc `i 375  ]
+[e :U 376 ]
+[; ;main.c: 152: }
+[; ;main.c: 153: }
+[; ;main.c: 155: if (new_motor > m_conf.max_pwm)
+"155
+[e $ ! > -> _new_motor `ui -> . _m_conf 1 `ui 382  ]
+[; ;main.c: 156: new_motor = m_conf.max_pwm;
+"156
+[e = _new_motor . _m_conf 1 ]
+[e :U 382 ]
+[; ;main.c: 157: if (new_motor < m_conf.ref_pwm[m_conf.nb_steps-1])
+"157
+[e $ ! < -> _new_motor `ui -> *U + &U . _m_conf 3 * -> -> - -> . _m_conf 2 `i -> 1 `i `ui `ux -> -> # *U &U . _m_conf 3 `ui `ux `ui 383  ]
+[; ;main.c: 158: new_motor = m_conf.low_speed_pwm;
+"158
+[e = _new_motor . _m_conf 4 ]
+[e :U 383 ]
+[; ;main.c: 160: if (motor == 0)
+"160
+[e $ ! == _motor -> -> 0 `i `ui 384  ]
+[; ;main.c: 161: {
+"161
 {
-[; ;main.c: 327: motor = 0;
-"327
+[; ;main.c: 162: EPWM1_LoadDutyValue(0);
+"162
+[e ( _EPWM1_LoadDutyValue (1 -> -> 0 `i `ui ]
+[; ;main.c: 163: _delay((unsigned long)((10)*(32000000/4000.0)));
+"163
+[e ( __delay (1 -> * -> -> 10 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+"164
+}
+[e :U 384 ]
+[; ;main.c: 164: }
+[; ;main.c: 166: motor = new_motor;
+"166
+[e = _motor -> _new_motor `ui ]
+[; ;main.c: 167: EPWM1_LoadDutyValue(1023 - motor);
+"167
+[e ( _EPWM1_LoadDutyValue (1 - -> -> 1023 `i `ui _motor ]
+"168
+}
+[e :U 366 ]
+[; ;main.c: 168: }
+[; ;main.c: 173: if (m_button.confirmed_state == long_push)
+"173
+[e $ ! == -> . _m_button 0 `i -> . `E2954 2 `i 385  ]
+[; ;main.c: 174: {
+"174
+{
+[; ;main.c: 175: motor = 0;
+"175
 [e = _motor -> -> 0 `i `ui ]
-[; ;main.c: 328: EPWM1_LoadDutyValue(1023-motor);
-"328
+[; ;main.c: 176: EPWM1_LoadDutyValue(1023-motor);
+"176
 [e ( _EPWM1_LoadDutyValue (1 - -> -> 1023 `i `ui _motor ]
-[; ;main.c: 330: perform_calibration();
-"330
+[; ;main.c: 178: perform_calibration();
+"178
 [e ( _perform_calibration ..  ]
-[; ;main.c: 331: write_calibration_to_EEPROM();
-"331
+[; ;main.c: 179: write_calibration_to_EEPROM();
+"179
 [e ( _write_calibration_to_EEPROM ..  ]
-"332
+"180
 }
-[; ;main.c: 332: }
-[e $U 443  ]
-"333
-[e :U 442 ]
-[; ;main.c: 333: else if (m_button.confirmed_state == short_push)
-[e $ ! == -> . _m_button 0 `i -> . `E2954 1 `i 444  ]
-[; ;main.c: 334: button_init();
-"334
+[; ;main.c: 180: }
+[e $U 386  ]
+"181
+[e :U 385 ]
+[; ;main.c: 181: else if (m_button.confirmed_state == short_push)
+[e $ ! == -> . _m_button 0 `i -> . `E2954 1 `i 387  ]
+[; ;main.c: 182: button_init();
+"182
 [e ( _button_init ..  ]
-[e :U 444 ]
-"335
-[e :U 443 ]
+[e :U 387 ]
+"183
+[e :U 386 ]
 }
-[e :U 423 ]
-"270
-[e $U 424  ]
-[e :U 425 ]
-"337
-[v _up `uc ~T0 @X0 1 a ]
-[; ;main.c: 335: }
-[; ;main.c: 337: bool up = 1;
-[e = _up -> -> 1 `i `uc ]
-[; ;main.c: 357: EPWM1_LoadDutyValue(0);
-"357
-[e ( _EPWM1_LoadDutyValue (1 -> -> 0 `i `ui ]
-[; ;main.c: 358: _delay((unsigned long)((10)*(32000000/4000.0)));
-"358
-[e ( __delay (1 -> * -> -> 10 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
-[; ;main.c: 359: EPWM1_LoadDutyValue(1023-148);
-"359
-[e ( _EPWM1_LoadDutyValue (1 -> - -> 1023 `i -> 148 `i `ui ]
-[; ;main.c: 360: for(unsigned char __delay_tmp=0;__delay_tmp<(10*5);__delay_tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
-"360
-{
-[v ___delay_tmp `uc ~T0 @X0 1 a ]
-[e = ___delay_tmp -> -> 0 `i `uc ]
-[e $ < -> ___delay_tmp `i * -> 10 `i -> 5 `i 445  ]
-[e $U 446  ]
-[e :U 445 ]
-{
-[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+[e :U 363 ]
+"107
+[e $U 364  ]
+[e :U 365 ]
+[; ;main.c: 183: }
+[; ;main.c: 184: }
+"184
+[e :UE 354 ]
 }
-[e ++ ___delay_tmp -> -> 1 `i `uc ]
-[e $ < -> ___delay_tmp `i * -> 10 `i -> 5 `i 445  ]
-[e :U 446 ]
-}
-[; ;main.c: 361: while (1)
-"361
-[e :U 449 ]
-[; ;main.c: 362: {
-"362
-{
-[; ;main.c: 363: if (up == 1)
-"363
-[e $ ! == -> _up `i -> 1 `i 451  ]
-[; ;main.c: 364: motor += 1;
-"364
-[e =+ _motor -> -> 1 `i `ui ]
-[e $U 452  ]
-"365
-[e :U 451 ]
-[; ;main.c: 365: else
-[; ;main.c: 366: motor -= 1;
-"366
-[e =- _motor -> -> 1 `i `ui ]
-[e :U 452 ]
-[; ;main.c: 367: if (motor > 300)
-"367
-[e $ ! > _motor -> -> 300 `i `ui 453  ]
-[; ;main.c: 368: up = 0;
-"368
-[e = _up -> -> 0 `i `uc ]
-[e $U 454  ]
-"369
-[e :U 453 ]
-[; ;main.c: 369: else if (motor == 0)
-[e $ ! == _motor -> -> 0 `i `ui 455  ]
-[; ;main.c: 370: {
-"370
-{
-[; ;main.c: 371: up = 1;
-"371
-[e = _up -> -> 1 `i `uc ]
-[; ;main.c: 372: EPWM1_LoadDutyValue(1023);
-"372
-[e ( _EPWM1_LoadDutyValue (1 -> -> 1023 `i `ui ]
-[; ;main.c: 373: for(unsigned char __delay_tmp=0;__delay_tmp<(10*5);__delay_tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
-"373
-{
-[v ___delay_tmp `uc ~T0 @X0 1 a ]
-[e = ___delay_tmp -> -> 0 `i `uc ]
-[e $ < -> ___delay_tmp `i * -> 10 `i -> 5 `i 456  ]
-[e $U 457  ]
-[e :U 456 ]
-{
-[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
-}
-[e ++ ___delay_tmp -> -> 1 `i `uc ]
-[e $ < -> ___delay_tmp `i * -> 10 `i -> 5 `i 456  ]
-[e :U 457 ]
-}
-[; ;main.c: 375: EPWM1_LoadDutyValue(0);
-"375
-[e ( _EPWM1_LoadDutyValue (1 -> -> 0 `i `ui ]
-[; ;main.c: 376: _delay((unsigned long)((10)*(32000000/4000.0)));
-"376
-[e ( __delay (1 -> * -> -> 10 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
-"377
-}
-[e :U 455 ]
-"378
-[e :U 454 ]
-[; ;main.c: 377: }
-[; ;main.c: 378: if (motor < 148)
-[e $ ! < _motor -> -> 148 `i `ui 459  ]
-[; ;main.c: 379: EPWM1_LoadDutyValue(1023-135);
-"379
-[e ( _EPWM1_LoadDutyValue (1 -> - -> 1023 `i -> 135 `i `ui ]
-[e $U 460  ]
-"380
-[e :U 459 ]
-[; ;main.c: 380: else
-[; ;main.c: 381: EPWM1_LoadDutyValue(1023-motor);
-"381
-[e ( _EPWM1_LoadDutyValue (1 - -> -> 1023 `i `ui _motor ]
-[e :U 460 ]
-[; ;main.c: 382: _delay((unsigned long)((50)*(32000000/4000.0)));
-"382
-[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
-"383
-}
-[e :U 448 ]
-"361
-[e $U 449  ]
-[e :U 450 ]
-[; ;main.c: 383: }
-[; ;main.c: 384: }
-"384
-[e :UE 414 ]
-}
-"386
+"186
 [v _my10msTimerISR `(v ~T0 @X0 1 ef ]
-"387
+"187
 {
-[; ;main.c: 386: void my10msTimerISR(void)
-[; ;main.c: 387: {
+[; ;main.c: 186: void my10msTimerISR(void)
+[; ;main.c: 187: {
 [e :U _my10msTimerISR ]
 [f ]
-[; ;main.c: 388: LED_update_loop();
-"388
+[; ;main.c: 188: LED_update_loop();
+"188
 [e ( _LED_update_loop ..  ]
-[; ;main.c: 389: button_update_loop();
-"389
+[; ;main.c: 189: button_update_loop();
+"189
 [e ( _button_update_loop ..  ]
-[; ;main.c: 390: }
-"390
-[e :UE 461 ]
+[; ;main.c: 190: }
+"190
+[e :UE 388 ]
 }

@@ -32,7 +32,7 @@ volatile struct {
 #define slow_blinking_period 60
 #define fast_blinking_period 15
 
-void double_fast_blink();
+void multiple_fast_blink(uint8 times);
 void LED_set_state(LED_state_t new_state);
 void LED_update_loop();
 

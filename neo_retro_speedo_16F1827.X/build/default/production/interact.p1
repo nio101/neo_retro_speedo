@@ -1,26 +1,26 @@
 Version 3.2 HI-TECH Software Intermediate Code
 [v F2819 `(v ~T0 @X0 0 tf ]
 "30 interact.h
-[c E2937 0 1 2 3 4 .. ]
-[n E2937 . always_on always_off slow_blinking fast_blinking manual_mode  ]
+[c E2939 0 1 2 3 4 .. ]
+[n E2939 . always_on always_off slow_blinking fast_blinking manual_mode  ]
 "27
-[s S351 `VE2937 1 `Vuc 1 ]
+[s S351 `VE2939 1 `Vuc 1 ]
 [n S351 . state counter ]
 "70
-[c E2953 0 1 2 .. ]
-[n E2953 . nothing short_push long_push  ]
+[c E2956 0 1 2 .. ]
+[n E2956 . nothing short_push long_push  ]
 "60
-[s S352 `VE2953 1 `Vuc 1 `Vuc 1 `Vuc 1 `Vuc 1 `Vuc 1 `Vuc 1 ]
+[s S352 `VE2956 1 `Vuc 1 `Vuc 1 `Vuc 1 `Vuc 1 `Vuc 1 `Vuc 1 ]
 [n S352 . confirmed_state count_pressed count_released push_confirmed release_confirmed last_state has_once_been_released ]
 "36
-[v _LED_set_state `(v ~T0 @X0 0 ef1`E2937 ]
-"7044 /opt/microchip/xc8/v1.38/include/pic16f1827.h
+[v _LED_set_state `(v ~T0 @X0 0 ef1`E2939 ]
+"7044 D:\Program Files\Microchip\xc8\v1.38\include\pic16f1827.h
 [v _LATA2 `Vb ~T0 @X0 0 e@2146 ]
 [v F2766 `(v ~T0 @X0 1 tf1`ul ]
-"152 /opt/microchip/xc8/v1.38/include/pic.h
+"152 D:\Program Files\Microchip\xc8\v1.38\include\pic.h
 [v __delay `JF2766 ~T0 @X0 0 e ]
 [p i __delay ]
-"481 /opt/microchip/xc8/v1.38/include/pic16f1827.h
+"481 D:\Program Files\Microchip\xc8\v1.38\include\pic16f1827.h
 [s S32 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S32 . RB0 RB1 RB2 RB3 RB4 RB5 RB6 RB7 ]
 "480
@@ -32,7 +32,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
 [; ;pic16f1827.h: 49: extern volatile unsigned char INDF0 @ 0x000;
-"51 /opt/microchip/xc8/v1.38/include/pic16f1827.h
+"51 D:\Program Files\Microchip\xc8\v1.38\include\pic16f1827.h
 [; ;pic16f1827.h: 51: asm("INDF0 equ 00h");
 [; <" INDF0 equ 00h ;# ">
 [; ;pic16f1827.h: 54: typedef union {
@@ -2879,6 +2879,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;mcc.h: 72: void SYSTEM_Initialize(void);
 [; ;mcc.h: 85: void OSCILLATOR_Initialize(void);
 [; ;main.h: 16: void my10msTimerISR(void);
+[; ;main.h: 19: void delay_ms(unsigned short milliseconds);
 [; ;interact.h: 23: typedef enum {
 [; ;interact.h: 24: always_on, always_off, slow_blinking, fast_blinking, manual_mode
 [; ;interact.h: 25: } LED_state_t;
@@ -2888,7 +2889,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;interact.h: 28: volatile LED_state_t state;
 [; ;interact.h: 29: volatile unsigned char counter;
 [; ;interact.h: 30: } m_LED;
-[; ;interact.h: 35: void double_fast_blink();
+[; ;interact.h: 35: void multiple_fast_blink(unsigned char times);
 [; ;interact.h: 36: void LED_set_state(LED_state_t new_state);
 [; ;interact.h: 37: void LED_update_loop();
 "70
@@ -2908,16 +2909,19 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;interact.h: 73: void button_update_loop();
 [; ;interact.h: 74: unsigned char get_button_state();
 "14 interact.c
-[v _double_fast_blink `(v ~T0 @X0 1 ef ]
+[v _multiple_fast_blink `(v ~T0 @X0 1 ef1`uc ]
 "15
 {
-[; ;interact.c: 14: void double_fast_blink()
+[; ;interact.c: 14: void multiple_fast_blink(unsigned char times)
 [; ;interact.c: 15: {
-[e :U _double_fast_blink ]
+[e :U _multiple_fast_blink ]
+"14
+[v _times `uc ~T0 @X0 1 r1 ]
+"15
 [f ]
 [; ;interact.c: 16: LED_set_state(manual_mode);
 "16
-[e ( _LED_set_state (1 . `E2937 4 ]
+[e ( _LED_set_state (1 . `E2939 4 ]
 [; ;interact.c: 17: do { LATA2 = 0; } while(0);
 "17
 [e :U 356 ]
@@ -2928,59 +2932,59 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;interact.c: 18: _delay((unsigned long)((250)*(32000000/4000.0)));
 "18
 [e ( __delay (1 -> * -> -> 250 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
-[; ;interact.c: 19: do { LATA2 = 1; } while(0);
-"19
-[e :U 359 ]
-{
-[e = _LATA2 -> -> 1 `i `b ]
-}
-[e :U 358 ]
-[; ;interact.c: 20: _delay((unsigned long)((50)*(32000000/4000.0)));
+[; ;interact.c: 20: for (unsigned char i=0; i<times; i++)
 "20
-[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
-[; ;interact.c: 21: do { LATA2 = 0; } while(0);
-"21
-[e :U 362 ]
 {
-[e = _LATA2 -> -> 0 `i `b ]
-}
-[e :U 361 ]
-[; ;interact.c: 22: _delay((unsigned long)((50)*(32000000/4000.0)));
+[v _i `uc ~T0 @X0 1 a ]
+[e = _i -> -> 0 `i `uc ]
+[e $U 360  ]
+"21
+[e :U 357 ]
+[; ;interact.c: 21: {
+{
+[; ;interact.c: 22: do { LATA2 = 1; } while(0);
 "22
-[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
-[; ;interact.c: 23: do { LATA2 = 1; } while(0);
-"23
-[e :U 365 ]
+[e :U 363 ]
 {
 [e = _LATA2 -> -> 1 `i `b ]
 }
-[e :U 364 ]
-[; ;interact.c: 24: _delay((unsigned long)((50)*(32000000/4000.0)));
-"24
+[e :U 362 ]
+[; ;interact.c: 23: _delay((unsigned long)((50)*(32000000/4000.0)));
+"23
 [e ( __delay (1 -> * -> -> 50 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
-[; ;interact.c: 25: do { LATA2 = 0; } while(0);
-"25
-[e :U 368 ]
+[; ;interact.c: 24: do { LATA2 = 0; } while(0);
+"24
+[e :U 366 ]
 {
 [e = _LATA2 -> -> 0 `i `b ]
 }
-[e :U 367 ]
-[; ;interact.c: 26: _delay((unsigned long)((250)*(32000000/4000.0)));
+[e :U 365 ]
+[; ;interact.c: 25: _delay((unsigned long)((50)*(32000000/4000.0)));
+"25
+[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
 "26
-[e ( __delay (1 -> * -> -> 250 `i `d / -> -> 32000000 `l `d .4000.0 `ul ]
+}
+"20
+[e ++ _i -> -> 1 `i `uc ]
+[e :U 360 ]
+[e $ < -> _i `i -> _times `i 357  ]
+[e :U 358 ]
+"26
+}
+[; ;interact.c: 26: }
 [; ;interact.c: 27: }
 "27
 [e :UE 353 ]
 }
 "29
-[v _LED_set_state `(v ~T0 @X0 1 ef1`E2937 ]
+[v _LED_set_state `(v ~T0 @X0 1 ef1`E2939 ]
 "30
 {
 [; ;interact.c: 29: void LED_set_state(LED_state_t new_state)
 [; ;interact.c: 30: {
 [e :U _LED_set_state ]
 "29
-[v _new_state `E2937 ~T0 @X0 1 r1 ]
+[v _new_state `E2939 ~T0 @X0 1 r1 ]
 "30
 [f ]
 [; ;interact.c: 31: m_LED.state = new_state;
@@ -2991,44 +2995,44 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = . _m_LED 1 -> -> 0 `i `uc ]
 [; ;interact.c: 33: if (new_state == always_off)
 "33
-[e $ ! == -> _new_state `i -> . `E2937 1 `i 370  ]
+[e $ ! == -> _new_state `i -> . `E2939 1 `i 368  ]
 [; ;interact.c: 34: do { LATA2 = 0; } while(0);
 "34
-[e :U 373 ]
+[e :U 371 ]
 {
 [e = _LATA2 -> -> 0 `i `b ]
 }
-[e :U 372 ]
-[e $U 374  ]
-"35
 [e :U 370 ]
+[e $U 372  ]
+"35
+[e :U 368 ]
 [; ;interact.c: 35: else if (new_state == always_on)
-[e $ ! == -> _new_state `i -> . `E2937 0 `i 375  ]
+[e $ ! == -> _new_state `i -> . `E2939 0 `i 373  ]
 [; ;interact.c: 36: do { LATA2 = 1; } while(0);
 "36
-[e :U 378 ]
+[e :U 376 ]
 {
 [e = _LATA2 -> -> 1 `i `b ]
 }
-[e :U 377 ]
-[e $U 379  ]
-"37
 [e :U 375 ]
+[e $U 377  ]
+"37
+[e :U 373 ]
 [; ;interact.c: 37: else if ((new_state == slow_blinking)||(new_state == fast_blinking))
-[e $ ! || == -> _new_state `i -> . `E2937 2 `i == -> _new_state `i -> . `E2937 3 `i 380  ]
+[e $ ! || == -> _new_state `i -> . `E2939 2 `i == -> _new_state `i -> . `E2939 3 `i 378  ]
 [; ;interact.c: 38: do { LATA2 = 1; } while(0);
 "38
-[e :U 383 ]
+[e :U 381 ]
 {
 [e = _LATA2 -> -> 1 `i `b ]
 }
-[e :U 382 ]
 [e :U 380 ]
+[e :U 378 ]
 "39
-[e :U 379 ]
-[e :U 374 ]
+[e :U 377 ]
+[e :U 372 ]
 [; ;interact.c: 39: }
-[e :UE 369 ]
+[e :UE 367 ]
 }
 "41
 [v _LED_update_loop `(v ~T0 @X0 1 ef ]
@@ -3040,15 +3044,15 @@ Version 3.2 HI-TECH Software Intermediate Code
 [f ]
 [; ;interact.c: 43: if (m_LED.state == manual_mode)
 "43
-[e $ ! == -> . _m_LED 0 `i -> . `E2937 4 `i 385  ]
+[e $ ! == -> . _m_LED 0 `i -> . `E2939 4 `i 383  ]
 [; ;interact.c: 44: return;
 "44
-[e $UE 384  ]
-[e $U 386  ]
+[e $UE 382  ]
+[e $U 384  ]
 "45
-[e :U 385 ]
+[e :U 383 ]
 [; ;interact.c: 45: else if (m_LED.state == slow_blinking)
-[e $ ! == -> . _m_LED 0 `i -> . `E2937 2 `i 387  ]
+[e $ ! == -> . _m_LED 0 `i -> . `E2939 2 `i 385  ]
 [; ;interact.c: 46: {
 "46
 {
@@ -3057,7 +3061,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ++ . _m_LED 1 -> -> 1 `i `uc ]
 [; ;interact.c: 48: if (m_LED.counter >= 60)
 "48
-[e $ ! >= -> . _m_LED 1 `i -> 60 `i 388  ]
+[e $ ! >= -> . _m_LED 1 `i -> 60 `i 386  ]
 [; ;interact.c: 49: {
 "49
 {
@@ -3066,23 +3070,23 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = . _m_LED 1 -> -> 0 `i `uc ]
 [; ;interact.c: 51: do { LATA2 = ~LATA2; } while(0);
 "51
-[e :U 391 ]
+[e :U 389 ]
 {
 [e = _LATA2 -> ~ -> _LATA2 `ui `b ]
 }
-[e :U 390 ]
+[e :U 388 ]
 "52
 }
-[e :U 388 ]
+[e :U 386 ]
 "53
 }
 [; ;interact.c: 52: }
 [; ;interact.c: 53: }
-[e $U 392  ]
+[e $U 390  ]
 "54
-[e :U 387 ]
+[e :U 385 ]
 [; ;interact.c: 54: else if (m_LED.state == fast_blinking)
-[e $ ! == -> . _m_LED 0 `i -> . `E2937 3 `i 393  ]
+[e $ ! == -> . _m_LED 0 `i -> . `E2939 3 `i 391  ]
 [; ;interact.c: 55: {
 "55
 {
@@ -3091,7 +3095,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ++ . _m_LED 1 -> -> 1 `i `uc ]
 [; ;interact.c: 57: if (m_LED.counter >= 15)
 "57
-[e $ ! >= -> . _m_LED 1 `i -> 15 `i 394  ]
+[e $ ! >= -> . _m_LED 1 `i -> 15 `i 392  ]
 [; ;interact.c: 58: {
 "58
 {
@@ -3100,24 +3104,24 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = . _m_LED 1 -> -> 0 `i `uc ]
 [; ;interact.c: 60: do { LATA2 = ~LATA2; } while(0);
 "60
-[e :U 397 ]
+[e :U 395 ]
 {
 [e = _LATA2 -> ~ -> _LATA2 `ui `b ]
 }
-[e :U 396 ]
+[e :U 394 ]
 "61
 }
-[e :U 394 ]
+[e :U 392 ]
 "62
 }
-[e :U 393 ]
+[e :U 391 ]
 "63
-[e :U 392 ]
-[e :U 386 ]
+[e :U 390 ]
+[e :U 384 ]
 [; ;interact.c: 61: }
 [; ;interact.c: 62: }
 [; ;interact.c: 63: }
-[e :UE 384 ]
+[e :UE 382 ]
 }
 "69
 [v _get_button_state `(uc ~T0 @X0 1 ef ]
@@ -3133,21 +3137,21 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _state . . _PORTBbits 0 0 ]
 [; ;interact.c: 73: if (state == 1)
 "73
-[e $ ! == -> _state `i -> 1 `i 399  ]
+[e $ ! == -> _state `i -> 1 `i 397  ]
 [; ;interact.c: 74: return 0;
 "74
 [e ) -> -> 0 `i `uc ]
-[e $UE 398  ]
-[e $U 400  ]
+[e $UE 396  ]
+[e $U 398  ]
 "75
-[e :U 399 ]
+[e :U 397 ]
 [; ;interact.c: 75: else return 1;
 [e ) -> -> 1 `i `uc ]
-[e $UE 398  ]
-[e :U 400 ]
+[e $UE 396  ]
+[e :U 398 ]
 [; ;interact.c: 76: }
 "76
-[e :UE 398 ]
+[e :UE 396 ]
 }
 "78
 [v _button_init `(v ~T0 @X0 1 ef ]
@@ -3168,7 +3172,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = . _m_button 2 -> -> 0 `i `uc ]
 [; ;interact.c: 83: m_button.confirmed_state = nothing;
 "83
-[e = . _m_button 0 . `E2953 0 ]
+[e = . _m_button 0 . `E2956 0 ]
 [; ;interact.c: 84: m_button.push_confirmed = 0;
 "84
 [e = . _m_button 3 -> -> 0 `i `uc ]
@@ -3180,7 +3184,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = . _m_button 6 -> -> 0 `i `uc ]
 [; ;interact.c: 87: }
 "87
-[e :UE 401 ]
+[e :UE 399 ]
 }
 "89
 [v _button_update_loop `(v ~T0 @X0 1 ef ]
@@ -3196,13 +3200,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e = _current_state ( _get_button_state ..  ]
 [; ;interact.c: 92: if (!m_button.push_confirmed)
 "92
-[e $ ! ! != -> . _m_button 3 `i -> -> -> 0 `i `Vuc `i 403  ]
+[e $ ! ! != -> . _m_button 3 `i -> -> -> 0 `i `Vuc `i 401  ]
 [; ;interact.c: 93: {
 "93
 {
 [; ;interact.c: 95: if (current_state != m_button.last_state)
 "95
-[e $ ! != -> _current_state `i -> . _m_button 5 `i 404  ]
+[e $ ! != -> _current_state `i -> . _m_button 5 `i 402  ]
 [; ;interact.c: 96: {
 "96
 {
@@ -3215,11 +3219,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 "99
 }
 [; ;interact.c: 99: }
-[e $U 405  ]
+[e $U 403  ]
 "100
-[e :U 404 ]
+[e :U 402 ]
 [; ;interact.c: 100: else if (m_button.last_state == 1)
-[e $ ! == -> . _m_button 5 `i -> 1 `i 406  ]
+[e $ ! == -> . _m_button 5 `i -> 1 `i 404  ]
 [; ;interact.c: 101: {
 "101
 {
@@ -3228,29 +3232,29 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ++ . _m_button 1 -> -> 1 `i `uc ]
 [; ;interact.c: 103: if (m_button.count_pressed > 5)
 "103
-[e $ ! > -> . _m_button 1 `i -> 5 `i 407  ]
+[e $ ! > -> . _m_button 1 `i -> 5 `i 405  ]
 [; ;interact.c: 104: m_button.push_confirmed = 1;
 "104
 [e = . _m_button 3 -> -> 1 `i `uc ]
-[e :U 407 ]
+[e :U 405 ]
 "105
 }
-[e :U 406 ]
+[e :U 404 ]
 "106
-[e :U 405 ]
+[e :U 403 ]
 }
 [; ;interact.c: 105: }
 [; ;interact.c: 106: }
-[e $U 408  ]
+[e $U 406  ]
 "107
-[e :U 403 ]
+[e :U 401 ]
 [; ;interact.c: 107: else
 [; ;interact.c: 108: {
 "108
 {
 [; ;interact.c: 109: if (current_state != m_button.last_state)
 "109
-[e $ ! != -> _current_state `i -> . _m_button 5 `i 409  ]
+[e $ ! != -> _current_state `i -> . _m_button 5 `i 407  ]
 [; ;interact.c: 110: {
 "110
 {
@@ -3266,11 +3270,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 "114
 }
 [; ;interact.c: 114: }
-[e $U 410  ]
+[e $U 408  ]
 "115
-[e :U 409 ]
+[e :U 407 ]
 [; ;interact.c: 115: else if ((m_button.last_state == 1)&&(!m_button.has_once_been_released))
-[e $ ! && == -> . _m_button 5 `i -> 1 `i ! != -> . _m_button 6 `i -> -> -> 0 `i `Vuc `i 411  ]
+[e $ ! && == -> . _m_button 5 `i -> 1 `i ! != -> . _m_button 6 `i -> -> -> 0 `i `Vuc `i 409  ]
 [; ;interact.c: 116: {
 "116
 {
@@ -3279,19 +3283,19 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ++ . _m_button 1 -> -> 1 `i `uc ]
 [; ;interact.c: 118: if (m_button.count_pressed >= 100)
 "118
-[e $ ! >= -> . _m_button 1 `i -> 100 `i 412  ]
+[e $ ! >= -> . _m_button 1 `i -> 100 `i 410  ]
 [; ;interact.c: 119: m_button.confirmed_state = long_push;
 "119
-[e = . _m_button 0 . `E2953 2 ]
-[e :U 412 ]
+[e = . _m_button 0 . `E2956 2 ]
+[e :U 410 ]
 "120
 }
 [; ;interact.c: 120: }
-[e $U 413  ]
+[e $U 411  ]
 "121
-[e :U 411 ]
+[e :U 409 ]
 [; ;interact.c: 121: else if (m_button.last_state == 0)
-[e $ ! == -> . _m_button 5 `i -> 0 `i 414  ]
+[e $ ! == -> . _m_button 5 `i -> 0 `i 412  ]
 [; ;interact.c: 122: {
 "122
 {
@@ -3300,33 +3304,33 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ++ . _m_button 2 -> -> 1 `i `uc ]
 [; ;interact.c: 124: if (m_button.count_released > 10)
 "124
-[e $ ! > -> . _m_button 2 `i -> 10 `i 415  ]
+[e $ ! > -> . _m_button 2 `i -> 10 `i 413  ]
 [; ;interact.c: 125: if (m_button.count_pressed >= 75)
 "125
-[e $ ! >= -> . _m_button 1 `i -> 75 `i 416  ]
+[e $ ! >= -> . _m_button 1 `i -> 75 `i 414  ]
 [; ;interact.c: 126: m_button.confirmed_state = long_push;
 "126
-[e = . _m_button 0 . `E2953 2 ]
-[e $U 417  ]
+[e = . _m_button 0 . `E2956 2 ]
+[e $U 415  ]
 "127
-[e :U 416 ]
+[e :U 414 ]
 [; ;interact.c: 127: else
 [; ;interact.c: 128: m_button.confirmed_state = short_push;
 "128
-[e = . _m_button 0 . `E2953 1 ]
-[e :U 417 ]
+[e = . _m_button 0 . `E2956 1 ]
 [e :U 415 ]
+[e :U 413 ]
 "129
 }
-[e :U 414 ]
+[e :U 412 ]
 "130
-[e :U 413 ]
-[e :U 410 ]
-}
+[e :U 411 ]
 [e :U 408 ]
+}
+[e :U 406 ]
 [; ;interact.c: 129: }
 [; ;interact.c: 130: }
 [; ;interact.c: 131: }
 "131
-[e :UE 402 ]
+[e :UE 400 ]
 }

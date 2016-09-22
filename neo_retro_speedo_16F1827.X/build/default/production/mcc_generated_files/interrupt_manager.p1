@@ -1,6 +1,6 @@
 Version 3.2 HI-TECH Software Intermediate Code
 [v F2819 `(v ~T0 @X0 0 tf ]
-"343 /opt/microchip/xc8/v1.38/include/pic16f1827.h
+"343 D:\Program Files\Microchip\xc8\v1.38\include\pic16f1827.h
 [s S27 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S27 . IOCIF INTF TMR0IF IOCIE INTE TMR0IE PEIE GIE ]
 "353
@@ -13,7 +13,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _INTCONbits `VS26 ~T0 @X0 0 e@11 ]
 "226 mcc_generated_files/tmr0.h
 [v _TMR0_ISR `(v ~T0 @X0 0 ef ]
-"1248 /opt/microchip/xc8/v1.38/include/pic16f1827.h
+"1248 D:\Program Files\Microchip\xc8\v1.38\include\pic16f1827.h
 [s S71 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S71 . TMR1IE TMR2IE CCP1IE SSP1IE TXIE RCIE ADIE TMR1GIE ]
 "1247
@@ -38,7 +38,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
 [; ;pic16f1827.h: 49: extern volatile unsigned char INDF0 @ 0x000;
-"51 /opt/microchip/xc8/v1.38/include/pic16f1827.h
+"51 D:\Program Files\Microchip\xc8\v1.38\include\pic16f1827.h
 [; ;pic16f1827.h: 51: asm("INDF0 equ 00h");
 [; <" INDF0 equ 00h ;# ">
 [; ;pic16f1827.h: 54: typedef union {

@@ -57,7 +57,9 @@ void write_calibration_to_EEPROM()
 
 void perform_calibration()  // TODO: add low_speed+impulse settings
 {
-    double_fast_blink();
+    LED_set_state(manual_mode);
+    multiple_fast_blink(2);
+    __delay_sec(1);
     button_init();
  
     // step 1: MPH/KPH
@@ -75,7 +77,7 @@ void perform_calibration()  // TODO: add low_speed+impulse settings
             button_init();
         }
     }
-    double_fast_blink();
+    multiple_fast_blink(2);
     button_init();
     
     // step 2: max PMW
@@ -96,7 +98,7 @@ void perform_calibration()  // TODO: add low_speed+impulse settings
         __delay_ms(30);
     }
     m_conf.max_pwm = m_motor;
-    double_fast_blink();
+    multiple_fast_blink(2);
     __delay_sec(1);
     //button_init();
     
@@ -111,7 +113,7 @@ void perform_calibration()  // TODO: add low_speed+impulse settings
             if (get_button_state())
             { // record the value
               m_conf.ref_pwm[i++] = m_motor;
-              double_fast_blink();
+              multiple_fast_blink(2);
               __delay_sec(1);
             }
             m_motor--;
@@ -120,7 +122,7 @@ void perform_calibration()  // TODO: add low_speed+impulse settings
         }
         m_conf.nb_steps = i;
         EPWM1_LoadDutyValue(1023-0);
-        double_fast_blink();
+        multiple_fast_blink(2);
         __delay_sec(1);
         // replay the steps
         bool replay = true;
@@ -142,16 +144,77 @@ void perform_calibration()  // TODO: add low_speed+impulse settings
                 done = true;
         }
     }
-    double_fast_blink();
+    multiple_fast_blink(2);
     __delay_sec(1);
     button_init();
     
-    // step 4: settings for speed under 10MPH/KPH
-    m_conf.low_speed_pwm = m_conf.ref_pwm[m_conf.nb_steps-1] - 10; // or apply                    // -X%?
-    m_conf.impulse_duration = 10; // 10 msec
+    // step 4: settings for start impulse
+    m_conf.impulse_duration = 10;   // 10ms
     
-    // step 5: settings for start impulse
+    /*uint8 values_impulse[5] = {20, 15, 10, 5, 2};
+    uint8 i = 0;
     
+    bool done = false;
+    button_init();
+    while (!done)
+    {
+        multiple_fast_blink(i+1);
+        EPWM1_LoadDutyValue(1023-0); // no PWM
+        __delay_sec(1);
+        m_conf.impulse_duration = values_impulse[i];
+        EPWM1_LoadDutyValue(0);
+        delay_ms(m_conf.impulse_duration);
+        EPWM1_LoadDutyValue(1023-m_conf.ref_pwm[m_conf.nb_steps-1]); // 10'
+        __delay_sec(3);
+        // short press to next value, long press to confirm
+        if (m_button.confirmed_state == long_push)
+            done = true;
+        else if (m_button.confirmed_state == short_push)
+        {
+            i++;
+            if (i>=5)
+                i = 0;
+            button_init();
+        }
+    }
+    
+    multiple_fast_blink(2);
+    __delay_sec(1);
+    button_init();
+    */
+
+    // step 5: settings for speed under 10MPH/KPH
+    m_conf.low_speed_pwm = m_conf.ref_pwm[m_conf.nb_steps-1] - 10;
+    
+    /*uint8 values_low[5] = {4, 8, 12, 16, 20};
+    i = 0;
+    bool done = false;
+    while (!done)
+    {
+        multiple_fast_blink(i+1);
+        EPWM1_LoadDutyValue(1023-0); // no PWM
+        __delay_sec(1);
+        m_conf.low_speed_pwm = m_conf.ref_pwm[m_conf.nb_steps-1] - values_low[i];
+        EPWM1_LoadDutyValue(0);
+        delay_ms(m_conf.impulse_duration);
+        EPWM1_LoadDutyValue(1023-m_conf.low_speed_pwm);
+        button_init();
+        while (m_button.confirmed_state == nothing)
+        {}
+        if (m_button.confirmed_state == short_push)
+        {
+            i++;
+            if (i>=5)
+                i = 0;
+        }
+        else if (m_button.confirmed_state == long_push)
+            done = true;
+    }
+    multiple_fast_blink(2);
+    __delay_sec(1);
+    button_init();
+    */
+        
     // exiting
     LED_set_state(manual_mode); // do that before activating interrupts
     STATUS_LED_SetLow();

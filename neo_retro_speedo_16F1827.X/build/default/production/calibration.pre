@@ -1,17 +1,17 @@
 
 # 1 "calibration.c"
 
-# 26 "/opt/microchip/xc8/v1.38/include/htc.h"
+# 26 "D:\Program Files\Microchip\xc8\v1.38\include\htc.h"
 extern const char __xc8_OPTIM_SPEED;
 
 extern double __fpnormalize(double);
 
 
-# 13 "/opt/microchip/xc8/v1.38/include/xc8debug.h"
+# 13 "D:\Program Files\Microchip\xc8\v1.38\include\xc8debug.h"
 #pragma intrinsic(__builtin_software_breakpoint)
 extern void __builtin_software_breakpoint(void);
 
-# 49 "/opt/microchip/xc8/v1.38/include/pic16f1827.h"
+# 49 "D:\Program Files\Microchip\xc8\v1.38\include\pic16f1827.h"
 extern volatile unsigned char INDF0 @ 0x000;
 
 asm("INDF0 equ 00h");
@@ -3695,21 +3695,21 @@ extern volatile __bit nTO @ (((unsigned) &STATUS)*8) + 4;
 extern volatile __bit nWPUEN @ (((unsigned) &OPTION_REG)*8) + 7;
 
 
-# 27 "/opt/microchip/xc8/v1.38/include/pic.h"
+# 27 "D:\Program Files\Microchip\xc8\v1.38\include\pic.h"
 #pragma intrinsic(__nop)
 extern void __nop(void);
 
 # 77
 extern unsigned int flash_read(unsigned short addr);
 
-# 114 "/opt/microchip/xc8/v1.38/include/eeprom_routines.h"
+# 114 "D:\Program Files\Microchip\xc8\v1.38\include\eeprom_routines.h"
 extern void eeprom_write(unsigned char addr, unsigned char value);
 extern unsigned char eeprom_read(unsigned char addr);
 extern void eecpymem(volatile unsigned char *to, __eeprom unsigned char *from, unsigned char size);
 extern void memcpyee(__eeprom unsigned char *to, const unsigned char *from, unsigned char size);
 
 
-# 151 "/opt/microchip/xc8/v1.38/include/pic.h"
+# 151 "D:\Program Files\Microchip\xc8\v1.38\include\pic.h"
 #pragma intrinsic(_delay)
 extern __nonreentrant void _delay(unsigned long);
 
@@ -3721,7 +3721,7 @@ extern __bit __timeout;
 # 153 "mcc_generated_files/pin_manager.h"
 void PIN_MANAGER_Initialize (void);
 
-# 13 "/opt/microchip/xc8/v1.38/include/stdint.h"
+# 13 "D:\Program Files\Microchip\xc8\v1.38\include\stdint.h"
 typedef signed char int8_t;
 
 # 20
@@ -3811,7 +3811,7 @@ typedef int16_t intptr_t;
 
 typedef uint16_t uintptr_t;
 
-# 12 "/opt/microchip/xc8/v1.38/include/stdbool.h"
+# 12 "D:\Program Files\Microchip\xc8\v1.38\include\stdbool.h"
 typedef unsigned char bool;
 
 # 110 "mcc_generated_files/interrupt_manager.h"
@@ -3844,10 +3844,10 @@ void (*TMR0_InterruptHandler)(void);
 # 298
 void TMR0_DefaultInterruptHandler(void);
 
-# 4 "/opt/microchip/xc8/v1.38/include/__size_t.h"
+# 4 "D:\Program Files\Microchip\xc8\v1.38\include\__size_t.h"
 typedef unsigned size_t;
 
-# 7 "/opt/microchip/xc8/v1.38/include/stdarg.h"
+# 7 "D:\Program Files\Microchip\xc8\v1.38\include\stdarg.h"
 typedef void * va_list[1];
 
 #pragma intrinsic(__va_start)
@@ -3856,17 +3856,17 @@ extern void * __va_start(void);
 #pragma intrinsic(__va_arg)
 extern void * __va_arg(void *, ...);
 
-# 43 "/opt/microchip/xc8/v1.38/include/stdio.h"
+# 43 "D:\Program Files\Microchip\xc8\v1.38\include\stdio.h"
 struct __prbuf
 {
 char * ptr;
 void (* func)(char);
 };
 
-# 29 "/opt/microchip/xc8/v1.38/include/errno.h"
+# 29 "D:\Program Files\Microchip\xc8\v1.38\include\errno.h"
 extern int errno;
 
-# 12 "/opt/microchip/xc8/v1.38/include/conio.h"
+# 12 "D:\Program Files\Microchip\xc8\v1.38\include\conio.h"
 extern void init_uart(void);
 
 extern char getch(void);
@@ -3880,7 +3880,7 @@ extern __bit kbhit(void);
 extern char * cgets(char *);
 extern void cputs(const char *);
 
-# 88 "/opt/microchip/xc8/v1.38/include/stdio.h"
+# 88 "D:\Program Files\Microchip\xc8\v1.38\include\stdio.h"
 extern int cprintf(char *, ...);
 #pragma printf_check(cprintf)
 
@@ -3980,6 +3980,9 @@ void OSCILLATOR_Initialize(void);
 # 16 "main.h"
 void my10msTimerISR(void);
 
+
+void delay_ms(unsigned short milliseconds);
+
 # 14 "calibration.h"
 struct conf_data
 {
@@ -4001,6 +4004,9 @@ unsigned short crc_update(unsigned short old_crc, unsigned char data);
 # 16 "main.h"
 void my10msTimerISR(void);
 
+
+void delay_ms(unsigned short milliseconds);
+
 # 23 "interact.h"
 typedef enum {
 always_on, always_off, slow_blinking, fast_blinking, manual_mode
@@ -4014,7 +4020,7 @@ volatile unsigned char counter;
 
 
 
-void double_fast_blink();
+void multiple_fast_blink(unsigned char times);
 void LED_set_state(LED_state_t new_state);
 void LED_update_loop();
 
@@ -4075,7 +4081,9 @@ DATAEE_WriteByte(addr++, *p++);
 
 void perform_calibration()
 {
-double_fast_blink();
+LED_set_state(manual_mode);
+multiple_fast_blink(2);
+for(unsigned char __delay_tmp=0;__delay_tmp<(10*1);__delay_tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
 button_init();
 
 
@@ -4093,7 +4101,7 @@ LED_set_state(fast_blinking);
 button_init();
 }
 }
-double_fast_blink();
+multiple_fast_blink(2);
 button_init();
 
 
@@ -4114,7 +4122,7 @@ EPWM1_LoadDutyValue(1023-m_motor);
 _delay((unsigned long)((30)*(32000000/4000.0)));
 }
 m_conf.max_pwm = m_motor;
-double_fast_blink();
+multiple_fast_blink(2);
 for(unsigned char __delay_tmp=0;__delay_tmp<(10*1);__delay_tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
 
 
@@ -4129,7 +4137,7 @@ while (m_motor > 100)
 if (get_button_state())
 {
 m_conf.ref_pwm[i++] = m_motor;
-double_fast_blink();
+multiple_fast_blink(2);
 for(unsigned char __delay_tmp=0;__delay_tmp<(10*1);__delay_tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
 }
 m_motor--;
@@ -4138,7 +4146,7 @@ _delay((unsigned long)((150)*(32000000/4000.0)));
 }
 m_conf.nb_steps = i;
 EPWM1_LoadDutyValue(1023-0);
-double_fast_blink();
+multiple_fast_blink(2);
 for(unsigned char __delay_tmp=0;__delay_tmp<(10*1);__delay_tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
 
 bool replay = 1;
@@ -4160,17 +4168,17 @@ if (m_button.confirmed_state == long_push)
 done = 1;
 }
 }
-double_fast_blink();
+multiple_fast_blink(2);
 for(unsigned char __delay_tmp=0;__delay_tmp<(10*1);__delay_tmp++){_delay((unsigned long)((100)*(32000000/4000.0)));};
 button_init();
 
 
-m_conf.low_speed_pwm = m_conf.ref_pwm[m_conf.nb_steps-1] - 10;
 m_conf.impulse_duration = 10;
 
+# 187
+m_conf.low_speed_pwm = m_conf.ref_pwm[m_conf.nb_steps-1] - 10;
 
-
-
+# 219
 LED_set_state(manual_mode);
 do { LATA2 = 0; } while(0);
 EPWM1_LoadDutyValue(1023-0);

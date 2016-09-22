@@ -51,6 +51,10 @@
 #include "CRC.h"
 #include "calibration.h"
 
+// TODO: améliorations: pré-calculer les (a,b) pour chaque intervalle
+// et stocker ces infos dans la calibration, pas les PWM de ref...
+// qui ne servent que lors de la calibration
+
 // to store current speed value (unit is in m_conf.use_mph)
 t_fp    speed;
 //t_fp ratio_mph = convert_to_fp(0, 6210);   // ratio mph/kmh
@@ -71,8 +75,7 @@ void main(void)
     LED_set_state(manual_mode); // do that before activating interrupts
     STATUS_LED_SetLow();        // or random LED behaviour occurs!
     
-    motor = 0;    // no PWM
-    EPWM1_LoadDutyValue(1023-motor);
+    EPWM1_LoadDutyValue(1023);  // no PWM
 
     TMR2_StartTimer();
     TMR0_SetInterruptHandler(my10msTimerISR);
@@ -98,6 +101,7 @@ void main(void)
 
     GPS_Initialize();
     speed = 0;
+    motor = 0;
  
     button_init();
     uint16 new_motor, speed_int;
@@ -111,18 +115,26 @@ void main(void)
         {
             // speed has been updated with the NMEA kph value
             if (m_conf.use_mph > 0) // convert to MPH if needed
+            {
                 speed = multiply_fp(speed, ratio_mph);
+                if (speed < 0x00010000) // 1mph
+                    speed = 0;
+            }
+            else
+                if (speed < 0x00020000) // 2km/h
+                    speed = 0;
             
-            //speed = convert_to_fp(50, 0); //to debug!
+            //speed = convert_to_fp(10, 0); //to debug!
             
             STATUS_LED_SetHigh();
             __delay_ms(20);
             STATUS_LED_SetLow();
             
+            
             // now compute the new motor PWM
             speed_int = integer_part(speed);
             i = 1;
-            done = false;
+            done = (speed == 0);
             while ((i<m_conf.nb_steps)&&(!done))
             {
                 if (speed_int >= 10*(m_conf.nb_steps-i))
@@ -150,21 +162,30 @@ void main(void)
                     new_motor = m_conf.low_speed_pwm;
                     done = true;
                 }
+                i++;
             }
-            // apply threshold & max limit on new_motor
-            if (new_motor > m_conf.max_pwm)
-                new_motor = m_conf.max_pwm;
-            if (new_motor < m_conf.ref_pwm[m_conf.nb_steps-1])
-                new_motor = m_conf.low_speed_pwm;
-            // + impulse if motor == 0
-            if (motor == 0)
+            if (speed == 0)
             {
-                EPWM1_LoadDutyValue(0);
-                __delay_ms(10);
+                motor = 0;
+                EPWM1_LoadDutyValue(1023);
             }
-            // then set the new value
-            motor = new_motor;
-            EPWM1_LoadDutyValue(1023 - motor);
+            else
+            {
+                // apply threshold & max limit on new_motor
+                if (new_motor > m_conf.max_pwm)
+                    new_motor = m_conf.max_pwm;
+                if ((new_motor > 0)&&(new_motor < m_conf.ref_pwm[m_conf.nb_steps-1]))
+                    new_motor = m_conf.low_speed_pwm;
+                // + impulse if motor == 0
+                if (motor == 0)
+                {
+                    EPWM1_LoadDutyValue(0);
+                    delay_ms(m_conf.impulse_duration);
+                }
+                // then set the new value
+                motor = new_motor;
+                EPWM1_LoadDutyValue(1023 - motor);
+            }            
         }
         
         // check if button has been pushed
@@ -187,6 +208,15 @@ void my10msTimerISR(void)
 {
     LED_update_loop();
     button_update_loop();
+}
+
+void delay_ms(uint16 milliseconds)
+{
+    while(milliseconds > 0)
+    {
+        __delay_ms(1);
+        milliseconds--;
+    }
 }
 
 /**

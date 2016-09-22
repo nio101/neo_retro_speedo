@@ -16,3 +16,5 @@
 void my10msTimerISR(void);  // custom function called every 10ms,
                             // used for LED blinking and push button debounce
 
+void delay_ms(uint16 milliseconds);
+
